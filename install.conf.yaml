@@ -11,6 +11,7 @@
     ~/.tmux.conf: tmux.conf
     ~/.tmux.conf.local: tmux.conf.local
     ~/.config/alacritty: alacritty
+    ~/.vim: vim
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
