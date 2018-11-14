@@ -1,0 +1,202 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ArgumentParser	dotbot/dotbot/cli.py	/^from argparse import ArgumentParser$/;"	i
+BLUE	dotbot/dotbot/messenger/color.py	/^    BLUE = '\\033[94m'$/;"	v	class:Color
+Clean	dotbot/dotbot/cli.py	/^            from .plugins import Clean, Link, Shell$/;"	i
+Clean	dotbot/dotbot/plugins/__init__.py	/^from .clean import Clean$/;"	i
+Clean	dotbot/dotbot/plugins/clean.py	/^class Clean(dotbot.Plugin):$/;"	c
+Color	dotbot/dotbot/messenger/color.py	/^class Color(object):$/;"	c
+Color	dotbot/dotbot/messenger/messenger.py	/^from .color import Color$/;"	i
+ConfigReader	dotbot/dotbot/cli.py	/^from .config import ConfigReader, ReadingError$/;"	i
+ConfigReader	dotbot/dotbot/config.py	/^class ConfigReader(object):$/;"	c
+Context	dotbot/dotbot/context.py	/^class Context(object):$/;"	c
+Context	dotbot/dotbot/dispatcher.py	/^from .context import Context$/;"	i
+Context	dotbot/dotbot/plugin.py	/^from .context import Context$/;"	i
+DEBUG	dotbot/dotbot/messenger/level.py	/^    DEBUG = 10$/;"	v	class:Level
+DispatchError	dotbot/dotbot/cli.py	/^from .dispatcher import Dispatcher, DispatchError$/;"	i
+DispatchError	dotbot/dotbot/dispatcher.py	/^class DispatchError(Exception):$/;"	c
+Dispatcher	dotbot/dotbot/cli.py	/^from .dispatcher import Dispatcher, DispatchError$/;"	i
+Dispatcher	dotbot/dotbot/dispatcher.py	/^class Dispatcher(object):$/;"	c
+ERROR	dotbot/dotbot/messenger/level.py	/^    ERROR = 40$/;"	v	class:Level
+For	dotbot/setup.py	/^from codecs import open # For a consistent encoding$/;"	i
+GREEN	dotbot/dotbot/messenger/color.py	/^    GREEN = '\\033[92m'$/;"	v	class:Color
+INFO	dotbot/dotbot/messenger/level.py	/^    INFO = 20$/;"	v	class:Level
+LOWINFO	dotbot/dotbot/messenger/level.py	/^    LOWINFO = 15$/;"	v	class:Level
+Level	dotbot/dotbot/cli.py	/^from .messenger import Level$/;"	i
+Level	dotbot/dotbot/messenger/__init__.py	/^from .level import Level$/;"	i
+Level	dotbot/dotbot/messenger/level.py	/^class Level(object):$/;"	c
+Level	dotbot/dotbot/messenger/messenger.py	/^from .level import Level$/;"	i
+Link	dotbot/dotbot/cli.py	/^            from .plugins import Clean, Link, Shell$/;"	i
+Link	dotbot/dotbot/plugins/__init__.py	/^from .link import Link$/;"	i
+Link	dotbot/dotbot/plugins/link.py	/^class Link(dotbot.Plugin):$/;"	c
+MAGENTA	dotbot/dotbot/messenger/color.py	/^    MAGENTA = '\\033[95m'$/;"	v	class:Color
+Messenger	dotbot/dotbot/cli.py	/^from .messenger import Messenger$/;"	i
+Messenger	dotbot/dotbot/dispatcher.py	/^from .messenger import Messenger$/;"	i
+Messenger	dotbot/dotbot/messenger/__init__.py	/^from .messenger import Messenger$/;"	i
+Messenger	dotbot/dotbot/messenger/messenger.py	/^class Messenger(with_metaclass(Singleton, object)):$/;"	c
+Messenger	dotbot/dotbot/plugin.py	/^from .messenger import Messenger$/;"	i
+NONE	dotbot/dotbot/messenger/color.py	/^    NONE = ''$/;"	v	class:Color
+NOTSET	dotbot/dotbot/messenger/level.py	/^    NOTSET = 0$/;"	v	class:Level
+Plugin	dotbot/dotbot/__init__.py	/^from .plugin import Plugin$/;"	i
+Plugin	dotbot/dotbot/dispatcher.py	/^from .plugin import Plugin$/;"	i
+Plugin	dotbot/dotbot/plugin.py	/^class Plugin(object):$/;"	c
+RED	dotbot/dotbot/messenger/color.py	/^    RED = '\\033[91m'$/;"	v	class:Color
+RESET	dotbot/dotbot/messenger/color.py	/^    RESET = '\\033[0m'$/;"	v	class:Color
+ReadingError	dotbot/dotbot/cli.py	/^from .config import ConfigReader, ReadingError$/;"	i
+ReadingError	dotbot/dotbot/config.py	/^class ReadingError(Exception):$/;"	c
+Shell	dotbot/dotbot/cli.py	/^            from .plugins import Clean, Link, Shell$/;"	i
+Shell	dotbot/dotbot/plugins/__init__.py	/^from .shell import Shell$/;"	i
+Shell	dotbot/dotbot/plugins/shell.py	/^class Shell(dotbot.Plugin):$/;"	c
+Singleton	dotbot/dotbot/messenger/messenger.py	/^from ..util.singleton import Singleton$/;"	i
+Singleton	dotbot/dotbot/util/singleton.py	/^class Singleton(type):$/;"	c
+WARNING	dotbot/dotbot/messenger/level.py	/^    WARNING = 30$/;"	v	class:Level
+YELLOW	dotbot/dotbot/messenger/color.py	/^    YELLOW = '\\033[93m'$/;"	v	class:Color
+__call__	dotbot/dotbot/util/singleton.py	/^    def __call__(cls, *args, **kwargs):$/;"	m	class:Singleton	file:
+__init__	dotbot/dotbot/config.py	/^    def __init__(self, config_file_path):$/;"	m	class:ConfigReader
+__init__	dotbot/dotbot/context.py	/^    def __init__(self, base_directory):$/;"	m	class:Context
+__init__	dotbot/dotbot/dispatcher.py	/^    def __init__(self, base_directory):$/;"	m	class:Dispatcher
+__init__	dotbot/dotbot/messenger/messenger.py	/^    def __init__(self, level = Level.LOWINFO):$/;"	m	class:Messenger
+__init__	dotbot/dotbot/plugin.py	/^    def __init__(self, context):$/;"	m	class:Plugin
+__new__	dotbot/dotbot/util/compat.py	/^        def __new__(cls, name, this_bases, d):$/;"	m	class:with_metaclass.metaclass	file:
+__version__	dotbot/dotbot/__init__.py	/^__version__ = '1.14.0'$/;"	v
+_clean	dotbot/dotbot/plugins/clean.py	/^    def _clean(self, target, force):$/;"	m	class:Clean
+_color	dotbot/dotbot/messenger/messenger.py	/^    def _color(self, level):$/;"	m	class:Messenger
+_create	dotbot/dotbot/plugins/link.py	/^    def _create(self, path):$/;"	m	class:Link
+_default_source	dotbot/dotbot/plugins/link.py	/^    def _default_source(self, destination, source):$/;"	m	class:Link
+_delete	dotbot/dotbot/plugins/link.py	/^    def _delete(self, source, path, relative, force):$/;"	m	class:Link
+_directive	dotbot/dotbot/plugins/clean.py	/^    _directive = 'clean'$/;"	v	class:Clean
+_directive	dotbot/dotbot/plugins/link.py	/^    _directive = 'link'$/;"	v	class:Link
+_directive	dotbot/dotbot/plugins/shell.py	/^    _directive = 'shell'$/;"	v	class:Shell
+_exists	dotbot/dotbot/plugins/link.py	/^    def _exists(self, path):$/;"	m	class:Link
+_in_directory	dotbot/dotbot/plugins/clean.py	/^    def _in_directory(self, path, directory):$/;"	m	class:Clean
+_instances	dotbot/dotbot/util/singleton.py	/^    _instances = {}$/;"	v	class:Singleton
+_is_link	dotbot/dotbot/plugins/link.py	/^    def _is_link(self, path):$/;"	m	class:Link
+_link	dotbot/dotbot/plugins/link.py	/^    def _link(self, source, link_name, relative):$/;"	m	class:Link
+_link_destination	dotbot/dotbot/plugins/link.py	/^    def _link_destination(self, path):$/;"	m	class:Link
+_load_plugins	dotbot/dotbot/dispatcher.py	/^    def _load_plugins(self):$/;"	m	class:Dispatcher
+_process_clean	dotbot/dotbot/plugins/clean.py	/^    def _process_clean(self, targets):$/;"	m	class:Clean
+_process_commands	dotbot/dotbot/plugins/shell.py	/^    def _process_commands(self, data):$/;"	m	class:Shell
+_process_links	dotbot/dotbot/plugins/link.py	/^    def _process_links(self, links):$/;"	m	class:Link
+_read	dotbot/dotbot/config.py	/^    def _read(self, config_file_path):$/;"	m	class:ConfigReader
+_relative_path	dotbot/dotbot/plugins/link.py	/^    def _relative_path(self, source, destination):$/;"	m	class:Link
+_reset	dotbot/dotbot/messenger/messenger.py	/^    def _reset(self):$/;"	m	class:Messenger
+_setup_context	dotbot/dotbot/dispatcher.py	/^    def _setup_context(self, base_directory):$/;"	m	class:Dispatcher
+_should_use_color	dotbot/dotbot/messenger/messenger.py	/^    def _should_use_color(self):$/;"	m	class:Messenger
+_test_success	dotbot/dotbot/plugins/link.py	/^    def _test_success(self, command):$/;"	m	class:Link
+a	dotbot/setup.py	/^from codecs import open # For a consistent encoding$/;"	i
+add_options	dotbot/dotbot/cli.py	/^def add_options(parser):$/;"	f
+author	dotbot/setup.py	/^    author='Anish Athalye',$/;"	v
+author_email	dotbot/setup.py	/^    author_email='me@anishathalye.com',$/;"	v
+base_directory	dotbot/dotbot/context.py	/^    def base_directory(self):$/;"	m	class:Context
+can_handle	dotbot/dotbot/plugin.py	/^    def can_handle(self, directive):$/;"	m	class:Plugin
+can_handle	dotbot/dotbot/plugins/clean.py	/^    def can_handle(self, directive):$/;"	m	class:Clean
+can_handle	dotbot/dotbot/plugins/link.py	/^    def can_handle(self, directive):$/;"	m	class:Link
+can_handle	dotbot/dotbot/plugins/shell.py	/^    def can_handle(self, directive):$/;"	m	class:Shell
+check_prereqs	dotbot/test/driver-lib.bash	/^check_prereqs() {$/;"	f
+check_vm	dotbot/test/test-lib.bash	/^check_vm() {$/;"	f
+classifiers	dotbot/setup.py	/^    classifiers=[$/;"	v
+cleanup	dotbot/test/driver-lib.bash	/^cleanup() {$/;"	f
+consistent	dotbot/setup.py	/^from codecs import open # For a consistent encoding$/;"	i
+copy	dotbot/dotbot/context.py	/^import copy$/;"	i
+debug	dotbot/dotbot/messenger/messenger.py	/^    def debug(self, message):$/;"	m	class:Messenger
+defaults	dotbot/dotbot/context.py	/^    def defaults(self):$/;"	m	class:Context
+description	dotbot/setup.py	/^    description='A tool that bootstraps your dotfiles',$/;"	v
+die	dotbot/test/driver-lib.bash	/^die() {$/;"	f
+dispatch	dotbot/dotbot/dispatcher.py	/^    def dispatch(self, tasks):$/;"	m	class:Dispatcher
+dotbot	dotbot/dotbot/cli.py	/^import dotbot$/;"	i
+dotbot	dotbot/dotbot/plugins/clean.py	/^import os, dotbot$/;"	i
+dotbot	dotbot/dotbot/plugins/link.py	/^import dotbot$/;"	i
+dotbot	dotbot/dotbot/plugins/shell.py	/^import os, subprocess, dotbot$/;"	i
+encoding	dotbot/setup.py	/^from codecs import open # For a consistent encoding$/;"	i
+entry_points	dotbot/setup.py	/^    entry_points={$/;"	v
+error	dotbot/dotbot/messenger/messenger.py	/^    def error(self, message):$/;"	m	class:Messenger
+fail	dotbot/test/driver-lib.bash	/^fail() {$/;"	f
+find_packages	dotbot/setup.py	/^from setuptools import setup, find_packages$/;"	i
+find_version	dotbot/setup.py	/^def find_version(*file_paths):$/;"	f
+get_config	dotbot/dotbot/config.py	/^    def get_config(self):$/;"	m	class:ConfigReader
+glob	dotbot/dotbot/cli.py	/^import os, glob$/;"	i
+glob	dotbot/dotbot/plugins/link.py	/^import glob$/;"	i
+green	dotbot/test/driver-lib.bash	/^green() {$/;"	f
+handle	dotbot/dotbot/plugin.py	/^    def handle(self, directive, data):$/;"	m	class:Plugin
+handle	dotbot/dotbot/plugins/clean.py	/^    def handle(self, directive, data):$/;"	m	class:Clean
+handle	dotbot/dotbot/plugins/link.py	/^    def handle(self, directive, data):$/;"	m	class:Link
+handle	dotbot/dotbot/plugins/shell.py	/^    def handle(self, directive, data):$/;"	m	class:Shell
+here	dotbot/setup.py	/^here = path.dirname(__file__)$/;"	v
+imp	dotbot/dotbot/util/module.py	/^  import imp$/;"	i
+importlib	dotbot/dotbot/util/module.py	/^  import importlib.util$/;"	i
+indent_lines	dotbot/dotbot/util/string.py	/^def indent_lines(string, amount=2, delimiter='\\n'):$/;"	f
+info	dotbot/dotbot/messenger/messenger.py	/^    def info(self, message):$/;"	m	class:Messenger
+initialize	dotbot/test/driver-lib.bash	/^initialize() {$/;"	f
+initialize	dotbot/test/test-lib.bash	/^initialize() {$/;"	f
+install_requires	dotbot/setup.py	/^    install_requires=[$/;"	v
+json	dotbot/dotbot/config.py	/^import json$/;"	i
+keywords	dotbot/setup.py	/^    keywords='dotfiles',$/;"	v
+license	dotbot/setup.py	/^    license='MIT',$/;"	v
+load	dotbot/dotbot/util/module.py	/^def load(path):$/;"	f
+load_module	dotbot/dotbot/util/module.py	/^  def load_module(module_name, path):$/;"	f
+loaded_modules	dotbot/dotbot/util/module.py	/^loaded_modules = []$/;"	v
+log	dotbot/dotbot/messenger/messenger.py	/^    def log(self, level, message):$/;"	m	class:Messenger
+long_description	dotbot/setup.py	/^    long_description = f.read()$/;"	v
+long_description	dotbot/setup.py	/^    long_description=long_description,$/;"	v
+long_description_content_type	dotbot/setup.py	/^    long_description_content_type='text\/markdown',$/;"	v
+lowinfo	dotbot/dotbot/messenger/messenger.py	/^    def lowinfo(self, message):$/;"	m	class:Messenger
+main	dotbot/bin/dotbot	/^    main()$/;"	f
+main	dotbot/dotbot/__init__.py	/^from .cli import main$/;"	i
+main	dotbot/dotbot/cli.py	/^def main():$/;"	f
+metaclass	dotbot/dotbot/util/compat.py	/^    class metaclass(meta):$/;"	c	function:with_metaclass
+module	dotbot/dotbot/cli.py	/^from .util import module$/;"	i
+name	dotbot/setup.py	/^    name='dotbot',$/;"	v
+open	dotbot/setup.py	/^from codecs import open # For a consistent encoding$/;"	i
+os	dotbot/dotbot/cli.py	/^import os, glob$/;"	i
+os	dotbot/dotbot/config.py	/^import os.path$/;"	i
+os	dotbot/dotbot/dispatcher.py	/^import os$/;"	i
+os	dotbot/dotbot/plugins/clean.py	/^import os, dotbot$/;"	i
+os	dotbot/dotbot/plugins/link.py	/^import os$/;"	i
+os	dotbot/dotbot/plugins/shell.py	/^import os, subprocess, dotbot$/;"	i
+os	dotbot/dotbot/util/module.py	/^import sys, os.path$/;"	i
+packages	dotbot/setup.py	/^    packages=find_packages(),$/;"	v
+pass	dotbot/test/driver-lib.bash	/^pass() {$/;"	f
+path	dotbot/dotbot/config.py	/^import os.path$/;"	i
+path	dotbot/dotbot/util/module.py	/^import sys, os.path$/;"	i
+path	dotbot/setup.py	/^from os import path$/;"	i
+re	dotbot/setup.py	/^import re$/;"	i
+read	dotbot/setup.py	/^def read(*names, **kwargs):$/;"	f
+read_config	dotbot/dotbot/cli.py	/^def read_config(config_file):$/;"	f
+red	dotbot/test/driver-lib.bash	/^red() {$/;"	f
+report	dotbot/test/driver-lib.bash	/^report() {$/;"	f
+run_dotbot	dotbot/test/test-lib.bash	/^run_dotbot() {$/;"	f
+run_dotbot_json	dotbot/test/test-lib.bash	/^run_dotbot_json() {$/;"	f
+run_test	dotbot/test/driver-lib.bash	/^run_test() {$/;"	f
+set_base_directory	dotbot/dotbot/context.py	/^    def set_base_directory(self, base_directory):$/;"	m	class:Context
+set_defaults	dotbot/dotbot/context.py	/^    def set_defaults(self, defaults):$/;"	m	class:Context
+set_level	dotbot/dotbot/messenger/messenger.py	/^    def set_level(self, level):$/;"	m	class:Messenger
+setup	dotbot/setup.py	/^from setuptools import setup, find_packages$/;"	i
+setup_requires	dotbot/setup.py	/^    setup_requires=[$/;"	v
+shutil	dotbot/dotbot/plugins/link.py	/^import shutil$/;"	i
+string	dotbot/dotbot/config.py	/^from .util import string$/;"	i
+subprocess	dotbot/dotbot/plugins/link.py	/^import subprocess$/;"	i
+subprocess	dotbot/dotbot/plugins/shell.py	/^import os, subprocess, dotbot$/;"	i
+sys	dotbot/dotbot/messenger/messenger.py	/^import sys$/;"	i
+sys	dotbot/dotbot/util/module.py	/^import sys, os.path$/;"	i
+test_expect_failure	dotbot/test/test-lib.bash	/^test_expect_failure() {$/;"	f
+test_expect_success	dotbot/test/test-lib.bash	/^test_expect_success() {$/;"	f
+test_run_	dotbot/test/test-lib.bash	/^test_run_() {$/;"	f
+travis_cleanup	dotbot/test/test_travis	/^travis_cleanup() {$/;"	f
+travis_initialize	dotbot/test/test_travis	/^travis_initialize() {$/;"	f
+travis_run_test	dotbot/test/test_travis	/^travis_run_test() {$/;"	f
+until_success	dotbot/test/driver-lib.bash	/^until_success() {$/;"	f
+url	dotbot/setup.py	/^    url='https:\/\/github.com\/anishathalye\/dotbot',$/;"	v
+use_color	dotbot/dotbot/messenger/messenger.py	/^    def use_color(self, yesno):$/;"	m	class:Messenger
+util	dotbot/dotbot/util/module.py	/^  import importlib.util$/;"	i
+version	dotbot/setup.py	/^    version=find_version('dotbot', '__init__.py'),$/;"	v
+wait_for_vagrant	dotbot/test/driver-lib.bash	/^wait_for_vagrant() {$/;"	f
+warning	dotbot/dotbot/messenger/messenger.py	/^    def warning(self, message):$/;"	m	class:Messenger
+with_metaclass	dotbot/dotbot/messenger/messenger.py	/^from ..util.compat import with_metaclass$/;"	i
+with_metaclass	dotbot/dotbot/util/compat.py	/^def with_metaclass(meta, *bases):$/;"	f
+yaml	dotbot/dotbot/cli.py	/^import yaml$/;"	i
+yaml	dotbot/dotbot/config.py	/^import yaml$/;"	i
+yellow	dotbot/test/driver-lib.bash	/^yellow() {$/;"	f
