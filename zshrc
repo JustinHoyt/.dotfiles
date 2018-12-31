@@ -95,6 +95,7 @@ alias howto="alias | grep $1"
 alias fz='vim $(fzf)'
 alias vi='mvim'
 alias daycare='cd ~/development/DaycareBackend'
+alias algo='cd ~/development/interview-practice'
 
 # parse_options.js
 # export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
