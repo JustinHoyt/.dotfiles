@@ -34,18 +34,19 @@ else
     echo "On ford network, setting proxy"
     export http_proxy=***REMOVED***
     export https_proxy=$http_proxy
+    export no_proxy=.ford.com,localhost,127.0.0.1,204.130.41.105*
 fi
 
-proxyon() {
+proxy() {
     export http_proxy=***REMOVED***
     export https_proxy=$http_proxy
     export no_proxy=.ford.com,localhost,127.0.0.1,204.130.41.105*
 }
 
-proxyoff() {
-    export http_proxy=
-    export https_proxy=
-    export no_proxy=
+noproxy() {
+    unset http_proxy
+    unset https_proxy
+    unset no_proxy
 }
 
 set -o vi
