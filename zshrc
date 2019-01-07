@@ -26,6 +26,28 @@ brun() {
     echo "\n${WHITE}This is an alias for \"SPRING_PROFILES_ACTIVE=$1 ./gradlew bootRun\"${NC}\n"
     SPRING_PROFILES_ACTIVE=$1 ./gradlew bootRun
 }
+
+wget -q --spider http://google.com
+if [ $? -eq 0 ]; then
+    echo "Not on Ford Network, don't set proxy"
+else
+    echo "On ford network, setting proxy"
+    export http_proxy=***REMOVED***
+    export https_proxy=$http_proxy
+fi
+
+proxyon() {
+    export http_proxy=***REMOVED***
+    export https_proxy=$http_proxy
+    export no_proxy=.ford.com,localhost,127.0.0.1,204.130.41.105*
+}
+
+proxyoff() {
+    export http_proxy=
+    export https_proxy=
+    export no_proxy=
+}
+
 set -o vi
 bindkey "^[OA" history-beginning-search-backward
 bindkey "^[OB" history-beginning-search-forward
