@@ -2,7 +2,7 @@ export ZSH=/Users/justinhoyt/.oh-my-zsh
 export PATH=$HOME/bin:/usr/local/bin:~/.composer/vendor/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 export PATH="/Users/justinhoyt/anaconda3/bin:$PATH"
-ZSH_THEME="agnoster"
+ZSH_THEME=""
 DEFAULT_USER=justinhoyt
 HYPHEN_INSENSITIVE="true"
 COMPLETION_WAITING_DOTS="true"
@@ -54,3 +54,5 @@ bindkey "^[OA" history-beginning-search-backward
 bindkey "^[OB" history-beginning-search-forward
 export NVM_DIR="$HOME/.nvm"
 . "$(brew --prefix nvm)/nvm.sh"
+autoload -U promptinit; promptinit
+prompt pure
