@@ -10,10 +10,12 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
+alias dotfiles="cd ~/.dotfiles"
 alias init-env="python -m venv env"
 alias activate="source env/bin/activate"
 alias python="python3"
 alias pip="pip3"
+alias killpy="pkill -f python"
 alias zshconfig="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 alias vimrc="cd ~/.vim"
