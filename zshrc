@@ -1,15 +1,29 @@
-export ZSH=/Users/justinhoyt/.oh-my-zsh
+# Package Manager
+source ~/.config/antigen.zsh
+antigen use oh-my-zsh
+antigen bundle git
+antigen bundle zsh-users/zsh-completions
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle mafredri/zsh-async
+antigen bundle sindresorhus/pure
+antigen apply
+
+# Setting Environment Variables
 export PATH=$HOME/bin:/usr/local/bin:~/.composer/vendor/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
-ZSH_THEME=""
-DEFAULT_USER=justinhoyt
+export NVM_DIR="$HOME/.nvm"
+. "$(brew --prefix nvm)/nvm.sh"
+export FZF_DEFAULT_COMMAND='fd'
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 HYPHEN_INSENSITIVE="true"
-COMPLETION_WAITING_DOTS="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
-plugins=(git)
 
-source $ZSH/oh-my-zsh.sh
+# Set Vi Keybindings
+set -o vi
+bindkey "^[OA" history-beginning-search-backward
+bindkey "^[OB" history-beginning-search-forward
 
+# Aliases
 alias dotfiles="cd ~/.dotfiles"
 alias init-env="python -m venv env"
 alias activate="source env/bin/activate"
@@ -27,19 +41,18 @@ alias vca='cd ~/development/vca'
 alias vca-ui='cd ~/development/vca-ui'
 alias agent='cd ~/development/agent-service'
 alias dev='cd ~/development'
-export FZF_DEFAULT_COMMAND='fd'
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Set Environemnt and Bootrun an Application
 brun() {
     echo "\n${WHITE}This is an alias for \"SPRING_PROFILES_ACTIVE=$1 ./gradlew bootRun\"${NC}\n"
     SPRING_PROFILES_ACTIVE=$1 ./gradlew bootRun
 }
 
+# Set Proxy if on Ford Network
 wget -q --spider http://google.com
 if [ $? -eq 0 ]; then
-    echo "Not on Ford Network, don't set proxy"
 else
-    echo "On ford network, setting proxy"
+    echo "On ford network. Setting proxy"
     export http_proxy=***REMOVED***
     export https_proxy=$http_proxy
     export HTTP_PROXY=$http_proxy
@@ -47,6 +60,7 @@ else
     export no_proxy=.ford.com,localhost,127.0.0.1,204.130.41.105*
 fi
 
+# Turns Proxy on
 proxy() {
     export http_proxy=***REMOVED***
     export https_proxy=$http_proxy
@@ -55,6 +69,7 @@ proxy() {
     export no_proxy=.ford.com,localhost,127.0.0.1,204.130.41.105*
 }
 
+# Turns Proxy off
 noproxy() {
     unset http_proxy
     unset https_proxy
@@ -62,11 +77,3 @@ noproxy() {
     unset HTTPS_PROXY
     unset no_proxy
 }
-
-set -o vi
-bindkey "^[OA" history-beginning-search-backward
-bindkey "^[OB" history-beginning-search-forward
-export NVM_DIR="$HOME/.nvm"
-. "$(brew --prefix nvm)/nvm.sh"
-autoload -U promptinit; promptinit
-prompt pure
