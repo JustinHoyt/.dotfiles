@@ -12,7 +12,6 @@ antigen apply
 export PATH=$HOME/bin:/usr/local/bin:~/.composer/vendor/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 export NVM_DIR="$HOME/.nvm"
-. "$(brew --prefix nvm)/nvm.sh"
 export FZF_DEFAULT_COMMAND='fd'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 HYPHEN_INSENSITIVE="true"
