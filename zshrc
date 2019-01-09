@@ -1,3 +1,15 @@
+# Set Proxy if on Ford Network
+wget -q --spider http://google.com
+if [ $? -eq 0 ]; then
+else
+    echo "On ford network. Setting proxy"
+    export http_proxy=***REMOVED***
+    export https_proxy=$http_proxy
+    export HTTP_PROXY=$http_proxy
+    export HTTPS_PROXY=$http_proxy
+    export no_proxy=.ford.com,localhost,127.0.0.1,204.130.41.105*
+fi
+
 # Package Manager
 source ~/.config/antigen.zsh
 antigen use oh-my-zsh
@@ -48,18 +60,6 @@ brun() {
     echo "\n${WHITE}This is an alias for \"SPRING_PROFILES_ACTIVE=$1 ./gradlew bootRun\"${NC}\n"
     SPRING_PROFILES_ACTIVE=$1 ./gradlew bootRun
 }
-
-# Set Proxy if on Ford Network
-wget -q --spider http://google.com
-if [ $? -eq 0 ]; then
-else
-    echo "On ford network. Setting proxy"
-    export http_proxy=***REMOVED***
-    export https_proxy=$http_proxy
-    export HTTP_PROXY=$http_proxy
-    export HTTPS_PROXY=$http_proxy
-    export no_proxy=.ford.com,localhost,127.0.0.1,204.130.41.105*
-fi
 
 # Turns Proxy on
 proxy() {
