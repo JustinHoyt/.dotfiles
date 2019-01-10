@@ -38,8 +38,8 @@ bindkey "^[OB" history-beginning-search-forward
 
 # Aliases
 alias dotfiles="cd ~/.dotfiles"
-alias init-env="python -m venv env"
-alias activate="source env/bin/activate"
+alias init-venv="python -m venv venv"
+alias activate="source venv/bin/activate"
 alias python="python3"
 alias pip="pip3"
 alias stop="pkill -f "
