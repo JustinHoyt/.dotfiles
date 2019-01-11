@@ -1,13 +1,26 @@
-# Set Proxy if on Ford Network
-wget -q --spider http://google.com
-if [ $? -eq 0 ]; then
-else
-    echo "On ford network. Setting proxy"
+# Turns Proxy on
+proxy() {
     export http_proxy=***REMOVED***
     export https_proxy=$http_proxy
     export HTTP_PROXY=$http_proxy
     export HTTPS_PROXY=$http_proxy
     export no_proxy=.ford.com,localhost,127.0.0.1,204.130.41.105*
+}
+
+# Turns Proxy off
+noproxy() {
+    unset http_proxy
+    unset https_proxy
+    unset HTTP_PROXY
+    unset HTTPS_PROXY
+    unset no_proxy
+}
+
+# Set Proxy if on Ford Network
+wget -q --spider http://google.com
+if [ $? != 0 ]; then
+    echo "On ford network. Setting proxy"
+    proxy
 fi
 
 # Package Manager
@@ -16,6 +29,7 @@ antigen use oh-my-zsh
 antigen bundle git
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle mafredri/zsh-async
 antigen bundle sindresorhus/pure
 antigen apply
@@ -30,6 +44,7 @@ export FZF_DEFAULT_COMMAND='fd'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 HYPHEN_INSENSITIVE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=0'
 
 # Set Vi Keybindings
 set -o vi
@@ -61,20 +76,3 @@ brun() {
     SPRING_PROFILES_ACTIVE=$1 ./gradlew bootRun
 }
 
-# Turns Proxy on
-proxy() {
-    export http_proxy=***REMOVED***
-    export https_proxy=$http_proxy
-    export HTTP_PROXY=$http_proxy
-    export HTTPS_PROXY=$http_proxy
-    export no_proxy=.ford.com,localhost,127.0.0.1,204.130.41.105*
-}
-
-# Turns Proxy off
-noproxy() {
-    unset http_proxy
-    unset https_proxy
-    unset HTTP_PROXY
-    unset HTTPS_PROXY
-    unset no_proxy
-}
