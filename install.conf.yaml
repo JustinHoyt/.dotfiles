@@ -12,7 +12,7 @@
     ~/.tmux.conf: tmux.conf
     ~/.tmux.conf.local: tmux.conf.local
     ~/.config/alacritty: alacritty
-    ~/.config/com.googlecode.iterm2.plist: com.googlecode.iterm2.plist
+    ~/Library/Preferences/com.googlecode.iterm2.plist: com.googlecode.iterm2.plist
     ~/.vim: vim
 
 - shell:
