@@ -1,3 +1,4 @@
+brew "zsh"
 brew "fzf"
 brew "ctags"
 brew "ripgrep"
