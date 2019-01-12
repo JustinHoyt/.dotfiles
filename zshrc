@@ -69,12 +69,6 @@ alias vca-ui='cd ~/development/vca-ui'
 alias agent='cd ~/development/agent-service'
 alias dev='cd ~/development'
 
-# Set Environemnt and Bootrun an Application
-brun() {
-    echo "\n${WHITE}This is an alias for \"SPRING_PROFILES_ACTIVE=$1 ./gradlew bootRun\"${NC}\n"
-    SPRING_PROFILES_ACTIVE=$1 ./gradlew bootRun
-}
-
 if [ -f ~/.zshrc_local ]; then
     source ~/.zshrc_local
 fi
