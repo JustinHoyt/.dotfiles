@@ -1,0 +1,6 @@
+brew "fzf"
+brew "ctags"
+brew "ripgrep"
+brew "fd"
+brew "vim"
+cask "iterm2"

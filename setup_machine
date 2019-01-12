@@ -9,11 +9,6 @@ fi
 # Update Homebrew and install packages
 brew update
 brew tap caskroom/versions
-brew install fzf
-brew install ctags
-brew install ripgrep
-brew install fd
-brew install vim
-brew cask install iterm2
+brew bundle
 
 ~/.dotfiles/install
