@@ -18,7 +18,7 @@ noproxy() {
 
 # Set Proxy if on Ford Network
 wget -q --spider http://google.com
-if [ $? != 0 ]; then
+if [[ $? != 0 ]]; then
     echo "On ford network. Setting proxy"
     proxy
 fi
@@ -75,3 +75,6 @@ brun() {
     SPRING_PROFILES_ACTIVE=$1 ./gradlew bootRun
 }
 
+if [ -f ~/.zshrc_local ]; then
+    source ~/.zshrc_local
+fi

@@ -7,6 +7,7 @@
 
 - link:
     ~/.zshrc: zshrc
+    ~/.zshrc_local: zshrc_local
     ~/.config/antigen.zsh: antigen.zsh
     ~/.ideavimrc: ideavimrc
     ~/.tmux.conf: tmux.conf
