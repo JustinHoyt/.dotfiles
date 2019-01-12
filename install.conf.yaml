@@ -5,6 +5,9 @@
 
 - clean: ['~']
 
+- shell:
+  - if [[ ! -f zshrc_local ]]; then touch zshrc_local; fi
+
 - link:
     ~/.zshrc: zshrc
     ~/.zshrc_local: zshrc_local

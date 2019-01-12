@@ -16,5 +16,4 @@ brew install fd
 brew install vim
 brew cask install iterm2
 
-cp zshrc_local_example zshrc_local
 ~/.dotfiles/install
