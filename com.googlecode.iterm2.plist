@@ -494,7 +494,7 @@
 	<key>NSColorPickerPreferredRGBEntryMode</key>
 	<integer>2</integer>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/.config</string>
+    <string>~/Library/Preferences</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
 	<string>{799, 448}</string>
 	<key>NSQuotedKeystrokeBinding</key>
@@ -1354,7 +1354,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>~/.config</string>
+    <string>~/Library/Preferences</string>
 	<key>Print In Black And White</key>
 	<true/>
 	<key>PromptOnQuit</key>
