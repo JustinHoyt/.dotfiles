@@ -1288,7 +1288,7 @@
 			<key>Window Type</key>
 			<integer>0</integer>
 			<key>Working Directory</key>
-			<string>/Users/justinhoyt</string>
+			<string>~/</string>
 		</dict>
 	</array>
 	<key>NoSyncHaveWarnedAboutPasteConfirmationChange</key>
@@ -1354,7 +1354,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>/Users/justinhoyt/.config</string>
+	<string>~/.config</string>
 	<key>Print In Black And White</key>
 	<true/>
 	<key>PromptOnQuit</key>
