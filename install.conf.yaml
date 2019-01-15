@@ -16,8 +16,10 @@
     ~/.tmux.conf: tmux.conf
     ~/.tmux.conf.local: tmux.conf.local
     ~/.config/alacritty: alacritty
-    ~/Library/Preferences/com.googlecode.iterm2.plist: com.googlecode.iterm2.plist
     ~/.vim: vim
+    ~/Library/Preferences/com.googlecode.iterm2.plist:
+      path: com.googlecode.iterm2.plist
+      if: '[[ "$OSTYPE" == "darwin"* ]]'
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
