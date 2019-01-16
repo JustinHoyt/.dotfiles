@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Update Homebrew and install packages
+# Update apt-get and install packages
 apt-get update
 apt-get install zsh
 
