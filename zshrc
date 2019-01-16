@@ -33,6 +33,7 @@ antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle mafredri/zsh-async
 antigen bundle sindresorhus/pure
 antigen bundle lukechilds/zsh-nvm
+antigen bundle zdharma/zsh-diff-so-fancy
 antigen apply
 
 # Setting Environment Variables
