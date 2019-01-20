@@ -39,6 +39,8 @@ antigen apply
 # Setting Environment Variables
 export PATH=$HOME/bin:/usr/local/bin:~/.composer/vendor/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
+export VISUAL=vim
+export EDITOR="$VISUAL"
 export NVM_AUTO_USE=true
 export FZF_DEFAULT_COMMAND='fd'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
