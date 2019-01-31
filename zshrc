@@ -72,6 +72,10 @@ alias vca-ui='cd ~/development/vca-ui'
 alias agent='cd ~/development/agent-service'
 alias dev='cd ~/development'
 
+pfind(){
+    lsof -t -i :$1
+}
+
 git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
 git config --global color.ui true
 git config --global color.diff-highlight.oldNormal    "red bold"
