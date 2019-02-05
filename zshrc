@@ -67,6 +67,9 @@ alias algo='cd ~/development/interview-practice'
 alias vca='cd ~/development/vca'
 alias vca-ui='cd ~/development/vca-ui'
 alias agent='cd ~/development/agent-service'
+alias dps='docker ps'
+alias dcu='docker-compose up'
+alias dcb='docker-compose build'
 alias dev='cd ~/development'
 
 git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
