@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# Update apt-get and install packages
+apt-get update
+apt-get install zsh
+
+# If this user's login shell is not already "zsh", attempt to switch.
+TEST_CURRENT_SHELL=$(expr "$SHELL" : '.*/\(.*\)')
+if [ "$TEST_CURRENT_SHELL" != "zsh" ]; then
+    printf "${BLUE}Time to change your default shell to zsh!${NORMAL}\n"
+    chsh -s $(grep /zsh$ /etc/shells | tail -1)
+    env zsh -l
+fi
+
+# Symbolically link all dotfiles
+~/.dotfiles/install

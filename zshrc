@@ -33,11 +33,14 @@ antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle mafredri/zsh-async
 antigen bundle sindresorhus/pure
 antigen bundle lukechilds/zsh-nvm
+antigen bundle zdharma/zsh-diff-so-fancy
 antigen apply
 
 # Setting Environment Variables
 export PATH=$HOME/bin:/usr/local/bin:~/.composer/vendor/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
+export VISUAL=vim
+export EDITOR="$VISUAL"
 export NVM_AUTO_USE=true
 export FZF_DEFAULT_COMMAND='fd'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -71,6 +74,10 @@ alias dps='docker ps'
 alias dcu='docker-compose up'
 alias dcb='docker-compose build'
 alias dev='cd ~/development'
+
+pfind(){
+    lsof -t -i :$1
+}
 
 git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
 git config --global color.ui true
