@@ -74,6 +74,7 @@ alias dps='docker ps'
 alias dcu='docker-compose up'
 alias dcb='docker-compose build'
 alias dev='cd ~/development'
+alias gl='git pull && git submodule update'
 
 pfind(){
     lsof -t -i :$1
