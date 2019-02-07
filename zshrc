@@ -72,7 +72,7 @@ alias vca-ui='cd ~/development/vca-ui'
 alias agent='cd ~/development/agent-service'
 alias dps='docker ps'
 alias dcu='docker-compose up'
-alias dcb='docker-compose build'
+alias dcb='docker-compose build --no-cache'
 alias dev='cd ~/development'
 alias gl='git pull && git submodule update'
 
