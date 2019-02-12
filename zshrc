@@ -17,6 +17,7 @@ noproxy() {
 }
 
 # Set Proxy if on Ford Network
+noproxy
 wget -q --spider http://google.com
 if [[ $? != 0 ]]; then
     echo "On ford network. Setting proxy"
