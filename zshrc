@@ -4,7 +4,7 @@ proxy() {
     export https_proxy=$http_proxy
     export HTTP_PROXY=$http_proxy
     export HTTPS_PROXY=$http_proxy
-    export no_proxy=.ford.com,localhost,127.0.0.1,204.130.41.105*,vca,vca-ui,ui,vds,taas,map,onboardui,ui_manager_rest,database
+    export no_proxy=.ford.com,localhost,127.0.0.1,204.130.41.105*
 }
 
 # Turns Proxy off
