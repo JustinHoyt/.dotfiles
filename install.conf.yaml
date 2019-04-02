@@ -7,6 +7,7 @@
 
 - shell:
   - if [[ ! -f zshrc_local ]]; then touch zshrc_local; fi
+  - if [[ ! -d ~/.config ]]; then mkdir ~/.config; fi
 
 - link:
     ~/.zshrc: zshrc
