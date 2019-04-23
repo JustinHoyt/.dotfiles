@@ -1,9 +1,10 @@
+source ~/.proxy_url
 # Turns Proxy on
 proxy() {
-    export http_proxy=***REMOVED***
-    export https_proxy=$http_proxy
-    export HTTP_PROXY=$http_proxy
-    export HTTPS_PROXY=$http_proxy
+    export http_proxy=$proxy_url
+    export https_proxy=$proxy_url
+    export HTTP_PROXY=$proxy_url
+    export HTTPS_PROXY=$proxy_url
     export no_proxy=.ford.com,localhost,127.0.0.1,204.130.41.105*
 }
 

@@ -7,11 +7,13 @@
 
 - shell:
   - if [[ ! -f zshrc_local ]]; then touch zshrc_local; fi
+  - if [[ ! -f proxy_url ]]; then touch proxy_url; echo "proxy_url=" > proxy_url; fi
   - if [[ ! -d ~/.config ]]; then mkdir ~/.config; fi
 
 - link:
     ~/.zshrc: zshrc
     ~/.zshrc_local: zshrc_local
+    ~/.proxy_url: proxy_url
     ~/.config/antigen.zsh: antigen.zsh
     ~/.ideavimrc: ideavimrc
     ~/.tmux.conf: tmux.conf
