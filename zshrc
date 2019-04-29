@@ -35,6 +35,7 @@ antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle mafredri/zsh-async
 antigen bundle sindresorhus/pure
 antigen bundle lukechilds/zsh-nvm
+antigen bundle rupa/z
 antigen bundle zdharma/zsh-diff-so-fancy
 antigen apply
 
