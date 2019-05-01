@@ -50,23 +50,6 @@ export FZF_DEFAULT_COMMAND='fd'
 HYPHEN_INSENSITIVE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=0'
-eval "$(fasd --init auto)"
-alias o='fasd -d -e open'
-alias a='fasd -a'        # any
-alias j 2>/dev/null
-unalias j 2>/dev/null
-j() {
-    [ $# -gt 0 ] && fasd_cd -d "$*" && return
-    local dir
-    dir="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
-}
-
-unalias v 2>/dev/null
-v() {
-    [ $# -gt 0 ] && fasd -f -e ${EDITOR} "$*" && return
-    local file
-    file="$(fasd -Rfl "$1" | fzf -1 -0 --no-sort +m)" && ${EDITOR} "${file}" || return 1
-}
 
 # Set Vi Keybindings
 set -o vi
@@ -118,18 +101,27 @@ bip() {
   fi
 }
 
-git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
-git config --global color.ui true
-git config --global color.diff-highlight.oldNormal    "red bold"
-git config --global color.diff-highlight.oldHighlight "red bold 52"
-git config --global color.diff-highlight.newNormal    "green bold"
-git config --global color.diff-highlight.newHighlight "green bold 22"
-git config --global color.diff.meta       "yellow"
-git config --global color.diff.frag       "magenta bold"
-git config --global color.diff.commit     "yellow bold"
-git config --global color.diff.old        "red bold"
-git config --global color.diff.new        "green bold"
-git config --global color.diff.whitespace "red reverse"
+eval "$(fasd --init auto)"
+alias a='fasd -a'        # any
+j() {
+    [ $# -gt 0 ] && fasd_cd -d "$*" && return
+    local dir
+    dir="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
+}
+
+unalias o 2>/dev/null
+o() {
+    [ $# -gt 0 ] && fasd -d -e open "$*" && return
+    local dir
+    dir="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && open "${dir}" || return 1
+}
+
+unalias v 2>/dev/null
+v() {
+    [ $# -gt 0 ] && fasd -f -e ${EDITOR} "$*" && return
+    local file
+    file="$(fasd -Rfl "$1" | fzf -1 -0 --no-sort +m)" && ${EDITOR} "${file}" || return 1
+}
 
 if [ -f ~/.zshrc_local ]; then
     source ~/.zshrc_local
