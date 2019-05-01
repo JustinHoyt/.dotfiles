@@ -35,7 +35,7 @@ antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle mafredri/zsh-async
 antigen bundle sindresorhus/pure
 antigen bundle lukechilds/zsh-nvm
-antigen bundle rupa/z
+antigen bundle clvv/fasd
 antigen bundle zdharma/zsh-diff-so-fancy
 antigen apply
 
@@ -50,6 +50,23 @@ export FZF_DEFAULT_COMMAND='fd'
 HYPHEN_INSENSITIVE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=0'
+eval "$(fasd --init auto)"
+alias o='fasd -d -e open'
+alias a='fasd -a'        # any
+alias j 2>/dev/null
+unalias j 2>/dev/null
+j() {
+    [ $# -gt 0 ] && fasd_cd -d "$*" && return
+    local dir
+    dir="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
+}
+
+unalias v 2>/dev/null
+v() {
+    [ $# -gt 0 ] && fasd -f -e ${EDITOR} "$*" && return
+    local file
+    file="$(fasd -Rfl "$1" | fzf -1 -0 --no-sort +m)" && ${EDITOR} "${file}" || return 1
+}
 
 # Set Vi Keybindings
 set -o vi
@@ -87,6 +104,18 @@ alias slack-dark-theme='cat ~/.slack_darkmode.js >> /Applications/Slack.app/Cont
 
 pfind(){
     lsof -t -i :$1
+}
+
+# Install (one or multiple) selected application(s)
+# using "brew search" as source input
+# mnemonic [B]rew [I]nstall [P]lugin
+bip() {
+  local inst=$(brew search | fzf -m)
+
+  if [[ $inst ]]; then
+    for prog in $(echo $inst);
+    do; brew install $prog; done;
+  fi
 }
 
 git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
