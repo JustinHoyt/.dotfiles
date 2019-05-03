@@ -35,7 +35,7 @@ antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle mafredri/zsh-async
 antigen bundle sindresorhus/pure
 antigen bundle lukechilds/zsh-nvm
-antigen bundle clvv/fasd
+antigen bundle rupa/z
 antigen bundle zdharma/zsh-diff-so-fancy
 antigen apply
 
@@ -57,7 +57,6 @@ bindkey "^[OA" history-beginning-search-backward
 bindkey "^[OB" history-beginning-search-forward
 
 # Aliases
-alias dotfiles="cd ~/.dotfiles"
 alias init-venv="python -m venv venv"
 alias activate="source venv/bin/activate"
 alias python="python3"
@@ -65,14 +64,9 @@ alias pip="pip3"
 alias stop="pkill -f "
 alias zshconfig="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
-alias vimrc="cd ~/.vim"
 alias howto="alias | grep $1"
 alias fz='vim $(fzf)'
 alias vi='vim'
-alias algo='cd ~/development/interview-practice'
-alias vca='cd ~/development/vca'
-alias vca-ui='cd ~/development/vca-ui'
-alias agent='cd ~/development/agent-service'
 alias dps='docker ps'
 alias dc='docker-compose'
 alias dcu='docker-compose up'
@@ -81,7 +75,6 @@ alias dcd='docker-compose down'
 alias dcs='docker-compose stop'
 alias rm-containers='docker container rm $(docker container ls -aq)'
 alias rm-images='docker image prune -a'
-alias dev='cd ~/development'
 alias gl='git pull && git submodule update'
 alias slack-dark-theme='cat ~/.slack_darkmode.js >> /Applications/Slack.app/Contents/Resources/app.asar.unpacked/src/static/ssb-interop.js'
 
@@ -89,26 +82,10 @@ pfind(){
     lsof -t -i :$1
 }
 
-eval "$(fasd --init auto)"
-alias a='fasd -a'        # any
-j() {
-    [ $# -gt 0 ] && fasd_cd -d "$*" && return
-    local dir
-    dir="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
-}
-
-unalias o 2>/dev/null
-o() {
-    [ $# -gt 0 ] && fasd -d -e open "$*" && return
-    local dir
-    dir="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && open "${dir}" || return 1
-}
-
-unalias v 2>/dev/null
-v() {
-    [ $# -gt 0 ] && fasd -f -e ${EDITOR} "$*" && return
-    local file
-    file="$(fasd -Rfl "$1" | fzf -1 -0 --no-sort +m)" && ${EDITOR} "${file}" || return 1
+unalias z 2> /dev/null
+z() {
+  [ $# -gt 0 ] && _z "$*" && return
+  cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
 }
 
 # Install (one or multiple) selected application(s)
