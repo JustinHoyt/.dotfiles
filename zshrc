@@ -29,16 +29,18 @@ fi
 source ~/.config/antigen.zsh
 antigen use oh-my-zsh
 antigen bundle git
+antigen bundle nvm
+antigen bundle rvm
+antigen bundle rails
+antigen bundle git-auto-fetch
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle mafredri/zsh-async
 antigen bundle sindresorhus/pure
-antigen bundle lukechilds/zsh-nvm
 antigen bundle rupa/z
 antigen bundle zdharma/zsh-diff-so-fancy
 antigen bundle paulirish/git-open
-antigen bundle unixorn/rvm-plugin
 antigen apply
 
 # Setting Environment Variables
@@ -52,7 +54,6 @@ export FZF_DEFAULT_COMMAND='fd'
 HYPHEN_INSENSITIVE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=0'
-rvm use ruby-2.5.1
 
 # Set Vi Keybindings
 set -o vi
