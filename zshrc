@@ -107,18 +107,6 @@ bip() {
   fi
 }
 
-# Install (one or multiple) selected application(s)
-# using "brew search" as source input
-# mnemonic [C]ask [I]nstall [P]lugin
-cip() {
-  local inst=$(brew search --casks | fzf -m)
-
-  if [[ $inst ]]; then
-    for prog in $(echo $inst);
-    do; brew cask install $prog; done;
-  fi
-}
-
 # Update (one or multiple) selected application(s)
 # mnemonic [B]rew [U]pdate [P]lugin
 bup() {
@@ -138,6 +126,29 @@ bcp() {
   if [[ $uninst ]]; then
     for prog in $(echo $uninst);
     do; brew uninstall $prog; done;
+  fi
+}
+
+# Install (one or multiple) selected application(s)
+# using "brew search" as source input
+# mnemonic [C]ask [I]nstall [P]lugin
+cip() {
+  local inst=$(brew search --casks | fzf -m)
+
+  if [[ $inst ]]; then
+    for prog in $(echo $inst);
+    do; brew cask install $prog; done;
+  fi
+}
+
+# Delete (one or multiple) selected application(s)
+# mnemonic [B]rew [C]lean [P]lugin (e.g. uninstall)
+ccp() {
+  local uninst=$(brew cask list | fzf -m)
+
+  if [[ $uninst ]]; then
+    for prog in $(echo $uninst);
+    do; brew cask uninstall $prog; done;
   fi
 }
 
