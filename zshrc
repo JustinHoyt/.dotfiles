@@ -142,7 +142,7 @@ cip() {
 }
 
 # Delete (one or multiple) selected application(s)
-# mnemonic [B]rew [C]lean [P]lugin (e.g. uninstall)
+# mnemonic [C]ask [C]lean [P]lugin (e.g. uninstall)
 ccp() {
   local uninst=$(brew cask list | fzf -m)
 
