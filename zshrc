@@ -37,6 +37,8 @@ antigen bundle sindresorhus/pure
 antigen bundle lukechilds/zsh-nvm
 antigen bundle rupa/z
 antigen bundle zdharma/zsh-diff-so-fancy
+antigen bundle paulirish/git-open
+antigen bundle unixorn/rvm-plugin
 antigen apply
 
 # Setting Environment Variables
@@ -50,6 +52,7 @@ export FZF_DEFAULT_COMMAND='fd'
 HYPHEN_INSENSITIVE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=0'
+rvm use ruby-2.5.1
 
 # Set Vi Keybindings
 set -o vi
@@ -101,6 +104,18 @@ bip() {
   if [[ $inst ]]; then
     for prog in $(echo $inst);
     do; brew install $prog; done;
+  fi
+}
+
+# Install (one or multiple) selected application(s)
+# using "brew search" as source input
+# mnemonic [C]ask [I]nstall [P]lugin
+cip() {
+  local inst=$(brew search --casks | fzf -m)
+
+  if [[ $inst ]]; then
+    for prog in $(echo $inst);
+    do; brew cask install $prog; done;
   fi
 }
 
