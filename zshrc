@@ -46,7 +46,7 @@ antigen apply
 # Setting Environment Variables
 export PATH=$HOME/bin:/usr/local/bin:~/.composer/vendor/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
-export VISUAL=vim
+export VISUAL=nvim
 export EDITOR="$VISUAL"
 export NVM_AUTO_USE=true
 export FZF_DEFAULT_COMMAND='fd'
@@ -54,6 +54,7 @@ export FZF_DEFAULT_COMMAND='fd'
 HYPHEN_INSENSITIVE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=0'
+
 
 # Set Vi Keybindings
 set -o vi
@@ -80,6 +81,7 @@ alias dcs='docker-compose stop'
 alias rm-containers='docker container rm $(docker container ls -aq)'
 alias rm-images='docker image prune -a'
 alias slack-dark-theme='cat ~/.slack_darkmode.js >> /Applications/Slack.app/Contents/Resources/app.asar.unpacked/src/static/ssb-interop.js'
+alias vim="nvim"
 
 pfind(){
     lsof -t -i :$1

@@ -9,6 +9,7 @@
   - if [[ ! -f zshrc_local ]]; then touch zshrc_local; fi
   - if [[ ! -f proxy_url ]]; then touch proxy_url; echo "proxy_url=" > proxy_url; fi
   - if [[ ! -d ~/.config ]]; then mkdir ~/.config; fi
+  - if [[ ! -d ~/.config/nvim ]]; then mkdir ~/.config/nvim; fi
 
 - link:
     ~/.zshrc: zshrc
@@ -20,6 +21,7 @@
     ~/.tmux.conf.local: tmux.conf.local
     ~/.config/alacritty: alacritty
     ~/.vim: vim
+    ~/.config/nvim/init.vim: init.vim
     ~/.slack_darkmode.js: slack_darkmode.js
     ~/Library/Preferences/com.googlecode.iterm2.plist:
       path: com.googlecode.iterm2.plist
