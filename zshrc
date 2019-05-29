@@ -79,7 +79,6 @@ alias dcd='docker-compose down'
 alias dcs='docker-compose stop'
 alias rm-containers='docker container rm $(docker container ls -aq)'
 alias rm-images='docker image prune -a'
-alias gl='git pull && git submodule update'
 alias slack-dark-theme='cat ~/.slack_darkmode.js >> /Applications/Slack.app/Contents/Resources/app.asar.unpacked/src/static/ssb-interop.js'
 
 pfind(){
