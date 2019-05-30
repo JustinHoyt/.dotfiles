@@ -20,6 +20,7 @@
     ~/.tmux.conf: tmux.conf
     ~/.tmux.conf.local: tmux.conf.local
     ~/.config/alacritty: alacritty
+    ~/.config/nvim/coc-settings.json: coc-settings.json
     ~/.vim: vim
     ~/.config/nvim/init.vim: init.vim
     ~/.slack_darkmode.js: slack_darkmode.js
