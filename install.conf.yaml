@@ -10,18 +10,19 @@
   - if [[ ! -f proxy_url ]]; then touch proxy_url; echo "proxy_url=" > proxy_url; fi
   - if [[ ! -d ~/.config ]]; then mkdir ~/.config; fi
   - if [[ ! -d ~/.config/nvim ]]; then mkdir ~/.config/nvim; fi
+  - if [[ ! -d ~/Library/Application\ Support/iTerm2/Scripts/AutoLaunch ]]; then mkdir ~/Library/Application\ Support/iTerm2/Scripts/AutoLaunch; fi
 
 - link:
     ~/.zshrc: zshrc
     ~/.zshrc_local: zshrc_local
     ~/.proxy_url: proxy_url
-    ~/.config/antigen.zsh: antigen.zsh
     ~/.ideavimrc: ideavimrc
     ~/.tmux.conf: tmux.conf
     ~/.tmux.conf.local: tmux.conf.local
     ~/.config/alacritty: alacritty
     ~/.config/nvim/coc-settings.json: coc-settings.json
     ~/.vim: vim
+    "~/Library/Application\ Support/iterm2/Scripts/AutoLaunch/theme.py": theme.py
     ~/.config/nvim/init.vim: init.vim
     ~/.slack_darkmode.js: slack_darkmode.js
     ~/Library/Preferences/com.googlecode.iterm2.plist:
