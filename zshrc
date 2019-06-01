@@ -53,7 +53,7 @@ export FZF_DEFAULT_COMMAND='fd'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 HYPHEN_INSENSITIVE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=0'
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=white'
 
 
 # Set Vi Keybindings
