@@ -49,7 +49,7 @@ export PATH=/usr/local/sbin:$PATH
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 export NVM_AUTO_USE=true
-export FZF_DEFAULT_COMMAND='fd'
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden --glob="!bin" --glob="!build" --glob="!node_modules"'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 HYPHEN_INSENSITIVE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
