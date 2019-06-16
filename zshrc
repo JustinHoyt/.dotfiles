@@ -55,11 +55,27 @@ HYPHEN_INSENSITIVE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=white'
 
-
-# Set Vi Keybindings
-set -o vi
-bindkey "^[OA" history-beginning-search-backward
-bindkey "^[OB" history-beginning-search-forward
+# # Set Vi Keybindings
+bindkey -v
+bindkey "^?" backward-delete-char
+autoload -Uz surround
+autoload -U select-quoted
+zle -N select-quoted
+for m in visual viopp; do
+  for c in {a,i}{\',\",\`}; do
+    bindkey -M $m $c select-quoted
+  done
+done
+zle -N delete-surround surround
+zle -N add-surround surround
+zle -N change-surround surround
+bindkey -a cs change-surround
+bindkey -a ds delete-surround
+bindkey -a ys add-surround
+bindkey -M visual S add-surround
+bindkey -M viins "^[OA"  up-line-or-search
+bindkey -M viins "^[OB"  down-line-or-search
+export KEYTIMEOUT=25
 
 # Aliases
 alias init-venv="python -m venv venv"
