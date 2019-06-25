@@ -26,7 +26,7 @@ if [[ $? != 0 ]]; then
 fi
 
 # Package Manager
-source $(brew --prefix)/share/antigen/antigen.zsh
+source ~/.config/antigen.zsh
 antigen use oh-my-zsh
 antigen bundle git
 antigen bundle nvm
