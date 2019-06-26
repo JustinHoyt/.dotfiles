@@ -32,6 +32,7 @@ antigen bundle git
 antigen bundle nvm
 antigen bundle rvm
 antigen bundle rails
+antigen bundle fzf
 antigen bundle git-auto-fetch
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-syntax-highlighting
@@ -99,6 +100,7 @@ alias rm-containers='docker container rm $(docker container ls -aq)'
 alias rm-images='docker image prune -a'
 alias slack-dark-theme='cat ~/.slack_darkmode.js >> /Applications/Slack.app/Contents/Resources/app.asar.unpacked/src/static/ssb-interop.js'
 alias vim="nvim"
+unalias rg
 
 pfind(){
     lsof -t -i :$1
