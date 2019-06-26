@@ -75,6 +75,7 @@ bindkey -a ys add-surround
 bindkey -M visual S add-surround
 bindkey -M viins "^[OA"  up-line-or-search
 bindkey -M viins "^[OB"  down-line-or-search
+bindkey "^ " autosuggest-accept
 export KEYTIMEOUT=25
 
 # Aliases
