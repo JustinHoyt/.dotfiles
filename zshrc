@@ -45,13 +45,15 @@ antigen bundle zdharma/zsh-diff-so-fancy
 antigen bundle paulirish/git-open
 antigen apply
 
+if hash rg 2>/dev/null; then
+    export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden --glob="!bin" --glob="!build" --glob="!node_modules"'
+fi
 # Setting Environment Variables
 export PATH=$HOME/bin:/usr/local/bin:~/.composer/vendor/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 export NVM_AUTO_USE=true
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden --glob="!bin" --glob="!build" --glob="!node_modules"'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 HYPHEN_INSENSITIVE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
