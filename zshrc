@@ -62,6 +62,8 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=white'
 # # Set Vi Keybindings
 bindkey -v
 bindkey "^?" backward-delete-char
+bindkey "^[[3~" delete-char
+bindkey "^[OM" accept-line
 autoload -Uz surround
 autoload -U select-quoted
 zle -N select-quoted
