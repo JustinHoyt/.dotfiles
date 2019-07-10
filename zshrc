@@ -34,6 +34,7 @@ antigen bundle rvm
 antigen bundle rails
 antigen bundle fzf
 antigen bundle ripgrep
+antigen bundle httpie
 antigen bundle git-auto-fetch
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-syntax-highlighting
