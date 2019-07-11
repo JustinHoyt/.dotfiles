@@ -1,6 +1,6 @@
 #! /bin/bash
 sudo apt update -qy
-sudo apt install -qy git nodejs zsh neovim
+sudo apt install -qy git nodejs npm zsh neovim
 
 # Symbolically link all dotfiles
 ~/.dotfiles/install
