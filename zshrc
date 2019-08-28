@@ -64,7 +64,7 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=white'
 bindkey -v
 bindkey "^?" backward-delete-char
 bindkey "^[[3~" delete-char
-bindkey "^[OM" accept-line
+bindkey '^r' history-incremental-search-backward
 autoload -Uz surround
 autoload -U select-quoted
 zle -N select-quoted
@@ -80,13 +80,12 @@ bindkey -a cs change-surround
 bindkey -a ds delete-surround
 bindkey -a ys add-surround
 bindkey -M visual S add-surround
-bindkey -M viins "^[OA"  up-line-or-search
-bindkey -M viins "^[OB"  down-line-or-search
-bindkey "^ " autosuggest-accept
+bindkey "^[OA" history-beginning-search-backward
+bindkey "^[OB" history-beginning-search-forward
 export KEYTIMEOUT=25
 
 # Aliases
-alias init-venv="python -m venv venv"
+alias init-venv="python -m virtualenv venv"
 alias activate="source venv/bin/activate"
 alias stop="pkill -f "
 alias zshconfig="vim ~/.zshrc"
