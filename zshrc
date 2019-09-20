@@ -86,6 +86,7 @@ export KEYTIMEOUT=25
 
 # Aliases
 alias init-venv="python -m virtualenv venv"
+alias init-venv3="python3 -m virtualenv venv"
 alias activate="source venv/bin/activate"
 alias stop="pkill -f "
 alias zshconfig="vim ~/.zshrc"
