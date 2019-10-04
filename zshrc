@@ -52,7 +52,7 @@ fi
 # Setting Environment Variables
 export PATH=$HOME/bin:/usr/local/bin:~/.composer/vendor/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
-export VISUAL=nvim
+export VISUAL=vim
 export EDITOR="$VISUAL"
 export NVM_AUTO_USE=true
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -104,7 +104,9 @@ alias dsh='docker run -it --entrypoint /bin/bash $1'
 alias rm-containers='docker container rm $(docker container ls -aq)'
 alias rm-images='docker image prune -a'
 alias slack-dark-theme='cat ~/.slack_darkmode.js >> /Applications/Slack.app/Contents/Resources/app.asar.unpacked/src/static/ssb-interop.js'
-alias vim="nvim"
+if type nvim > /dev/null 2>&1; then
+  alias vim='nvim'
+fi
 unalias rg 2>/dev/null
 
 pfind(){
