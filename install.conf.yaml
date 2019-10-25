@@ -22,6 +22,7 @@
     ~/.config/alacritty: alacritty
     ~/.config/antigen.zsh: antigen.zsh
     ~/.config/nvim/coc-settings.json: coc-settings.json
+    ~/.config/flake8: flake8
     ~/.vim: vim
     "~/Library/Application\ Support/iterm2/Scripts/AutoLaunch/theme.py": theme.py
     ~/.config/nvim/init.vim: init.vim
