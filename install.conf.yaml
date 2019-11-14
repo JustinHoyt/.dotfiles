@@ -24,9 +24,10 @@
     ~/.config/nvim/coc-settings.json: coc-settings.json
     ~/.config/flake8: flake8
     ~/.vim: vim
-    "~/Library/Application\ Support/iterm2/Scripts/AutoLaunch/theme.py": theme.py
     ~/.config/nvim/init.vim: init.vim
-    ~/.slack_darkmode.js: slack_darkmode.js
+    "~/Library/Application\ Support/iterm2/Scripts/AutoLaunch/theme.py":
+      path: com.googlecode.iterm2.plist
+      if: '[[ "$OSTYPE" == "darwin"* ]]'
     ~/Library/Preferences/com.googlecode.iterm2.plist:
       path: com.googlecode.iterm2.plist
       if: '[[ "$OSTYPE" == "darwin"* ]]'
