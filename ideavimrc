@@ -1,3 +1,9 @@
 set surround
 set multiple-cursors
 set ideajoin
+set relativenumber
+set number
+set commentary
+nnoremap gt :action RunContextGroup<CR>
+nnoremap gd :action Debug<CR>
+nnoremap gr :action Run<CR>
