@@ -1,35 +1,11 @@
-source ~/.proxy_url
-# Turns Proxy on
-proxy() {
-    export http_proxy=$proxy_url
-    export https_proxy=$proxy_url
-    export HTTP_PROXY=$proxy_url
-    export HTTPS_PROXY=$proxy_url
-    export no_proxy=.ford.com,localhost,127.0.0.1,204.130.41.105*
-}
-
-# Turns Proxy off
-noproxy() {
-    unset http_proxy
-    unset https_proxy
-    unset HTTP_PROXY
-    unset HTTPS_PROXY
-    unset no_proxy
-}
-
-# Set Proxy if on Ford Network
-noproxy
-wget -q --spider http://google.com
-if [[ $? != 0 ]]; then
-    echo "On ford network. Setting proxy"
-    proxy
-fi
+source ~/.proxy_configurer
 
 # Package Manager
 source ~/.config/antigen.zsh
 antigen use oh-my-zsh
 antigen bundle git
 antigen bundle nvm
+antigen bundle npm
 antigen bundle rvm
 antigen bundle rails
 antigen bundle fzf

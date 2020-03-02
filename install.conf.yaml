@@ -16,6 +16,7 @@
     ~/.zshrc: zshrc
     ~/.zshrc_local: zshrc_local
     ~/.proxy_url: proxy_url
+    ~/.proxy_configurer: proxy_configurer
     ~/.ideavimrc: ideavimrc
     ~/.tmux.conf: tmux.conf
     ~/.tmux.conf.local: tmux.conf.local
