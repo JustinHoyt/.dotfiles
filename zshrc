@@ -6,6 +6,8 @@ proxy() {
     export HTTP_PROXY=$proxy_url
     export HTTPS_PROXY=$proxy_url
     export no_proxy=.ford.com,localhost,127.0.0.1,204.130.41.105*
+    npm config set proxy $proxy_url
+    npm config set https_proxy $proxy_url
 }
 
 # Turns Proxy off
@@ -15,13 +17,15 @@ noproxy() {
     unset HTTP_PROXY
     unset HTTPS_PROXY
     unset no_proxy
+    npm config delete proxy
+    npm config delete https_proxy
 }
 
-# Set Proxy if on Ford Network
 noproxy
-wget -q --spider http://google.com
-if [[ $? != 0 ]]; then
-    echo "On ford network. Setting proxy"
+if curl --output /dev/null --silent --head --fail "https://google.com"; then
+    echo "Off corporate network"
+else
+    echo "On corporate network"
     proxy
 fi
 
@@ -30,6 +34,7 @@ source ~/.config/antigen.zsh
 antigen use oh-my-zsh
 antigen bundle git
 antigen bundle nvm
+antigen bundle npm
 antigen bundle rvm
 antigen bundle rails
 antigen bundle fzf
