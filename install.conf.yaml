@@ -20,7 +20,6 @@
     ~/.ideavimrc: ideavimrc
     ~/.tmux.conf: tmux.conf
     ~/.tmux.conf.local: tmux.conf.local
-    ~/.config/alacritty: alacritty
     ~/.config/antigen.zsh: antigen.zsh
     ~/.config/nvim/coc-settings.json: coc-settings.json
     ~/.config/flake8: flake8
