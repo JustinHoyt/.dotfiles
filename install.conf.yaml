@@ -26,7 +26,7 @@
     ~/.vim: vim
     ~/.config/nvim/init.vim: init.vim
     "~/Library/Application\ Support/iterm2/Scripts/AutoLaunch/theme.py":
-      path: com.googlecode.iterm2.plist
+      path: theme.py
       if: '[[ "$OSTYPE" == "darwin"* ]]'
     ~/Library/Preferences/com.googlecode.iterm2.plist:
       path: com.googlecode.iterm2.plist
