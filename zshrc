@@ -156,6 +156,15 @@ ccp() {
   fi
 }
 
+install() {
+  local inst=$(apt-cache search '.*' | fzf -m)
+
+  if [[ $inst ]]; then
+      local prog=$(echo "$inst" | cut -d' ' -f1)
+      sudo apt-get install $prog
+  fi
+}
+
 if [ -f ~/.zshrc_local ]; then
     source ~/.zshrc_local
 fi
