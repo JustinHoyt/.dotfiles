@@ -105,7 +105,7 @@ j() {
 bip() {
   local inst=$(brew search | fzf -m)
 
-  if [[ $inst ]]; then
+  if [ $inst ]; then
     for prog in $(echo $inst);
     do; brew install $prog; done;
   fi
@@ -116,7 +116,7 @@ bip() {
 bup() {
   local upd=$(brew leaves | fzf -m)
 
-  if [[ $upd ]]; then
+  if [ $upd ]; then
     for prog in $(echo $upd);
     do; brew upgrade $prog; done;
   fi
@@ -127,7 +127,7 @@ bup() {
 bcp() {
   local uninst=$(brew leaves | fzf -m)
 
-  if [[ $uninst ]]; then
+  if [ $uninst ]; then
     for prog in $(echo $uninst);
     do; brew uninstall $prog; done;
   fi
@@ -150,20 +150,33 @@ cip() {
 ccp() {
   local uninst=$(brew cask list | fzf -m)
 
-  if [[ $uninst ]]; then
+  if [ $uninst ]; then
     for prog in $(echo $uninst);
     do; brew cask uninstall $prog; done;
   fi
 }
 
-install() {
-  local inst=$(apt-cache search '.*' | fzf -m)
+if [ -n "$(command -v apt-get)" ]; then
+    install() {
+      local inst=$(apt-cache search '.*' | fzf -m)
 
-  if [[ $inst ]]; then
-      local prog=$(echo "$inst" | cut -d' ' -f1)
-      sudo apt-get install $prog
-  fi
-}
+      if [ $inst ]; then
+          local prog=$(echo "$inst" | cut -d' ' -f1)
+          sudo apt-get install $prog
+      fi
+    }
+fi
+if [ -n "$(command -v yum)" ]
+    install() {
+      local inst=$(yum list available | fzf -m)
+
+      if [ $inst ]; then
+          local prog=$(echo "$inst" | cut -d' ' -f1)
+          sudo yum install $prog
+      fi
+    }
+
+fi
 
 if [ -f ~/.zshrc_local ]; then
     source ~/.zshrc_local

@@ -1,5 +1,4 @@
 {
-    "java.jdt.ls.vmargs": "-javaagent:/Users/justin/Development/lombok.jar -Xbootclasspath/a:Users/justin/Development/lombok.jar",
     "languageserver": {
         "python": {
             "command": "python",
