@@ -162,20 +162,19 @@ if [ -n "$(command -v apt-get)" ]; then
 
       if [ $inst ]; then
           local prog=$(echo "$inst" | cut -d' ' -f1)
-          sudo apt-get install $prog
+          sudo apt-get -y install $prog
       fi
     }
 fi
-if [ -n "$(command -v yum)" ]
+if [ -n "$(command -v yum)" ]; then
     install() {
       local inst=$(yum list available | fzf -m)
 
       if [ $inst ]; then
           local prog=$(echo "$inst" | cut -d' ' -f1)
-          sudo yum install $prog
+          sudo yum install -y $prog
       fi
     }
-
 fi
 
 if [ -f ~/.zshrc_local ]; then
