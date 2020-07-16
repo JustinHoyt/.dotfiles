@@ -20,7 +20,9 @@ antigen bundle sindresorhus/pure
 antigen bundle rupa/z
 antigen bundle zdharma/zsh-diff-so-fancy
 antigen bundle paulirish/git-open
-antigen bundle softmoth/zsh-vim-mode
+if [ "$(uname 2> /dev/null)" != "Linux" ]; then
+    antigen bundle softmoth/zsh-vim-mode
+fi
 antigen apply
 
 if hash rg 2>/dev/null; then
@@ -42,9 +44,6 @@ bindkey -v
 bindkey "^?" backward-delete-char
 bindkey "^[[3~" delete-char
 bindkey '^r' history-incremental-search-backward
-autoload -Uz surround
-autoload -U select-quoted
-zle -N select-quoted
 bindkey "^[OA" history-beginning-search-backward
 bindkey "^[OB" history-beginning-search-forward
 export KEYTIMEOUT=25
@@ -128,7 +127,7 @@ bcp() {
 cip() {
   local inst=$(brew search --casks | fzf -m)
 
-  if [[ $inst ]]; then
+  if [ $inst ]; then
     for prog in $(echo $inst);
     do; brew cask install $prog; done;
   fi
