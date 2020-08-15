@@ -29,6 +29,7 @@ if hash rg 2>/dev/null; then
     export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden --glob="!bin" --glob="!build" --glob="!node_modules"'
 fi
 # Setting Environment Variables
+set -o ignoreeof
 export PATH=$HOME/bin:/usr/local/bin:~/.composer/vendor/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 export VISUAL=vim
