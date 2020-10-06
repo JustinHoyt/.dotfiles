@@ -1,0 +1,29 @@
+# Node
+npm-debug.log
+
+# Mac
+.DS_Store
+
+# Widows
+Thumbs.db
+
+# WebStorm
+.idea/
+
+# vi
+*~
+
+# General
+log/
+*.logn
+
+node_modules/
+*.iml
+/build
+annotation-generated-tst/
+annotation-generated-src/
+coral-config/
+
+Brewfile.lock.json
+proxy_url
+zshrc_local
