@@ -27,3 +27,6 @@ coral-config/
 Brewfile.lock.json
 proxy_url
 zshrc_local
+
+.vscode/
+*.code-workspace
