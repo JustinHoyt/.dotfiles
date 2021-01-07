@@ -130,18 +130,18 @@ cip() {
 
   if [ $inst ]; then
     for prog in $(echo $inst);
-    do; brew cask install $prog; done;
+    do; brew install --cask $prog; done;
   fi
 }
 
 # Delete (one or multiple) selected application(s)
 # mnemonic [C]ask [C]lean [P]lugin (e.g. uninstall)
 ccp() {
-  local uninst=$(brew cask list | fzf -m)
+  local uninst=$(brew list --cask | fzf -m)
 
   if [ $uninst ]; then
     for prog in $(echo $uninst);
-    do; brew cask uninstall $prog; done;
+    do; brew uninstall --cask $prog; done;
   fi
 }
 
