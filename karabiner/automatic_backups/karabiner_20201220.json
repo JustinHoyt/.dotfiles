@@ -62,7 +62,7 @@
                                 ],
                                 "to_if_alone": [
                                     {
-                                        "key_code": "9",
+                                        "key_code": "0",
                                         "modifiers": [
                                             "right_shift"
                                         ]
@@ -92,7 +92,7 @@
                                 ],
                                 "to_if_alone": [
                                     {
-                                        "key_code": "0",
+                                        "key_code": "9",
                                         "modifiers": [
                                             "right_shift"
                                         ]

@@ -1,0 +1,61 @@
+{
+    "title": "Change shift to open paren on tap",
+    "rules": [
+        {
+            "description": "Change left shift to open paren on tap",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "left_shift",
+                        "modifiers": {
+                            "optional": [
+                                "any"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "left_shift",
+                            "lazy": true
+                        }
+                    ],
+                    "to_if_alone": [
+                        {
+                            "key_code": "9",
+                            "modifiers": ["right_shift"]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "Change right shift to open paren on tap",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "right_shift",
+                        "modifiers": {
+                            "optional": [
+                                "any"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "right_shift",
+                            "lazy": true
+                        }
+                    ],
+                    "to_if_alone": [
+                        {
+                            "key_code": "0",
+                            "modifiers": ["right_shift"]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
