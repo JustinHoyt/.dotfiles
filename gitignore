@@ -9,6 +9,7 @@ Thumbs.db
 
 # WebStorm
 .idea/
+out/
 
 # vi
 *~

@@ -91,6 +91,10 @@ c() {
   [ $# -gt 0 ] && _z "$*" && return
   code "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
 }
+i() {
+  [ $# -gt 0 ] && _z "$*" && return
+  idea "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
+}
 
 # Install (one or multiple) selected application(s)
 # using "brew search" as source input
