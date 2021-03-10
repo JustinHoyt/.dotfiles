@@ -1,3 +1,4 @@
+let mapleader=" "
 set surround
 set multiple-cursors
 set ideajoin
@@ -7,3 +8,9 @@ set commentary
 nnoremap gt :action RunContextGroup<CR>
 nnoremap gd :action Debug<CR>
 nnoremap gr :action Run<CR>
+map <leader>r <Action>(RenameElement)
+map <leader>b <Action>(ToggleLineBreakpoint)
+nnoremap gn :action GotoNextError<CR>
+nnoremap gp :action GotoPreviousError<CR>
+nnoremap gh :action ShowErrorDescription<CR>
+

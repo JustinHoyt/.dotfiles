@@ -23,7 +23,6 @@ node_modules/
 /build
 annotation-generated-tst/
 annotation-generated-src/
-coral-config/
 
 Brewfile.lock.json
 proxy_url

@@ -69,10 +69,10 @@ alias dsh='docker exec -it $1 /bin/bash'
 alias rm-containers='docker container rm $(docker container ls -aq)'
 alias rm-images='docker image prune -a'
 alias slack-dark-theme='cat ~/.slack_darkmode.js >> /Applications/Slack.app/Contents/Resources/app.asar.unpacked/src/static/ssb-interop.js'
-if type nvim > /dev/null 2>&1; then
-  alias vim='nvim'
-fi
-unalias rg 2>/dev/null
+# if type nvim > /dev/null 2>&1; then
+#   alias vim='nvim'
+# fi
+# unalias rg 2>/dev/null
 
 pfind(){
     lsof -t -i :$1
