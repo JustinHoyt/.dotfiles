@@ -100,33 +100,36 @@ i() {
 # using "brew search" as source input
 # mnemonic [B]rew [I]nstall [P]lugin
 bip() {
-  local inst=$(brew search | fzf -m)
+  local apps=$(brew formulae | fzf -m)
 
-  if [ $inst ]; then
-    for prog in $(echo $inst);
-    do; brew install $prog; done;
+  if [ $apps ]; then
+    for app in $(echo $apps); do
+      brew install $app;
+    done;
   fi
 }
 
 # Update (one or multiple) selected application(s)
 # mnemonic [B]rew [U]pdate [P]lugin
 bup() {
-  local upd=$(brew leaves | fzf -m)
+  local apps=$(brew leaves | fzf -m)
 
-  if [ $upd ]; then
-    for prog in $(echo $upd);
-    do; brew upgrade $prog; done;
+  if [ $apps ]; then
+    for app in $(echo $apps); do
+      brew upgrade $app;
+    done;
   fi
 }
 
 # Delete (one or multiple) selected application(s)
 # mnemonic [B]rew [C]lean [P]lugin (e.g. uninstall)
 bcp() {
-  local uninst=$(brew leaves | fzf -m)
+  local apps=$(brew leaves | fzf -m)
 
-  if [ $uninst ]; then
-    for prog in $(echo $uninst);
-    do; brew uninstall $prog; done;
+  if [ $apps ]; then
+    for app in $(echo $apps); do
+      brew uninstall $app
+    done;
   fi
 }
 
@@ -134,42 +137,44 @@ bcp() {
 # using "brew search" as source input
 # mnemonic [C]ask [I]nstall [P]lugin
 cip() {
-  local inst=$(brew search --casks | fzf -m)
+  local apps=$(brew search --casks | fzf -m)
 
-  if [ $inst ]; then
-    for prog in $(echo $inst);
-    do; brew install --cask $prog; done;
+  if [ $apps ]; then
+    for app in $(echo $apps); do
+      brew install --cask $app
+    done;
   fi
 }
 
 # Delete (one or multiple) selected application(s)
 # mnemonic [C]ask [C]lean [P]lugin (e.g. uninstall)
 ccp() {
-  local uninst=$(brew list --cask | fzf -m)
+  local apps=$(brew list --cask | fzf -m)
 
-  if [ $uninst ]; then
-    for prog in $(echo $uninst);
-    do; brew uninstall --cask $prog; done;
+  if [ $apps ]; then
+    for app in $(echo $apps); do
+      brew uninstall $app
+    done;
   fi
 }
 
 if [ -n "$(command -v apt-get)" ]; then
     install() {
-      local inst=$(apt-cache search '.*' | fzf -m)
+      local apps=$(apt-cache search '.*' | fzf -m)
 
-      if [ $inst ]; then
-          local prog=$(echo "$inst" | cut -d' ' -f1)
-          sudo apt-get -y install $prog
+      if [ $apps ]; then
+          local app=$(echo "$apps" | cut -d' ' -f1)
+          sudo apt-get -y install $app
       fi
     }
 fi
 if [ -n "$(command -v yum)" ]; then
     install() {
-      local inst=$(yum list available | fzf -m)
+      local apps=$(yum list available | fzf -m)
 
-      if [ $inst ]; then
-          local prog=$(echo "$inst" | cut -d' ' -f1)
-          sudo yum install -y $prog
+      if [ $apps ]; then
+          local app=$(echo "$apps" | cut -d' ' -f1)
+          sudo yum install -y $app
       fi
     }
 fi
