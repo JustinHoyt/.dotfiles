@@ -5,6 +5,8 @@ set ideajoin
 set relativenumber
 set number
 set commentary
+set visualbell
+set noerrorbells
 nnoremap gt :action RunContextGroup<CR>
 nnoremap gd :action Debug<CR>
 nnoremap gr :action Run<CR>

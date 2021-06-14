@@ -26,6 +26,7 @@
     ~/.config/karabiner: karabiner
     ~/.vim: vim
     ~/.gitignore: gitignore
+    /usr/local/bin/ett: ett
     ~/.config/nvim/init.vim: init.vim
     "~/Library/Application\ Support/iterm2/Scripts/AutoLaunch/theme.py":
       path: theme.py
