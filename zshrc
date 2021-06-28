@@ -69,20 +69,16 @@ alias dsh='docker exec -it $1 /bin/bash'
 alias rm-containers='docker container rm $(docker container ls -aq)'
 alias rm-images='docker image prune -a'
 alias slack-dark-theme='cat ~/.slack_darkmode.js >> /Applications/Slack.app/Contents/Resources/app.asar.unpacked/src/static/ssb-interop.js'
-# if type nvim > /dev/null 2>&1; then
-#   alias vim='nvim'
-# fi
-# unalias rg 2>/dev/null
+if type nvim > /dev/null 2>&1; then
+  alias vim='nvim'
+fi
+unalias rg 2>/dev/null
 
 pfind(){
     lsof -t -i :$1
 }
 
 unalias z 2> /dev/null
-z() {
-  [ $# -gt 0 ] && _z "$*" && return
-  cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
-}
 j() {
   [ $# -gt 0 ] && _z "$*" && return
   cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
@@ -100,36 +96,27 @@ i() {
 # using "brew search" as source input
 # mnemonic [B]rew [I]nstall [P]lugin
 bip() {
-  local apps=$(brew formulae | fzf -m)
-
-  if [ $apps ]; then
-    for app in $(echo $apps); do
-      brew install $app;
-    done;
+  local app=$(brew formulae | fzf -m)
+  if [ $app ]; then
+    brew install $app
   fi
 }
 
 # Update (one or multiple) selected application(s)
 # mnemonic [B]rew [U]pdate [P]lugin
 bup() {
-  local apps=$(brew leaves | fzf -m)
-
-  if [ $apps ]; then
-    for app in $(echo $apps); do
-      brew upgrade $app;
-    done;
+  local app=$(brew leaves | fzf -m)
+  if [ -n "$app" ]; then
+    brew upgrade "$app"
   fi
 }
 
 # Delete (one or multiple) selected application(s)
 # mnemonic [B]rew [C]lean [P]lugin (e.g. uninstall)
 bcp() {
-  local apps=$(brew leaves | fzf -m)
-
-  if [ $apps ]; then
-    for app in $(echo $apps); do
-      brew uninstall $app
-    done;
+  local app=$(brew leaves | fzf -m)
+  if [ -n "$app" ]; then
+    brew uninstall "$app"
   fi
 }
 
@@ -137,44 +124,38 @@ bcp() {
 # using "brew search" as source input
 # mnemonic [C]ask [I]nstall [P]lugin
 cip() {
-  local apps=$(brew search --casks | fzf -m)
-
-  if [ $apps ]; then
-    for app in $(echo $apps); do
-      brew install --cask $app
-    done;
+  local app=$(brew casks | fzf -m)
+  if [ -n "$app" ]; then
+    brew install --cask "$app"
   fi
 }
 
 # Delete (one or multiple) selected application(s)
 # mnemonic [C]ask [C]lean [P]lugin (e.g. uninstall)
 ccp() {
-  local apps=$(brew list --cask | fzf -m)
-
-  if [ $apps ]; then
-    for app in $(echo $apps); do
-      brew uninstall $app
-    done;
+  local app=$(brew list --cask | fzf -m)
+  if [ -n "$app" ]; then
+    brew uninstall "$app"
   fi
 }
 
 if [ -n "$(command -v apt-get)" ]; then
     install() {
-      local apps=$(apt-cache search '.*' | fzf -m)
+      local app=$(apt-cache search '.*' | fzf -m)
 
-      if [ $apps ]; then
-          local app=$(echo "$apps" | cut -d' ' -f1)
-          sudo apt-get -y install $app
+      if [ -n $app ]; then
+          local app=$(echo "$app" | cut -d' ' -f1)
+          sudo apt-get -y install "$app"
       fi
     }
 fi
 if [ -n "$(command -v yum)" ]; then
     install() {
-      local apps=$(yum list available | fzf -m)
+      local app=$(yum list available | fzf -m)
 
-      if [ $apps ]; then
-          local app=$(echo "$apps" | cut -d' ' -f1)
-          sudo yum install -y $app
+      if [ -n $app ]; then
+          local app=$(echo "$app" | cut -d' ' -f1)
+          sudo yum install -y "$app"
       fi
     }
 fi
