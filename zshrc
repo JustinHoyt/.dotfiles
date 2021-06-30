@@ -20,6 +20,7 @@ antigen bundle sindresorhus/pure
 antigen bundle rupa/z
 antigen bundle zdharma/zsh-diff-so-fancy
 antigen bundle paulirish/git-open
+antigen bundle kutsan/zsh-system-clipboard
 if [ "$(uname 2> /dev/null)" != "Linux" ]; then
     antigen bundle softmoth/zsh-vim-mode
 fi
@@ -69,6 +70,8 @@ alias dsh='docker exec -it $1 /bin/bash'
 alias rm-containers='docker container rm $(docker container ls -aq)'
 alias rm-images='docker image prune -a'
 alias slack-dark-theme='cat ~/.slack_darkmode.js >> /Applications/Slack.app/Contents/Resources/app.asar.unpacked/src/static/ssb-interop.js'
+alias xml='tidy -xml -i -q <<<'
+alias xmlp='pbpaste | tidy -xml -i -q'
 if type nvim > /dev/null 2>&1; then
   alias vim='nvim'
 fi
