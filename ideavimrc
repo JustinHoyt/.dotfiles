@@ -14,5 +14,6 @@ map <leader>r <Action>(RenameElement)
 map <leader>b <Action>(ToggleLineBreakpoint)
 nnoremap gn :action GotoNextError<CR>
 nnoremap gp :action GotoPreviousError<CR>
-nnoremap gh :action ShowErrorDescription<CR>
+nnoremap ge :action ShowErrorDescription<CR>
+nnoremap gh :action QuickJavaDoc<CR>
 

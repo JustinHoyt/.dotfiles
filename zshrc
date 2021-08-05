@@ -20,7 +20,6 @@ antigen bundle sindresorhus/pure
 antigen bundle rupa/z
 antigen bundle zdharma/zsh-diff-so-fancy
 antigen bundle paulirish/git-open
-antigen bundle kutsan/zsh-system-clipboard
 if [ "$(uname 2> /dev/null)" != "Linux" ]; then
     antigen bundle softmoth/zsh-vim-mode
 fi
