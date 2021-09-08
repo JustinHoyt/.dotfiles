@@ -1,5 +1,7 @@
 source ~/.proxy_configurer
 
+DISABLE_MAGIC_FUNCTIONS=true
+
 # Package Manager
 source ~/.config/antigen.zsh
 antigen use oh-my-zsh
