@@ -27,7 +27,8 @@ vim.opt.background = 'light'
 vim.opt.encoding = 'utf8'
 vim.opt.cursorline = true
 vim.api.nvim_command([[
-    colorscheme one
+  colorscheme one
+  let g:startify_change_to_vcs_root=1
 ]])
 
 
@@ -160,3 +161,22 @@ cmp.setup.cmdline(':', {
     { name = 'cmdline' }
   })
 })
+
+
+require('lsp_config')
+
+-- Setup lspconfig.
+local nvim_lsp = require('lspconfig')
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+local servers = { 'tsserver' }
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    flags = {
+      debounce_text_changes = 150,
+    }
+  }
+end
+
