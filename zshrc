@@ -28,7 +28,7 @@ fi
 antigen apply
 
 if hash rg 2>/dev/null; then
-    export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden --glob="!bin" --glob="!build" --glob="!node_modules"'
+    export FZF_DEFAULT_COMMAND='rg -S --files --no-ignore-vcs --hidden --glob="!bin" --glob="!build" --glob="!node_modules"'
 fi
 # Setting Environment Variables
 set -o ignoreeof
@@ -77,6 +77,7 @@ if type nvim > /dev/null 2>&1; then
   alias vim='nvim'
 fi
 unalias rg 2>/dev/null
+alias rg='rg --smart-case --glob="!coverage"'
 
 pfind(){
     lsof -t -i :$1

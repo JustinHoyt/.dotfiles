@@ -10,7 +10,6 @@
   - if [[ ! -f proxy_url ]]; then touch proxy_url; echo "proxy_url=" > proxy_url; fi
   - if [[ ! -f ~/.gitignore ]]; then git config --global core.excludesFile ~/.gitignore; fi
   - if [[ ! -d ~/.config ]]; then mkdir ~/.config; fi
-  - if [[ ! -d ~/.config/nvim ]]; then mkdir ~/.config/nvim; fi
   - if [[ "$OSTYPE" == "darwin"* && ! -d ~/Library/Application\ Support/iTerm2/Scripts/AutoLaunch ]]; then mkdir ~/Library/Application\ Support/iTerm2/Scripts/AutoLaunch; fi
 
 - link:
@@ -21,13 +20,12 @@
     ~/.ideavimrc: ideavimrc
     ~/.tmux.conf: tmux.conf
     ~/.config/antigen.zsh: antigen.zsh
-    ~/.config/nvim/coc-settings.json: coc-settings.json
     ~/.config/flake8: flake8
     ~/.config/karabiner: karabiner
     ~/.vim: vim
     ~/.gitignore: gitignore
     /usr/local/bin/ett: ett
-    ~/.config/nvim/init.vim: init.vim
+    ~/.config/nvim: nvim
     "~/Library/Application\ Support/iterm2/Scripts/AutoLaunch/theme.py":
       path: theme.py
       if: '[[ "$OSTYPE" == "darwin"* ]]'
