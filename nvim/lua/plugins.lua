@@ -76,13 +76,17 @@ local telescopeConfig = function()
     }
   }
   require('telescope').load_extension('fzf')
-  vim.api.nvim_set_keymap('n', '<LEADER>f', ':Telescope<CR>', {noremap = true})
-  vim.api.nvim_set_keymap('n', '<LEADER>f/', ':Telescope live_grep<CR>', {noremap = true})
-  vim.api.nvim_set_keymap('n', '<LEADER>fb', ':Telescope buffers<CR>', {noremap = true})
-  vim.api.nvim_set_keymap('n', '<LEADER>ff', ':Telescope find_files<CR>', {noremap = true})
-  vim.api.nvim_set_keymap('n', '<LEADER>fg', ':Telescope git_files<CR>', {noremap = true})
+  vim.api.nvim_set_keymap('n', '<leader>f', ':Telescope<CR>', {noremap = true})
+  vim.api.nvim_set_keymap('n', '<leader>f/', ':Telescope live_grep<CR>', {noremap = true})
+  vim.api.nvim_set_keymap('n', '<leader>fb', ':Telescope buffers<CR>', {noremap = true})
+  vim.api.nvim_set_keymap('n', '<leader>ff', ':Telescope find_files<CR>', {noremap = true})
+  vim.api.nvim_set_keymap('n', '<leader>fg', ':Telescope git_files<CR>', {noremap = true})
 end
 
+local oscyankConfig = function()
+  vim.api.nvim_set_keymap('v', '<leader>y', ':OSCYank<CR>', {noremap = true})
+  vim.api.nvim_set_keymap('n', '<leader>y', '<Plug>OSCYank', {noremap = false})
+end
 
 return require('packer').startup(function()
   use 'sheerun/vim-polyglot'
@@ -112,6 +116,10 @@ return require('packer').startup(function()
   use 'svermeulen/vim-yoink'
   use 'yazgoo/yank-history'
   use {
+    'ojroques/vim-oscyank',
+    config = oscyankConfig,
+  }
+  use {
     'kyazdani42/nvim-web-devicons',
     config = webDevIconsConfig,
   }
@@ -128,5 +136,8 @@ return require('packer').startup(function()
     },
     config = telescopeConfig
   }
+  if packer_bootstrap then
+    require('packer').sync()
+  end
 end)
 
