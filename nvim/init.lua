@@ -26,6 +26,7 @@ vim.opt.smartcase = true
 vim.opt.background = 'light'
 vim.opt.encoding = 'utf8'
 vim.opt.cursorline = true
+vim.opt.mouse = 'a'
 vim.api.nvim_command([[
   colorscheme one
   let g:startify_change_to_vcs_root=1
@@ -45,9 +46,9 @@ vim.api.nvim_set_keymap('n', '<silent>-', ':exe "resize " . (winheight(0) * 2/3)
 vim.api.nvim_set_keymap('n', '<leader>ev', ':silent e ~/.config/nvim/init.lua<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>ep', ':silent e ~/.config/nvim/lua/plugins.lua<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>pi', ':PackerInstall<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>ps', ':PackerSync<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>pc', ':PackerClean<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>rp', ':w<CR>:!python3 %<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<leader>tp', ':!python3 test_%<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>rj', ':w<CR>:!node %<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>bn', ':bn<CR>     " Move to the next buffer', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>bp', ':bp<CR>     " Move to the previous buffer', {noremap = true})
@@ -62,9 +63,7 @@ vim.api.nvim_set_keymap('n', '[l', ':set norelativenumber nonumber<CR>:GitGutter
 vim.api.nvim_set_keymap('n', ']l', ':set relativenumber number<CR>:GitGutterEnable<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', 'yob', ':call ToggleBackground()<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>d', ':Gdiff<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<leader>o', ':FZF<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<leader>g', ':Rg<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<leader>t', ':15sp term://zsh<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>t', ':15sp term://zsh<CR>i', {noremap = true})
 
 -- more natural windows mappings
 vim.api.nvim_set_keymap('t', '<A-h>', '<C-\\><C-N><C-w>h', {noremap = true})
@@ -111,6 +110,14 @@ if has('nvim') && has('mac')
 endif
 ]])
 
+local has_words_before = function()
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
+local feedkey = function(key, mode)
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+end
 
 -- Setup nvim-cmp.
 local cmp = require'cmp'
@@ -130,6 +137,25 @@ cmp.setup({
       c = cmp.mapping.close(),
     }),
     ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif vim.fn["vsnip#available"](1) == 1 then
+        feedkey("<Plug>(vsnip-expand-or-jump)", "")
+      elseif has_words_before() then
+        cmp.complete()
+      else
+        fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+      end
+    end, { "i", "s" }),
+
+    ["<S-Tab>"] = cmp.mapping(function()
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif vim.fn["vsnip#jumpable"](-1) == 1 then
+        feedkey("<Plug>(vsnip-jump-prev)", "")
+      end
+    end, { "i", "s" }),
   },
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },

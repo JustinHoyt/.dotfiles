@@ -88,6 +88,11 @@ local oscyankConfig = function()
   vim.api.nvim_set_keymap('n', '<leader>y', '<Plug>OSCYank', {noremap = false})
 end
 
+local hopConfig = function()
+  require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+  vim.api.nvim_set_keymap('n', '<leader>g', ':HopWord<CR>', {noremap = true})
+end
+
 return require('packer').startup(function()
   use 'sheerun/vim-polyglot'
   use 'tpope/vim-commentary'
@@ -115,6 +120,11 @@ return require('packer').startup(function()
   use 'mg979/vim-visual-multi'
   use 'svermeulen/vim-yoink'
   use 'yazgoo/yank-history'
+  use {
+    'phaazon/hop.nvim',
+    branch = 'v1',
+    config = hopConfig,
+  }
   use {
     'ojroques/vim-oscyank',
     config = oscyankConfig,
