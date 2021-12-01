@@ -3,6 +3,7 @@ require('lsp_config')
 jdtls_setup = function()
     local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
     local eclipse_dir = os.getenv('HOME') .. '/.config/eclipse-jdt/'
+    local java_style = os.getenv('HOME') .. '/.config/CopernicusJavaCodeStyle.xml'
     local root_dir = require('jdtls.setup').find_root({'packageInfo'}, 'Config')
     local home = os.getenv('HOME')
     local eclipse_workspace = home .. "/.local/share/eclipse/" .. vim.fn.fnamemodify(root_dir, ':p:h:t')
@@ -38,6 +39,9 @@ jdtls_setup = function()
             '-configuration', eclipse_dir .. '/config_linux',
             '-data', eclipse_dir .. project_name,
             eclipse_workspace
+        },
+        settings = {
+            ["java.format.settings.url"] = java_style,
         },
         root_dir = root_dir,
         init_options = {
