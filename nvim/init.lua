@@ -30,6 +30,7 @@ vim.opt.mouse = 'a'
 vim.api.nvim_command([[
   colorscheme one
   let g:startify_change_to_vcs_root=1
+  let g:dispatch_no_tmux_make = 1
 ]])
 
 
@@ -41,8 +42,8 @@ vim.api.nvim_command([[
 
 vim.g.mapleader = ' '
 
-vim.api.nvim_set_keymap('n', '<silent>+', ':exe "resize " . (winheight(0) * 3/2)<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<silent>-', ':exe "resize " . (winheight(0) * 2/3)<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>+', ':exe "resize " . (winheight(0) * 3/2)<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>-', ':exe "resize " . (winheight(0) * 2/3)<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>ev', ':silent e ~/.config/nvim/init.lua<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>ep', ':silent e ~/.config/nvim/lua/plugins.lua<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>pi', ':PackerInstall<CR>', {noremap = true})
@@ -52,7 +53,7 @@ vim.api.nvim_set_keymap('n', '<leader>rp', ':w<CR>:!python3 %<CR>', {noremap = t
 vim.api.nvim_set_keymap('n', '<leader>rj', ':w<CR>:!node %<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>bn', ':bn<CR>     " Move to the next buffer', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>bp', ':bp<CR>     " Move to the previous buffer', {noremap = true})
-vim.api.nvim_set_keymap('n', '<esc><esc>', ':noh<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>n', ':noh<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', 'gt', ':!ctags -R --exclude=.git --exclude=node_modules --exclude=out --exclude=build .<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', 'gb', ':ls<CR>:b<Space>', {noremap = true})
 vim.api.nvim_set_keymap('n', 'Y', 'y$', {noremap = true})
@@ -197,3 +198,11 @@ for _, lsp in ipairs(servers) do
   }
 end
 
+run_checkstyle = function()
+     vim.api.nvim_command('set makeprg=brazil-build')
+     vim.api.nvim_command('set errorformat=[checkstyle]\\ [%.%#]\\ %f:%l:%c:\\ %m,[checkstyle]\\ [%.%#]\\ %f:%l:\\ %m')
+     vim.api.nvim_command('let &shellpipe="2>&1 | tee /tmp/checkstyle-errors.txt | grep checkstyle | grep ERROR &> %s"')
+     vim.api.nvim_command('Make')
+end  
+
+vim.api.nvim_set_keymap('n', '<leader>c', ':lua run_checkstyle()<CR>', {noremap = true})

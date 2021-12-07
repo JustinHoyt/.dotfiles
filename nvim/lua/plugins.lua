@@ -99,6 +99,7 @@ return require('packer').startup(function()
   use 'tpope/vim-surround'
   use 'tpope/vim-vinegar'
   use 'tpope/vim-repeat'
+  use 'tpope/vim-dispatch'
   use 'mhinz/vim-startify'
   use 'tpope/vim-unimpaired'
   use 'honza/vim-snippets'
@@ -120,6 +121,11 @@ return require('packer').startup(function()
   use 'mg979/vim-visual-multi'
   use 'svermeulen/vim-yoink'
   use 'yazgoo/yank-history'
+  use 'ggandor/lightspeed.nvim'
+  use {
+    'glacambre/firenvim',
+    run = function() vim.fn['firenvim#install'](0) end 
+  }
   use {
     'phaazon/hop.nvim',
     branch = 'v1',
