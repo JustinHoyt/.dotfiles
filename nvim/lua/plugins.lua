@@ -105,9 +105,23 @@ local alphaConfig = function ()
   }
 end
 
+local treeSitterConfig = function()
+  require'nvim-treesitter.configs'.setup {
+    ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+    sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
+    highlight = {
+      enable = true,              -- false will disable the whole extension
+      -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+      -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+      -- Using this option may slow down your editor, and you may see some duplicate highlights.
+      -- Instead of true it can also be a list of languages
+      additional_vim_regex_highlighting = false,
+    },
+  }
+end
+
 return require('packer').startup(function()
   use 'wbthomason/packer.nvim'
-  use 'sheerun/vim-polyglot'
   use 'tpope/vim-commentary'
   use 'tpope/vim-surround'
   use 'tpope/vim-vinegar'
@@ -134,6 +148,18 @@ return require('packer').startup(function()
   use 'svermeulen/vim-yoink'
   use 'yazgoo/yank-history'
   use 'ggandor/lightspeed.nvim'
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate',
+    config = treeSitterConfig,
+  }
+  use {
+    'kyazdani42/nvim-tree.lua',
+    requires = {
+      'kyazdani42/nvim-web-devicons', -- optional, for file icon
+    },
+    config = function() require'nvim-tree'.setup {} end
+  }
   use {
     'goolord/alpha-nvim',
     requires = { 'kyazdani42/nvim-web-devicons' },
