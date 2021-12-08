@@ -93,14 +93,26 @@ local hopConfig = function()
   vim.api.nvim_set_keymap('n', '<leader>g', ':HopWord<CR>', {noremap = true})
 end
 
+local alphaConfig = function ()
+  require'alpha.themes.dashboard'.section.footer.val = require'alpha.fortune'()
+  require'alpha'.setup(require'alpha.themes.dashboard'.opts)
+  local dashboard = require'alpha.themes.dashboard'
+  dashboard.section.buttons.val = {
+    dashboard.button("e", "  New File    ", ":enew<CR>"),
+    dashboard.button("f", "  Find File   ", ":Telescope find_files<CR>"),
+    dashboard.button("g", "  Grep Text   ", ":Telescope live_grep<CR>"),
+    dashboard.button("q", "  Quit        ", ":qa<CR>"),
+  }
+end
+
 return require('packer').startup(function()
+  use 'wbthomason/packer.nvim'
   use 'sheerun/vim-polyglot'
   use 'tpope/vim-commentary'
   use 'tpope/vim-surround'
   use 'tpope/vim-vinegar'
   use 'tpope/vim-repeat'
   use 'tpope/vim-dispatch'
-  use 'mhinz/vim-startify'
   use 'tpope/vim-unimpaired'
   use 'honza/vim-snippets'
   use 'rakr/vim-one'
@@ -122,6 +134,11 @@ return require('packer').startup(function()
   use 'svermeulen/vim-yoink'
   use 'yazgoo/yank-history'
   use 'ggandor/lightspeed.nvim'
+  use {
+    'goolord/alpha-nvim',
+    requires = { 'kyazdani42/nvim-web-devicons' },
+    config = alphaConfig,
+  }
   use {
     'glacambre/firenvim',
     run = function() vim.fn['firenvim#install'](0) end 
