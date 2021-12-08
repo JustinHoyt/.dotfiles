@@ -104,6 +104,7 @@ function OnUIEnter(event)
         vim.cmd 'vnoremap <D-v> "+p'
         vim.cmd 'inoremap <D-v> <C-R><C-O>+'
         vim.cmd 'cnoremap <D-v> <C-R><C-O>+'
+        vim.cmd 'set spell'
 
         -- Increase the font size
         vim.cmd 'set guifont=Hack\\ Nerd\\ Font\\ Mono:h22'
