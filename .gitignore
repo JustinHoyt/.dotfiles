@@ -2,3 +2,4 @@ karabiner/automatic_backups
 nvim/plugin
 nvim/spell
 nvim/.session.vim
+nvim/lua/amazon.lua

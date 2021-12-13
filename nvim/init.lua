@@ -4,6 +4,7 @@ require('plugins')
 -- Options --
 -------------
 
+vim.opt.background = 'dark'
 vim.opt.scrolloff = 1
 vim.opt.number = true
 vim.opt.completeopt = 'menu,menuone,noselect'
@@ -23,7 +24,6 @@ vim.opt.undofile = true
 vim.opt.updatetime = 100
 vim.opt.cmdheight = 2
 vim.opt.smartcase = true
-vim.opt.background = 'light'
 vim.opt.encoding = 'utf8'
 vim.opt.cursorline = true
 vim.opt.mouse = 'a'
@@ -63,7 +63,7 @@ vim.api.nvim_set_keymap('n', ']l', ':set relativenumber number<CR>:GitGutterEnab
 vim.api.nvim_set_keymap('n', 'yob', ':call ToggleBackground()<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>d', ':Gdiff<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>t', ':15sp term://zsh<CR>i', {noremap = true})
-vim.api.nvim_set_keymap('v', '<leader>s', ':w !paste.amazon.com -t "Snippet" -k "forever"<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>gs', ':Neogit<CR>', {noremap = true})
 
 -- more natural windows mappings
 vim.api.nvim_set_keymap('t', '<C-h>', '<C-\\><C-N><C-w>h', {noremap = true})
@@ -221,4 +221,6 @@ end
 vim.api.nvim_set_keymap('n', '<leader>c', ':lua run_checkstyle()<CR>', {noremap = true})
 
 local neogit = require('neogit')
+
 neogit.setup {}
+require"gitlinker".setup()

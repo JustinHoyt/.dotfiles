@@ -4,12 +4,12 @@ if fn.empty(fn.glob(install_path)) > 0 then
   packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
 end
 
-vim.api.nvim_exec([[
+vim.cmd[[
   augroup Packer
     autocmd!
     autocmd BufWritePost plugins.lua PackerCompile
   augroup end
-]], false)
+]]
 
 local webDevIconsConfig = function()
   require'nvim-web-devicons'.setup {
@@ -88,11 +88,6 @@ local oscyankConfig = function()
   vim.api.nvim_set_keymap('n', '<leader>y', '<Plug>OSCYank', {noremap = false})
 end
 
-local hopConfig = function()
-  require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
-  vim.api.nvim_set_keymap('n', '<leader>g', ':HopWord<CR>', {noremap = true})
-end
-
 local alphaConfig = function ()
   require'alpha'.setup(require'alpha.themes.startify'.opts)
 end
@@ -108,7 +103,24 @@ local treeSitterConfig = function()
     },
   }
   require'nvim-treesitter.configs'.setup {
-    ensure_installed = { "norg", "c", "javascript", "typescript", "java", "lua" },
+    ensure_installed = { 
+      'norg',
+      'c',
+      'javascript',
+      'typescript',
+      'java',
+      'lua',
+      'bash',
+      'ruby',
+      'vim',
+      'tsx',
+      'regex',
+      'php',
+      'python',
+      'json',
+      'json5',
+      'html',
+    },
     sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
     highlight = {
       enable = true,              -- false will disable the whole extension
@@ -119,6 +131,41 @@ local treeSitterConfig = function()
       additional_vim_regex_highlighting = false,
     },
   }
+end
+
+local gitlinkerConfig = function()
+  require("gitlinker").setup {
+    callbacks = {
+      ["git.amazon.com"] = require'amazon'.get_amazon_type_url,
+    },
+  }
+end
+
+local neorgConfig = function()
+  require('neorg').setup {
+    load = {
+      ["core.defaults"] = {}, -- Load all the default modules
+      ["core.keybinds"] = { -- Configure core.keybinds
+        config = {
+          default_keybinds = true, -- Generate the default keybinds
+          neorg_leader = "<Leader>o" -- This is the default if unspecified
+        }
+      },
+      ["core.norg.concealer"] = {}, -- Allows for use of icons
+      ["core.norg.dirman"] = { -- Manage your directories with Neorg
+        config = { workspaces = { my_workspace = "~/Documents/neorg" } }
+      }
+    },
+  }
+end
+
+local nvimTreeConfig = function() 
+  require'nvim-tree'.setup {} 
+  vim.api.nvim_set_keymap('n', '<C-t>', ':NvimTreeToggle<CR>', {noremap = true})
+end
+
+local neogitConfig = function()
+  vim.api.nvim_set_keymap('n', '<C-t>', ':NvimTreeToggle<CR>', {noremap = true})
 end
 
 return require('packer').startup(function()
@@ -150,89 +197,21 @@ return require('packer').startup(function()
   use 'svermeulen/vim-yoink'
   use 'yazgoo/yank-history'
   use 'ggandor/lightspeed.nvim'
-  use { 
-    "nvim-neorg/neorg",
-    config = function()
-      require('neorg').setup {
-        load = {
-          ["core.defaults"] = {}, -- Load all the default modules
-          ["core.keybinds"] = { -- Configure core.keybinds
-            config = {
-              default_keybinds = true, -- Generate the default keybinds
-              neorg_leader = "<Leader>o" -- This is the default if unspecified
-            }
-          },
-          ["core.norg.concealer"] = {}, -- Allows for use of icons
-          ["core.norg.dirman"] = { -- Manage your directories with Neorg
-            config = { workspaces = { my_workspace = "~/Documents/neorg" } }
-          }
-        },
-      }
-    end,
-    requires = "nvim-lua/plenary.nvim",
-  }
-  use {
-    "folke/which-key.nvim",
-    config = function() require("which-key").setup {} end
-  }
-  use { 
-    'TimUntersberger/neogit',
-    requires = {
-      'nvim-lua/plenary.nvim',
-      'sindrets/diffview.nvim',
-    },
-    integrations = {
-      diffview = true,
-    },
-  }
-  use {
-    'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
-    config = treeSitterConfig,
-  }
-  use {
-    'kyazdani42/nvim-tree.lua',
-    requires = {
-      'kyazdani42/nvim-web-devicons', -- optional, for file icon
-    },
-    config = function() 
-      require'nvim-tree'.setup {} 
-      vim.api.nvim_set_keymap('n', '<C-t>', ':NvimTreeToggle<CR>', {noremap = true})
-    end
-  }
-  use {
-    'goolord/alpha-nvim',
-    requires = { 'kyazdani42/nvim-web-devicons' },
-    config = alphaConfig,
-  }
-  use {
-    'glacambre/firenvim',
-    run = function() vim.fn['firenvim#install'](0) end 
-  }
-  use {
-    'phaazon/hop.nvim',
-    branch = 'v1',
-    config = hopConfig,
-  }
-  use {
-    'ojroques/vim-oscyank',
-    config = oscyankConfig,
-  }
-  use {
-    'kyazdani42/nvim-web-devicons',
-    config = webDevIconsConfig,
-  }
-  use { 
-    'nvim-lualine/lualine.nvim',
-    requires = {'kyazdani42/nvim-web-devicons', opt = true},
-    config = luaLineConfig,
-  }
-  use { 
-    'nvim-telescope/telescope.nvim',
-    requires = {
-      'nvim-lua/plenary.nvim', 
-      {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' } 
-    },
+  use 'nvim-lua/plenary.nvim'
+  use 'sindrets/diffview.nvim'
+  use { 'ruifm/gitlinker.nvim', config = gitlinkerConfig, }
+  use { "nvim-neorg/neorg", config = neorgConfig, }
+  use { "folke/which-key.nvim", config = function() require("which-key").setup {} end }
+  use { 'TimUntersberger/neogit', config = neogitConfig, integrations = { diffview = true }, }
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', config = treeSitterConfig, }
+  use { 'kyazdani42/nvim-tree.lua', config = nvimTreeConfig, }
+  use { 'goolord/alpha-nvim', config = alphaConfig, }
+  use { 'glacambre/firenvim', run = function() vim.fn['firenvim#install'](0) end }
+  use { 'ojroques/vim-oscyank', config = oscyankConfig, }
+  use { 'kyazdani42/nvim-web-devicons', config = webDevIconsConfig, }
+  use { 'nvim-lualine/lualine.nvim', config = luaLineConfig, }
+  use { 'nvim-telescope/telescope.nvim',
+    requires = { {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' } },
     config = telescopeConfig
   }
   if packer_bootstrap then
