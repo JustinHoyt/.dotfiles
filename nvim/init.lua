@@ -30,6 +30,23 @@ vim.opt.mouse = 'a'
 vim.cmd 'colorscheme one'
 vim.cmd 'let g:startify_change_to_vcs_root=1'
 vim.cmd 'let g:dispatch_no_tmux_make = 1'
+vim.cmd[[
+  augroup Packer
+    autocmd!
+    autocmd BufWritePost init.lua execute "source ~/.config/nvim/init.lua"
+  augroup end
+]]
+
+vim.cmd[[
+function! ToggleBackground()
+    if &bg == "light"
+        set bg=dark
+    else
+        set bg=light
+    endif
+    runtime autoload/lightline/colorscheme/one.vim
+endfunction
+]]
 
 
 --------------
@@ -49,8 +66,8 @@ vim.api.nvim_set_keymap('n', '<leader>ps', ':PackerSync<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>pc', ':PackerClean<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>rp', ':w<CR>:!python3 %<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>rj', ':w<CR>:!node %<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<leader>bn', ':bn<CR>     " Move to the next buffer', {noremap = true})
-vim.api.nvim_set_keymap('n', '<leader>bp', ':bp<CR>     " Move to the previous buffer', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>bn', ':bn<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>bp', ':bp<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>n', ':noh<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', 'gt', ':!ctags -R --exclude=.git --exclude=node_modules --exclude=out --exclude=build .<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', 'gb', ':ls<CR>:b<Space>', {noremap = true})
@@ -111,17 +128,6 @@ function OnUIEnter(event)
 end
 
 vim.cmd([[autocmd UIEnter * :call luaeval('OnUIEnter(vim.fn.deepcopy(vim.v.event))')]]) 
-
-vim.cmd[[
-function ToggleBackground()
-    if &bg == "light"
-        set bg=dark
-    else
-        set bg=light
-    endif
-    runtime autoload/lightline/colorscheme/one.vim
-endfunction
-]]
 
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
