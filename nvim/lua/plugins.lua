@@ -40,7 +40,7 @@ local luaLineConfig = function()
     },
     sections = {
       lualine_a = {'mode'},
-      lualine_b = {'branch', 'diff', {'diagnostics', sources={'nvim_lsp', 'coc'}}},
+      lualine_b = {'branch', 'diff', {'diagnostics', sources={'nvim_diagnostic'}}},
       lualine_c = {'filename'},
       lualine_x = {'encoding', 'fileformat', 'filetype'},
       lualine_y = {'progress'},
@@ -94,20 +94,21 @@ local hopConfig = function()
 end
 
 local alphaConfig = function ()
-  require'alpha.themes.dashboard'.section.footer.val = require'alpha.fortune'()
-  require'alpha'.setup(require'alpha.themes.dashboard'.opts)
-  local dashboard = require'alpha.themes.dashboard'
-  dashboard.section.buttons.val = {
-    dashboard.button("e", "  New File    ", ":enew<CR>"),
-    dashboard.button("f", "  Find File   ", ":Telescope find_files<CR>"),
-    dashboard.button("g", "  Grep Text   ", ":Telescope live_grep<CR>"),
-    dashboard.button("q", "  Quit        ", ":qa<CR>"),
-  }
+  require'alpha'.setup(require'alpha.themes.startify'.opts)
 end
 
 local treeSitterConfig = function()
+  local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
+
+  parser_configs.norg = {
+    install_info = {
+      url = "https://github.com/nvim-neorg/tree-sitter-norg",
+      files = { "src/parser.c", "src/scanner.cc" },
+      branch = "main"
+    },
+  }
   require'nvim-treesitter.configs'.setup {
-    ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+    ensure_installed = { "norg", "c", "javascript", "typescript", "java", "lua" },
     sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
     highlight = {
       enable = true,              -- false will disable the whole extension
@@ -128,6 +129,7 @@ return require('packer').startup(function()
   use 'tpope/vim-repeat'
   use 'tpope/vim-dispatch'
   use 'tpope/vim-unimpaired'
+  use 'tpope/vim-abolish'
   use 'honza/vim-snippets'
   use 'rakr/vim-one'
   use 'tpope/vim-fugitive'
@@ -148,6 +150,41 @@ return require('packer').startup(function()
   use 'svermeulen/vim-yoink'
   use 'yazgoo/yank-history'
   use 'ggandor/lightspeed.nvim'
+  use { 
+    "nvim-neorg/neorg",
+    config = function()
+      require('neorg').setup {
+        load = {
+          ["core.defaults"] = {}, -- Load all the default modules
+          ["core.keybinds"] = { -- Configure core.keybinds
+            config = {
+              default_keybinds = true, -- Generate the default keybinds
+              neorg_leader = "<Leader>o" -- This is the default if unspecified
+            }
+          },
+          ["core.norg.concealer"] = {}, -- Allows for use of icons
+          ["core.norg.dirman"] = { -- Manage your directories with Neorg
+            config = { workspaces = { my_workspace = "~/Documents/neorg" } }
+          }
+        },
+      }
+    end,
+    requires = "nvim-lua/plenary.nvim",
+  }
+  use {
+    "folke/which-key.nvim",
+    config = function() require("which-key").setup {} end
+  }
+  use { 
+    'TimUntersberger/neogit',
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'sindrets/diffview.nvim',
+    },
+    integrations = {
+      diffview = true,
+    },
+  }
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
@@ -158,7 +195,10 @@ return require('packer').startup(function()
     requires = {
       'kyazdani42/nvim-web-devicons', -- optional, for file icon
     },
-    config = function() require'nvim-tree'.setup {} end
+    config = function() 
+      require'nvim-tree'.setup {} 
+      vim.api.nvim_set_keymap('n', '<C-t>', ':NvimTreeToggle<CR>', {noremap = true})
+    end
   }
   use {
     'goolord/alpha-nvim',

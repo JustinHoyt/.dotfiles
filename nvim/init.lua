@@ -27,11 +27,9 @@ vim.opt.background = 'light'
 vim.opt.encoding = 'utf8'
 vim.opt.cursorline = true
 vim.opt.mouse = 'a'
-vim.api.nvim_command([[
-  colorscheme one
-  let g:startify_change_to_vcs_root=1
-  let g:dispatch_no_tmux_make = 1
-]])
+vim.cmd 'colorscheme one'
+vim.cmd 'let g:startify_change_to_vcs_root=1'
+vim.cmd 'let g:dispatch_no_tmux_make = 1'
 
 
 --------------
@@ -65,22 +63,23 @@ vim.api.nvim_set_keymap('n', ']l', ':set relativenumber number<CR>:GitGutterEnab
 vim.api.nvim_set_keymap('n', 'yob', ':call ToggleBackground()<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>d', ':Gdiff<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>t', ':15sp term://zsh<CR>i', {noremap = true})
+vim.api.nvim_set_keymap('v', '<leader>s', ':w !paste.amazon.com -t "Snippet" -k "forever"<CR>', {noremap = true})
 
 -- more natural windows mappings
-vim.api.nvim_set_keymap('t', '<A-h>', '<C-\\><C-N><C-w>h', {noremap = true})
-vim.api.nvim_set_keymap('t', '<A-j>', '<C-\\><C-N><C-w>j', {noremap = true})
-vim.api.nvim_set_keymap('t', '<A-k>', '<C-\\><C-N><C-w>k', {noremap = true})
-vim.api.nvim_set_keymap('t', '<A-l>', '<C-\\><C-N><C-w>l', {noremap = true})
+vim.api.nvim_set_keymap('t', '<C-h>', '<C-\\><C-N><C-w>h', {noremap = true})
+vim.api.nvim_set_keymap('t', '<C-j>', '<C-\\><C-N><C-w>j', {noremap = true})
+vim.api.nvim_set_keymap('t', '<C-k>', '<C-\\><C-N><C-w>k', {noremap = true})
+vim.api.nvim_set_keymap('t', '<C-l>', '<C-\\><C-N><C-w>l', {noremap = true})
 vim.api.nvim_set_keymap('t', '<esc><esc>', '<C-\\><C-N>', {noremap = true})
-vim.api.nvim_set_keymap('i', '<A-h>', '<C-\\><C-N><C-w>h', {noremap = true})
-vim.api.nvim_set_keymap('i', '<A-j>', '<C-\\><C-N><C-w>j', {noremap = true})
-vim.api.nvim_set_keymap('i', '<A-k>', '<C-\\><C-N><C-w>k', {noremap = true})
-vim.api.nvim_set_keymap('i', '<A-l>', '<C-\\><C-N><C-w>l', {noremap = true})
-vim.api.nvim_set_keymap('n', '<A-h>', '<C-w>h', {noremap = true})
-vim.api.nvim_set_keymap('n', '<A-j>', '<C-w>j', {noremap = true})
-vim.api.nvim_set_keymap('n', '<A-k>', '<C-w>k', {noremap = true})
-vim.api.nvim_set_keymap('n', '<A-l>', '<C-w>l', {noremap = true})
-vim.api.nvim_set_keymap('n', '<A-=>', '<C-W><C-=>', {noremap = true})
+vim.api.nvim_set_keymap('i', '<C-h>', '<C-\\><C-N><C-w>h', {noremap = true})
+vim.api.nvim_set_keymap('i', '<C-j>', '<C-\\><C-N><C-w>j', {noremap = true})
+vim.api.nvim_set_keymap('i', '<C-k>', '<C-\\><C-N><C-w>k', {noremap = true})
+vim.api.nvim_set_keymap('i', '<C-l>', '<C-\\><C-N><C-w>l', {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-k>', '<C-w>k', {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-=>', '<C-W><C-=>', {noremap = true})
 
 function IsFirenvimActive(event)
     if vim.g.enable_vim_debug then print("IsFirenvimActive, event: ", vim.inspect(event)) end
@@ -113,17 +112,7 @@ end
 
 vim.cmd([[autocmd UIEnter * :call luaeval('OnUIEnter(vim.fn.deepcopy(vim.v.event))')]]) 
 
-vim.api.nvim_command([[
-
-function UpdateBackground()
-    if system("defaults read -g AppleInterfaceStyle") == "Dark\n"
-        if &bg == "light" | set bg=dark | endif
-    else
-        if &bg == "dark" | set bg=light | endif
-    endif
-    runtime autoload/lightline/colorscheme/one.vim
-endfunction
-
+vim.cmd[[
 function ToggleBackground()
     if &bg == "light"
         set bg=dark
@@ -132,15 +121,7 @@ function ToggleBackground()
     endif
     runtime autoload/lightline/colorscheme/one.vim
 endfunction
-
-"-----auto-commands-----"
-if has('nvim') && has('mac')
-    augroup nightfall
-      autocmd!
-      autocmd FocusGained,BufEnter * call UpdateBackground()
-    augroup END
-endif
-]])
+]]
 
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -192,6 +173,7 @@ cmp.setup({
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'vsnip' },
+    { name = 'orgmode' },
   }, {
     { name = 'buffer' },
   })
@@ -237,3 +219,6 @@ run_checkstyle = function()
 end  
 
 vim.api.nvim_set_keymap('n', '<leader>c', ':lua run_checkstyle()<CR>', {noremap = true})
+
+local neogit = require('neogit')
+neogit.setup {}
