@@ -168,6 +168,15 @@ local neogitConfig = function()
   vim.api.nvim_set_keymap('n', '<C-t>', ':NvimTreeToggle<CR>', {noremap = true})
 end
 
+local vimVisualMultiConfig = function()
+  vim.cmd[[
+    let g:VM_maps = {}
+    let g:VM_maps['Find Under']         = '<M-d>'
+    let g:VM_maps['Find Subword Under'] = '<M-d>'
+    let g:VM_maps["Add Cursor Up"]      = '<M-k>'   " new cursor up
+  ]]
+end
+
 return require('packer').startup(function()
   use 'wbthomason/packer.nvim'
   use 'tpope/vim-commentary'
@@ -193,12 +202,12 @@ return require('packer').startup(function()
   use 'cormacrelf/vim-colors-github'
   use 'airblade/vim-gitgutter'
   use 'tpope/vim-tbone'
-  use 'mg979/vim-visual-multi'
   use 'svermeulen/vim-yoink'
   use 'yazgoo/yank-history'
   use 'ggandor/lightspeed.nvim'
   use 'nvim-lua/plenary.nvim'
   use 'sindrets/diffview.nvim'
+  use { 'mg979/vim-visual-multi', config = vimVisualMultiConfig}
   use { 'ruifm/gitlinker.nvim', config = gitlinkerConfig, }
   use { "nvim-neorg/neorg", config = neorgConfig, }
   use { "folke/which-key.nvim", config = function() require("which-key").setup {} end }
