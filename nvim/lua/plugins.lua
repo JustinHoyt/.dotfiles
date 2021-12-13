@@ -174,6 +174,7 @@ local vimVisualMultiConfig = function()
     let g:VM_maps['Find Under']         = '<M-d>'
     let g:VM_maps['Find Subword Under'] = '<M-d>'
     let g:VM_maps["Add Cursor Up"]      = '<M-k>'   " new cursor up
+    let g:VM_maps["Add Cursor Down"]    = '<M-j>'   " new cursor up
   ]]
 end
 
