@@ -143,13 +143,9 @@ local nvimTreeConfig = function()
 end
 
 local vimVisualMultiConfig = function()
-  vim.cmd[[
-    let g:VM_maps = {}
-    let g:VM_maps['Find Under']         = '<M-d>'
-    let g:VM_maps['Find Subword Under'] = '<M-d>'
-    let g:VM_maps["Add Cursor Up"]      = '<M-k>'   " new cursor up
-    let g:VM_maps["Add Cursor Down"]    = '<M-j>'   " new cursor up
-  ]]
+  vim.api.nvim_set_keymap('n', '<M-d>', '<Plug>(VM-Find-Under)', {noremap = false})
+  vim.api.nvim_set_keymap('n', '<M-j>', '<Plug>(VM-Add-Cursor-Down)', {noremap = false})
+  vim.api.nvim_set_keymap('n', '<M-k>', '<Plug>(VM-Add-Cursor-Up)', {noremap = false})
 end
 
 return require('packer').startup(function()
