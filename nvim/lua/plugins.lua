@@ -93,18 +93,8 @@ local alphaConfig = function ()
 end
 
 local treeSitterConfig = function()
-  local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
-
-  parser_configs.norg = {
-    install_info = {
-      url = "https://github.com/nvim-neorg/tree-sitter-norg",
-      files = { "src/parser.c", "src/scanner.cc" },
-      branch = "main"
-    },
-  }
   require'nvim-treesitter.configs'.setup {
     ensure_installed = { 
-      'norg',
       'c',
       'javascript',
       'typescript',
@@ -134,29 +124,17 @@ local treeSitterConfig = function()
 end
 
 local gitlinkerConfig = function()
-  require("gitlinker").setup {
-    callbacks = {
-      ["git.amazon.com"] = require'amazon'.get_amazon_type_url,
-    },
-  }
-end
+  local hasAmazon,amazon = pcall(require,"amazon")
 
-local neorgConfig = function()
-  require('neorg').setup {
-    load = {
-      ["core.defaults"] = {}, -- Load all the default modules
-      ["core.keybinds"] = { -- Configure core.keybinds
-        config = {
-          default_keybinds = true, -- Generate the default keybinds
-          neorg_leader = "<Leader>o" -- This is the default if unspecified
-        }
+  if hasAmazon then
+    require("gitlinker").setup {
+      callbacks = {
+        ["git.amazon.com"] = amazon.get_amazon_type_url,
       },
-      ["core.norg.concealer"] = {}, -- Allows for use of icons
-      ["core.norg.dirman"] = { -- Manage your directories with Neorg
-        config = { workspaces = { my_workspace = "~/Documents/neorg" } }
-      }
-    },
-  }
+    }
+  else
+    require("gitlinker").setup {}
+  end
 end
 
 local nvimTreeConfig = function() 
@@ -210,7 +188,6 @@ return require('packer').startup(function()
   use 'sindrets/diffview.nvim'
   use { 'mg979/vim-visual-multi', config = vimVisualMultiConfig}
   use { 'ruifm/gitlinker.nvim', config = gitlinkerConfig, }
-  use { "nvim-neorg/neorg", config = neorgConfig, }
   use { "folke/which-key.nvim", config = function() require("which-key").setup {} end }
   use { 'TimUntersberger/neogit', config = neogitConfig, integrations = { diffview = true }, }
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', config = treeSitterConfig, }
