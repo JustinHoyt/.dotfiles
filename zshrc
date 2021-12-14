@@ -73,9 +73,7 @@ alias rm-images='docker image prune -a'
 alias slack-dark-theme='cat ~/.slack_darkmode.js >> /Applications/Slack.app/Contents/Resources/app.asar.unpacked/src/static/ssb-interop.js'
 alias xml='tidy -xml -i -q <<<'
 alias xmlp='pbpaste | tidy -xml -i -q'
-if type nvim > /dev/null 2>&1; then
-  alias vim='nvim'
-fi
+alias vim='nvim'
 unalias rg 2>/dev/null
 alias rg='rg --smart-case --glob="!coverage"'
 

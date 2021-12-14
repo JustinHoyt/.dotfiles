@@ -139,11 +139,7 @@ end
 
 local nvimTreeConfig = function() 
   require'nvim-tree'.setup {} 
-  vim.api.nvim_set_keymap('n', '<C-t>', ':NvimTreeToggle<CR>', {noremap = true})
-end
-
-local neogitConfig = function()
-  vim.api.nvim_set_keymap('n', '<C-t>', ':NvimTreeToggle<CR>', {noremap = true})
+  vim.api.nvim_set_keymap('n', '<C-t>', ':NvimTreeFindFileToggle<CR>', {noremap = true})
 end
 
 local vimVisualMultiConfig = function()
