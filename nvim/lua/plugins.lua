@@ -146,6 +146,9 @@ local vimVisualMultiConfig = function()
   vim.api.nvim_set_keymap('n', '<M-d>', '<Plug>(VM-Find-Under)', {noremap = false})
   vim.api.nvim_set_keymap('n', '<M-j>', '<Plug>(VM-Add-Cursor-Down)', {noremap = false})
   vim.api.nvim_set_keymap('n', '<M-k>', '<Plug>(VM-Add-Cursor-Up)', {noremap = false})
+  vim.api.nvim_set_keymap('n', '<C-n>', '<Plug>(VM-Find-Under)', {noremap = false})
+  vim.api.nvim_set_keymap('n', '<C-Down>', '<Plug>(VM-Add-Cursor-Down)', {noremap = false})
+  vim.api.nvim_set_keymap('n', '<C-Up>', '<Plug>(VM-Add-Cursor-Up)', {noremap = false})
 end
 
 return require('packer').startup(function()
