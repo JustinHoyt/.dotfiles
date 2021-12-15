@@ -7,7 +7,8 @@ end
 vim.cmd[[
   augroup Packer
     autocmd!
-    autocmd BufWritePost plugins.lua PackerCompile
+    autocmd BufWritePost plugins.lua execute "source ~/.config/nvim/lua/plugins.lua"
+    autocmd BufWritePost plugins.lua PackerSync
   augroup end
 ]]
 
@@ -32,7 +33,7 @@ local luaLineConfig = function()
   require'lualine'.setup {
     options = {
       icons_enabled = true,
-      theme = 'auto',
+      theme = 'vscode',
       component_separators = { left = '', right = ''},
       section_separators = { left = '', right = ''},
       disabled_filetypes = {},
@@ -56,6 +57,72 @@ local luaLineConfig = function()
     },
     tabline = {},
     extensions = {}
+  }
+end
+
+local bufferlineConfig = function()
+  vim.cmd[[nnoremap <silent> gb :BufferLinePick<CR>]]
+  vim.cmd[[nnoremap <silent>[b :BufferLineCycleNext<CR>]]
+  vim.cmd[[nnoremap <silent>b] :BufferLineCyclePrev<CR>]]
+  require'bufferline'.setup{
+    options = {
+      indicator_icon = ' ',
+      buffer_close_icon = '',
+      modified_icon = '●',
+      close_icon = '',
+      close_command = "Bdelete %d",
+      right_mouse_command = "Bdelete! %d",
+      left_trunc_marker = '',
+      right_trunc_marker = '',
+      offsets = {{filetype = "NvimTree", text = "EXPLORER", text_align = "center"}},
+      show_tab_indicators = true,
+      show_close_icon = false
+    },
+    highlights = {
+      fill = {
+        guifg = {attribute = "fg", highlight = "Normal"},
+        guibg = {attribute = "bg", highlight = "StatusLineNC"},
+      },
+      background = {
+        guifg = {attribute = "fg", highlight = "Normal"},
+        guibg = {attribute = "bg", highlight = "StatusLine"}
+      },
+      buffer_visible = {
+        gui = "",
+        guifg = {attribute = "fg", highlight="Normal"},
+        guibg = {attribute = "bg", highlight = "Normal"}
+      },
+      buffer_selected = {
+        gui = "",
+        guifg = {attribute = "fg", highlight="Normal"},
+        guibg = {attribute = "bg", highlight = "Normal"}
+      },
+      separator = {
+        guifg = {attribute = "bg", highlight = "Normal"},
+        guibg = {attribute = "bg", highlight = "StatusLine"},
+      },
+      separator_selected = {
+        guifg = {attribute = "fg", highlight="Special"},
+        guibg = {attribute = "bg", highlight = "Normal"}
+      },
+      separator_visible = {
+        guifg = {attribute = "fg", highlight = "Normal"},
+        guibg = {attribute = "bg", highlight = "StatusLineNC"},
+      },
+      close_button = {
+        guifg = {attribute = "fg", highlight = "Normal"},
+        guibg = {attribute = "bg", highlight = "StatusLine"}
+      },
+      close_button_selected = {
+        guifg = {attribute = "fg", highlight="normal"},
+        guibg = {attribute = "bg", highlight = "normal"}
+      },
+      close_button_visible = {
+        guifg = {attribute = "fg", highlight="normal"},
+        guibg = {attribute = "bg", highlight = "normal"}
+      },
+
+    }
   }
 end
 
@@ -151,6 +218,11 @@ local vimVisualMultiConfig = function()
   vim.api.nvim_set_keymap('n', '<C-Up>', '<Plug>(VM-Add-Cursor-Up)', {noremap = false})
 end
 
+local vscodeConfig = function()
+  vim.g.vscode_style = "dark"
+  vim.cmd[[colorscheme vscode]]
+end
+
 return require('packer').startup(function()
   use 'wbthomason/packer.nvim'
   use 'tpope/vim-commentary'
@@ -181,6 +253,8 @@ return require('packer').startup(function()
   use 'ggandor/lightspeed.nvim'
   use 'nvim-lua/plenary.nvim'
   use 'sindrets/diffview.nvim'
+  use { 'Mofiqul/vscode.nvim', config = vscodeConfig }
+  use { 'akinsho/bufferline.nvim', config = bufferlineConfig } 
   use { 'mg979/vim-visual-multi', config = vimVisualMultiConfig}
   use { 'ruifm/gitlinker.nvim', config = gitlinkerConfig, }
   use { "folke/which-key.nvim", config = function() require("which-key").setup {} end }

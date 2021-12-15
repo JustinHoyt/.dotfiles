@@ -4,7 +4,6 @@ require('plugins')
 -- Options --
 -------------
 
-vim.opt.background = 'dark'
 vim.opt.scrolloff = 1
 vim.opt.number = true
 vim.opt.completeopt = 'menu,menuone,noselect'
@@ -27,7 +26,6 @@ vim.opt.smartcase = true
 vim.opt.encoding = 'utf8'
 vim.opt.cursorline = true
 vim.opt.mouse = 'a'
-vim.cmd 'colorscheme one'
 vim.cmd 'let g:startify_change_to_vcs_root=1'
 vim.cmd 'let g:dispatch_no_tmux_make = 1'
 vim.cmd[[
@@ -70,7 +68,6 @@ vim.api.nvim_set_keymap('n', '<leader>bn', ':bn<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>bp', ':bp<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>n', ':noh<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', 'gt', ':!ctags -R --exclude=.git --exclude=node_modules --exclude=out --exclude=build .<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', 'gb', ':ls<CR>:b<Space>', {noremap = true})
 vim.api.nvim_set_keymap('n', 'Y', 'y$', {noremap = true})
 vim.api.nvim_set_keymap('n', 'gs', ':mksession! ./.session.vim<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', 'gl', ':source ./.session.vim<CR>', {noremap = true})
@@ -229,4 +226,4 @@ vim.api.nvim_set_keymap('n', '<leader>c', ':lua run_checkstyle()<CR>', {noremap 
 local neogit = require('neogit')
 
 neogit.setup {}
-require"gitlinker".setup()
+require'gitlinker'.setup()

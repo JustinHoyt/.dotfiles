@@ -37,3 +37,4 @@ zshrc_local
 .project
 .settings/
 workspace/
+.session.vim
