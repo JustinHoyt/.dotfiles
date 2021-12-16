@@ -151,8 +151,12 @@ local telescopeConfig = function()
 end
 
 local oscyankConfig = function()
-  vim.api.nvim_set_keymap('v', '<leader>y', ':OSCYank<CR>', {noremap = true})
-  vim.api.nvim_set_keymap('n', '<leader>y', '<Plug>OSCYank', {noremap = false})
+  vim.cmd([[
+    augroup TextYank
+      autocmd!
+      autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif
+    augroup END
+  ]])
 end
 
 local alphaConfig = function ()
