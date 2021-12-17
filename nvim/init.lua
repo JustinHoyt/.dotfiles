@@ -119,6 +119,25 @@ function OnUIEnter(event)
         vim.cmd 'cnoremap <D-v> <C-R><C-O>+'
         vim.cmd 'set spell'
 
+        vim.g.firenvim_config = {
+            globalSettings = {
+                alt = "all",
+            },
+            localSettings = {
+                [".*"] = {
+                    cmdline = "neovim",
+                    content = "text",
+                    priority = 0,
+                    selector = "textarea",
+                    takeover = "always",
+                },
+                ["https?://.*aws.amazon.com/"] = {
+                    takeover = "never",
+                    priority = 1,
+                },
+            },
+        }
+
         -- Increase the font size
         vim.cmd 'set guifont=Hack\\ Nerd\\ Font\\ Mono:h22'
     end

@@ -4,13 +4,13 @@ if fn.empty(fn.glob(install_path)) > 0 then
   packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
 end
 
-vim.cmd[[
+vim.cmd([[
   augroup Packer
     autocmd!
     autocmd BufWritePost plugins.lua execute "source ~/.config/nvim/lua/plugins.lua"
     autocmd BufWritePost plugins.lua PackerSync
   augroup end
-]]
+]])
 
 local webDevIconsConfig = function()
   require'nvim-web-devicons'.setup {
@@ -62,8 +62,8 @@ end
 
 local bufferlineConfig = function()
   vim.cmd[[nnoremap <silent> gb :BufferLinePick<CR>]]
-  vim.cmd[[nnoremap <silent>[b :BufferLineCycleNext<CR>]]
-  vim.cmd[[nnoremap <silent>b] :BufferLineCyclePrev<CR>]]
+  vim.cmd[[nnoremap <silent><M-h> :BufferLineCyclePrev<CR>]]
+  vim.cmd[[nnoremap <silent><M-l> :BufferLineCycleNext<CR>]]
   require'bufferline'.setup{
     options = {
       indicator_icon = ' ',
