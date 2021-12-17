@@ -10,6 +10,8 @@
   - if [[ ! -f proxy_url ]]; then touch proxy_url; echo "proxy_url=" > proxy_url; fi
   - if [[ ! -f ~/.gitignore ]]; then git config --global core.excludesFile ~/.gitignore; fi
   - if [[ ! -d ~/.config ]]; then mkdir ~/.config; fi
+  - if [[ ! -d ~/.config/kitty ]]; then mkdir ~/.config/kitty; fi
+  - if [[ ! -d ~/.config/alacritty ]]; then mkdir ~/.config/alacritty; fi
   - if [[ "$OSTYPE" == "darwin"* && ! -d ~/Library/Application\ Support/iTerm2/Scripts/AutoLaunch ]]; then mkdir ~/Library/Application\ Support/iTerm2/Scripts/AutoLaunch; fi
 
 - link:
@@ -25,6 +27,8 @@
     ~/.vim: vim
     ~/.gitignore: gitignore
     /usr/local/bin/ett: ett
+    ~/.config/kitty/kitty.conf: kitty.conf
+    ~/.config/alacritty/alacritty.yml: alacritty.yml
     ~/.config/nvim: nvim
     "~/Library/Application\ Support/iterm2/Scripts/AutoLaunch/theme.py":
       path: theme.py
