@@ -79,6 +79,9 @@ vim.api.nvim_set_keymap('n', '<leader>d', ':Gdiff<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>t', ':15sp term://zsh<CR>i', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>gs', ':Neogit<CR>', {noremap = true})
 
+vim.api.nvim_set_keymap('v', '>', '>gv', {noremap = true})
+vim.api.nvim_set_keymap('v', '<', '<gv', {noremap = true})
+
 -- more natural windows mappings
 vim.api.nvim_set_keymap('t', '<C-h>', '<C-\\><C-N><C-w>h', {noremap = true})
 vim.api.nvim_set_keymap('t', '<C-j>', '<C-\\><C-N><C-w>j', {noremap = true})
