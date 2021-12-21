@@ -33,7 +33,7 @@ local luaLineConfig = function()
   require'lualine'.setup {
     options = {
       icons_enabled = true,
-      theme = 'vscode',
+      theme = 'onedark',
       component_separators = { left = '', right = ''},
       section_separators = { left = '', right = ''},
       disabled_filetypes = {},
@@ -222,9 +222,15 @@ local vimVisualMultiConfig = function()
   vim.api.nvim_set_keymap('n', '<C-Up>', '<Plug>(VM-Add-Cursor-Up)', {noremap = false})
 end
 
-local vscodeConfig = function()
-  vim.g.vscode_style = "dark"
-  vim.cmd[[colorscheme vscode]]
+local oneDarkConfig = function()
+  require('onedark').setup({
+    functionStyle = "italic",
+    sidebars = {"qf", "vista_kind", "terminal", "packer"},
+
+    -- Change the "hint" color to the "orange" color, and make the "error" color bright red
+    colors = {hint = "orange", error = "#ff0000"}
+  })
+
 end
 
 local treeSitterTextObjectsConfig = function()
@@ -283,7 +289,20 @@ local treeSitterTextObjectsConfig = function()
       },
     },
   }
+end
 
+local nvimNotifyConfig = function()
+  vim.notify = require("notify")
+end
+
+local vimIlluminateConfig = function()
+  vim.cmd([[
+    augroup illuminate_augroup
+      autocmd!
+      autocmd VimEnter * hi illuminatedWord guibg=#3A3F49
+      autocmd VimEnter * hi illuminatedCurWord guibg=#3A3F49 cterm=underline gui=underline
+    augroup END
+  ]])
 end
 
 return require('packer').startup(function()
@@ -298,7 +317,6 @@ return require('packer').startup(function()
   use 'honza/vim-snippets'
   use 'rakr/vim-one'
   use 'tpope/vim-fugitive'
-  use 'RRethy/vim-illuminate'
   use 'mfussenegger/nvim-jdtls'
   use 'neovim/nvim-lspconfig'
   use 'hrsh7th/cmp-nvim-lsp'
@@ -316,20 +334,23 @@ return require('packer').startup(function()
   use 'ggandor/lightspeed.nvim'
   use 'nvim-lua/plenary.nvim'
   use 'sindrets/diffview.nvim'
+  use { 'RRethy/vim-illuminate', config = vimIlluminateConfig }
+  use { 'windwp/nvim-autopairs', config = function() require('nvim-autopairs').setup{} end }
+  use { 'rcarriga/nvim-notify', config = nvimNotifyConfig }
   use { 'nvim-treesitter/nvim-treesitter-textobjects', config = treeSitterTextObjectsConfig }
-  use { 'Mofiqul/vscode.nvim', config = vscodeConfig }
+  use { 'monsonjeremy/onedark.nvim', config = oneDarkConfig }
   use { 'akinsho/bufferline.nvim', config = bufferlineConfig } 
-  use { 'mg979/vim-visual-multi', config = vimVisualMultiConfig}
+  use { 'mg979/vim-visual-multi', config = vimVisualMultiConfig }
   use { 'ruifm/gitlinker.nvim', config = gitlinkerConfig, }
   use { "folke/which-key.nvim", config = function() require("which-key").setup {} end }
-  use { 'TimUntersberger/neogit', config = neogitConfig, integrations = { diffview = true }, }
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', config = treeSitterConfig, }
-  use { 'kyazdani42/nvim-tree.lua', config = nvimTreeConfig, }
-  use { 'goolord/alpha-nvim', config = alphaConfig, }
+  use { 'TimUntersberger/neogit', config = neogitConfig, integrations = { diffview = true } }
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', config = treeSitterConfig }
+  use { 'kyazdani42/nvim-tree.lua', config = nvimTreeConfig }
+  use { 'goolord/alpha-nvim', config = alphaConfig }
   use { 'glacambre/firenvim', run = function() vim.fn['firenvim#install'](0) end }
-  use { 'ojroques/vim-oscyank', config = oscyankConfig, }
-  use { 'kyazdani42/nvim-web-devicons', config = webDevIconsConfig, }
-  use { 'nvim-lualine/lualine.nvim', config = luaLineConfig, }
+  use { 'ojroques/vim-oscyank', config = oscyankConfig }
+  use { 'kyazdani42/nvim-web-devicons', config = webDevIconsConfig }
+  use { 'nvim-lualine/lualine.nvim', config = luaLineConfig }
   use { 'nvim-telescope/telescope.nvim',
     requires = { {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' } },
     config = telescopeConfig

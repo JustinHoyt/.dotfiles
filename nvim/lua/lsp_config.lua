@@ -28,5 +28,7 @@ on_attach = function(client, bufnr)
     buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
     buf_set_keymap('n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
     buf_set_keymap('n', '<leader>fd', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+
+    require 'illuminate'.on_attach(client)
 end
 

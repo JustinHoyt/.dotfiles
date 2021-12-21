@@ -28,6 +28,7 @@
     ~/.gitignore: gitignore
     /usr/local/bin/ett: ett
     ~/.config/kitty/kitty.conf: kitty.conf
+    ~/.config/kitty/kitty-theme.conf: kitty-theme.conf
     ~/.config/alacritty/alacritty.yml: alacritty.yml
     ~/.config/nvim: nvim
     "~/Library/Application\ Support/iterm2/Scripts/AutoLaunch/theme.py":
