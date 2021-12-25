@@ -143,11 +143,14 @@ local telescopeConfig = function()
     }
   }
   require('telescope').load_extension('fzf')
+  require('telescope').load_extension('projects')
   vim.api.nvim_set_keymap('n', '<leader>f', ':Telescope<CR>', {noremap = true})
   vim.api.nvim_set_keymap('n', '<leader>f/', ':Telescope live_grep<CR>', {noremap = true})
   vim.api.nvim_set_keymap('n', '<leader>fb', ':Telescope buffers<CR>', {noremap = true})
   vim.api.nvim_set_keymap('n', '<leader>ff', ':Telescope find_files<CR>', {noremap = true})
   vim.api.nvim_set_keymap('n', '<leader>fg', ':Telescope git_files<CR>', {noremap = true})
+  vim.api.nvim_set_keymap('n', '<leader>fh', ':Telescope help_tags<CR>', {noremap = true})
+  vim.api.nvim_set_keymap('n', '<leader>fp', ':Telescope projects<CR>', {noremap = true})
 end
 
 local oscyankConfig = function()
@@ -334,6 +337,13 @@ return require('packer').startup(function()
   use 'ggandor/lightspeed.nvim'
   use 'nvim-lua/plenary.nvim'
   use 'sindrets/diffview.nvim'
+  use { "ahmedkhalf/project.nvim", config = function() require("project_nvim").setup({
+    update_cwd = true,
+    update_focused_file = {
+      enable = true,
+      update_cwd = true
+    },
+  }) end }
   use { 'RRethy/vim-illuminate', config = vimIlluminateConfig }
   use { 'windwp/nvim-autopairs', config = function() require('nvim-autopairs').setup{} end }
   use { 'rcarriga/nvim-notify', config = nvimNotifyConfig }
