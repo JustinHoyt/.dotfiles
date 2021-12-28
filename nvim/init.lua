@@ -146,7 +146,7 @@ function OnUIEnter(event)
     end
 end
 
-vim.cmd([[autocmd UIEnter * :call luaeval('OnUIEnter(vim.fn.deepcopy(vim.v.event))')]]) 
+vim.cmd([[autocmd UIEnter * :call luaeval('OnUIEnter(vim.fn.deepcopy(vim.v.event))')]])
 
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -203,6 +203,7 @@ cmp.setup({
     { name = 'buffer' },
   })
 })
+
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline('/', {
   sources = {
@@ -225,23 +226,77 @@ require('lsp_config')
 local nvim_lsp = require('lspconfig')
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-local servers = { 'tsserver', 'jsonls' }
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    flags = {
-      debounce_text_changes = 150,
-    }
-  }
+local function union(tabl1, tabl2)
+    local result = {}
+    for _, tabl in pairs({tabl1, tabl2}) do
+      for key, value in pairs(tabl) do
+        result[key] = value
+      end
+    end
+    return result
 end
+
+local server_settings = {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  flags = {
+    debounce_text_changes = 150,
+  }
+}
+
+local servers = { 'tsserver', 'jsonls', 'pylsp' }
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup(server_settings)
+end
+
+nvim_lsp.hls.setup(union(
+  server_settings,
+  {
+    settings = {
+      rootMarkers = {"./git/"}
+    },
+    root_dir = vim.loop.cwd,
+  }
+))
+
+local runtime_path = vim.split(package.path, ';')
+table.insert(runtime_path, "lua/?.lua")
+table.insert(runtime_path, "lua/?/init.lua")
+
+require'lspconfig'.sumneko_lua.setup(union(
+  server_settings,
+  {
+    settings = {
+      Lua = {
+        runtime = {
+          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+          version = 'LuaJIT',
+          -- Setup your lua path
+          path = runtime_path,
+        },
+        diagnostics = {
+          -- Get the language server to recognize the `vim` global
+          globals = {'vim', 'use'},
+        },
+        workspace = {
+          -- Make the server aware of Neovim runtime files
+          library = vim.api.nvim_get_runtime_file("", true),
+        },
+        -- Do not send telemetry data containing a randomized but unique identifier
+        telemetry = {
+          enable = false,
+        },
+      },
+    },
+  }
+))
 
 run_checkstyle = function()
      vim.api.nvim_command('set makeprg=brazil-build')
      vim.api.nvim_command('set errorformat=[checkstyle]\\ [%.%#]\\ %f:%l:%c:\\ %m,[checkstyle]\\ [%.%#]\\ %f:%l:\\ %m')
      vim.api.nvim_command('let &shellpipe="2>&1 | tee /tmp/checkstyle-errors.txt | grep checkstyle | grep ERROR &> %s"')
      vim.api.nvim_command('Make')
-end  
+end
 
 vim.api.nvim_set_keymap('n', '<leader>c', ':lua run_checkstyle()<CR>', {noremap = true})
 
@@ -249,3 +304,4 @@ local neogit = require('neogit')
 
 neogit.setup {}
 require'gitlinker'.setup()
+

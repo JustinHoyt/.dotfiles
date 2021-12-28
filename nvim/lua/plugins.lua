@@ -143,14 +143,14 @@ local telescopeConfig = function()
     }
   }
   require('telescope').load_extension('fzf')
-  require('telescope').load_extension('projects')
+  require('telescope').load_extension('project')
   vim.api.nvim_set_keymap('n', '<leader>f', ':Telescope<CR>', {noremap = true})
   vim.api.nvim_set_keymap('n', '<leader>f/', ':Telescope live_grep<CR>', {noremap = true})
   vim.api.nvim_set_keymap('n', '<leader>fb', ':Telescope buffers<CR>', {noremap = true})
   vim.api.nvim_set_keymap('n', '<leader>ff', ':Telescope find_files<CR>', {noremap = true})
   vim.api.nvim_set_keymap('n', '<leader>fg', ':Telescope git_files<CR>', {noremap = true})
   vim.api.nvim_set_keymap('n', '<leader>fh', ':Telescope help_tags<CR>', {noremap = true})
-  vim.api.nvim_set_keymap('n', '<leader>fp', ':Telescope projects<CR>', {noremap = true})
+  vim.api.nvim_set_keymap('n', '<leader>fp', ":lua require'telescope'.extensions.project.project{}<CR>", {noremap = true, silent = true})
 end
 
 local oscyankConfig = function()
@@ -211,8 +211,14 @@ local gitlinkerConfig = function()
   end
 end
 
-local nvimTreeConfig = function() 
-  require'nvim-tree'.setup {} 
+local nvimTreeConfig = function()
+  require("nvim-tree").setup({
+  update_cwd = true,
+  update_focused_file = {
+    enable = true,
+    update_cwd = true
+  },
+})
   vim.api.nvim_set_keymap('n', '<C-t>', ':NvimTreeFindFileToggle<CR>', {noremap = true})
 end
 
@@ -337,13 +343,7 @@ return require('packer').startup(function()
   use 'ggandor/lightspeed.nvim'
   use 'nvim-lua/plenary.nvim'
   use 'sindrets/diffview.nvim'
-  use { "ahmedkhalf/project.nvim", config = function() require("project_nvim").setup({
-    update_cwd = true,
-    update_focused_file = {
-      enable = true,
-      update_cwd = true
-    },
-  }) end }
+  use 'nvim-telescope/telescope-project.nvim'
   use { 'RRethy/vim-illuminate', config = vimIlluminateConfig }
   use { 'windwp/nvim-autopairs', config = function() require('nvim-autopairs').setup{} end }
   use { 'rcarriga/nvim-notify', config = nvimNotifyConfig }
