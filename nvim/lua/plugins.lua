@@ -66,12 +66,12 @@ local bufferlineConfig = function()
   vim.cmd[[nnoremap <silent><M-l> :BufferLineCycleNext<CR>]]
   require'bufferline'.setup{
     options = {
-      indicator_icon = ' ',
+      indicator_icon = '  ',
       buffer_close_icon = '',
       modified_icon = '●',
       close_icon = '',
-      close_command = "Bdelete %d",
-      right_mouse_command = "Bdelete! %d",
+      close_command = "bdelete %d",
+      right_mouse_command = "bdelete! %d",
       left_trunc_marker = '',
       right_trunc_marker = '',
       offsets = {{filetype = "NvimTree", text = "EXPLORER", text_align = "center"}},
@@ -344,6 +344,7 @@ return require('packer').startup(function()
   use 'nvim-lua/plenary.nvim'
   use 'sindrets/diffview.nvim'
   use 'nvim-telescope/telescope-project.nvim'
+  use 'williamboman/nvim-lsp-installer'
   use { 'RRethy/vim-illuminate', config = vimIlluminateConfig }
   use { 'windwp/nvim-autopairs', config = function() require('nvim-autopairs').setup{} end }
   use { 'rcarriga/nvim-notify', config = nvimNotifyConfig }

@@ -29,6 +29,21 @@ on_attach = function(client, bufnr)
     buf_set_keymap('n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
     buf_set_keymap('n', '<leader>fd', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
+
+    -- ge to evaluate expressions in buffer. useful for languages like
+    -- haskell that have the eval code lens feature
+
+    local cmd = vim.api.nvim_command
+    if client.resolved_capabilities.code_lens then
+      buf_set_keymap("n", "ge", "<cmd>lua vim.lsp.codelens.run()<cr>", opts)
+      cmd [[augroup LspCodelensAutoGroup]]
+      cmd [[au!]]
+      cmd [[au BufEnter <buffer> lua vim.lsp.codelens.refresh()]]
+      cmd [[au CursorHold <buffer> lua vim.lsp.codelens.refresh()]]
+      cmd [[au InsertLeave <buffer> lua vim.lsp.codelens.refresh()]]
+      cmd [[augroup end]]
+    end
+
     require 'illuminate'.on_attach(client)
 end
 
