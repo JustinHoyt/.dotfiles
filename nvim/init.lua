@@ -28,22 +28,13 @@ vim.opt.cursorline = true
 vim.opt.mouse = 'a'
 vim.cmd 'let g:startify_change_to_vcs_root=1'
 vim.cmd 'let g:dispatch_no_tmux_make = 1'
+require('onedark').setup()
+
 vim.cmd[[
   augroup Packer
     autocmd!
     autocmd BufWritePost init.lua execute "source ~/.config/nvim/init.lua"
   augroup end
-]]
-
-vim.cmd[[
-function! ToggleBackground()
-    if &bg == "light"
-        set bg=dark
-    else
-        set bg=light
-    endif
-    runtime autoload/lightline/colorscheme/one.vim
-endfunction
 ]]
 
 
@@ -120,7 +111,6 @@ function OnUIEnter(event)
         vim.cmd 'vnoremap <D-v> "+p'
         vim.cmd 'inoremap <D-v> <C-R><C-O>+'
         vim.cmd 'cnoremap <D-v> <C-R><C-O>+'
-        vim.cmd 'set spell'
 
         vim.g.firenvim_config = {
             globalSettings = {

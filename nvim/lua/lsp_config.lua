@@ -43,7 +43,5 @@ on_attach = function(client, bufnr)
       cmd [[au InsertLeave <buffer> lua vim.lsp.codelens.refresh()]]
       cmd [[augroup end]]
     end
-
-    require 'illuminate'.on_attach(client)
 end
 

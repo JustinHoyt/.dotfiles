@@ -248,7 +248,7 @@ local treeSitterTextObjectsConfig = function()
       select = {
         enable = true,
 
-        -- Automatically jump forward to textobj, similar to targets.vim 
+        -- Automatically jump forward to textobj, similar to targets.vim
         lookahead = true,
 
         keymaps = {
@@ -314,6 +314,14 @@ local vimIlluminateConfig = function()
   ]])
 end
 
+local sadConfig = function()
+  require'sad'.setup({
+    diff = 'diff-so-fancy', -- you can use `diff`, `diff-so-fancy`
+    ls_file = 'fd', -- also git ls_file
+    exact = false, -- exact match
+  })
+end
+
 return require('packer').startup(function()
   use 'wbthomason/packer.nvim'
   use 'tpope/vim-commentary'
@@ -345,12 +353,16 @@ return require('packer').startup(function()
   use 'sindrets/diffview.nvim'
   use 'nvim-telescope/telescope-project.nvim'
   use 'williamboman/nvim-lsp-installer'
+  use 'EdenEast/nightfox.nvim'
+  use 'marko-cerovac/material.nvim'
+  use 'ray-x/guihua.lua'
+  use 'navarasu/onedark.nvim'
+  use { 'ray-x/sad.nvim', config = sadConfig }
   use { 'RRethy/vim-illuminate', config = vimIlluminateConfig }
   use { 'windwp/nvim-autopairs', config = function() require('nvim-autopairs').setup{} end }
   use { 'rcarriga/nvim-notify', config = nvimNotifyConfig }
   use { 'nvim-treesitter/nvim-treesitter-textobjects', config = treeSitterTextObjectsConfig }
-  use { 'monsonjeremy/onedark.nvim', config = oneDarkConfig }
-  use { 'akinsho/bufferline.nvim', config = bufferlineConfig } 
+  use { 'akinsho/bufferline.nvim', config = bufferlineConfig }
   use { 'mg979/vim-visual-multi', config = vimVisualMultiConfig }
   use { 'ruifm/gitlinker.nvim', config = gitlinkerConfig, }
   use { "folke/which-key.nvim", config = function() require("which-key").setup {} end }
