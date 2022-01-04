@@ -322,6 +322,12 @@ local sadConfig = function()
   })
 end
 
+local openBrowserConfig = function()
+  vim.cmd[[let g:netrw_nogx = 1]]
+	vim.cmd[[nmap gx <Plug>(openbrowser-smart-search)]]
+	vim.cmd[[vmap gx <Plug>(openbrowser-smart-search)]]
+end
+
 return require('packer').startup(function()
   use 'wbthomason/packer.nvim'
   use 'tpope/vim-commentary'
@@ -357,6 +363,7 @@ return require('packer').startup(function()
   use 'marko-cerovac/material.nvim'
   use 'ray-x/guihua.lua'
   use 'ful1e5/onedark.nvim'
+  use { 'tyru/open-browser.vim', config = openBrowserConfig }
   use { 'ray-x/sad.nvim', config = sadConfig }
   use { 'RRethy/vim-illuminate', config = vimIlluminateConfig }
   use { 'windwp/nvim-autopairs', config = function() require('nvim-autopairs').setup{} end }
