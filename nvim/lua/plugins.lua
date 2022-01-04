@@ -356,7 +356,7 @@ return require('packer').startup(function()
   use 'EdenEast/nightfox.nvim'
   use 'marko-cerovac/material.nvim'
   use 'ray-x/guihua.lua'
-  use 'navarasu/onedark.nvim'
+  use 'ful1e5/onedark.nvim'
   use { 'ray-x/sad.nvim', config = sadConfig }
   use { 'RRethy/vim-illuminate', config = vimIlluminateConfig }
   use { 'windwp/nvim-autopairs', config = function() require('nvim-autopairs').setup{} end }
