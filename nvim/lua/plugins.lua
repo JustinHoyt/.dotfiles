@@ -216,7 +216,8 @@ local nvimTreeConfig = function()
   update_cwd = true,
   update_focused_file = {
     enable = true,
-    update_cwd = true
+    update_cwd = true,
+    respect_buf_cwd = true,
   },
 })
   vim.api.nvim_set_keymap('n', '<C-t>', ':NvimTreeFindFileToggle<CR>', {noremap = true})

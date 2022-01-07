@@ -12,16 +12,16 @@ vim.opt.hidden = true
 vim.opt.inccommand = 'nosplit'
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.shiftwidth = 4
 vim.opt.showmode = false
 vim.opt.signcolumn = 'yes'
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
 vim.opt.termguicolors = true
 vim.opt.undofile = true
 vim.opt.updatetime = 100
-vim.opt.cmdheight = 2
+vim.opt.cmdheight = 1
 vim.opt.smartcase = true
 vim.opt.encoding = 'utf8'
 vim.opt.cursorline = true
@@ -111,6 +111,7 @@ function OnUIEnter(event)
         vim.cmd 'vnoremap <D-v> "+p'
         vim.cmd 'inoremap <D-v> <C-R><C-O>+'
         vim.cmd 'cnoremap <D-v> <C-R><C-O>+'
+        vim.cmd 'set spell'
 
         vim.g.firenvim_config = {
             globalSettings = {
