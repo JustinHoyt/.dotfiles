@@ -22,6 +22,7 @@ vim.opt.termguicolors = true
 vim.opt.undofile = true
 vim.opt.updatetime = 100
 vim.opt.cmdheight = 1
+vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.encoding = 'utf8'
 vim.opt.cursorline = true
