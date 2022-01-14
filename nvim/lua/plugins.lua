@@ -64,14 +64,15 @@ local bufferlineConfig = function()
   vim.cmd[[nnoremap <silent> gb :BufferLinePick<CR>]]
   vim.cmd[[nnoremap <silent><M-h> :BufferLineCyclePrev<CR>]]
   vim.cmd[[nnoremap <silent><M-l> :BufferLineCycleNext<CR>]]
+  vim.cmd[[nnoremap <silent><M-w> :Bdelete<CR>]]
   require'bufferline'.setup{
     options = {
       indicator_icon = '  ',
       buffer_close_icon = '',
       modified_icon = '●',
       close_icon = '',
-      close_command = "bdelete %d",
-      right_mouse_command = "bdelete! %d",
+      close_command = "Bdelete %d",
+      right_mouse_command = "Bdelete! %d",
       left_trunc_marker = '',
       right_trunc_marker = '',
       offsets = {{filetype = "NvimTree", text = "EXPLORER", text_align = "center"}},
@@ -213,13 +214,8 @@ end
 
 local nvimTreeConfig = function()
   require("nvim-tree").setup({
-  update_cwd = true,
-  update_focused_file = {
-    enable = true,
     update_cwd = true,
-    respect_buf_cwd = true,
-  },
-})
+  })
   vim.api.nvim_set_keymap('n', '<C-t>', ':NvimTreeFindFileToggle<CR>', {noremap = true})
 end
 
@@ -364,6 +360,7 @@ return require('packer').startup(function()
   use 'marko-cerovac/material.nvim'
   use 'ray-x/guihua.lua'
   use 'ful1e5/onedark.nvim'
+  use 'moll/vim-bbye'
   use { 'tyru/open-browser.vim', config = openBrowserConfig }
   use { 'ray-x/sad.nvim', config = sadConfig }
   use { 'RRethy/vim-illuminate', config = vimIlluminateConfig }
@@ -374,7 +371,7 @@ return require('packer').startup(function()
   use { 'mg979/vim-visual-multi', config = vimVisualMultiConfig }
   use { 'ruifm/gitlinker.nvim', config = gitlinkerConfig, }
   use { "folke/which-key.nvim", config = function() require("which-key").setup {} end }
-  use { 'TimUntersberger/neogit', config = neogitConfig, integrations = { diffview = true } }
+  use { 'TimUntersberger/neogit', integrations = { diffview = true } }
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', config = treeSitterConfig }
   use { 'kyazdani42/nvim-tree.lua', config = nvimTreeConfig }
   use { 'goolord/alpha-nvim', config = alphaConfig }

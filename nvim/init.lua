@@ -55,8 +55,6 @@ vim.api.nvim_set_keymap('n', '<leader>ps', ':PackerSync<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>pc', ':PackerClean<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>rp', ':w<CR>:!python3 %<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>rj', ':w<CR>:!node %<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<leader>bn', ':bn<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<leader>bp', ':bp<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>n', ':noh<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', 'gt', ':!ctags -R --exclude=.git --exclude=node_modules --exclude=out --exclude=build .<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', 'Y', 'y$', {noremap = true})
@@ -295,4 +293,3 @@ local neogit = require('neogit')
 
 neogit.setup {}
 require'gitlinker'.setup()
-require('onedark').setup()
