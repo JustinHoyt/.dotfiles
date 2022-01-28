@@ -38,6 +38,8 @@ vim.cmd[[
   augroup end
 ]]
 
+vim.cmd [[autocmd BufWritePre * :%s/\s\+$//e]]
+
 
 --------------
 -- Mappings --
@@ -49,6 +51,7 @@ vim.g.mapleader = ' '
 
 vim.api.nvim_set_keymap('n', '<leader>+', ':exe "resize " . (winheight(0) * 3/2)<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>-', ':exe "resize " . (winheight(0) * 2/3)<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>m', ':exe "resize"<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>ev', ':silent e ~/.config/nvim/init.lua<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>ep', ':silent e ~/.config/nvim/lua/plugins.lua<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>pi', ':PackerInstall<CR>', {noremap = true})
@@ -66,7 +69,7 @@ vim.api.nvim_set_keymap('n', '[l', ':set norelativenumber nonumber<CR>:GitGutter
 vim.api.nvim_set_keymap('n', ']l', ':set relativenumber number<CR>:GitGutterEnable<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', 'yob', ':call ToggleBackground()<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>d', ':Gdiff<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<leader>t', ':15sp term://zsh<CR>i', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>t', ':bot 15sp term://zsh<CR>i', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>gs', ':Neogit<CR>', {noremap = true})
 
 vim.api.nvim_set_keymap('v', '>', '>gv', {noremap = true})
