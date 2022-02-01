@@ -169,7 +169,7 @@ end
 
 local treeSitterConfig = function()
   require'nvim-treesitter.configs'.setup {
-    ensure_installed = { 
+    ensure_installed = {
       'c',
       'javascript',
       'typescript',
@@ -229,14 +229,39 @@ local vimVisualMultiConfig = function()
 end
 
 local oneDarkConfig = function()
-  require('onedark').setup({
-    functionStyle = "italic",
-    sidebars = {"qf", "vista_kind", "terminal", "packer"},
+  require('onedark').setup  {
+    -- Main options --
+    style = 'dark', -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
+    transparent = true,  -- Show/hide background
+    term_colors = true, -- Change terminal color as per the selected theme style
+    ending_tildes = false, -- Show the end-of-buffer tildes. By default they are hidden
+    -- toggle theme style ---
+    toggle_style_key = '<leader>o', -- Default keybinding to toggle
+    toggle_style_list = {'light', 'dark'}, -- List of styles to toggle between
 
-    -- Change the "hint" color to the "orange" color, and make the "error" color bright red
-    colors = {hint = "orange", error = "#ff0000"}
-  })
+    -- Change code style ---
+    -- Options are italic, bold, underline, none
+    -- You can configure multiple style with comma seperated, For e.g., keywords = 'italic,bold'
+    code_style = {
+        comments = 'italic',
+        keywords = 'none',
+        functions = 'none',
+        strings = 'none',
+        variables = 'none'
+    },
 
+    -- Custom Highlights --
+    colors = {}, -- Override default colors
+    highlights = {}, -- Override highlight groups
+
+    -- Plugins Config --
+    diagnostics = {
+        darker = true, -- darker colors for diagnostic
+        undercurl = true,   -- use undercurl instead of underline for diagnostics
+        background = true,    -- use background color for virtual text
+    },
+  }
+  require('onedark').load()
 end
 
 local treeSitterTextObjectsConfig = function()
@@ -359,8 +384,8 @@ return require('packer').startup(function()
   use 'EdenEast/nightfox.nvim'
   use 'marko-cerovac/material.nvim'
   use 'ray-x/guihua.lua'
-  use 'ful1e5/onedark.nvim'
   use 'moll/vim-bbye'
+  use { 'navarasu/onedark.nvim', config = oneDarkConfig }
   use { 'tyru/open-browser.vim', config = openBrowserConfig }
   use { 'ray-x/sad.nvim', config = sadConfig }
   use { 'RRethy/vim-illuminate', config = vimIlluminateConfig }

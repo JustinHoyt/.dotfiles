@@ -29,7 +29,6 @@ vim.opt.cursorline = true
 vim.opt.mouse = 'a'
 vim.cmd 'let g:startify_change_to_vcs_root=1'
 vim.cmd 'let g:dispatch_no_tmux_make = 1'
-require('onedark').setup()
 
 vim.cmd[[
   augroup Packer

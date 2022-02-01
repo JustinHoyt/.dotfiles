@@ -76,6 +76,16 @@ alias xmlp='pbpaste | tidy -xml -i -q'
 alias vim='nvim'
 unalias rg 2>/dev/null
 alias rg='rg --smart-case --glob="!coverage"'
+# alias darkMode="2>/dev/null defaults read -g AppleInterfaceStyle"
+alias bgd='kitty +kitten themes --reload-in=all One Dark'
+alias bgl='kitty +kitten themes --reload-in=all Atom One Light'
+if command -v kitty &> /dev/null; then
+  if defaults read -g AppleInterfaceStyle &>/dev/null; then
+    kitty +kitten themes --reload-in=all One Dark
+  else
+    kitty +kitten themes --reload-in=all Atom One Light
+  fi
+fi
 
 pfind(){
     lsof -t -i :$1
