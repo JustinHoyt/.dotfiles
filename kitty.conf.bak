@@ -14,7 +14,7 @@ map cmd+[ move_tab_backward
 map cmd+] move_tab_forward
 map shift+cmd+i set_tab_title
 
-# include ./kitty-theme.conf
+include current-theme.conf
 
 
 # BEGIN_KITTY_THEME

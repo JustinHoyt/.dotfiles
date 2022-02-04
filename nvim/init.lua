@@ -70,6 +70,7 @@ vim.api.nvim_set_keymap('n', 'yob', ':call ToggleBackground()<CR>', {noremap = t
 vim.api.nvim_set_keymap('n', '<leader>d', ':Gdiff<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>t', ':bot 15sp term://zsh<CR>i', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>gs', ':Neogit<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>pw', ':!pandoc -f markdown % -t xwiki -o %:r.xwiki && pbcopy < %:r.xwiki<CR>', {noremap = true})
 
 vim.api.nvim_set_keymap('v', '>', '>gv', {noremap = true})
 vim.api.nvim_set_keymap('v', '<', '<gv', {noremap = true})
