@@ -17,6 +17,7 @@
 - link:
     ~/.zshrc: zshrc
     ~/.zshrc_local: zshrc_local
+    ~/.p10k.zsh: p10k.zsh
     ~/.proxy_url: proxy_url
     ~/.proxy_configurer: proxy_configurer
     ~/.ideavimrc: ideavimrc

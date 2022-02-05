@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # source ~/.proxy_configurer
 
 DISABLE_MAGIC_FUNCTIONS=true
@@ -167,17 +174,41 @@ zinit light-mode for \
 
 ### End of Zinit's installer chunk
 
-# Theme
-zinit ice pick"async.zsh" src"pure.zsh"
-zinit light sindresorhus/pure
+# # Theme
+zinit ice depth=1
+zinit light romkatv/powerlevel10k
 
 # <Ctrl-r> to search history
 zinit ice wait lucid
 zinit light zdharma-continuum/history-search-multi-word
 
-# Autocompletions
-zinit ice wait lucid
+# Autosuggestions
+zinit ice wait lucid atload"_zsh_autosuggest_start"
+zinit light zsh-users/zsh-autosuggestions
+
+# Completions
+zinit ice wait"0b" lucid blockf
 zinit light zsh-users/zsh-completions
+zstyle ':completion:*' completer _expand _complete _ignored _approximate
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*' menu select=2
+zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
+zstyle ':completion:*:descriptions' format '-- %d --'
+zstyle ':completion:*:processes' command 'ps -au$USER'
+zstyle ':completion:complete:*:options' sort false
+zstyle ':fzf-tab:complete:_zlua:*' query-string input
+zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm,cmd -w -w"
+zstyle ':fzf-tab:complete:kill:argument-rest' extra-opts --preview=$extract'ps --pid=$in[(w)1] -o cmd --no-headers -w -w' --preview-window=down:3:wrap
+zstyle ":completion:*:git-checkout:*" sort false
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+# ZSH MANYDOTS MAGIC
+zinit ice wait lucid
+zinit light knu/zsh-manydots-magic
+
+# Syntax highlighting
+zinit ice wait lucid
+zinit light zsh-users/zsh-syntax-highlighting
 
 # Jump to file plugin
 zinit ice wait lucid
@@ -186,10 +217,6 @@ zinit light rupa/z
 # `git open` to open current branch in a browser
 zinit ice wait lucid
 zinit light paulirish/git-open
-
-# Syntax highlighting
-zinit ice wait lucid
-zinit light zdharma-continuum/fast-syntax-highlighting
 
 # Git shortcuts
 zinit ice wait lucid
@@ -202,10 +229,6 @@ zinit snippet OMZP::git-auto-fetch
 # Autopair
 zinit ice wait lucid
 zinit load hlissner/zsh-autopair
-
-# Autosuggestions
-zinit ice wait lucid atload"!_zsh_autosuggest_start"
-zinit load zsh-users/zsh-autosuggestions
 
 # Vi mode
 zinit ice wait lucid depth=1
@@ -221,3 +244,9 @@ zinit light BurntSushi/ripgrep
 # fd is a replacement for find written in rust
 zinit ice wait lucid as"command" from"gh-r" mv"fd* -> fd" pick"fd/fd"
 zinit light sharkdp/fd
+
+# TREE-SITTER
+zinit ice wait lucid as"program" from"gh-r" mv"tree* -> tree-sitter" pick"tree-sitter"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
