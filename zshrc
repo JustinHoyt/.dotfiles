@@ -1,31 +1,6 @@
-source ~/.proxy_configurer
+# source ~/.proxy_configurer
 
 DISABLE_MAGIC_FUNCTIONS=true
-
-# Package Manager
-source ~/.config/antigen.zsh
-antigen use oh-my-zsh
-antigen bundle git
-antigen bundle nvm
-antigen bundle npm
-antigen bundle rvm
-antigen bundle rails
-antigen bundle fzf
-antigen bundle ripgrep
-antigen bundle httpie
-antigen bundle git-auto-fetch
-antigen bundle zsh-users/zsh-completions
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle mafredri/zsh-async
-antigen bundle sindresorhus/pure
-antigen bundle rupa/z
-antigen bundle zdharma/zsh-diff-so-fancy
-antigen bundle paulirish/git-open
-if [ "$(uname 2> /dev/null)" != "Linux" ]; then
-    antigen bundle softmoth/zsh-vim-mode
-fi
-antigen apply
 
 if hash rg 2>/dev/null; then
     export FZF_DEFAULT_COMMAND='rg -S --files --no-ignore-vcs --hidden --glob="!bin" --glob="!build" --glob="!node_modules"'
@@ -95,14 +70,6 @@ unalias z 2> /dev/null
 j() {
   [ $# -gt 0 ] && _z "$*" && return
   cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
-}
-c() {
-  [ $# -gt 0 ] && _z "$*" && return
-  code "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
-}
-i() {
-  [ $# -gt 0 ] && _z "$*" && return
-  idea "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
 }
 
 # Install (one or multiple) selected application(s)
@@ -176,3 +143,82 @@ fi
 if [ -f ~/.zshrc_local ]; then
     source ~/.zshrc_local
 fi
+
+### Added by Zinit's installer
+if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} The clone has failed.%f%b"
+fi
+
+source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+
+### End of Zinit's installer chunk
+
+# Theme
+zinit ice pick"async.zsh" src"pure.zsh"
+zinit light sindresorhus/pure
+
+# <Ctrl-r> to search history
+zinit ice wait lucid
+zinit light zdharma-continuum/history-search-multi-word
+
+# Autocompletions
+zinit ice wait lucid
+zinit light zsh-users/zsh-completions
+
+# Jump to file plugin
+zinit ice wait lucid
+zinit light rupa/z
+
+# `git open` to open current branch in a browser
+zinit ice wait lucid
+zinit light paulirish/git-open
+
+# Syntax highlighting
+zinit ice wait lucid
+zinit light zdharma-continuum/fast-syntax-highlighting
+
+# Git shortcuts
+zinit ice wait lucid
+zinit snippet OMZP::git
+
+# Automatically runs `git fetch --all` in the background
+zinit ice wait lucid
+zinit snippet OMZP::git-auto-fetch
+
+# Autopair
+zinit ice wait lucid
+zinit load hlissner/zsh-autopair
+
+# Autosuggestions
+zinit ice wait lucid atload"!_zsh_autosuggest_start"
+zinit load zsh-users/zsh-autosuggestions
+
+# Vi mode
+zinit ice wait lucid depth=1
+zinit light jeffreytse/zsh-vi-mode
+
+# FZF is a fuzzy file finder
+zinit ice wait lucid as"command" from"gh-r" mv"fzf* -> fzf" pick"fzf/fzf"
+zinit snippet OMZP::fzf
+
+# ripgrep is a replacement for find written in rust
+zinit ice wait lucid as"command" from"gh-r" mv"ripgrep* -> rg" pick"rg/rg"
+zinit light BurntSushi/ripgrep
+
+# fd is a replacement for find written in rust
+zinit ice wait lucid as"command" from"gh-r" mv"fd* -> fd" pick"fd/fd"
+zinit light sharkdp/fd
