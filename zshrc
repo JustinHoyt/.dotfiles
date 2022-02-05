@@ -212,8 +212,7 @@ zinit ice wait lucid depth=1
 zinit light jeffreytse/zsh-vi-mode
 
 # FZF is a fuzzy file finder
-zinit ice wait lucid as"command" from"gh-r" mv"fzf* -> fzf" pick"fzf/fzf"
-zinit snippet OMZP::fzf
+zinit pack"binary" for fzf
 
 # ripgrep is a replacement for find written in rust
 zinit ice wait lucid as"command" from"gh-r" mv"ripgrep* -> rg" pick"rg/rg"
