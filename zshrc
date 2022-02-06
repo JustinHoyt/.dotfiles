@@ -200,10 +200,6 @@ zstyle ':fzf-tab:complete:kill:argument-rest' extra-opts --preview=$extract'ps -
 zstyle ":completion:*:git-checkout:*" sort false
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
-# ZSH MANYDOTS MAGIC
-zinit ice wait lucid
-zinit light knu/zsh-manydots-magic
-
 # Syntax highlighting
 zinit ice wait lucid
 zinit light zsh-users/zsh-syntax-highlighting
