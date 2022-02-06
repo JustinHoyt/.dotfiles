@@ -7,8 +7,6 @@ fi
 
 # source ~/.proxy_configurer
 
-DISABLE_MAGIC_FUNCTIONS=true
-
 if hash rg 2>/dev/null; then
     export FZF_DEFAULT_COMMAND='rg -S --files --no-ignore-vcs --hidden --glob="!bin" --glob="!build" --glob="!node_modules"'
 fi
