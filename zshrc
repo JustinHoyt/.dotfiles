@@ -22,15 +22,6 @@ HYPHEN_INSENSITIVE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=white'
 
-# # Set Vi Keybindings
-bindkey -v
-bindkey "^?" backward-delete-char
-bindkey "^[[3~" delete-char
-bindkey '^r' history-incremental-search-backward
-bindkey "^[OA" history-beginning-search-backward
-bindkey "^[OB" history-beginning-search-forward
-export KEYTIMEOUT=25
-
 # Aliases
 alias init-venv="python -m virtualenv venv"
 alias init-venv3="python3 -m virtualenv venv"
@@ -203,6 +194,13 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # Syntax highlighting
 zinit ice wait lucid
 zinit light zsh-users/zsh-syntax-highlighting
+
+# History substring search on up/down
+zinit light zsh-users/zsh-history-substring-search
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
 
 # Jump to file plugin
 zinit ice wait lucid
