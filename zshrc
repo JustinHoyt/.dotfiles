@@ -168,11 +168,11 @@ zinit ice depth=1
 zinit light romkatv/powerlevel10k
 
 # <Ctrl-r> to search history
-zinit ice wait lucid
+zinit ice wait"0b" lucid
 zinit light zdharma-continuum/history-search-multi-word
 
 # Autosuggestions
-zinit ice wait lucid atload"_zsh_autosuggest_start"
+zinit ice wait"0b" lucid atload"_zsh_autosuggest_start"
 zinit light zsh-users/zsh-autosuggestions
 
 # Completions
