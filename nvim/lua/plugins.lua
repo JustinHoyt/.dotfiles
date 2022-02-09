@@ -322,10 +322,6 @@ local treeSitterTextObjectsConfig = function()
   }
 end
 
-local nvimNotifyConfig = function()
-  vim.notify = require("notify")
-end
-
 local vimIlluminateConfig = function()
   vim.cmd([[
     augroup illuminate_augroup
@@ -390,7 +386,6 @@ return require('packer').startup(function()
   use { 'ray-x/sad.nvim', config = sadConfig }
   use { 'RRethy/vim-illuminate', config = vimIlluminateConfig }
   use { 'windwp/nvim-autopairs', config = function() require('nvim-autopairs').setup{} end }
-  use { 'rcarriga/nvim-notify', config = nvimNotifyConfig }
   use { 'nvim-treesitter/nvim-treesitter-textobjects', config = treeSitterTextObjectsConfig }
   use { 'akinsho/bufferline.nvim', config = bufferlineConfig }
   use { 'mg979/vim-visual-multi', config = vimVisualMultiConfig }
