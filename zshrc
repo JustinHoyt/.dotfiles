@@ -226,6 +226,11 @@ zinit load hlissner/zsh-autopair
 zinit ice wait lucid depth=1
 zinit light jeffreytse/zsh-vi-mode
 
+# Manydots magic
+zinit ice wait lucid
+zinit autoload'#manydots-magic' for knu/zsh-manydots-magic
+setopt autocd
+
 # FZF is a fuzzy file finder
 zinit pack"binary" for fzf
 
