@@ -21,6 +21,7 @@ antigen bundle rupa/z
 antigen bundle zdharma/zsh-diff-so-fancy
 antigen bundle paulirish/git-open
 antigen bundle jeffreytse/zsh-vi-mode
+antigen bundle history-substring-search
 antigen apply
 
 # source ~/.proxy_configurer
@@ -39,6 +40,12 @@ export NVM_AUTO_USE=true
 HYPHEN_INSENSITIVE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=white'
+function zvm_before_init() {
+  zvm_bindkey viins '^[[A' history-beginning-search-backward
+  zvm_bindkey viins '^[[B' history-beginning-search-forward
+  zvm_bindkey vicmd '^[[A' history-beginning-search-backward
+  zvm_bindkey vicmd '^[[B' history-beginning-search-forward
+}
 
 # Aliases
 alias init-venv="python -m virtualenv venv"
