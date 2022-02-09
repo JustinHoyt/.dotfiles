@@ -5,6 +5,24 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# Package Manager
+source ~/.config/antigen.zsh
+antigen theme romkatv/powerlevel10k
+antigen use oh-my-zsh
+antigen bundle git
+antigen bundle rails
+antigen bundle fzf
+antigen bundle ripgrep
+antigen bundle git-auto-fetch
+antigen bundle zsh-users/zsh-completions
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle rupa/z
+antigen bundle zdharma/zsh-diff-so-fancy
+antigen bundle paulirish/git-open
+antigen bundle jeffreytse/zsh-vi-mode
+antigen apply
+
 # source ~/.proxy_configurer
 
 if hash rg 2>/dev/null; then
@@ -140,110 +158,4 @@ if [ -f ~/.zshrc_local ]; then
     source ~/.zshrc_local
 fi
 
-### Added by Zinit's installer
-if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
-    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
-    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
-    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
-        print -P "%F{33} %F{34}Installation successful.%f%b" || \
-        print -P "%F{160} The clone has failed.%f%b"
-fi
-
-source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
-
-# Load a few important annexes, without Turbo
-# (this is currently required for annexes)
-zinit light-mode for \
-    zdharma-continuum/zinit-annex-as-monitor \
-    zdharma-continuum/zinit-annex-bin-gem-node \
-    zdharma-continuum/zinit-annex-patch-dl \
-    zdharma-continuum/zinit-annex-rust
-
-### End of Zinit's installer chunk
-
-# # Theme
-zinit ice depth=1
-zinit light romkatv/powerlevel10k
-
-# <Ctrl-r> to search history
-zinit ice wait"0b" lucid
-zinit light zdharma-continuum/history-search-multi-word
-
-# Autosuggestions
-zinit ice wait"0b" lucid atload"_zsh_autosuggest_start"
-zinit light zsh-users/zsh-autosuggestions
-
-# Completions
-zinit ice wait"0b" lucid blockf
-zinit light zsh-users/zsh-completions
-zstyle ':completion:*' completer _expand _complete _ignored _approximate
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-zstyle ':completion:*' menu select=2
-zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
-zstyle ':completion:*:descriptions' format '-- %d --'
-zstyle ':completion:*:processes' command 'ps -au$USER'
-zstyle ':completion:complete:*:options' sort false
-zstyle ':fzf-tab:complete:_zlua:*' query-string input
-zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm,cmd -w -w"
-zstyle ':fzf-tab:complete:kill:argument-rest' extra-opts --preview=$extract'ps --pid=$in[(w)1] -o cmd --no-headers -w -w' --preview-window=down:3:wrap
-zstyle ":completion:*:git-checkout:*" sort false
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-
-# Syntax highlighting
-zinit ice wait lucid
-zinit light zsh-users/zsh-syntax-highlighting
-
-# History substring search on up/down
-zinit light zsh-users/zsh-history-substring-search
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
-
-# Jump to file plugin
-zinit ice wait lucid
-zinit light rupa/z
-
-# `git open` to open current branch in a browser
-zinit ice wait lucid
-zinit light paulirish/git-open
-
-# Git shortcuts
-zinit ice wait lucid
-zinit snippet OMZP::git
-
-# Automatically runs `git fetch --all` in the background
-zinit ice wait lucid
-zinit snippet OMZP::git-auto-fetch
-
-# Autopair
-zinit ice wait lucid
-zinit load hlissner/zsh-autopair
-
-# Vi mode
-zinit ice wait lucid depth=1
-zinit light jeffreytse/zsh-vi-mode
-
-# Manydots magic
-zinit ice wait lucid
-zinit autoload'#manydots-magic' for knu/zsh-manydots-magic
-setopt autocd
-
-# FZF is a fuzzy file finder
-zinit pack"binary" for fzf
-
-# ripgrep is a replacement for find written in rust
-zinit ice wait lucid as"command" from"gh-r" mv"ripgrep* -> rg" pick"rg/rg"
-zinit light BurntSushi/ripgrep
-
-# fd is a replacement for find written in rust
-zinit ice wait lucid as"command" from"gh-r" mv"fd* -> fd" pick"fd/fd"
-zinit light sharkdp/fd
-
-# TREE-SITTER
-zinit ice wait lucid as"program" from"gh-r" mv"tree* -> tree-sitter" pick"tree-sitter"
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
