@@ -5,25 +5,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Package Manager
-source ~/.config/antigen.zsh
-antigen theme romkatv/powerlevel10k
-antigen use oh-my-zsh
-antigen bundle git
-antigen bundle rails
-antigen bundle fzf
-antigen bundle ripgrep
-antigen bundle git-auto-fetch
-antigen bundle zsh-users/zsh-completions
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle rupa/z
-antigen bundle zdharma/zsh-diff-so-fancy
-antigen bundle paulirish/git-open
-antigen bundle jeffreytse/zsh-vi-mode
-antigen bundle history-substring-search
-antigen apply
-
 # source ~/.proxy_configurer
 
 if hash rg 2>/dev/null; then
@@ -40,12 +21,6 @@ export NVM_AUTO_USE=true
 HYPHEN_INSENSITIVE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=white'
-function zvm_before_init() {
-  zvm_bindkey viins '^[[A' history-beginning-search-backward
-  zvm_bindkey viins '^[[B' history-beginning-search-forward
-  zvm_bindkey vicmd '^[[A' history-beginning-search-backward
-  zvm_bindkey vicmd '^[[B' history-beginning-search-forward
-}
 
 # Aliases
 alias init-venv="python -m virtualenv venv"
@@ -165,4 +140,102 @@ if [ -f ~/.zshrc_local ]; then
     source ~/.zshrc_local
 fi
 
+### Added by Zinit's installer
+if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} The clone has failed.%f%b"
+fi
+
+source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zi light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+
+### End of Zinit's installer chunk
+
+# # Theme
+zi ice depth=1
+zi light romkatv/powerlevel10k
+
+# <Ctrl-r> to search history
+zi ice wait"0b" lucid
+zi light zdharma-continuum/history-search-multi-word
+
+# Autosuggestions
+zi ice wait"0b" lucid atload"_zsh_autosuggest_start"
+zi light zsh-users/zsh-autosuggestions
+
+# Completions
+zi ice wait"0b" lucid blockf
+zi light zsh-users/zsh-completions
+
+# Syntax highlighting
+zi ice wait lucid
+zi light zsh-users/zsh-syntax-highlighting
+
+# History substring search on up/down
+zi light zsh-users/zsh-history-substring-search
+function zvm_before_init() {
+  zvm_bindkey viins '^[[A' history-beginning-search-backward
+  zvm_bindkey viins '^[[B' history-beginning-search-forward
+  zvm_bindkey vicmd '^[[A' history-beginning-search-backward
+  zvm_bindkey vicmd '^[[B' history-beginning-search-forward
+}
+
+# Jump to file plugin
+zi ice wait lucid
+zi light rupa/z
+
+zi for \
+      OMZL::completion.zsh \
+      OMZL::history.zsh \
+      OMZL::key-bindings.zsh \
+
+# `git open` to open current branch in a browser
+zi ice wait lucid
+zi light paulirish/git-open
+
+# Git shortcuts
+zi ice wait lucid
+zi snippet OMZP::git
+
+# Automatically runs `git fetch --all` in the background
+zi ice wait lucid
+zi snippet OMZP::git-auto-fetch
+
+# Autopair
+zi ice wait lucid
+zi load hlissner/zsh-autopair
+
+# Vi mode
+zi ice wait lucid depth=1
+zi light jeffreytse/zsh-vi-mode
+
+# Manydots magic
+zi ice wait lucid
+zi autoload'#manydots-magic' for knu/zsh-manydots-magic
+setopt autocd
+
+# ripgrep is a replacement for find written in rust
+zi ice wait lucid as"command" from"gh-r" mv"ripgrep* -> rg" pick"rg/rg"
+zi light BurntSushi/ripgrep
+
+# fd is a replacement for find written in rust
+zi ice wait lucid as"command" from"gh-r" mv"fd* -> fd" pick"fd/fd"
+zi light sharkdp/fd
+
+# TREE-SITTER
+zi ice wait lucid as"program" from"gh-r" mv"tree* -> tree-sitter" pick"tree-sitter"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
