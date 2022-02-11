@@ -22,6 +22,9 @@ HYPHEN_INSENSITIVE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=white'
 
+# For `..` `...` `....`
+setopt autocd
+
 # Aliases
 alias init-venv="python -m virtualenv venv"
 alias init-venv3="python3 -m virtualenv venv"
@@ -167,75 +170,59 @@ zi light-mode for \
 zi ice depth=1
 zi light romkatv/powerlevel10k
 
-# <Ctrl-r> to search history
-zi ice wait"0b" lucid
-zi light zdharma-continuum/history-search-multi-word
+zinit lucid for \
+    atinit"HIST_STAMPS=dd.mm.yyyy" \
+    OMZL::history.zsh \
 
-# Autosuggestions
-zi ice wait"0b" lucid atload"_zsh_autosuggest_start"
-zi light zsh-users/zsh-autosuggestions
+# Load first
+zinit wait lucid for \
+	OMZL::clipboard.zsh \
+	OMZL::compfix.zsh \
+	OMZL::completion.zsh \
+	OMZL::correction.zsh \
+	OMZL::directories.zsh \
+	OMZL::git.zsh \
+	OMZL::grep.zsh \
+    OMZL::history.zsh \
+	OMZL::key-bindings.zsh \
+	OMZL::spectrum.zsh \
+	OMZL::termsupport.zsh \
+	OMZP::git \
+    OMZ::plugins/git-auto-fetch/git-auto-fetch.plugin.zsh \
+	OMZP::fzf
 
-# Completions
-zi ice wait"0b" lucid blockf
-zi light zsh-users/zsh-completions
+# Load second
+zi wait'0a' lucid light-mode for \
+  atload'
+      bindkey "^[[A" history-substring-search-up
+      bindkey "^[[B" history-substring-search-down' \
+    zsh-users/zsh-history-substring-search \
+  ver'develop' atinit'ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20' atload'_zsh_autosuggest_start' \
+    zsh-users/zsh-autosuggestions \
+  is-snippet atload'zstyle ":completion:*" special-dirs false' \
+    PZTM::completion \
+  atload"zicompinit; zicdreplay" blockf \
+    zsh-users/zsh-completions \
+  zsh-users/zsh-syntax-highlighting
 
-# Syntax highlighting
-zi ice wait lucid
-zi light zsh-users/zsh-syntax-highlighting
-
-# History substring search on up/down
+zi ice wait"0a" lucid atload'bindkey "$terminfo[kcuu1]" history-substring-search-up; bindkey "$terminfo[kcud1]" history-substring-search-down'
 zi light zsh-users/zsh-history-substring-search
-function zvm_before_init() {
-  zvm_bindkey viins '^[[A' history-beginning-search-backward
-  zvm_bindkey viins '^[[B' history-beginning-search-forward
-  zvm_bindkey vicmd '^[[A' history-beginning-search-backward
-  zvm_bindkey vicmd '^[[B' history-beginning-search-forward
-}
+bindkey '^[[A' history-substring-search-up
+bindkey '^[OA' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+bindkey '^[OB' history-substring-search-down
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
 
-# Jump to file plugin
-zi ice wait lucid
+# Load third
+zi ice wait'0b' lucid
+zi light softmoth/zsh-vim-mode
+
+zi ice wait'0b' lucid
 zi light rupa/z
 
-zi for \
-      OMZL::completion.zsh \
-      OMZL::history.zsh \
-      OMZL::key-bindings.zsh \
-
-# `git open` to open current branch in a browser
-zi ice wait lucid
-zi light paulirish/git-open
-
-# Git shortcuts
-zi ice wait lucid
-zi snippet OMZP::git
-
-# Automatically runs `git fetch --all` in the background
-zi ice wait lucid
-zi snippet OMZP::git-auto-fetch
-
-# Autopair
-zi ice wait lucid
-zi load hlissner/zsh-autopair
-
-# Vi mode
-zi ice wait lucid depth=1
-zi light jeffreytse/zsh-vi-mode
-
-# Manydots magic
-zi ice wait lucid
-zi autoload'#manydots-magic' for knu/zsh-manydots-magic
-setopt autocd
-
-# ripgrep is a replacement for find written in rust
-zi ice wait lucid as"command" from"gh-r" mv"ripgrep* -> rg" pick"rg/rg"
-zi light BurntSushi/ripgrep
-
-# fd is a replacement for find written in rust
-zi ice wait lucid as"command" from"gh-r" mv"fd* -> fd" pick"fd/fd"
-zi light sharkdp/fd
-
-# TREE-SITTER
-zi ice wait lucid as"program" from"gh-r" mv"tree* -> tree-sitter" pick"tree-sitter"
+zi ice wait'0b' lucid from"gh-r" as"program"
+zi light @junegunn/fzf
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
