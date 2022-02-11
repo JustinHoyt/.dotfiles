@@ -25,6 +25,10 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=white'
 # For `..` `...` `....`
 setopt autocd
 
+# History search on up/down arrow
+bindkey "^[OA" history-beginning-search-backward
+bindkey "^[OB" history-beginning-search-forward
+
 # Aliases
 alias init-venv="python -m virtualenv venv"
 alias init-venv3="python3 -m virtualenv venv"
@@ -159,10 +163,10 @@ autoload -Uz _zinit
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
 zi light-mode for \
-    zdharma-continuum/zinit-annex-as-monitor \
-    zdharma-continuum/zinit-annex-bin-gem-node \
-    zdharma-continuum/zinit-annex-patch-dl \
-    zdharma-continuum/zinit-annex-rust
+  zdharma-continuum/zinit-annex-as-monitor \
+  zdharma-continuum/zinit-annex-bin-gem-node \
+  zdharma-continuum/zinit-annex-patch-dl \
+  zdharma-continuum/zinit-annex-rust
 
 ### End of Zinit's installer chunk
 
@@ -171,32 +175,29 @@ zi ice depth=1
 zi light romkatv/powerlevel10k
 
 zinit lucid for \
-    atinit"HIST_STAMPS=dd.mm.yyyy" \
-    OMZL::history.zsh \
+  atinit"HIST_STAMPS=dd.mm.yyyy" \
+  OMZL::history.zsh \
+
 
 # Load first
 zinit wait lucid for \
-	OMZL::clipboard.zsh \
-	OMZL::compfix.zsh \
-	OMZL::completion.zsh \
-	OMZL::correction.zsh \
-	OMZL::directories.zsh \
-	OMZL::git.zsh \
-	OMZL::grep.zsh \
-    OMZL::history.zsh \
-	OMZL::key-bindings.zsh \
-	OMZL::spectrum.zsh \
-	OMZL::termsupport.zsh \
-	OMZP::git \
-    OMZ::plugins/git-auto-fetch/git-auto-fetch.plugin.zsh \
-	OMZP::fzf
+  OMZL::clipboard.zsh \
+  OMZL::compfix.zsh \
+  OMZL::completion.zsh \
+  OMZL::correction.zsh \
+  OMZL::directories.zsh \
+  OMZL::git.zsh \
+  OMZL::grep.zsh \
+  OMZL::key-bindings.zsh \
+  OMZL::spectrum.zsh \
+  OMZL::termsupport.zsh \
+  OMZP::git \
+  OMZ::plugins/git-auto-fetch/git-auto-fetch.plugin.zsh \
+  OMZP::fzf
+
 
 # Load second
 zi wait'0a' lucid light-mode for \
-  atload'
-      bindkey "^[[A" history-substring-search-up
-      bindkey "^[[B" history-substring-search-down' \
-    zsh-users/zsh-history-substring-search \
   ver'develop' atinit'ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20' atload'_zsh_autosuggest_start' \
     zsh-users/zsh-autosuggestions \
   is-snippet atload'zstyle ":completion:*" special-dirs false' \
@@ -205,24 +206,17 @@ zi wait'0a' lucid light-mode for \
     zsh-users/zsh-completions \
   zsh-users/zsh-syntax-highlighting
 
-zi ice wait"0a" lucid atload'bindkey "$terminfo[kcuu1]" history-substring-search-up; bindkey "$terminfo[kcud1]" history-substring-search-down'
-zi light zsh-users/zsh-history-substring-search
-bindkey '^[[A' history-substring-search-up
-bindkey '^[OA' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-bindkey '^[OB' history-substring-search-down
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
 
 # Load third
-zi ice wait'0b' lucid
-zi light softmoth/zsh-vim-mode
-
-zi ice wait'0b' lucid
-zi light rupa/z
-
-zi ice wait'0b' lucid from"gh-r" as"program"
-zi light @junegunn/fzf
+zi wait'0b' lucid light-mode for \
+  softmoth/zsh-vim-mode \
+  rupa/z \
+  from"gh-r" as"program" \
+    @junegunn/fzf \
+  as"command" from"gh-r" mv"ripgrep* -> rg" pick"rg/rg" \
+    BurntSushi/ripgrep \
+  as"command" from"gh-r" mv"fd* -> fd" pick"fd/fd" \
+    @sharkdp/fd
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
