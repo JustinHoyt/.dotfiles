@@ -29,6 +29,9 @@ setopt autocd
 bindkey "^[OA" history-beginning-search-backward
 bindkey "^[OB" history-beginning-search-forward
 
+# Enables completions for various CLI tools
+autoload -Uz compinit && compinit
+
 # Aliases
 alias init-venv="python -m virtualenv venv"
 alias init-venv3="python3 -m virtualenv venv"
@@ -200,10 +203,6 @@ zinit wait lucid for \
 zi wait'0a' lucid light-mode for \
   ver'develop' atinit'ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20' atload'_zsh_autosuggest_start' \
     zsh-users/zsh-autosuggestions \
-  is-snippet atload'zstyle ":completion:*" special-dirs false' \
-    PZTM::completion \
-  atload"zicompinit; zicdreplay" blockf \
-    zsh-users/zsh-completions \
   zsh-users/zsh-syntax-highlighting
 
 
