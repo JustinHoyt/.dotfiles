@@ -29,8 +29,15 @@ setopt autocd
 bindkey "^[OA" history-beginning-search-backward
 bindkey "^[OB" history-beginning-search-forward
 
-# Enables completions for various CLI tools
-autoload -Uz compinit && compinit
+# Load And Initialize The Completion System Ignoring Insecure Directories With A
+# Cache Time Of 24 Hours, So It Should Almost Always Regenerate The First Time A
+# Shell Is Opened Each Day.
+# See: https://gist.github.com/ctechols/ca1035271ad134841284
+autoload -Uz compinit
+for dump in ~/.zcompdump(N.mh+24); do
+  compinit
+done
+compinit -C
 
 # Aliases
 alias init-venv="python -m virtualenv venv"
@@ -186,7 +193,6 @@ zinit lucid for \
 zinit wait lucid for \
   OMZL::clipboard.zsh \
   OMZL::compfix.zsh \
-  OMZL::completion.zsh \
   OMZL::correction.zsh \
   OMZL::directories.zsh \
   OMZL::git.zsh \
