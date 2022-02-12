@@ -5,19 +5,14 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# source ~/.proxy_configurer
-
 if hash rg 2>/dev/null; then
     export FZF_DEFAULT_COMMAND='rg -S --files --no-ignore-vcs --hidden --glob="!bin" --glob="!build" --glob="!node_modules"'
 fi
+
 # Setting Environment Variables
 set -o ignoreeof
-export PATH=$HOME/bin:/usr/local/bin:~/.composer/vendor/bin:$PATH
-export PATH=/usr/local/sbin:$PATH
 export VISUAL=vim
 export EDITOR="$VISUAL"
-export NVM_AUTO_USE=true
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 HYPHEN_INSENSITIVE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=white'
@@ -36,7 +31,6 @@ alias init-venv3="python3 -m virtualenv venv"
 alias activate="source venv/bin/activate"
 alias stop="pkill -f "
 alias zshconfig="vim ~/.zshrc"
-alias ohmyzsh="vim ~/.oh-my-zsh"
 alias howto="alias | grep $1"
 alias fz='vim $(fzf)'
 alias v='vim'
@@ -49,15 +43,20 @@ alias dcs='docker-compose stop'
 alias dsh='docker exec -it $1 /bin/bash'
 alias rm-containers='docker container rm $(docker container ls -aq)'
 alias rm-images='docker image prune -a'
-alias slack-dark-theme='cat ~/.slack_darkmode.js >> /Applications/Slack.app/Contents/Resources/app.asar.unpacked/src/static/ssb-interop.js'
 alias xml='tidy -xml -i -q <<<'
 alias xmlp='pbpaste | tidy -xml -i -q'
 alias vim='nvim'
 unalias rg 2>/dev/null
 alias rg='rg --smart-case --glob="!coverage"'
-# alias darkMode="2>/dev/null defaults read -g AppleInterfaceStyle"
 alias bgd='kitty +kitten themes --reload-in=all One Dark'
 alias bgl='kitty +kitten themes --reload-in=all Atom One Light'
+
+# Install brew
+if ! command -v brew &> /dev/null; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+# Set light/dark theme based on macos theme
 if command -v kitty &> /dev/null; then
   if defaults read -g AppleInterfaceStyle &>/dev/null; then
     kitty +kitten themes --reload-in=all One Dark
@@ -66,10 +65,7 @@ if command -v kitty &> /dev/null; then
   fi
 fi
 
-pfind(){
-    lsof -t -i :$1
-}
-
+# Jump to previous directories with `j`
 unalias z 2> /dev/null
 j() {
   [ $# -gt 0 ] && _z "$*" && return
@@ -123,30 +119,6 @@ ccp() {
   fi
 }
 
-if [ -n "$(command -v apt-get)" ]; then
-    install() {
-      local app=$(apt-cache search '.*' | fzf -m)
-
-      if [ -n $app ]; then
-          local app=$(echo "$app" | cut -d' ' -f1)
-          sudo apt-get -y install "$app"
-      fi
-    }
-fi
-if [ -n "$(command -v yum)" ]; then
-    install() {
-      local app=$(yum list available | fzf -m)
-
-      if [ -n $app ]; then
-          local app=$(echo "$app" | cut -d' ' -f1)
-          sudo yum install -y "$app"
-      fi
-    }
-fi
-
-if [ -f ~/.zshrc_local ]; then
-    source ~/.zshrc_local
-fi
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
@@ -169,9 +141,7 @@ zi light-mode for \
   zdharma-continuum/zinit-annex-patch-dl \
   zdharma-continuum/zinit-annex-rust
 
-### End of Zinit's installer chunk
-
-# # Theme
+# Theme
 zi ice depth=1
 zi light romkatv/powerlevel10k
 
@@ -206,6 +176,7 @@ for dump in ~/.zcompdump(N.mh+24); do
 done
 compinit -C
 
+
 # Load second
 zi wait'0a' lucid light-mode for \
   ver'develop' atinit'ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20' atload'_zsh_autosuggest_start' \
@@ -226,3 +197,7 @@ zi wait'0b' lucid light-mode for \
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+if [ -f ~/.zshrc_local ]; then
+    source ~/.zshrc_local
+fi
