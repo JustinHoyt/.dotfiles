@@ -1,3 +1,8 @@
+# Install brew
+if ! command -v brew &> /dev/null; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -50,11 +55,6 @@ unalias rg 2>/dev/null
 alias rg='rg --smart-case --glob="!coverage"'
 alias bgd='kitty +kitten themes --reload-in=all One Dark'
 alias bgl='kitty +kitten themes --reload-in=all Atom One Light'
-
-# Install brew
-if ! command -v brew &> /dev/null; then
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-fi
 
 # Set light/dark theme based on macos theme
 if command -v kitty &> /dev/null; then
