@@ -129,6 +129,13 @@ end
 
 local telescopeConfig = function()
   require('telescope').setup {
+    defaults = {
+      file_ignore_patterns = {
+        "node_modules",
+        "build",
+        "coverage",
+      }
+    },
     pickers = {
       find_files = {
         no_ignore = true
