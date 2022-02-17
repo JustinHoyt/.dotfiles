@@ -159,6 +159,7 @@ local telescopeConfig = function()
   vim.api.nvim_set_keymap('n', '<leader>fg', ':Telescope git_files<CR>', {noremap = true})
   vim.api.nvim_set_keymap('n', '<leader>fh', ':Telescope help_tags<CR>', {noremap = true})
   vim.api.nvim_set_keymap('n', '<leader>fp', ":lua require'telescope'.extensions.project.project{}<CR>", {noremap = true, silent = true})
+  vim.api.nvim_set_keymap("n", "<leader><leader>", "<Cmd>lua require('telescope').extensions.frecency.frecency()<CR>", {noremap = true, silent = true})
 end
 
 local oscyankConfig = function()
@@ -424,6 +425,11 @@ return require('packer').startup(function()
   use { 'nvim-telescope/telescope.nvim',
     requires = { {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' } },
     config = telescopeConfig
+  }
+  use {
+    "nvim-telescope/telescope-frecency.nvim",
+    config = function() require"telescope".load_extension("frecency") end,
+    requires = {"tami5/sqlite.lua"}
   }
   if packer_bootstrap then
     require('packer').sync()
