@@ -62,8 +62,8 @@ end
 
 local bufferlineConfig = function()
   vim.cmd[[nnoremap <silent> gb :BufferLinePick<CR>]]
-  vim.cmd[[nnoremap <silent><M-h> :BufferLineCyclePrev<CR>]]
-  vim.cmd[[nnoremap <silent><M-l> :BufferLineCycleNext<CR>]]
+  vim.cmd[[nnoremap <silent><M-j> :BufferLineCyclePrev<CR>]]
+  vim.cmd[[nnoremap <silent><M-k> :BufferLineCycleNext<CR>]]
   vim.cmd[[nnoremap <silent><M-w> :Bdelete<CR>]]
   require'bufferline'.setup{
     options = {
@@ -229,8 +229,6 @@ end
 
 local vimVisualMultiConfig = function()
   vim.api.nvim_set_keymap('n', '<M-d>', '<Plug>(VM-Find-Under)', {noremap = false})
-  vim.api.nvim_set_keymap('n', '<M-j>', '<Plug>(VM-Add-Cursor-Down)', {noremap = false})
-  vim.api.nvim_set_keymap('n', '<M-k>', '<Plug>(VM-Add-Cursor-Up)', {noremap = false})
   vim.api.nvim_set_keymap('n', '<C-n>', '<Plug>(VM-Find-Under)', {noremap = false})
   vim.api.nvim_set_keymap('n', '<C-Down>', '<Plug>(VM-Add-Cursor-Down)', {noremap = false})
   vim.api.nvim_set_keymap('n', '<C-Up>', '<Plug>(VM-Add-Cursor-Up)', {noremap = false})
