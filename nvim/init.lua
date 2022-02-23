@@ -91,6 +91,20 @@ vim.api.nvim_set_keymap('n', '<C-k>', '<C-w>k', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-=>', '<C-W><C-=>', {noremap = true})
 
+-- debugger
+vim.api.nvim_set_keymap('n', "<F5>", ":lua require'dap'.continue(); require'dapui'.open()<CR>", {noremap = true})
+vim.api.nvim_set_keymap('n', "<F8>", ":lua require'dap'.step_over()<CR>", {noremap = true})
+vim.api.nvim_set_keymap('n', "<F9>", ":lua require'dap'.step_into()<CR>", {noremap = true})
+vim.api.nvim_set_keymap('n', "<F7>", ":lua require'dap'.step_out()<CR>", {noremap = true})
+vim.api.nvim_set_keymap('n', "<F6>", ":lua require'dap'.terminate(); require'dapui'.close()<CR>", {noremap = true})
+vim.api.nvim_set_keymap('n', "<leader>b", ":lua require'dap'.toggle_breakpoint()<CR>", {noremap = true})
+vim.api.nvim_set_keymap('n', "<leader>B", ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", {noremap = true})
+vim.api.nvim_set_keymap('n', "<M-l>", ":lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>", {noremap = true})
+vim.api.nvim_set_keymap('n', "<leader>dr", ":lua require'dap'.repl.open()<CR>", {noremap = true})
+vim.api.nvim_set_keymap('n', "<leader>dl", ":lua require'dap'.run_last()<CR>", {noremap = true})
+vim.api.nvim_set_keymap('v', "<M-k>", "<Cmd>lua require('dapui').eval()<CR>", {noremap = true})
+vim.api.nvim_set_keymap('n', "<M-f>", "<Cmd>lua require('dapui').float_element()<CR>", {noremap = true})
+
 function IsFirenvimActive(event)
     if vim.g.enable_vim_debug then print("IsFirenvimActive, event: ", vim.inspect(event)) end
 
@@ -283,6 +297,40 @@ require'lspconfig'.sumneko_lua.setup(union(
     },
   }
 ))
+
+local dap = require('dap')
+dap.adapters.python = {
+  type = 'executable';
+  command = 'python3';
+  args = { '-m', 'debugpy.adapter' };
+}
+
+local dap = require('dap')
+dap.configurations.python = {
+  {
+    -- The first three options are required by nvim-dap
+    type = 'python'; -- the type here established the link to the adapter definition: `dap.adapters.python`
+    request = 'launch';
+    name = "Launch file";
+
+    -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
+
+    program = "${file}"; -- This configuration will launch the current file if used.
+    pythonPath = function()
+      -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
+      -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
+      -- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
+      local cwd = vim.fn.getcwd()
+      if vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
+        return cwd .. '/venv/bin/python'
+      elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
+        return cwd .. '/.venv/bin/python'
+      else
+        return '/opt/homebrew/bin/python3'
+      end
+    end;
+  },
+}
 
 run_checkstyle = function()
      vim.api.nvim_command('set makeprg=brazil-build')
