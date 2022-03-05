@@ -223,6 +223,11 @@ end
 local nvimTreeConfig = function()
   require("nvim-tree").setup({
     update_cwd = true,
+    view = {
+      preserve_window_proportions = true,
+      number = true,
+      relativenumber = true,
+    },
   })
   vim.api.nvim_set_keymap('n', '<C-t>', ':NvimTreeFindFileToggle<CR>', {noremap = true})
 end

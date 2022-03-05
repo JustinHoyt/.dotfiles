@@ -27,6 +27,7 @@ vim.opt.smartcase = true
 vim.opt.encoding = 'utf8'
 vim.opt.cursorline = true
 vim.opt.mouse = 'a'
+vim.cmd 'set noequalalways'
 vim.cmd 'let g:startify_change_to_vcs_root=1'
 vim.cmd 'let g:dispatch_no_tmux_make = 1'
 
@@ -326,7 +327,7 @@ dap.configurations.python = {
       elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
         return cwd .. '/.venv/bin/python'
       else
-        return '/opt/homebrew/bin/python3'
+        return 'python3'
       end
     end;
   },
