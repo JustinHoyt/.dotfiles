@@ -33,7 +33,7 @@ local luaLineConfig = function()
   require'lualine'.setup {
     options = {
       icons_enabled = true,
-      theme = 'onedark',
+      theme = 'onedark-nvim',
       component_separators = { left = '', right = ''},
       section_separators = { left = '', right = ''},
       disabled_filetypes = {},
@@ -324,10 +324,6 @@ local treeSitterTextObjectsConfig = function()
       lsp_interop = {
         enable = true,
         border = 'none',
-        peek_definition_code = {
-          ["<leader>gf"] = "@function.outer",
-          ["<leader>gc"] = "@class.outer",
-        },
       },
     },
   }
@@ -409,6 +405,7 @@ return require('packer').startup(function()
   use 'tpope/vim-dispatch'
   use 'tpope/vim-unimpaired'
   use 'tpope/vim-abolish'
+  use 'tpope/vim-rhubarb'
   use 'honza/vim-snippets'
   use 'rakr/vim-one'
   use 'tpope/vim-fugitive'

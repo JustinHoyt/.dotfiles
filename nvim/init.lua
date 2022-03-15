@@ -68,9 +68,20 @@ vim.api.nvim_set_keymap('n', '<leader>w', ':w<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '[l', ':set norelativenumber nonumber<CR>:GitGutterDisable<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', ']l', ':set relativenumber number<CR>:GitGutterEnable<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', 'yob', ':call ToggleBackground()<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<leader>d', ':Gdiff<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>t', ':bot 15sp term://zsh<CR>i', {noremap = true})
-vim.api.nvim_set_keymap('n', '<leader>gs', ':Neogit<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>gg', ':G<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>gs', ':G status<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>ga', ':G add --all<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>gl', ':G pull<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>gp', ':G push<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>gcc', ':G commit<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>gca', ':G git commit --amend<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>gcan', ':G git commit -v -a --no-edit --amend<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>grhh', ':G reset --hard<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>glol', ':G log --oneline --decorate --graph<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>gd', ':Gdiff<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>go', ':GBrowse<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>gb', ':G blame<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>pw', ':w<CR>:silent !pandoc -f markdown % -t xwiki -o %:r.xwiki && pbcopy < %:r.xwiki<CR>', {noremap = true})
 
 vim.api.nvim_set_keymap('v', '>', '>gv', {noremap = true})
@@ -252,7 +263,7 @@ local server_settings = {
   }
 }
 
-local servers = { 'tsserver', 'jsonls', 'pylsp' }
+local servers = { 'tsserver', 'jsonls', 'pyright' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup(server_settings)
 end
