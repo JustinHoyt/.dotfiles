@@ -263,7 +263,7 @@ local server_settings = {
   }
 }
 
-local servers = { 'tsserver', 'jsonls', 'pyright' }
+local servers = { 'tsserver', 'jsonls' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup(server_settings)
 end
@@ -281,6 +281,17 @@ nvim_lsp.hls.setup(union(
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
+
+require'lspconfig'.pyright.setup(union(
+  server_settings,
+  {
+    settings = {
+      python = {
+        wraplength = 120
+      }
+    },
+  }
+))
 
 require'lspconfig'.sumneko_lua.setup(union(
   server_settings,
