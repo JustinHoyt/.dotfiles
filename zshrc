@@ -201,3 +201,5 @@ zi wait'0b' lucid light-mode for \
 if [ -f ~/.zshrc_local ]; then
     source ~/.zshrc_local
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
