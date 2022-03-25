@@ -16,7 +16,7 @@ fi
 
 # Setting Environment Variables
 set -o ignoreeof
-export VISUAL=vim
+export VISUAL=nvim
 export EDITOR="$VISUAL"
 HYPHEN_INSENSITIVE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
