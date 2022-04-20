@@ -151,14 +151,12 @@ local telescopeConfig = function()
     }
   }
   require('telescope').load_extension('fzf')
-  require('telescope').load_extension('project')
   vim.api.nvim_set_keymap('n', '<leader>f', ':Telescope<CR>', {noremap = true})
   vim.api.nvim_set_keymap('n', '<leader>f/', ':Telescope live_grep<CR>', {noremap = true})
   vim.api.nvim_set_keymap('n', '<leader>fb', ':Telescope buffers<CR>', {noremap = true})
   vim.api.nvim_set_keymap('n', '<leader>ff', ':Telescope find_files<CR>', {noremap = true})
   vim.api.nvim_set_keymap('n', '<leader>fg', ':Telescope git_files<CR>', {noremap = true})
   vim.api.nvim_set_keymap('n', '<leader>fh', ':Telescope help_tags<CR>', {noremap = true})
-  vim.api.nvim_set_keymap('n', '<leader>fp', ":lua require'telescope'.extensions.project.project{}<CR>", {noremap = true, silent = true})
 end
 
 local oscyankConfig = function()
@@ -396,20 +394,29 @@ local nvimDapUi = function()
 end
 
 return require('packer').startup(function()
+  -- Plugin manager managed by itself
   use 'wbthomason/packer.nvim'
+  -- gc comment motion
   use 'tpope/vim-commentary'
+  -- ys/cs surround motion
   use 'tpope/vim-surround'
-  use 'tpope/vim-vinegar'
+  -- Repeat plugin commands
   use 'tpope/vim-repeat'
+  -- Asyncronous task runner
   use 'tpope/vim-dispatch'
+  -- Complementary pair mappings
   use 'tpope/vim-unimpaired'
+  -- cr motion for coerce case
   use 'tpope/vim-abolish'
+  -- Supports :GBrowse for the fugitive plugin
   use 'tpope/vim-rhubarb'
-  use 'honza/vim-snippets'
-  use 'rakr/vim-one'
+  -- Git integration
   use 'tpope/vim-fugitive'
-  use 'mfussenegger/nvim-jdtls'
+  -- Language Server Protocol (LSP) support
   use 'neovim/nvim-lspconfig'
+  -- Language server for java
+  use 'mfussenegger/nvim-jdtls'
+  -- Completion and snippet plugins
   use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-buffer'
   use 'hrsh7th/cmp-path'
@@ -417,55 +424,51 @@ return require('packer').startup(function()
   use 'hrsh7th/nvim-cmp'
   use 'hrsh7th/cmp-vsnip'
   use 'hrsh7th/vim-vsnip'
-  use 'cormacrelf/vim-colors-github'
   use 'airblade/vim-gitgutter'
-  use 'tpope/vim-tbone'
-  use 'svermeulen/vim-yoink'
-  use 'yazgoo/yank-history'
-  use {
-    'phaazon/hop.nvim',
-    branch = 'v1', -- optional but strongly recommended
-    config = function()
-      -- you can configure Hop the way you like here; see :h hop-config
-      require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
-      -- place this in one of your configuration file(s)
-      vim.api.nvim_set_keymap('n', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", {})
-      vim.api.nvim_set_keymap('n', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", {})
-      vim.api.nvim_set_keymap('o', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, inclusive_jump = true })<cr>", {})
-      vim.api.nvim_set_keymap('o', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, inclusive_jump = true })<cr>", {})
-      vim.api.nvim_set_keymap('', 't', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", {})
-      vim.api.nvim_set_keymap('', 'T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", {})
-      vim.api.nvim_set_keymap('n', 's', "<cmd>lua require'hop'.hint_char2()<cr>", {noremap = true})
-    end
-  }
+  -- Utility library other plugins depend on
   use 'nvim-lua/plenary.nvim'
+  -- View diffs
   use 'sindrets/diffview.nvim'
-  use 'nvim-telescope/telescope-project.nvim'
-  use 'williamboman/nvim-lsp-installer'
-  use 'EdenEast/nightfox.nvim'
-  use 'marko-cerovac/material.nvim'
+  -- GUI library for plugins
   use 'ray-x/guihua.lua'
+  -- Enables closing active buffers without closing the window
   use 'moll/vim-bbye'
+  -- Debugger
   use 'mfussenegger/nvim-dap'
+  -- Debugger UI
   use { "rcarriga/nvim-dap-ui", config = nvimDapUi, requires = {"mfussenegger/nvim-dap"} }
+  -- Color scheme
   use { 'navarasu/onedark.nvim', config = oneDarkConfig }
   use { 'tyru/open-browser.vim', config = openBrowserConfig }
-  use { 'ray-x/sad.nvim', config = sadConfig }
+  -- Highlight other words that match the word under the cursor
   use { 'RRethy/vim-illuminate', config = vimIlluminateConfig }
+  -- Adds closing pairs
   use { 'windwp/nvim-autopairs', config = function() require('nvim-autopairs').setup{} end }
+  -- use treesitter text objects as motions
   use { 'nvim-treesitter/nvim-treesitter-textobjects', config = treeSitterTextObjectsConfig }
+  -- Buffers that looks like tabs in other applications
   use { 'akinsho/bufferline.nvim', config = bufferlineConfig }
+  -- Multicursor mode
   use { 'mg979/vim-visual-multi', config = vimVisualMultiConfig }
+  -- Generate git links
   use { 'ruifm/gitlinker.nvim', config = gitlinkerConfig, }
+  -- Show key completions
   use { "folke/which-key.nvim", config = function() require("which-key").setup {} end }
-  use { 'TimUntersberger/neogit', integrations = { diffview = true } }
+  -- Smart highlighting and syntax parsing
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', config = treeSitterConfig }
+  -- File Tree
   use { 'kyazdani42/nvim-tree.lua', config = nvimTreeConfig }
+  -- Start screen
   use { 'goolord/alpha-nvim', config = alphaConfig }
+  -- Browser integration with textboxes
   use { 'glacambre/firenvim', run = function() vim.fn['firenvim#install'](0) end }
+  -- Copy to system clipboard from local or remote system
   use { 'ojroques/vim-oscyank', config = oscyankConfig }
+  -- Glyphs and icons
   use { 'kyazdani42/nvim-web-devicons', config = webDevIconsConfig }
+  -- Status line
   use { 'nvim-lualine/lualine.nvim', config = luaLineConfig }
+  -- Fuzzy searcher
   use { 'nvim-telescope/telescope.nvim',
     requires = { {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' } },
     config = telescopeConfig

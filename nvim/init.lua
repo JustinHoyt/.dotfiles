@@ -1,3 +1,7 @@
+-- Tips --
+-- crtl-v will insert any key literally into ex mode
+-- for example: crtl-v <esc> will produce  as the correct keycode for escape
+
 require('plugins')
 
 -------------
@@ -364,7 +368,4 @@ end
 
 vim.api.nvim_set_keymap('n', '<leader>c', ':lua run_checkstyle()<CR>', {noremap = true})
 
-local neogit = require('neogit')
-
-neogit.setup {}
 require'gitlinker'.setup()
