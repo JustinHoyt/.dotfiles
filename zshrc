@@ -67,14 +67,14 @@ j() {
   cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
 }
 
-# Search and execute a command from history
-h() {
-    eval $(history | cut -d ' ' -f 10- | fzf)
-}
-
 # Search for a command from history and print it out
 hs() {
-    history | cut -d ' ' -f 10- | fzf
+    cat ~/.zsh_history | cut -d ';' -f 2- | fzf
+}
+
+# Search and execute a command from history
+h() {
+    eval $(hs)
 }
 
 # Fuzzy find and install a package from a debian-based OS
