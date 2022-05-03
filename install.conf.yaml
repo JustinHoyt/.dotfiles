@@ -1,18 +1,16 @@
 - defaults:
     link:
-      relink: true
-      force: true
+        relink: true
+        force: true
 
 - clean: ['~']
 
 - shell:
-  - if [[ ! -f zshrc_local ]]; then touch zshrc_local; fi
-  - if [[ ! -f proxy_url ]]; then touch proxy_url; echo "proxy_url=" > proxy_url; fi
-  - if [[ ! -f ~/.gitignore ]]; then git config --global core.excludesFile ~/.gitignore; fi
-  - if [[ ! -d ~/.config ]]; then mkdir ~/.config; fi
-  - if [[ ! -d ~/.config/kitty ]]; then mkdir ~/.config/kitty; fi
-  - if [[ ! -d ~/.config/alacritty ]]; then mkdir ~/.config/alacritty; fi
-  - if [[ "$OSTYPE" == "darwin"* && ! -d ~/Library/Application\ Support/iTerm2/Scripts/AutoLaunch ]]; then mkdir ~/Library/Application\ Support/iTerm2/Scripts/AutoLaunch; fi
+    - if [[ ! -f zshrc_local ]]; then touch zshrc_local; fi
+    - if [[ ! -f proxy_url ]]; then touch proxy_url; echo "proxy_url=" > proxy_url; fi
+    - if [[ ! -f ~/.gitignore ]]; then git config --global core.excludesFile ~/.gitignore; fi
+    - if [[ ! -d ~/.config ]]; then mkdir ~/.config; fi
+    - if [[ ! -d ~/.config/kitty ]]; then mkdir ~/.config/kitty; fi
 
 - link:
     ~/.zshrc: zshrc
@@ -22,22 +20,13 @@
     ~/.proxy_configurer: proxy_configurer
     ~/.ideavimrc: ideavimrc
     ~/.tmux.conf: tmux.conf
-    ~/.config/antigen.zsh: antigen.zsh
     ~/.config/flake8: flake8
     ~/.config/karabiner: karabiner
     ~/.vim: vim
     ~/.gitignore: gitignore
-    /usr/local/bin/ett: ett
     ~/.config/kitty/kitty.conf: kitty.conf
     ~/.config/kitty/kitty-theme.conf: kitty-theme.conf
-    ~/.config/alacritty/alacritty.yml: alacritty.yml
     ~/.config/nvim: nvim
-    "~/Library/Application\ Support/iterm2/Scripts/AutoLaunch/theme.py":
-      path: theme.py
-      if: '[[ "$OSTYPE" == "darwin"* ]]'
-    ~/Library/Preferences/com.googlecode.iterm2.plist:
-      path: com.googlecode.iterm2.plist
-      if: '[[ "$OSTYPE" == "darwin"* ]]'
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
