@@ -473,6 +473,7 @@ return require('packer').startup(function()
     requires = { {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' } },
     config = telescopeConfig
   }
+  use { 'https://github.com/dhruvasagar/vim-table-mode' }
   if packer_bootstrap then
     require('packer').sync()
   end

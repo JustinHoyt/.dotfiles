@@ -72,6 +72,24 @@ j() {
   cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
 }
 
+# Search and execute a command from history
+h() {
+    eval $(history | cut -d ' ' -f 10- | fzf)
+}
+
+# Search for a command from history and print it out
+hs() {
+    history | cut -d ' ' -f 10- | fzf
+}
+
+# Fuzzy find and install a package from a debian-based OS
+apt-install() {
+  local app=$(apt-cache pkgnames | fzf)
+  if [ $app ]; then
+    sudo apt-get install $app
+  fi
+}
+
 # Install (one or multiple) selected application(s)
 # using "brew search" as source input
 # mnemonic [B]rew [I]nstall [P]lugin

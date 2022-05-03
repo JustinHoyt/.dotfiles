@@ -369,3 +369,5 @@ end
 vim.api.nvim_set_keymap('n', '<leader>c', ':lua run_checkstyle()<CR>', {noremap = true})
 
 require'gitlinker'.setup()
+
+vim.cmd[[ let g:table_mode_map_prefix = '\t' ]]
