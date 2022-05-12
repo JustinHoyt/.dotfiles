@@ -60,6 +60,10 @@ if command -v kitty &> /dev/null; then
   fi
 fi
 
+split() {
+    tr $1 '\n'
+}
+
 # Jump to previous directories with `j`
 unalias z 2> /dev/null
 j() {
@@ -82,6 +86,14 @@ apt-install() {
   local app=$(apt-cache pkgnames | fzf)
   if [ $app ]; then
     sudo apt-get install $app
+  fi
+}
+
+
+nix-search() {
+  local app=$(nix search --extra-experimental-features "nix-command flakes" nixpkgs $1 | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g" | cut -d " " -f2 | awk 'NF' | sed -r "s/legacyPackages.x86_64-linux.//" | fzf --query $1)
+  if [ $app ]; then
+    nix-env -iA nixpkgs.${app}
   fi
 }
 
