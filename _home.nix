@@ -7,4 +7,7 @@
   home.homeDirectory = "/home/justin";
 
   imports = [ ./common.nix ];
+
+  home.packages = with pkgs; [
+  ];
 }
