@@ -12,8 +12,8 @@ nix-shell '<home-manager>' -A install
 TEST_CURRENT_SHELL=$(expr "$SHELL" : '.*/\(.*\)')
 if [ "$TEST_CURRENT_SHELL" != "zsh" ]; then
     printf "${BLUE}Time to change your default shell to zsh!${NORMAL}\n"
-    echo $(which zsh) | sudo tee -a /etc/shells
-    chsh -s $(which zsh)
+    echo "${HOME}/.nix-profile/bin/zsh" | sudo tee -a /etc/shells
+    chsh -s "${HOME}/.nix-profile/bin/zsh"
     env zsh -l
 fi
 
