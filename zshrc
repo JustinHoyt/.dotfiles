@@ -91,7 +91,8 @@ apt-install() {
 
 
 nix-search() {
-  local app=$(nix search --extra-experimental-features "nix-command flakes" nixpkgs $1 | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g" | cut -d " " -f2 | awk 'NF' | sed -r "s/legacyPackages.x86_64-linux.//" | fzf --query $1)
+  local app=$(nix search --extra-experimental-features "nix-command flakes" nixpkgs $1 | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g" | cut -d " " -f2 | awk 'NF' | sed -r "s/legacyPackages.aarch64-darwin.//" |sed -r "s/legacyPackages.x86_64-linux.//" | fzf --query $1)
+
   if [ $app ]; then
     nix-env -iA nixpkgs.${app}
   fi
