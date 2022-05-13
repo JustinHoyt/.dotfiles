@@ -13,6 +13,7 @@
     - if [[ ! -f proxy_url ]]; then touch proxy_url; echo "proxy_url=" > proxy_url; fi
     - if [[ ! -f ~/.gitignore ]]; then git config --global core.excludesFile ~/.gitignore; fi
     - if [[ ! -f home.nix ]]; then cp _home.nix home.nix; fi
+    - sed -i "s/SUBSTITUTE/${USER}/" home.nix
 
 - link:
     ~/.zshrc: zshrc
