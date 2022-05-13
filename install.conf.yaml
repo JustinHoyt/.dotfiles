@@ -7,6 +7,7 @@
 
 - shell:
     - if [[ ! -f zshrc_local ]]; then touch zshrc_local; fi
+    - if [[ ! -f home.nix ]]; then cp _home.nix home.nix; fi
     - if [[ ! -f proxy_url ]]; then touch proxy_url; echo "proxy_url=" > proxy_url; fi
     - if [[ ! -f ~/.gitignore ]]; then git config --global core.excludesFile ~/.gitignore; fi
     - if [[ ! -d ~/.config ]]; then mkdir ~/.config; fi
@@ -27,6 +28,8 @@
     ~/.config/kitty/kitty.conf: kitty.conf
     ~/.config/kitty/kitty-theme.conf: kitty-theme.conf
     ~/.config/nvim: nvim
+    ~/.config/nixpkgs/home.nix: home.nix
+    ~/.config/nixpkgs/common.nix: common.nix
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]

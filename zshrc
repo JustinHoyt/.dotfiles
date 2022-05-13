@@ -144,6 +144,11 @@ ccp() {
   fi
 }
 
+# List all the applications installed with brew
+brew-apps() {
+    brew bundle dump --no-restart --file -
+}
+
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
