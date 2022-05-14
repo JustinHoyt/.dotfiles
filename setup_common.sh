@@ -13,6 +13,7 @@ TEST_CURRENT_SHELL=$(expr "$SHELL" : '.*/\(.*\)')
 if [ "$TEST_CURRENT_SHELL" != "zsh" ]; then
     printf "${BLUE}Time to change your default shell to zsh!${NORMAL}\n"
     bash ~/.dotfiles/set_shell.sh
+    chsh -s "${HOME}/.nix-profile/bin/zsh"
     env zsh -l
 fi
 
