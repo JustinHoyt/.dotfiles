@@ -25,7 +25,6 @@
     fzf
     lua
     sumneko-lua-language-server
-    neovim
     nnn
     nodejs-16_x
     jdk17_headless

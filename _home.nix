@@ -7,6 +7,7 @@
   home.homeDirectory = "/home/SUBSTITUTE";
 
   imports = [ ./common.nix ];
+  # imports = [ ./desktop.nix ];
 
   home.packages = with pkgs; [
   ];
