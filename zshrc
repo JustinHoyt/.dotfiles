@@ -53,6 +53,18 @@ alias rg='rg --smart-case --glob="!coverage"'
 alias bgd='kitty +kitten themes --reload-in=all One Dark'
 alias bgl='kitty +kitten themes --reload-in=all Atom One Light'
 
+java-run() {
+    local filename="$1"
+    javac -cp .:/usr/share/maven-repo/junit/junit/4.x/junit-4.x.jar ${filename}
+    java ${filename%.*}
+}
+
+junit() {
+    local filename="$1"
+    javac -cp .:/usr/share/maven-repo/junit/junit/4.x/junit-4.x.jar ${filename}
+    java -cp .:/usr/share/maven-repo/junit/junit/4.x/junit-4.x.jar org.junit.runner.JUnitCore ${filename%.*}
+}
+
 # Set light/dark theme based on macos theme
 if command -v kitty &> /dev/null; then
   if defaults read -g AppleInterfaceStyle &>/dev/null; then
