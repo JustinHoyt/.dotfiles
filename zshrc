@@ -56,14 +56,14 @@ alias bgl='kitty +kitten themes --reload-in=all Atom One Light'
 java-run() {
     local filename="$1"
     local args=(${@:2})
-    javac -cp .:/usr/share/maven-repo/junit/junit/4.x/junit-4.x.jar "$filename"
-    java ${filename%.*} $args
+    javac -d bin -cp bin:/usr/share/maven-repo/junit/junit/4.x/junit-4.x.jar "$filename"
+    java -cp bin ${filename%.*} $args
 }
 
 junit() {
     local filename="$1"
-    javac -cp .:/usr/share/maven-repo/junit/junit/4.x/junit-4.x.jar ${filename}
-    java -cp .:/usr/share/maven-repo/junit/junit/4.x/junit-4.x.jar org.junit.runner.JUnitCore ${filename%.*}
+    javac -d bin -cp bin:/usr/share/maven-repo/junit/junit/4.x/junit-4.x.jar ${filename}
+    java -cp bin:/usr/share/maven-repo/junit/junit/4.x/junit-4.x.jar org.junit.runner.JUnitCore ${filename%.*}
 }
 
 # Set light/dark theme based on macos theme
