@@ -55,9 +55,9 @@ alias bgl='kitty +kitten themes --reload-in=all Atom One Light'
 
 java-run() {
     local filename="$1"
-    local args="${@:2}"
+    local args=(${@:2})
     javac -cp .:/usr/share/maven-repo/junit/junit/4.x/junit-4.x.jar "$filename"
-    java ${filename%.*} "$args"
+    java ${filename%.*} $args
 }
 
 junit() {
