@@ -39,6 +39,8 @@ require('packer').startup(function(use)
   use 'windwp/nvim-autopairs' -- Autopairs
   use 'kyazdani42/nvim-web-devicons' -- Pretty icons
   use 'mg979/vim-visual-multi' -- Multicursor mode
+  use 'RRethy/vim-illuminate' -- Highlight other words that match the word under the cursor
+  use { "folke/which-key.nvim", config = function() require("which-key").setup {} end }
 end)
 
 
@@ -427,3 +429,12 @@ vim.api.nvim_set_keymap('n', '<M-d>', '<Plug>(VM-Find-Under)', {noremap = false}
 vim.api.nvim_set_keymap('n', '<C-n>', '<Plug>(VM-Find-Under)', {noremap = false})
 vim.api.nvim_set_keymap('n', '<C-Down>', '<Plug>(VM-Add-Cursor-Down)', {noremap = false})
 vim.api.nvim_set_keymap('n', '<C-Up>', '<Plug>(VM-Add-Cursor-Up)', {noremap = false})
+
+-- vim-illuminate
+vim.cmd([[
+  augroup illuminate_augroup
+    autocmd!
+    autocmd VimEnter * hi illuminatedWord guibg=#3A3F49
+    autocmd VimEnter * hi illuminatedCurWord guibg=#3A3F49 cterm=underline gui=underline
+  augroup END
+]])
