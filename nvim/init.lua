@@ -41,6 +41,7 @@ require('packer').startup(function(use)
   use 'mg979/vim-visual-multi' -- Multicursor mode
   use 'RRethy/vim-illuminate' -- Highlight other words that match the word under the cursor
   use { "folke/which-key.nvim", config = function() require("which-key").setup {} end }
+  use 'Olical/conjure' -- Interactive Lisp evaluator
 end)
 
 
@@ -101,7 +102,7 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-vim.api.nvim_set_keymap('n', '<leader>ev', ':silent e ~/.config/nvim/init.lua<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>v', ':silent e ~/.config/nvim/init.lua<CR>', {noremap = true})
 
 vim.api.nvim_set_keymap('n', '<leader>t', ':bot 15sp term://zsh<CR>i', {noremap = true})
 
@@ -405,7 +406,10 @@ vim.cmd([[
 	augroup END
 ]])
 
-require('nvim-autopairs').setup{}
+require('nvim-autopairs').setup{
+  check_ts = true,
+  enable_check_bracket_line = false
+}
 
 require'nvim-web-devicons'.setup {
  -- your personnal icons can go here (to override)

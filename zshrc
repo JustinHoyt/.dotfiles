@@ -6,7 +6,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 if hash rg 2>/dev/null; then
-    export FZF_DEFAULT_COMMAND='rg -S --files --no-ignore-vcs --hidden --glob="!bin" --glob="!build" --glob="!node_modules"'
+  export FZF_DEFAULT_COMMAND='rg -S --files --no-ignore-vcs --hidden --glob="!bin" --glob="!build" --glob="!node_modules"'
 fi
 
 # Setting Environment Variables
@@ -53,17 +53,21 @@ alias rg='rg --smart-case --glob="!coverage"'
 alias bgd='kitty +kitten themes --reload-in=all One Dark'
 alias bgl='kitty +kitten themes --reload-in=all Atom One Light'
 
+cht() {
+  curl cht.sh/${1} | less -r
+}
+
 java-run() {
-    local filename="$1"
-    local args=(${@:2})
-    javac -d bin -cp bin:/usr/share/maven-repo/junit/junit/4.x/junit-4.x.jar "$filename"
-    java -cp bin ${filename%.*} $args
+  local filename="$1"
+  local args=(${@:2})
+  javac -d bin -cp bin:/usr/share/maven-repo/junit/junit/4.x/junit-4.x.jar "$filename"
+  java -cp bin ${filename%.*} $args
 }
 
 junit() {
-    local filename="$1"
-    javac -d bin -cp bin:/usr/share/maven-repo/junit/junit/4.x/junit-4.x.jar ${filename}
-    java -cp bin:/usr/share/maven-repo/junit/junit/4.x/junit-4.x.jar org.junit.runner.JUnitCore ${filename%.*}
+  local filename="$1"
+  javac -d bin -cp bin:/usr/share/maven-repo/junit/junit/4.x/junit-4.x.jar ${filename}
+  java -cp bin:/usr/share/maven-repo/junit/junit/4.x/junit-4.x.jar org.junit.runner.JUnitCore ${filename%.*}
 }
 
 # Set light/dark theme based on macos theme
@@ -76,7 +80,7 @@ if command -v kitty &> /dev/null; then
 fi
 
 split() {
-    tr $1 '\n'
+  tr $1 '\n'
 }
 
 # Jump to previous directories with `j`
@@ -162,17 +166,17 @@ ccp() {
 
 # List all the applications installed with brew
 brew-apps() {
-    brew bundle dump --no-restart --file -
+  brew bundle dump --no-restart --file -
 }
 
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
-    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
-    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
-    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
-        print -P "%F{33} %F{34}Installation successful.%f%b" || \
-        print -P "%F{160} The clone has failed.%f%b"
+  print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+  command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+  command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
+    print -P "%F{33} %F{34}Installation successful.%f%b" || \
+    print -P "%F{160} The clone has failed.%f%b"
 fi
 
 source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
