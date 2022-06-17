@@ -15,6 +15,8 @@ export VISUAL=nvim
 export EDITOR="$VISUAL"
 export NIX_PATH=$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels${NIX_PATH:+:$NIX_PATH}
 export NIXPKGS_ALLOW_UNFREE=1
+export PATH="${HOME}/.nix-profile/bin:${PATH}"
+export PATH="/nix/var/nix/profiles/default/bin:${PATH}"
 HYPHEN_INSENSITIVE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=white'
