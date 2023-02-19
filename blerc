@@ -1,0 +1,18 @@
+function blerc/vim-mode-hook {
+  source "$_ble_base/lib/vim-surround.sh"
+  ble-bind -m vi_imap -f 'C-c' discard-line
+  ble-bind -m vi_nmap -f 'C-c' discard-line
+  ble-bind -m vi_nmap -f 'g g' vi-command/first-nol
+  ble-bind -m vi_omap -f 'g g' vi-command/first-nol
+  ble-bind -m vi_xmap -f 'g g' vi-command/first-nol
+  ble-bind -m vi_nmap -f 'G' vi-command/last-line
+  ble-bind -m vi_omap -f 'G' vi-command/last-line
+  ble-bind -m vi_xmap -f 'G' vi-command/last-line
+  ble-bind -m vi_nmap -f 'C-r' history-isearch-backward
+  ble-bind -m vi_nmap --cursor 2
+  ble-bind -m vi_imap --cursor 5
+  ble-bind -m vi_omap --cursor 4
+  ble-bind -m vi_xmap --cursor 2
+  ble-bind -m vi_cmap --cursor 0
+}
+blehook/eval-after-load keymap_vi blerc/vim-mode-hook
