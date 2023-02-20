@@ -18,6 +18,10 @@
 - link:
     ~/.zshrc: zshrc
     ~/.zshrc_local: zshrc_local
+    ~/.blerc: blerc
+    ~/.aliases: aliases
+    ~/.bashrc: bashrc
+    ~/.theme.sh: theme.sh
     ~/.p10k.zsh: p10k.zsh
     ~/.proxy_url: proxy_url
     ~/.proxy_configurer: proxy_configurer

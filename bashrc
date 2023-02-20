@@ -4,20 +4,12 @@ case $- in
       *) return;;
 esac
 
+[[ $- == *i* ]] && source ~/ble.sh/out/ble.sh --noattach
+
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 
-# Path to the bash it configuration
-export BASH_IT="/home/${USER}/.bash_it"
-
-# Lock and Load a custom theme file.
-# Leave empty to disable theming.
-# location /.bash_it/themes/
-export BASH_IT_THEME='bakke'
-
-# (Advanced): Uncomment this to make Bash-it reload itself automatically
-# after enabling or disabling aliases, plugins, and completions.
-export BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE=1
+force_color_prompt=yes
 
 bind 'set completion-ignore-case on'
 
@@ -39,7 +31,19 @@ howto() {
   alias | grep "$1"
 }
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+if [ -d ~/.local/share/junest ]; then
+  export PATH="~/.local/share/junest/bin:$PATH"
+  export PATH="$PATH:~/.junest/usr/bin_wrappers"
+  [[ ~/.junest/usr/share/z/z.sh ]] && source ~/.junest/usr/share/z/z.sh
+fi
 
-# Load Bash It
-[ "$BASH_IT" ] && source "$BASH_IT"/bash_it.sh
+set -o vi
+
+bind '"\e[A":history-search-backward'
+bind '"\e[B":history-search-forward'
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f ~/.aliases ] && source ~/.aliases
+[ -f ~/.theme.sh ] && source ~/.theme.sh
+
+[[ ${BLE_VERSION-} ]] && ble-attach
