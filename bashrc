@@ -19,7 +19,10 @@ export BASH_IT_THEME='bakke'
 # after enabling or disabling aliases, plugins, and completions.
 export BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE=1
 
+bind 'set completion-ignore-case on'
+
 alias v='nvim'
+alias gaa='git add --all'
 alias rg='rg --smart-case --glob="!coverage"'
 alias bgd='kitty +kitten themes --reload-in=all One Dark'
 alias bgl='kitty +kitten themes --reload-in=all Atom One Light'
