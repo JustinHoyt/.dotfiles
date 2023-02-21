@@ -156,6 +156,7 @@ alias gprom='git fetch origin $(get_default_branch) && git rebase origin/$(get_d
 
 # reset
 alias gus='git reset HEAD'
+alias grhh='git reset HEAD --hard'
 alias gpristine='git reset --hard && git clean -dfx'
 
 # status
