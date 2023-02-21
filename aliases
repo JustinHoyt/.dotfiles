@@ -1,3 +1,7 @@
+get_default_branch() {
+  git remote show origin | sed -n '/HEAD branch/s/.*: //p'
+}
+
 # retry with sudo
 alias s='sudo $(fc -ln -1)'
 
@@ -132,11 +136,10 @@ alias gpuo='git push --set-upstream origin'
 alias gpuoc='git push --set-upstream origin $(git symbolic-ref --short HEAD)'
 
 # pull
-alias gl='git pull'
+alias gl='git pull --rebase'
 alias glum='git pull upstream $(get_default_branch)'
-alias gpl='git pull'
-alias gpp='git pull && git push'
-alias gpr='git pull --rebase'
+alias gpp='git pull --rebase && git push'
+alias glm='git pull'
 
 # remote
 alias gr='git remote'
