@@ -45,5 +45,6 @@ bind '"\e[B":history-search-forward'
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 [ -f ~/.aliases ] && source ~/.aliases
 [ -f ~/.theme.sh ] && source ~/.theme.sh
+[ -f ~/.bashrc_local ] && source ~/.bashrc_local
 
 [[ ${BLE_VERSION-} ]] && ble-attach
