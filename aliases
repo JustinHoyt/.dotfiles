@@ -28,7 +28,20 @@ alias txa='tmux a -t'
 alias g='git'
 alias get='git'
 
-alias gs='git fetch && echo "" && git status -s && echo "" && gg ...@{upstream}'
+# log
+alias gg='git log --graph --all --pretty=format:'\''%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset'\'' --abbrev-commit --date=relative'
+alias ggf='git log --graph --date=short --pretty=format:'\''%C(auto)%h %Cgreen%an%Creset %Cblue%cd%Creset %C(auto)%d %s'\'''
+alias ggs='gg --stat'
+alias ggup='git log --branches --not --remotes --no-walk --decorate --oneline' # FROM https://stackoverflow.com/questions/39220870/in-git-list-names-of-branches-with-unpushed-commits
+alias gll='git log --graph --pretty=oneline --abbrev-commit'
+alias gnew='git log HEAD@{1}..HEAD@{0}' # Show commits since last pull, see http://blogs.atlassian.com/2014/10/advanced-git-aliases/
+alias gwc='git whatchanged'
+gs() {
+  main=$(get_default_branch)
+  num_commits=$(git rev-list --count  origin/"$main"..."$main")
+  num_commits_to_show=$(( $num_commits == 0 ? 5 : $num_commits ))
+  git fetch && echo "" && git status -s &&  echo "" && gg HEAD~${num_commits_to_show}...@{upstream}
+}
 
 # add
 alias ga='git add && gs'
@@ -96,15 +109,6 @@ alias gftv='git fetch --all --prune --tags --verbose && gs'
 alias gfv='git fetch --all --prune --verbose && gs'
 alias gmu='git fetch origin -v; git fetch upstream -v; git merge upstream/$(get_default_branch) && gs'
 alias gup='git fetch && git rebase && gs'
-
-# log
-alias gg='git log --graph --all --pretty=format:'\''%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset'\'' --abbrev-commit --date=relative'
-alias ggf='git log --graph --date=short --pretty=format:'\''%C(auto)%h %Cgreen%an%Creset %Cblue%cd%Creset %C(auto)%d %s'\'''
-alias ggs='gg --stat'
-alias ggup='git log --branches --not --remotes --no-walk --decorate --oneline' # FROM https://stackoverflow.com/questions/39220870/in-git-list-names-of-branches-with-unpushed-commits
-alias gll='git log --graph --pretty=oneline --abbrev-commit'
-alias gnew='git log HEAD@{1}..HEAD@{0}' # Show commits since last pull, see http://blogs.atlassian.com/2014/10/advanced-git-aliases/
-alias gwc='git whatchanged'
 
 # ls-files
 alias gu='git ls-files . --exclude-standard --others' # Show untracked files
