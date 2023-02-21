@@ -9,8 +9,8 @@
     - if [[ ! -d ~/.config ]]; then mkdir ~/.config; fi
     - if [[ ! -d ~/.config/kitty ]]; then mkdir ~/.config/kitty; fi
     - if [[ ! -d ~/.config/nixpkgs ]]; then mkdir ~/.config/nixpkgs; fi
-    - if [[ ! -f zshrc_local ]]; then touch zshrc_local; fi
-    - if [[ ! -f bashrc_local ]]; then touch bashrc_local; fi
+    - if [[ ! -f ~/.zshrc_local ]]; then touch ~/.zshrc_local; fi
+    - if [[ ! -f ~/.bashrc_local ]]; then touch ~/.bashrc_local; fi
     - if [[ ! -f proxy_url ]]; then touch proxy_url; echo "proxy_url=" > proxy_url; fi
     - if [[ ! -f ~/.gitignore ]]; then git config --global core.excludesFile ~/.gitignore; fi
     - if [[ ! -f home.nix ]]; then cp _home.nix home.nix; fi
@@ -18,8 +18,6 @@
 
 - link:
     ~/.zshrc: zshrc
-    ~/.zshrc_local: zshrc_local
-    ~/.bashrc_local: bashrc_local
     ~/.blerc: blerc
     ~/.aliases: aliases
     ~/.bashrc: bashrc
