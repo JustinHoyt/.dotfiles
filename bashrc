@@ -4,7 +4,7 @@ case $- in
       *) return;;
 esac
 
-[[ $- == *i* ]] && source ~/ble.sh/out/ble.sh --noattach
+[[ $- == *i* ]] && source ~/.ble.sh/out/ble.sh --noattach
 
 export VISUAL=nvim
 export EDITOR="$VISUAL"
