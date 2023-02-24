@@ -39,7 +39,7 @@ alias gwc='git whatchanged'
 gs() {
   main=$(get_default_branch)
   num_commits=$(git rev-list --count  origin/"$main"..."$main")
-  num_commits_to_show=$(( $num_commits == 0 ? 5 : $num_commits ))
+  num_commits_to_show=$(( $num_commits < 5 ? 5 : $num_commits ))
   git fetch && echo "" && git status -s &&  echo "" && gg HEAD~${num_commits_to_show}...@{upstream}
 }
 
