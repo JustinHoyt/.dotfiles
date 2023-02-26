@@ -19,6 +19,7 @@ alias rg='rg --smart-case --glob="!coverage"'
 alias bgd='kitty +kitten themes --reload-in=all One Dark'
 alias bgl='kitty +kitten themes --reload-in=all Atom One Light'
 alias howto="alias | grep $1"
+alias hr='history -r' # reload history
 
 # Jump to previous directories with `j`
 unalias z 2> /dev/null
@@ -39,17 +40,16 @@ fi
 
 set -o vi
 
-# Append the history list to the file named by the value of the HISTFILE
-# variable when the shell exits, rather than overwriting the file.
-shopt -s histappend
+export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
+export HISTSIZE=10000                    # big history
+export HISTFILESIZE=10000                # big history
+shopt -s histappend                      # append to history, don't overwrite it
 
-# 'ignorespace': don't save command lines which begin with a space to history
-# 'erasedups' (alternative 'ignoredups'): don't save duplicates to history
-# 'autoshare': automatically share history between multiple running shells
-HISTCONTROL="ignorespace:erasedups:autoshare"
-
-# resize history to 100x the default (500)
-HISTSIZE=50000
+# Remove all duplicates preserving the newest usage of the line
+if command -v tac &> /dev/null; then
+  new_history=$(tac ~/.bash_history | awk '!line_occurances_map[$0]++' | tac)
+  echo "${new_history}" > ~/.bash_history
+fi
 
 bind '"\e[A":history-search-backward'
 bind '"\e[B":history-search-forward'
@@ -65,8 +65,9 @@ function __prompt_command() {
     exit_code=$?
     prompt_char=$([ "${exit_code}" -eq 0 ] && echo "${green}\$" || echo "${red}\$")
     code_prompt=$([ "${exit_code}" -gt 0 ] && echo " ${red}${exit_code}")
+    history -a
+
     PS1="\u@\h ${blue}\w ${yellow}[\T]${red}${code_prompt} ${purple}\$([ \j -gt 0 ] && echo {\j})\n${prompt_char} "
 }
-
 
 [[ ${BLE_VERSION-} ]] && ble-attach
