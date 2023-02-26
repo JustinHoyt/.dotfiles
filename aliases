@@ -44,55 +44,55 @@ gs() {
 }
 
 # add
-alias ga='git add && gs'
-alias gaa='git add -A && gs'
-alias gap='git add -p && gs'
-alias gav='git add -v && gs'
+function ga() { git add "${@}" && gs; }
+function gaa() { git add -A "${@}" && gs; }
+function gap() { git add -p "${@}" && gs; }
+function gav(){ git add -v "${@}" && gs; }
 
 # branch
-alias gb='git branch && gs'
-alias gba='git branch --all && gs'
-alias gbd='git branch -d && gs'
-alias gbD='git branch -D && gs'
-alias gbl='git branch --list && gs'
-alias gbla='git branch --list --all && gs'
-alias gblr='git branch --list --remotes && gs'
-alias gbm='git branch --move && gs'
-alias gbr='git branch --remotes && gs'
-alias gbt='git branch --track && gs'
-alias gdel='git branch -D && gs'
+function gb() { git branch "${@}" && gs; }
+function gba() { git branch --all "${@}" && gs; }
+function gbd() { git branch -d "${@}" && gs; }
+function gbD() { git branch -D "${@}" && gs; }
+function gbl() { git branch --list "${@}" && gs; }
+function gbla() { git branch --list --all "${@}" && gs; }
+function gblr() { git branch --list --remotes "${@}" && gs; }
+function gbm() { git branch --move "${@}" && gs; }
+function gbr() { git branch --remotes "${@}" && gs; }
+function gbt() { git branch --track "${@}" && gs; }
+function gdel() { git branch -D "${@}" && gs; }
 
 # for-each-ref
 alias gbc='git for-each-ref --format="%(authorname) %09 %(if)%(HEAD)%(then)*%(else)%(refname:short)%(end) %09 %(creatordate)" refs/remotes/ --sort=authorname DESC' # FROM https://stackoverflow.com/a/58623139/10362396
 
 # commit
-alias gc='git commit -v && gs'
-alias gca='git add --all && git commit -v && gs'
-alias gcaa='git commit -a --amend -C HEAD && gs' # Add uncommitted and unstaged changes to the last commit
-alias gcam='git commit -v -am && gs'
-alias gcamd='git commit --amend && gs'
-alias gcm='git commit -v -m && gs'
-alias gci='git commit --interactive && gs'
-alias gcsam='git commit -S -am && gs'
+function gc() { git commit -v "${@}" && gs; }
+function gca() { git add --all && git commit -v "${@}" && gs; }
+function gcaa() { git commit -a --amend -C HEAD "${@}" && gs; } # Add uncommitted and unstaged changes to the last commit
+function gcam() { git commit -v -am "${@}" && gs; }
+function gcamd() { git commit --amend "${@}" && gs; }
+function gcm() { git commit -v -m "${@}" && gs; }
+function gci() { git commit --interactive "${@}" && gs; }
+function gcsam() { git commit -S -am "${@}" && gs; }
 
 # checkout
-alias gcb='git checkout -b && gs'
-alias gco='git checkout && gs'
-alias gcob='git checkout -b && gs'
-alias gcobu='git checkout -b ${USER}/ && gs'
-alias gcom='git checkout $(get_default_branch) && gs'
-alias gcpd='git checkout $(get_default_branch); git pull; git branch -D && gs'
-alias gct='git checkout --track && gs'
+function gcb() { git checkout -b "${@}" && gs; }
+function gco() { git checkout "${@}" && gs; }
+function gcob() { git checkout -b "${@}" && gs; }
+function gcobu() { git checkout -b ${USER}/ "${@}" && gs; }
+function gcom() { git checkout $(get_default_branch) "${@}" && gs; }
+function gcpd() { git checkout $(get_default_branch); git pull; git branch -D "${@}" && gs; }
+function gct() { git checkout --track "${@}" && gs; }
 
 # clone
-alias gcl='git clone && gs'
+function gcl() { git clone "${@}" && gs; }
 
 # clean
-alias gclean='git clean -fd && gs'
+function gclean() { git clean -fd "${@}" && gs; }
 
 # cherry-pick
-alias gcp='git cherry-pick && gs'
-alias gcpx='git cherry-pick -x && gs'
+function gcp() { git cherry-pick "${@}" && gs; }
+function gcpx() { git cherry-pick -x "${@}" && gs; }
 
 # diff
 alias gd='git diff'
@@ -104,11 +104,11 @@ alias gexport='git archive --format zip --output'
 
 # fetch
 alias gf='git fetch --all --prune'
-alias gft='git fetch --all --prune --tags && gs'
-alias gftv='git fetch --all --prune --tags --verbose && gs'
-alias gfv='git fetch --all --prune --verbose && gs'
-alias gmu='git fetch origin -v; git fetch upstream -v; git merge upstream/$(get_default_branch) && gs'
-alias gup='git fetch && git rebase && gs'
+function gft() { git fetch --all --prune --tags "${@}" && gs; }
+function gftv() { git fetch --all --prune --tags --verbose "${@}" && gs; }
+function gfv() { git fetch --all --prune --verbose "${@}" && gs; }
+function gmu() { git fetch origin -v; git fetch upstream -v; git merge upstream/$(get_default_branch) "${@}" && gs; }
+function gup() { git fetch && git rebase "${@}" && gs; }
 
 # ls-files
 alias gu='git ls-files . --exclude-standard --others' # Show untracked files
@@ -122,30 +122,30 @@ alias ggui='git gui'
 alias ghm='cd "$(git rev-parse --show-toplevel)"' # Git home
 
 # merge
-alias gm='git merge && gs'
+function gm() { git merge "${@}" && gs; }
 
 # mv
-alias gmv='git mv && gs'
+function gmv() { git mv "${@}" && gs; }
 
 # patch
-alias gpatch='git format-patch -1 && gs'
+function gpatch() { git format-patch -1 "${@}" && gs; }
 
 # push
-alias gp='git push && gs'
-alias gpd='git push --delete && gs'
-alias gpf='git push --force && gs'
-alias gpo='git push origin HEAD && gs'
-alias gpom='git push origin $(get_default_branch) && gs'
-alias gpu='git push --set-upstream && gs'
-alias gpunch='git push --force-with-lease && gs'
-alias gpuo='git push --set-upstream origin && gs'
-alias gpuoc='git push --set-upstream origin $(git symbolic-ref --short HEAD) && gs'
+function gp() { git push "${@}" && gs; }
+function gpd() { git push --delete "${@}" && gs; }
+function gpf() { git push --force "${@}" && gs; }
+function gpo() { git push origin HEAD "${@}" && gs; }
+function gpom() { git push origin $(get_default_branch) "${@}" && gs; }
+function gpu() { git push --set-upstream "${@}" && gs; }
+function gpunch() { git push --force-with-lease "${@}" && gs; }
+function gpuo() { git push --set-upstream origin "${@}" && gs; }
+function gpuoc() { git push --set-upstream origin $(git symbolic-ref --short HEAD) "${@}" && gs; }
 
 # pull
-alias gl='git pull --rebase && gs'
-alias glum='git pull upstream $(get_default_branch) && gs'
-alias gpp='git pull --rebase && git push && gs'
-alias glm='git pull && gs'
+function gl() { git pull --rebase "${@}" && gs; }
+function glum() { git pull upstream $(get_default_branch) "${@}" && gs; }
+function gpp() { git pull --rebase && git push "${@}" && gs; }
+function glm() { git pull "${@}" && gs; }
 
 # remote
 alias gr='git remote'
@@ -153,23 +153,23 @@ alias gra='git remote add'
 alias grv='git remote -v'
 
 # rm
-alias grm='git rm && gs'
+function grm() { git rm "${@}" && gs; }
 
 # rebase
-alias grb='git rebase && gs'
-alias grbc='git rebase --continue && gs'
-alias grm='git rebase $(get_default_branch) && gs'
-alias grmi='git rebase $(get_default_branch) -i && gs'
-alias grma='GIT_SEQUENCE_EDITOR=: git rebase  $(get_default_branch) -i --autosquash && gs'
-alias gprom='git fetch origin $(get_default_branch) && git rebase origin/$(get_default_branch) && git update-ref refs/heads/$(get_default_branch) origin/$(get_default_branch) && gs' # Rebase with latest remote
+function grb() { git rebase "${@}" && gs; }
+function grbc() { git rebase --continue "${@}" && gs; }
+function grm() { git rebase $(get_default_branch) "${@}" && gs; }
+function grmi() { git rebase $(get_default_branch) -i "${@}" && gs; }
+function grma() { GIT_SEQUENCE_EDITOR=: git rebase  $(get_default_branch) -i --autosquash "${@}" && gs; }
+function gprom() { git fetch origin $(get_default_branch) && git rebase origin/$(get_default_branch) && git update-ref refs/heads/$(get_default_branch) origin/$(get_default_branch) "${@}" && gs; } # Rebase with latest remote
 
 # reset
-alias gus='git reset HEAD && gs'
-alias grhh='git reset HEAD --hard && gs'
-alias gpristine='git reset --hard && git clean -dfx && gs'
+function gus() { git reset HEAD "${@}" && gs; }
+function grhh() { git reset HEAD --hard "${@}" && gs; }
+function gpristine() { git reset --hard && git clean -dfx "${@}" && gs; }
 
 # status
-alias gst='git status && gs'
+function gst() { git status "${@}" && gs; }
 alias gss='git status -s'
 
 # shortlog
@@ -180,12 +180,12 @@ alias gsl='git shortlog -sn'
 alias gsh='git show'
 
 # stash
-alias gsth='git stash && gs'
-alias gsthb='git stash branch && gs'
+function gsth() { git stash "${@}" && gs; }
+function gsthb() { git stash branch "${@}" && gs; }
 alias gsthd='git stash drop'
 alias gsthl='git stash list'
-alias gsthp='git stash pop && gs'  # kept due to long-standing usage
-alias gsthpo='git stash pop && gs' # recommended for it's symmetry with gstpu (push)
+function gsthp() { git stash pop "${@}" && gs; }  # kept due to long-standing usage
+function gsthpo() { git stash pop "${@}" && gs; } # recommended for it's symmetry with gstpu (push)
 
 ## 'stash push' introduced in git v2.13.2
 alias gsthpu='git stash push'
