@@ -19,6 +19,7 @@
 - link:
     ~/.zshrc: zshrc
     ~/.blerc: blerc
+    ~/.colors.sh: colors.sh
     ~/.aliases: aliases
     ~/.bashrc: bashrc
     ~/.theme.sh: theme.sh

@@ -44,7 +44,17 @@ bind '"\e[B":history-search-forward'
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 [ -f ~/.aliases ] && source ~/.aliases
-[ -f ~/.theme.sh ] && source ~/.theme.sh
 [ -f ~/.bashrc_local ] && source ~/.bashrc_local
+[ -f ~/.colors.sh ] && source ~/.colors.sh
+
+# This Changes The PS1
+export PROMPT_COMMAND=__prompt_command      # Func to gen PS1 after CMDs
+function __prompt_command() {
+    exit_code=$?
+    prompt_char=$([ "${exit_code}" -eq 0 ] && echo "${green}\$" || echo "${red}\$")
+    code_prompt=$([ "${exit_code}" -gt 0 ] && echo " ${red}${exit_code}")
+    PS1="\u@\h ${blue}\w ${yellow}[\T]${red}${code_prompt} ${purple}\$([ \j -gt 0 ] && echo {\j})\n${prompt_char} "
+}
+
 
 [[ ${BLE_VERSION-} ]] && ble-attach
