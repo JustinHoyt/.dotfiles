@@ -67,7 +67,7 @@ function __prompt_command() {
     code_prompt=$([ "${exit_code}" -gt 0 ] && echo " ${red}${exit_code}")
     history -a
 
-    PS1="\u@\h ${blue}\w ${yellow}[\T]${red}${code_prompt} ${purple}\$([ \j -gt 0 ] && echo {\j})\n${prompt_char} "
+    PS1="\u@\h ${blue}\w ${yellow}[\T]${red}${code_prompt} ${purple}\$([ \j -gt 0 ] && echo {\j})\n${prompt_char}${normal} "
 }
 
 [[ ${BLE_VERSION-} ]] && ble-attach
