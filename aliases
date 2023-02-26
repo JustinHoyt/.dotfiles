@@ -66,14 +66,14 @@ alias gdel='git branch -D && gs'
 alias gbc='git for-each-ref --format="%(authorname) %09 %(if)%(HEAD)%(then)*%(else)%(refname:short)%(end) %09 %(creatordate)" refs/remotes/ --sort=authorname DESC' # FROM https://stackoverflow.com/a/58623139/10362396
 
 # commit
-alias gc='git commit -v'
-alias gca='git add --all && git commit -v'
-alias gcaa='git commit -a --amend -C HEAD' # Add uncommitted and unstaged changes to the last commit
-alias gcam='git commit -v -am'
-alias gcamd='git commit --amend'
-alias gcm='git commit -v -m'
-alias gci='git commit --interactive'
-alias gcsam='git commit -S -am'
+alias gc='git commit -v && gs'
+alias gca='git add --all && git commit -v && gs'
+alias gcaa='git commit -a --amend -C HEAD && gs' # Add uncommitted and unstaged changes to the last commit
+alias gcam='git commit -v -am && gs'
+alias gcamd='git commit --amend && gs'
+alias gcm='git commit -v -m && gs'
+alias gci='git commit --interactive && gs'
+alias gcsam='git commit -S -am && gs'
 
 # checkout
 alias gcb='git checkout -b && gs'
@@ -85,7 +85,7 @@ alias gcpd='git checkout $(get_default_branch); git pull; git branch -D && gs'
 alias gct='git checkout --track && gs'
 
 # clone
-alias gcl='git clone'
+alias gcl='git clone && gs'
 
 # clean
 alias gclean='git clean -fd && gs'
@@ -122,30 +122,30 @@ alias ggui='git gui'
 alias ghm='cd "$(git rev-parse --show-toplevel)"' # Git home
 
 # merge
-alias gm='git merge'
+alias gm='git merge && gs'
 
 # mv
-alias gmv='git mv'
+alias gmv='git mv && gs'
 
 # patch
-alias gpatch='git format-patch -1'
+alias gpatch='git format-patch -1 && gs'
 
 # push
-alias gp='git push'
-alias gpd='git push --delete'
-alias gpf='git push --force'
-alias gpo='git push origin HEAD'
-alias gpom='git push origin $(get_default_branch)'
-alias gpu='git push --set-upstream'
-alias gpunch='git push --force-with-lease'
-alias gpuo='git push --set-upstream origin'
-alias gpuoc='git push --set-upstream origin $(git symbolic-ref --short HEAD)'
+alias gp='git push && gs'
+alias gpd='git push --delete && gs'
+alias gpf='git push --force && gs'
+alias gpo='git push origin HEAD && gs'
+alias gpom='git push origin $(get_default_branch) && gs'
+alias gpu='git push --set-upstream && gs'
+alias gpunch='git push --force-with-lease && gs'
+alias gpuo='git push --set-upstream origin && gs'
+alias gpuoc='git push --set-upstream origin $(git symbolic-ref --short HEAD) && gs'
 
 # pull
-alias gl='git pull --rebase'
-alias glum='git pull upstream $(get_default_branch)'
-alias gpp='git pull --rebase && git push'
-alias glm='git pull'
+alias gl='git pull --rebase && gs'
+alias glum='git pull upstream $(get_default_branch) && gs'
+alias gpp='git pull --rebase && git push && gs'
+alias glm='git pull && gs'
 
 # remote
 alias gr='git remote'
@@ -153,15 +153,15 @@ alias gra='git remote add'
 alias grv='git remote -v'
 
 # rm
-alias grm='git rm'
+alias grm='git rm && gs'
 
 # rebase
-alias grb='git rebase'
-alias grbc='git rebase --continue'
-alias grm='git rebase $(get_default_branch)'
-alias grmi='git rebase $(get_default_branch) -i'
-alias grma='GIT_SEQUENCE_EDITOR=: git rebase  $(get_default_branch) -i --autosquash'
-alias gprom='git fetch origin $(get_default_branch) && git rebase origin/$(get_default_branch) && git update-ref refs/heads/$(get_default_branch) origin/$(get_default_branch)' # Rebase with latest remote
+alias grb='git rebase && gs'
+alias grbc='git rebase --continue && gs'
+alias grm='git rebase $(get_default_branch) && gs'
+alias grmi='git rebase $(get_default_branch) -i && gs'
+alias grma='GIT_SEQUENCE_EDITOR=: git rebase  $(get_default_branch) -i --autosquash && gs'
+alias gprom='git fetch origin $(get_default_branch) && git rebase origin/$(get_default_branch) && git update-ref refs/heads/$(get_default_branch) origin/$(get_default_branch) && gs' # Rebase with latest remote
 
 # reset
 alias gus='git reset HEAD && gs'
@@ -181,11 +181,11 @@ alias gsh='git show'
 
 # stash
 alias gsth='git stash && gs'
-alias gsthb='git stash branch'
+alias gsthb='git stash branch && gs'
 alias gsthd='git stash drop'
 alias gsthl='git stash list'
-alias gsthp='git stash pop'  # kept due to long-standing usage
-alias gsthpo='git stash pop' # recommended for it's symmetry with gstpu (push)
+alias gsthp='git stash pop && gs'  # kept due to long-standing usage
+alias gsthpo='git stash pop && gs' # recommended for it's symmetry with gstpu (push)
 
 ## 'stash push' introduced in git v2.13.2
 alias gsthpu='git stash push'
