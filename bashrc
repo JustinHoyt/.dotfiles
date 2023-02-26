@@ -39,6 +39,18 @@ fi
 
 set -o vi
 
+# Append the history list to the file named by the value of the HISTFILE
+# variable when the shell exits, rather than overwriting the file.
+shopt -s histappend
+
+# 'ignorespace': don't save command lines which begin with a space to history
+# 'erasedups' (alternative 'ignoredups'): don't save duplicates to history
+# 'autoshare': automatically share history between multiple running shells
+HISTCONTROL="ignorespace:erasedups:autoshare"
+
+# resize history to 100x the default (500)
+HISTSIZE=50000
+
 bind '"\e[A":history-search-backward'
 bind '"\e[B":history-search-forward'
 
