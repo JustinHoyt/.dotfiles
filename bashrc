@@ -59,15 +59,31 @@ bind '"\e[B":history-search-forward'
 [ -f ~/.bashrc_local ] && source ~/.bashrc_local
 [ -f ~/.colors.sh ] && source ~/.colors.sh
 
+function timer_start() {
+  internal_timer=${internal_timer:-$SECONDS}
+}
+
+function timer_stop() {
+  internal_timer_seconds=$(($SECONDS - $internal_timer))
+  unset internal_timer
+}
+
+function timer_show() {
+  (( ${internal_timer_seconds} >= 3 )) && echo " ${yellow}[${internal_timer_seconds}s]${normal}"
+}
+
+trap 'timer_start' DEBUG
+
 # This Changes The PS1
 export PROMPT_COMMAND=__prompt_command      # Func to gen PS1 after CMDs
 function __prompt_command() {
-    exit_code=$?
-    prompt_char=$([ "${exit_code}" -eq 0 ] && echo "${green}\$" || echo "${red}\$")
-    code_prompt=$([ "${exit_code}" -gt 0 ] && echo " ${red}${exit_code}")
-    history -a
+  exit_code=$?
+  timer_stop
+  prompt_char=$([ "${exit_code}" -eq 0 ] && echo "${green}\$${normal}" || echo "${red}\$${normal}")
+  code_prompt=$([ "${exit_code}" -gt 0 ] && echo " ${red}${exit_code}")
+  history -a
 
-    PS1="\u@\h ${blue}\w ${yellow}[\T]${red}${code_prompt} ${purple}\$([ \j -gt 0 ] && echo {\j})\n${prompt_char}${normal} "
+  PS1="\u@\h ${blue}\w${code_prompt}${purple}\$([ \j -gt 0 ] && echo ' {\j}')${normal}$(timer_show)\n${prompt_char} "
 }
 
 [[ ${BLE_VERSION-} ]] && ble-attach
