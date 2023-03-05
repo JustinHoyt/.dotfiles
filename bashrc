@@ -6,6 +6,21 @@ esac
 
 [[ $- == *i* ]] && source ~/.ble.sh/out/ble.sh --noattach
 
+[ ! -d "$HOME/.local/bin" ] || mkdir -p "$HOME/.local/bin"
+PATH="$PATH:$HOME/.local/bin"
+
+if ! command -v eget &> /dev/null; then
+    curl https://zyedidia.github.io/eget.sh | sh
+    mv ./eget "$HOME/.local/bin"
+fi
+
+command -v fzf &> /dev/null || eget junegunn/fzf --to "$HOME/.local/bin"
+command -v rg &> /dev/null || eget BurntSushi/ripgrep --to "$HOME/.local/bin"
+command -v gh &> /dev/null || eget cli/cli --to "$HOME/.local/bin"
+command -v fx &> /dev/null || eget antonmedv/fx --to "$HOME/.local/bin"
+command -v fd &> /dev/null || eget sharkdp/fd --to "$HOME/.local/bin"
+command -v nvim &> /dev/null || eget neovim/neovim --to "$HOME/.local/bin"
+
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 
