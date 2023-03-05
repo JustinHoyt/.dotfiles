@@ -16,3 +16,4 @@ function blerc/vim-mode-hook {
   ble-bind -m vi_cmap --cursor 0
 }
 blehook/eval-after-load keymap_vi blerc/vim-mode-hook
+bleopt complete_auto_delay=100
