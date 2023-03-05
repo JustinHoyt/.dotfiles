@@ -14,6 +14,8 @@ function blerc/vim-mode-hook {
   ble-bind -m vi_omap --cursor 4
   ble-bind -m vi_xmap --cursor 2
   ble-bind -m vi_cmap --cursor 0
+  ble-bind -f up 'history-search-backward immediate-accept'
+  ble-bind -f down 'history-search-forward immediate-accept'
 }
 blehook/eval-after-load keymap_vi blerc/vim-mode-hook
 bleopt complete_auto_delay=100
