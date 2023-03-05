@@ -20,6 +20,7 @@ command -v gh &> /dev/null || eget cli/cli --to "$HOME/.local/bin"
 command -v fx &> /dev/null || eget antonmedv/fx --to "$HOME/.local/bin"
 command -v fd &> /dev/null || eget sharkdp/fd --to "$HOME/.local/bin"
 command -v nvim &> /dev/null || eget neovim/neovim --to "$HOME/.local/bin"
+command -v cheat &> /dev/null || eget cheat/cheat --to "$HOME/.local/bin"
 
 [ -f "$HOME/.local/bin/z.sh" ] || curl https://raw.githubusercontent.com/rupa/z/master/z.sh -o "$HOME/.local/bin/z.sh"
 . "$HOME/.local/bin/z.sh"
