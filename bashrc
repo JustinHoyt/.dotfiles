@@ -75,7 +75,6 @@ bind '"\e[B":history-search-forward'
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 [ -f ~/.aliases ] && source ~/.aliases
-[ -f ~/.bashrc_local ] && source ~/.bashrc_local
 [ -f ~/.colors.sh ] && source ~/.colors.sh
 
 function timer_start() {
@@ -105,4 +104,7 @@ function __prompt_command() {
   PS1="\u@\h ${blue}\w${code_prompt}${purple}\$([ \j -gt 0 ] && echo ' {\j}')${normal}$(timer_show)\n${prompt_char} "
 }
 
+[ -f ~/.bashrc_local ] && source ~/.bashrc_local
+
 [[ ${BLE_VERSION-} ]] && ble-attach
+
