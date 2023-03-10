@@ -23,12 +23,6 @@ require('packer').startup(function(use)
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
   -- Add indentation guides even on blank lines
   use 'lukas-reineke/indent-blankline.nvim'
- -- Add git related info in the signs columns and popups
-  use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
-  -- Highlight, edit, and navigate code using a fast incremental parsing library
-  use 'nvim-treesitter/nvim-treesitter'
-  -- Additional textobjects for treesitter
-  use 'nvim-treesitter/nvim-treesitter-textobjects'
   use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
   use 'williamboman/nvim-lsp-installer'
   use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
@@ -148,17 +142,6 @@ require('indent_blankline').setup {
   show_trailing_blankline_indent = false,
 }
 
--- Gitsigns
-require('gitsigns').setup {
-  signs = {
-    add = { text = '+' },
-    change = { text = '~' },
-    delete = { text = '_' },
-    topdelete = { text = '‾' },
-    changedelete = { text = '~' },
-  },
-}
-
 -- Telescope
 require('telescope').setup {
   defaults = {
@@ -185,26 +168,6 @@ vim.keymap.set('n', '<leader>so', function()
   require('telescope.builtin').tags { only_current_buffer = true }
 end)
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles)
-
--- Treesitter configuration
--- Parsers must be installed manually via :TSInstall
-require('nvim-treesitter.configs').setup {
-  highlight = {
-    enable = true, -- false will disable the whole extension
-  },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = 'gnn',
-      node_incremental = 'grn',
-      scope_incremental = 'grc',
-      node_decremental = 'grm',
-    },
-  },
-  indent = {
-    enable = true,
-  },
-}
 
 require('onedark').setup  {
   -- Main options --
@@ -292,39 +255,6 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities,
   }
 end
-
--- Example custom server
--- Make runtime files discoverable to the server
-local runtime_path = vim.split(package.path, ';')
-table.insert(runtime_path, 'lua/?.lua')
-table.insert(runtime_path, 'lua/?/init.lua')
-
--- lspconfig.sumneko_lua.setup {
---   on_attach = on_attach,
---   capabilities = capabilities,
---   settings = {
---     Lua = {
---       runtime = {
---         -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
---         version = 'LuaJIT',
---         -- Setup your lua path
---         path = runtime_path,
---       },
---       diagnostics = {
---         -- Get the language server to recognize the `vim` global
---         globals = { 'vim' },
---       },
---       workspace = {
---         -- Make the server aware of Neovim runtime files
---         library = vim.api.nvim_get_runtime_file('', true),
---       },
---       -- Do not send telemetry data containing a randomized but unique identifier
---       telemetry = {
---         enable = false,
---       },
---     },
---   },
--- }
 
 -- luasnip setup
 local luasnip = require 'luasnip'

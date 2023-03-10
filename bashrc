@@ -4,7 +4,7 @@ case $- in
       *) return;;
 esac
 
-[ ! -d "$HOME/.local/bin" ] || mkdir -p "$HOME/.local/bin"
+[ -d "$HOME/.local/bin" ] || mkdir ~/.local/bin
 PATH="$PATH:$HOME/.local/bin"
 
 if ! command -v eget &> /dev/null; then
@@ -32,6 +32,7 @@ force_color_prompt=yes
 bind 'set completion-ignore-case on'
 
 alias v='nvim'
+alias f='fish -i'
 alias gaa='git add --all'
 alias rg='rg --smart-case --glob="!coverage"'
 alias bgd='kitty +kitten themes --reload-in=all One Dark'

@@ -37,10 +37,11 @@ alias gll='git log --graph --pretty=oneline --abbrev-commit'
 alias gnew='git log HEAD@{1}..HEAD@{0}' # Show commits since last pull, see http://blogs.atlassian.com/2014/10/advanced-git-aliases/
 alias gwc='git whatchanged'
 gs() {
+  git fetch
   main=$(get_default_branch)
   num_commits=$(git rev-list --count  origin/"$main"..."$main")
   num_commits_to_show=$(( $num_commits < 5 ? 5 : $num_commits ))
-  git fetch && echo "" && git status -s &&  echo "" && gg HEAD~${num_commits_to_show}...@{upstream}
+  echo "" && git status -s &&  echo "" && gg HEAD~${num_commits_to_show}...@{upstream}
 }
 
 # add

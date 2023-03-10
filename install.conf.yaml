@@ -11,13 +11,16 @@
     - if [[ ! -d ~/.config/nixpkgs ]]; then mkdir ~/.config/nixpkgs; fi
     - if [[ ! -f ~/.zshrc_local ]]; then touch ~/.zshrc_local; fi
     - if [[ ! -f ~/.bashrc_local ]]; then touch ~/.bashrc_local; fi
+    - if [[ ! -f ~/.config/fish/config.local.fish ]]; then touch ~/.config/fish/config.local.fish; fi
     - if [[ ! -f proxy_url ]]; then touch proxy_url; echo "proxy_url=" > proxy_url; fi
     - if [[ ! -f ~/.gitignore ]]; then git config --global core.excludesFile ~/.gitignore; fi
-    - if [[ ! -f home.nix ]]; then cp _home.nix home.nix; fi
-    - sed -i "s/SUBSTITUTE/${USER}/" home.nix
 
 - link:
     ~/.zshrc: zshrc
+    ~/.config/fish/config.fish: fish/config.fish
+    ~/.config/fish/functions/fish_plugins: fish/fish_plugins
+    ~/.config/fish/functions/fish_user_key_bindings.fish: fish/functions/fish_user_key_bindings.fish
+    ~/.config/fish/functions/gs.fish: fish/functions/gs.fish
     ~/.blerc: blerc
     ~/.colors.sh: colors.sh
     ~/.aliases: aliases
