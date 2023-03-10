@@ -4,8 +4,6 @@ case $- in
       *) return;;
 esac
 
-[[ $- == *i* ]] && source ~/.ble.sh/out/ble.sh --noattach
-
 [ ! -d "$HOME/.local/bin" ] || mkdir -p "$HOME/.local/bin"
 PATH="$PATH:$HOME/.local/bin"
 
@@ -18,6 +16,7 @@ command -v fzf &> /dev/null || eget junegunn/fzf --to "$HOME/.local/bin"
 command -v rg &> /dev/null || eget BurntSushi/ripgrep --to "$HOME/.local/bin"
 command -v gh &> /dev/null || eget cli/cli --to "$HOME/.local/bin"
 command -v fx &> /dev/null || eget antonmedv/fx --to "$HOME/.local/bin"
+command -v jq &> /dev/null || eget stedolan/jq --to "$HOME/.local/bin"
 command -v fd &> /dev/null || eget sharkdp/fd --to "$HOME/.local/bin"
 command -v nvim &> /dev/null || eget neovim/neovim --to "$HOME/.local/bin"
 command -v cheat &> /dev/null || eget cheat/cheat --to "$HOME/.local/bin"
@@ -76,34 +75,16 @@ bind '"\e[B":history-search-forward'
 [ -f ~/.aliases ] && source ~/.aliases
 [ -f ~/.colors.sh ] && source ~/.colors.sh
 
-function timer_start() {
-  internal_timer=${internal_timer:-$SECONDS}
-}
-
-function timer_stop() {
-  internal_timer_seconds=$(($SECONDS - $internal_timer))
-  unset internal_timer
-}
-
-function timer_show() {
-  (( ${internal_timer_seconds} >= 3 )) && echo " ${yellow}[${internal_timer_seconds}s]${normal}"
-}
-
-trap 'timer_start' DEBUG
-
 # This Changes The PS1
 export PROMPT_COMMAND=__prompt_command      # Func to gen PS1 after CMDs
 function __prompt_command() {
   exit_code=$?
-  timer_stop
   prompt_char=$([ "${exit_code}" -eq 0 ] && echo "${green}\$${normal}" || echo "${red}\$${normal}")
   code_prompt=$([ "${exit_code}" -gt 0 ] && echo " ${red}${exit_code}")
   history -a
 
-  PS1="\u@\h ${blue}\w${code_prompt}${purple}\$([ \j -gt 0 ] && echo ' {\j}')${normal}$(timer_show)\n${prompt_char} "
+  PS1="\u@\h ${blue}\w${code_prompt}${purple}\$([ \j -gt 0 ] && echo ' {\j}')${normal}\n${prompt_char} "
 }
 
 [ -f ~/.bashrc_local ] && source ~/.bashrc_local
-
-[[ ${BLE_VERSION-} ]] && ble-attach
 
