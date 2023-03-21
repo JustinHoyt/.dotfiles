@@ -1,5 +1,5 @@
 function fish_user_key_bindings
-    fish_vi_key_bindings
+    # fish_vi_key_bindings
     bind -e --mode default --user \eh
     bind -e --mode default --user \ew
     bind -e --mode default --user \eb
@@ -53,4 +53,11 @@ function fish_user_key_bindings
     bind -e --mode insert --preset \ej
     bind -e --mode insert --preset \el
     bind -e --mode insert --preset \ed
+
+    # prev/next directory bindings
+    bind --mode insert \ch prevd-or-backward-word
+    bind --mode insert \cl nextd-or-forward-word
+
+    bind --mode default \ch prevd-or-backward-word
+    bind --mode default \cl nextd-or-forward-word
 end
