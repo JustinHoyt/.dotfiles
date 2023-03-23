@@ -1,5 +1,5 @@
 function fish_user_key_bindings
-    # fish_vi_key_bindings
+    fish_vi_key_bindings
     bind -e --mode default --user \eh
     bind -e --mode default --user \ew
     bind -e --mode default --user \eb
