@@ -307,7 +307,7 @@ cmp.setup {
 vim.cmd([[
 	augroup TextYank
 	autocmd!
-		autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif
+		autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankRegister "' | endif
 	augroup END
 ]])
 
