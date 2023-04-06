@@ -37,8 +37,12 @@ require('packer').startup(function(use)
   use { "folke/which-key.nvim", config = function() require("which-key").setup {} end }
   use 'Olical/conjure' -- Interactive Lisp evaluator
   use 'nickeb96/fish.vim'
+  use 'ray-x/go.nvim'
+  use 'ray-x/guihua.lua' -- recommended if need floating window support
+  use 'nvim-treesitter/nvim-treesitter'
 end)
 
+require('go').setup()
 
 --Set highlight on search
 vim.o.hlsearch = false
