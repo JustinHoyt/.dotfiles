@@ -22,6 +22,7 @@
     ~/.config/fish/functions/fish_user_key_bindings.fish: fish/functions/fish_user_key_bindings.fish
     ~/.config/fish/functions/gs.fish: fish/functions/gs.fish
     ~/.config/fish/functions/bg_func.fish: fish/functions/bg_func.fish
+    ~/.config/fish/conf.d/timer.fish: fish/conf.d/timer.fish
     ~/.blerc: blerc
     ~/.colors.sh: colors.sh
     ~/.aliases: aliases
