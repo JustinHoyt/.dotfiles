@@ -20,5 +20,5 @@ if status is-interactive
 
     source ~/.config/fish/config.local.fish
 
-    fzf_configure_bindings --history=\ci --directory=\cf --git_status=\cs
+    fzf_configure_bindings --history=\co --directory=\cf --git_status=\cs
 end
