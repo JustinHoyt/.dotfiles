@@ -1,7 +1,7 @@
 #! usr/bin/env fish
 
 function gg
-  git log --graph --all --pretty=format:\''%C(bold)%h%Creset%C(auto)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset'\'' --abbrev-commit --date=relative' $argv
+  git log --graph --all --pretty=format:'%C(bold)%h%Creset%C(auto)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative $argv
 end
 
 function get_default_branch
