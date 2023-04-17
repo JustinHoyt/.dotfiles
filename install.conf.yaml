@@ -8,6 +8,8 @@
 - shell:
     - if [[ ! -d ~/.config ]]; then mkdir ~/.config; fi
     - if [[ ! -d ~/.config/kitty ]]; then mkdir ~/.config/kitty; fi
+    - if [[ ! -d ~/.local ]]; then mkdir ~/.local; fi
+    - if [[ ! -d ~/.local/bin ]]; then mkdir ~/.local/bin; fi
     - if [[ ! -d ~/.config/nixpkgs ]]; then mkdir ~/.config/nixpkgs; fi
     - if [[ ! -f ~/.zshrc_local ]]; then touch ~/.zshrc_local; fi
     - if [[ ! -f ~/.bashrc_local ]]; then touch ~/.bashrc_local; fi
