@@ -7,6 +7,7 @@ if status is-interactive
     end
 
     abbr b "bash -c"
+    abbr pkginstall "sudo (which bmake) install clean clean-depends"
 
     alias v nvim
     function vdark
