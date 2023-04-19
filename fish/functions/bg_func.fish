@@ -4,7 +4,7 @@ function bg_func
   fish -c (string join -- ' ' (string escape -- $argv)) &
 end
 
-if test (status current-command) = 'fish'
+if not string match -q -- "*from sourcing file*" (status)
     if ! isatty stdin; read argv; end
     bg_func $argv
 end

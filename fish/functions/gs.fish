@@ -16,7 +16,7 @@ function gs
   echo "" && git status -s &&  echo "" && gg HEAD~$num_commits_to_show...@{upstream}
 end
 
-if test (status current-command) = 'fish'
+if not string match -q -- "*from sourcing file*" (status)
     if ! isatty stdin; read argv; end
     gs $argv
 end
