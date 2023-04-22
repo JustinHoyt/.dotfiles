@@ -19,14 +19,9 @@
 
 - link:
     ~/.zshrc: zshrc
-    ~/.config/fish/config.fish: fish/config.fish
-    ~/.config/fish/fish_plugins: fish/fish_plugins
-    ~/.config/fish/functions/fish_user_key_bindings.fish: fish/functions/fish_user_key_bindings.fish
-    ~/.config/fish/functions/gs.fish: fish/functions/gs.fish
-    ~/.config/fish/functions/bg_func.fish: fish/functions/bg_func.fish
-    ~/.config/fish/completions/fd.fish: fish/completions/fd.fish
-    ~/.config/fish/completions/rg.fish: fish/completions/rg.fish
-    ~/.config/fish/conf.d/timer.fish: fish/conf.d/timer.fish
+    ~/.config/fish/:
+      glob: true
+      path: fish/**
     ~/.blerc: blerc
     ~/.colors.sh: colors.sh
     ~/.aliases: aliases
