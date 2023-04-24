@@ -21,6 +21,8 @@ if status is-interactive
 
     set -g fish_escape_delay_ms 10
 
+    fish_add_path ~/.local/bin
+
     source ~/.config/fish/config.local.fish
 
     fzf_configure_bindings --history=\co --directory=\cf --git_status=\cs
