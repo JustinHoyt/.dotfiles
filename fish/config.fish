@@ -8,7 +8,8 @@ if status is-interactive
 
     abbr b "bash -c"
     abbr pkginstall "sudo (which bmake) install clean clean-depends"
-    abbr --set-cursor whi "$(string join \n -- 'while read line' '%' 'end')"
+    abbr --set-cursor whi --position anywhere "$(string join \n -- 'while read line' '%' 'end')"
+    abbr --set-cursor psb --position anywhere "(echo % | psub)"
 
     alias v nvim
     function vdark
