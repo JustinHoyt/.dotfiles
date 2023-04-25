@@ -10,7 +10,7 @@ if status is-interactive
     abbr b --set-cursor "bash -c '%'"
     # Installation command for pkgsrc
     abbr pkgi "sudo (which bmake) install clean clean-depends"
-    abbr --set-cursor whi --position anywhere "$(string join \n -- 'while read line' '%' 'end')"
+    abbr --set-cursor whi --position anywhere "$(string join \n -- 'while read line' '% $line' 'end')"
     abbr --set-cursor psb --position anywhere "(echo '%' | psub)"
     abbr --set-cursor jqf --position anywhere "jq . (echo '%' | psub)"
 
