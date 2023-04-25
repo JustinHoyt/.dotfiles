@@ -6,12 +6,13 @@ if status is-interactive
         curl -sL https://git.io/fisher | source && fisher update
     end
 
-    abbr b "bash -c"
-    abbr pkginstall "sudo (which bmake) install clean clean-depends"
+    abbr v nvim
+    abbr b --set-cursor "bash -c '%'"
+    # Installation command for pkgsrc
+    abbr pkgi "sudo (which bmake) install clean clean-depends"
     abbr --set-cursor whi --position anywhere "$(string join \n -- 'while read line' '%' 'end')"
-    abbr --set-cursor psb --position anywhere "(echo % | psub)"
+    abbr --set-cursor psb --position anywhere "(echo '%' | psub)"
 
-    alias v nvim
     function vdark
         sed -i "s/vim.o.background='light'/vim.o.background='dark'/" ~/.config/nvim/init.lua
     end
