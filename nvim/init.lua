@@ -80,6 +80,8 @@ vim.cmd [[colorscheme onedark]]
 --Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
+vim.o.splitbelow = true
+
 --Remove empty spaces on save
 vim.cmd [[autocmd BufWritePre * :%s/\s\+$//e]]
 
@@ -103,7 +105,7 @@ vim.g.maplocalleader = ' '
 
 vim.api.nvim_set_keymap('n', '<leader>v', ':silent e ~/.config/nvim/init.lua<CR>', {noremap = true})
 
-vim.api.nvim_set_keymap('n', '<leader>t', ':bot 15sp term://zsh<CR>i', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>t', ':bot 15sp term://fish<CR>i', {noremap = true})
 
 vim.api.nvim_set_keymap('n', '<leader>ps', ':PackerSync<CR>', {noremap = true})
 
