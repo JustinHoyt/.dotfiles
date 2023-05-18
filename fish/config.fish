@@ -12,6 +12,7 @@ if status is-interactive
     abbr pkgi "sudo (which bmake) install clean clean-depends"
     abbr --set-cursor whi --position anywhere "$(string join \n -- 'while read line' '%' 'end')"
     abbr --set-cursor psb --position anywhere "(echo '%' | psub)"
+    abbr --set-cursor jqf --position anywhere "jq . (echo '%' | psub)"
 
     function vdark
         sed -i "s/vim.o.background='light'/vim.o.background='dark'/" ~/.config/nvim/init.lua
