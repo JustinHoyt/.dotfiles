@@ -8,6 +8,7 @@ if status is-interactive
 
     abbr v nvim
     abbr b --set-cursor "bash -c '%'"
+    abbr apti 'sudo apt install -y'
     # Installation command for pkgsrc
     abbr pkgi "sudo (which bmake) install clean clean-depends"
     abbr --set-cursor whi --position anywhere "$(string join \n -- 'while read line' '% $line' 'end')"
