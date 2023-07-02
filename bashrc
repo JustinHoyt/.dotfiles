@@ -44,6 +44,7 @@ alias bgd='kitty +kitten themes --reload-in=all One Dark'
 alias bgl='kitty +kitten themes --reload-in=all Atom One Light'
 alias howto="alias | grep $1"
 alias hr='history -r' # reload history
+alias ble='source ~/.ble.sh/out/ble.sh'
 
 # Jump to previous directories with `j`
 function j() {
