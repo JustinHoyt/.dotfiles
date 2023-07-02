@@ -41,6 +41,7 @@
     ~/.config/nvim: nvim
     ~/.config/nixpkgs/home.nix: home.nix
     ~/.config/nixpkgs/common.nix: common.nix
+    ~/.local/bin/y.pm: local/bin/y.pm
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
