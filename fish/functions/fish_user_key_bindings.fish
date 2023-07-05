@@ -62,4 +62,8 @@ function fish_user_key_bindings
 
     bind --mode default \ch prevd-or-backward-word
     bind --mode default \cl nextd-or-forward-word
+
+    # Rerun a command and select the lines of output to output to the command prompt
+    bind --mode insert \cq fzf_select_from_rerun_command_output
+    bind --mode default \cq fzf_select_from_rerun_command_output
 end

@@ -24,13 +24,17 @@ if status is-interactive
     abbr --set-cursor pe --position anywhere "perl -My -E 'say %'"
     abbr --set-cursor pp --position anywhere "perl -My -pE '%'"
     abbr --set-cursor pn --position anywhere "perl -My -nE '%'"
-    abbr --set-cursor pa --position anywhere "perl -My -aE '%'"
-    abbr --set-cursor pfc --position anywhere "perl -My -F',' -E '%'"
-    abbr --set-cursor pft --position anywhere "perl -My -F'\t' -E '%'"
+    abbr --set-cursor pnp --position anywhere "perl -My -nE 'print if /%/g'"
+    # Show before and after of a Substitute
+    abbr --set-cursor pa --position anywhere "perl -My -aE 'say %'"
+    abbr --set-cursor pfc --position anywhere "perl -My -F',' -E 'say % @F'"
+    # Field separator as newline, Record separator as 2 newlines
+    abbr --set-cursor pfn --position anywhere "perl -My -00 -F'\n' -E 'say % @F'"
+    abbr --set-cursor pft --position anywhere "perl -My -F'\t' -E 'say % @F'"
     # Record separator as space
-    abbr --set-cursor pos --position anywhere "perl -My -040 -nE '%'"
+    abbr --set-cursor pos --position anywhere "perl -My -040 -nE 'print %'"
     # Record separator as 2 newlines
-    abbr --set-cursor poo --position anywhere "perl -My -00 -nE '%'"
+    abbr --set-cursor poo --position anywhere "perl -My -00 -nE 'print %'"
 
     function vdark
         sed -i "s/vim.o.background='light'/vim.o.background='dark'/" ~/.config/nvim/init.lua
