@@ -35,6 +35,8 @@ if status is-interactive
     abbr --set-cursor pos --position anywhere "perl -My -040 -nE 'print %'"
     # Record separator as 2 newlines
     abbr --set-cursor poo --position anywhere "perl -My -00 -nE 'print %'"
+    # Replace
+    abbr --set-cursor pr --position anywhere "perl -My -i -pE"
 
     function vdark
         sed -i "s/vim.o.background='light'/vim.o.background='dark'/" ~/.config/nvim/init.lua
