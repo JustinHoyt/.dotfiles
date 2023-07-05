@@ -22,6 +22,9 @@
     ~/.config/fish/:
       glob: true
       path: fish/**
+    ~/.local/:
+      glob: true
+      path: local/**
     ~/.blerc: blerc
     ~/.colors.sh: colors.sh
     ~/.aliases: aliases
@@ -41,7 +44,6 @@
     ~/.config/nvim: nvim
     ~/.config/nixpkgs/home.nix: home.nix
     ~/.config/nixpkgs/common.nix: common.nix
-    ~/.local/bin/y.pm: local/bin/y.pm
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
