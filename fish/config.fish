@@ -24,7 +24,7 @@ if status is-interactive
     abbr --set-cursor pe --position anywhere "perl -My -E 'say %'"
     abbr --set-cursor pp --position anywhere "perl -My -pE '%'"
     abbr --set-cursor pn --position anywhere "perl -My -nE '%'"
-    abbr --set-cursor pnp --position anywhere "perl -My -nE 'print if /%/g'"
+    abbr --set-cursor pnp --position anywhere "perl -My -nE 'print if m#%#g'"
     # Show before and after of a Substitute
     abbr --set-cursor pa --position anywhere "perl -My -aE 'say %'"
     abbr --set-cursor pfc --position anywhere "perl -My -F',' -E 'say % @F'"
@@ -35,8 +35,12 @@ if status is-interactive
     abbr --set-cursor pos --position anywhere "perl -My -040 -nE 'print %'"
     # Record separator as 2 newlines
     abbr --set-cursor poo --position anywhere "perl -My -00 -nE 'print %'"
-    # Replace
+    # Slurp whole file into one record
+    abbr --set-cursor po7 --position anywhere "perl -My -0777 -nE 'print %'"
+    # Find and Replace
     abbr --set-cursor pr --position anywhere "perl -My -i -pE"
+    # Find and Replace preview
+    abbr --set-cursor prv --position anywhere "ppr 's#%#\$&#g'"
 
     function vdark
         sed -i "s/vim.o.background='light'/vim.o.background='dark'/" ~/.config/nvim/init.lua
