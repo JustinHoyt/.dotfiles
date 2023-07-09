@@ -35,7 +35,6 @@ use List::Util qw(
     mesh
 );
 
-use Cpanel::JSON::XS;
 use Term::ANSIColor qw(
     BLACK
     RED
@@ -95,8 +94,6 @@ our @EXPORT = qw(
     tail
     zip
     mesh
-    encode_json
-    decode_json
     BLACK
     RED
     GREEN

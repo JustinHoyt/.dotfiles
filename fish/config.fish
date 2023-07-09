@@ -8,8 +8,10 @@ if status is-interactive
 
     set -g fish_escape_delay_ms 10
     # Add personal y.pm module to Perl's path. Use it with `perl -My`
-    set -gx PERL5LIB "$HOME/.local/bin" $PERL5LIB
-
+    set -l dir_to_add $HOME/.local/bin
+    if not contains $dir_to_add (string split ":" $PERL5LIB)
+        set -gx PERL5LIB "$dir_to_add":"$PERL5LIB"
+    end
 
     abbr v nvim
     abbr b --set-cursor "bash -c '%'"
