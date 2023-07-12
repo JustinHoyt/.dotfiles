@@ -14,8 +14,7 @@ require('packer').startup(function(use)
   use 'wbthomason/packer.nvim' -- Package manager
   use 'tpope/vim-fugitive' -- Git commands in nvim
   use 'tpope/vim-surround' -- Surround text-objects with pairs like () or ''
-  use 'tpope/vim-rhubarb' -- Fugitive-companion to interact with github
-  use 'tpope/vim-repeat' -- Fugitive-companion to interact with github
+  use 'tpope/vim-repeat' -- Repeat plugin commands with the dot oprator
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
   -- UI to select things (files, grep results, open buffers...)
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
@@ -35,7 +34,6 @@ require('packer').startup(function(use)
   use 'mg979/vim-visual-multi' -- Multicursor mode
   use 'RRethy/vim-illuminate' -- Highlight other words that match the word under the cursor
   use { "folke/which-key.nvim", config = function() require("which-key").setup {} end }
-  use 'Olical/conjure' -- Interactive Lisp evaluator
   use 'nickeb96/fish.vim'
   use 'ray-x/go.nvim'
   use 'ray-x/guihua.lua' -- recommended if need floating window support
@@ -343,8 +341,8 @@ require'nvim-web-devicons'.setup {
 -- vim-visual-multi
 vim.api.nvim_set_keymap('n', '<M-d>', '<Plug>(VM-Find-Under)', {noremap = false})
 vim.api.nvim_set_keymap('n', '<C-n>', '<Plug>(VM-Find-Under)', {noremap = false})
-vim.api.nvim_set_keymap('n', '<C-Down>', '<Plug>(VM-Add-Cursor-Down)', {noremap = false})
-vim.api.nvim_set_keymap('n', '<C-Up>', '<Plug>(VM-Add-Cursor-Up)', {noremap = false})
+vim.api.nvim_set_keymap('n', '<M-j>', '<Plug>(VM-Add-Cursor-Down)', {noremap = false})
+vim.api.nvim_set_keymap('n', '<M-k>', '<Plug>(VM-Add-Cursor-Up)', {noremap = false})
 
 -- vim-illuminate
 vim.cmd([[
