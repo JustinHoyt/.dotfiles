@@ -2,7 +2,7 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-vim.o.background='light'
+vim.o.background='dark'
 
 -- Install package manager
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -214,6 +214,8 @@ vim.o.completeopt = 'menuone,noselect'
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
+
+vim.o.relativenumber = true
 
 -- [[ Basic Keymaps ]]
 
@@ -480,6 +482,7 @@ cmp.setup {
   },
 }
 
+-- Personal keymaps
 vim.api.nvim_set_keymap('n', '<leader>v', ':silent e ~/.config/nvim/init.lua<CR>', {noremap = true})
 
 vim.api.nvim_set_keymap('n', '<leader>t', ':bot 15sp term://fish<CR>i', {noremap = true})
@@ -505,6 +508,7 @@ vim.api.nvim_set_keymap('n', '<C-=>', '<C-W><C-=>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>r', ':%s#\\v#&#g<left><left><left><left>', {noremap = true})
 -- Rerun the last terminal command and come back to the editor
 vim.api.nvim_set_keymap('n', '<leader>l', '<ESC><C-w>ji<UP><CR><C-\\><C-N><C-w>k', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>j', ':e %:h/', {noremap = true})
 
 --Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
