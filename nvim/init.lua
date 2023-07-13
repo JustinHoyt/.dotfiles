@@ -15,6 +15,7 @@ require('packer').startup(function(use)
   use 'tpope/vim-fugitive' -- Git commands in nvim
   use 'tpope/vim-surround' -- Surround text-objects with pairs like () or ''
   use 'tpope/vim-repeat' -- Repeat plugin commands with the dot oprator
+  use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
   -- UI to select things (files, grep results, open buffers...)
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
@@ -125,6 +126,7 @@ vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-k>', '<C-w>k', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-=>', '<C-W><C-=>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>r', ':%s#\\v#&#g<left><left><left><left>', {noremap = true})
 
 vim.api.nvim_set_keymap('n', '<leader>l', '<ESC><C-w>ji<UP><CR><C-\\><C-N><C-w>k', {noremap = true})
 
@@ -306,7 +308,6 @@ cmp.setup {
   },
 }
 -- vim: ts=2 sts=2 sw=2 et
-
 
 -- OSC Yank config
 vim.cmd([[
