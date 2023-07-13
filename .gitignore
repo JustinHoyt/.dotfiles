@@ -4,4 +4,6 @@ nvim/spell
 nvim/.session.vim
 nvim/lua/amazon.lua
 home.nix
-nvim/init.local.lua
+nvim/lua/init_local.lua
+nvim/lua/plugins/google.lua
+

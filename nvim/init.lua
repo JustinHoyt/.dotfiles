@@ -571,3 +571,7 @@ require('onedark').setup  {
 }
 require('onedark').load()
 
+if vim.loop.fs_stat(vim.fn.stdpath('config') .. '/lua/init_local.lua') then
+    require('init_local')
+end
+
