@@ -2,7 +2,7 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-vim.o.background='dark'
+vim.o.background='light'
 
 -- Install package manager
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -18,11 +18,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- NOTE: Here is where you install your plugins.
---  You can configure plugins using the `config` key.
---
---  You can also configure plugins after the setup call,
---    as they will be available in your neovim runtime.
 require('lazy').setup({
   -- Git related plugins
   'tpope/vim-fugitive',
@@ -168,10 +163,21 @@ require('lazy').setup({
     'nickeb96/fish.vim',
     'RRethy/vim-illuminate', -- Highlight other words that match the word under the cursor
     'mg979/vim-visual-multi', -- Multicursor mode
-    'ojroques/vim-oscyank', -- Yank to clipboard
     'tpope/vim-surround', -- Surround text-objects with pairs like () or ''
 
 }, {})
+
+-- [[ Toggle background for light and dark mode ]]
+function _G.toggle_background()
+  if vim.o.background == 'dark' then
+    vim.o.background = 'light'
+  else
+    vim.o.background = 'dark'
+  end
+end
+
+-- Map the function to a key combination
+vim.api.nvim_set_keymap('n', '<leader>`', ':lua toggle_background()<CR>', {noremap = true})
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -186,10 +192,10 @@ vim.wo.number = true
 -- Enable mouse mode
 vim.o.mouse = 'a'
 
--- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
-vim.o.clipboard = 'unnamedplus'
+-- Sync clipboard copies between OS and Neovim.
+-- Use the unnamedplus register for yank operations
+vim.api.nvim_set_keymap('n', 'y', '"+y', {noremap = true})
+vim.api.nvim_set_keymap('v', 'y', '"+y', {noremap = true})
 
 -- Enable break indent
 vim.o.breakindent = true
@@ -228,7 +234,6 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- [[ Highlight on yank ]]
--- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function()
@@ -482,7 +487,7 @@ cmp.setup {
   },
 }
 
--- Personal keymaps
+-- [[ Personal keymaps ]]
 vim.api.nvim_set_keymap('n', '<leader>v', ':silent e ~/.config/nvim/init.lua<CR>', {noremap = true})
 
 vim.api.nvim_set_keymap('n', '<leader>t', ':bot 15sp term://fish<CR>i', {noremap = true})
@@ -514,26 +519,18 @@ vim.api.nvim_set_keymap('n', '<leader>j', ':e %:h/', {noremap = true})
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
--- vim-visual-multi
+-- [[ vim-visual-multi ]]
 vim.api.nvim_set_keymap('n', '<M-d>', '<Plug>(VM-Find-Under)', {noremap = false})
 vim.api.nvim_set_keymap('n', '<C-n>', '<Plug>(VM-Find-Under)', {noremap = false})
 vim.api.nvim_set_keymap('n', '<M-j>', '<Plug>(VM-Add-Cursor-Down)', {noremap = false})
 vim.api.nvim_set_keymap('n', '<M-k>', '<Plug>(VM-Add-Cursor-Up)', {noremap = false})
 
--- vim-illuminate
+-- [[ vim-illuminate ]]
 vim.cmd([[
   augroup illuminate_augroup
     autocmd!
     autocmd VimEnter * hi illuminatedWord guibg=#3A3F49
     autocmd VimEnter * hi illuminatedCurWord guibg=#3A3F49 cterm=underline gui=underline
-  augroup END
-]])
-
--- OSC Yank config
-vim.cmd([[
-  augroup TextYank
-  autocmd!
-  autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankRegister "' | endif
   augroup END
 ]])
 
