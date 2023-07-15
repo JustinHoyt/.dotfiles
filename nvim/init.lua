@@ -2,7 +2,7 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-vim.o.background='dark'
+vim.o.background='light'
 
 -- Install package manager
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -175,6 +175,18 @@ require('lazy').setup({
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
 
+  -- macro recorder
+  --
+  -- playMacro = "Q",
+  -- switchSlot = "<C-q>",
+  -- editMacro = "cq",
+  -- yankMacro = "yq", -- also decodes it for turning macros to mappings
+  -- addBreakPoint = "##", -- ⚠️ this should be a string you don't use in insert mode during a macro
+  {
+    "chrisgrieser/nvim-recorder",
+    opts = {},
+  },
+
   'christoomey/vim-tmux-navigator',
   'ray-x/guihua.lua', -- recommended if need floating window support
   'ray-x/go.nvim',
@@ -183,7 +195,8 @@ require('lazy').setup({
   'mg979/vim-visual-multi', -- Multicursor mode
   'tpope/vim-surround', -- Surround text-objects with pairs like () or ''
   'ThePrimeagen/harpoon', -- Enhance marks
-
+  'tpope/vim-unimpaired',
+  'jghauser/mkdir.nvim',
 }, {})
 
 -- [[ Toggle background for light and dark mode ]]
@@ -206,17 +219,14 @@ vim.wo.number = true
 -- Enable mouse mode
 vim.o.mouse = 'a'
 
--- Sync clipboard copies between OS and Neovim.
--- Use the unnamedplus register for yank operations
-vim.api.nvim_set_keymap('n', 'y', '"+y', {noremap = true})
-vim.api.nvim_set_keymap('n', 'Y', '"+y$', {noremap = true})
-vim.api.nvim_set_keymap('v', 'y', '"+y', {noremap = true})
-
 -- Enable break indent
 vim.o.breakindent = true
 
 -- Save undo history
 vim.o.undofile = true
+
+-- Sync with system clipboard
+vim.o.clipboard = 'unnamedplus'
 
 -- Case-insensitive searching UNLESS \C or capital in search
 vim.o.ignorecase = true
@@ -524,8 +534,10 @@ vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-k>', '<C-w>k', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-=>', '<C-W><C-=>', {noremap = true})
+
 -- Regex replace with very magic mode shortcut
 vim.api.nvim_set_keymap('n', '<leader>r', ':%s#\\v#&#g<left><left><left><left>', {noremap = true})
+
 -- Rerun the last terminal command and come back to the editor
 vim.api.nvim_set_keymap('n', '<leader>l', '<ESC><C-w>ji<UP><CR><C-\\><C-N><C-w>k', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>j', ':e %:h/', {noremap = true})
@@ -533,10 +545,22 @@ vim.api.nvim_set_keymap('n', '<leader>j', ':e %:h/', {noremap = true})
 -- Map the function to a key combination
 vim.api.nvim_set_keymap('n', '<leader>`', ':lua toggle_background()<CR>', {noremap = true})
 
--- Mapping for oil.nvim
+-- d/D delete instead of cut
+vim.api.nvim_set_keymap('n', 'd', '"_d', {noremap = true})
+vim.api.nvim_set_keymap('n', 'D', '"_D', {noremap = true})
+
+-- m/M cut
+vim.api.nvim_set_keymap('n', 'm', '"+d', {noremap = true})
+vim.api.nvim_set_keymap('n', 'M', '"+D', {noremap = true})
+vim.api.nvim_set_keymap('n', 'mm', '"+dd', {noremap = true})
+
+-- [[ Macros ]]
+vim.cmd([[let @p="==yss'$a,\<Esc>F/;ldT'"]])
+
+-- [[ oil.nvim ]]
 vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
 
--- -- [[ harpoon ]]
+-- [[ harpoon ]]
 vim.keymap.set("n", "<leader>hc", ':lua require("harpoon.mark").add_file()<CR>', { desc = "[H]arpoon [C]reate mark" })
 vim.keymap.set("n", "<leader>hm", ':lua require("harpoon.ui").toggle_quick_menu()<CR>', { desc = "[H]arpoon [M]enu" })
 vim.keymap.set("n", "<leader>hn", ':lua require("harpoon.ui").nav_next()<CR>', { desc = "[H]arpoon [N]ext" })
