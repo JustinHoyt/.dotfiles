@@ -2,7 +2,7 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-vim.o.background='light'
+vim.o.background='dark'
 
 -- Install package manager
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -144,26 +144,45 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
 
-  -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
-  --       These are some example plugins that I've included in the kickstart repository.
-  --       Uncomment any of the lines below to enable them.
-  -- require 'kickstart.plugins.autoformat',
-  -- require 'kickstart.plugins.debug',
+  -- Smart quote and paren pairing
+  {
+      'windwp/nvim-autopairs',
+      event = "InsertEnter",
+      opts = {} -- this is equalent to setup({}) function
+  },
 
-  -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
-  --    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
-  --    up-to-date with whatever is in the kickstart repo.
-  --    Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  --
-  --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-  -- { import = 'custom.plugins' },
-    'christoomey/vim-tmux-navigator',
-    'ray-x/guihua.lua', -- recommended if need floating window support
-    'ray-x/go.nvim',
-    'nickeb96/fish.vim',
-    'RRethy/vim-illuminate', -- Highlight other words that match the word under the cursor
-    'mg979/vim-visual-multi', -- Multicursor mode
-    'tpope/vim-surround', -- Surround text-objects with pairs like () or ''
+  -- Overwrites 's' and 'r' keys to act as jump motions
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    ---@type Flash.Config
+    opts = { modes = { char = { enabled = false } } },
+    -- stylua: ignore
+    keys = {
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      { "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    },
+  },
+
+  -- File system plugin that allows editing and manipulating files in buffers
+  {
+    'stevearc/oil.nvim',
+    opts = {},
+    -- Optional dependencies
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
+
+  'christoomey/vim-tmux-navigator',
+  'ray-x/guihua.lua', -- recommended if need floating window support
+  'ray-x/go.nvim',
+  'nickeb96/fish.vim',
+  'RRethy/vim-illuminate', -- Highlight other words that match the word under the cursor
+  'mg979/vim-visual-multi', -- Multicursor mode
+  'tpope/vim-surround', -- Surround text-objects with pairs like () or ''
+  'ThePrimeagen/harpoon', -- Enhance marks
 
 }, {})
 
@@ -176,12 +195,7 @@ function _G.toggle_background()
   end
 end
 
--- Map the function to a key combination
-vim.api.nvim_set_keymap('n', '<leader>`', ':lua toggle_background()<CR>', {noremap = true})
-
 -- [[ Setting options ]]
--- See `:help vim.o`
--- NOTE: You can change these options as you wish!
 
 -- Set highlight on search
 vim.o.hlsearch = false
@@ -195,6 +209,7 @@ vim.o.mouse = 'a'
 -- Sync clipboard copies between OS and Neovim.
 -- Use the unnamedplus register for yank operations
 vim.api.nvim_set_keymap('n', 'y', '"+y', {noremap = true})
+vim.api.nvim_set_keymap('n', 'Y', '"+y$', {noremap = true})
 vim.api.nvim_set_keymap('v', 'y', '"+y', {noremap = true})
 
 -- Enable break indent
@@ -515,9 +530,27 @@ vim.api.nvim_set_keymap('n', '<leader>r', ':%s#\\v#&#g<left><left><left><left>',
 vim.api.nvim_set_keymap('n', '<leader>l', '<ESC><C-w>ji<UP><CR><C-\\><C-N><C-w>k', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>j', ':e %:h/', {noremap = true})
 
---Remap for dealing with word wrap
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+-- Map the function to a key combination
+vim.api.nvim_set_keymap('n', '<leader>`', ':lua toggle_background()<CR>', {noremap = true})
+
+-- Mapping for oil.nvim
+vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
+
+-- -- [[ harpoon ]]
+vim.keymap.set("n", "<leader>hc", ':lua require("harpoon.mark").add_file()<CR>', { desc = "[H]arpoon [C]reate mark" })
+vim.keymap.set("n", "<leader>hm", ':lua require("harpoon.ui").toggle_quick_menu()<CR>', { desc = "[H]arpoon [M]enu" })
+vim.keymap.set("n", "<leader>hn", ':lua require("harpoon.ui").nav_next()<CR>', { desc = "[H]arpoon [N]ext" })
+vim.keymap.set("n", "<leader>hp", ':lua require("harpoon.ui").nav_prev()<CR>', { desc = "[H]arpoon [P]revious" })
+vim.keymap.set("n", "<leader>ha", ':lua require("harpoon.ui").nav_file(1)<CR>', { desc = "[H]arpoon [1]" })
+vim.keymap.set("n", "<leader>hs", ':lua require("harpoon.ui").nav_file(2)<CR>', { desc = "[H]arpoon [2]" })
+vim.keymap.set("n", "<leader>hd", ':lua require("harpoon.ui").nav_file(3)<CR>', { desc = "[H]arpoon [3]" })
+vim.keymap.set("n", "<leader>hf", ':lua require("harpoon.ui").nav_file(4)<CR>', { desc = "[H]arpoon [4]" })
+vim.keymap.set("n", "<leader>hg", ':lua require("harpoon.ui").nav_file(5)<CR>', { desc = "[H]arpoon [5]" })
+vim.keymap.set("n", "<leader>hh", ':lua require("harpoon.ui").nav_file(6)<CR>', { desc = "[H]arpoon [6]" })
+vim.keymap.set("n", "<leader>hj", ':lua require("harpoon.ui").nav_file(7)<CR>', { desc = "[H]arpoon [7]" })
+vim.keymap.set("n", "<leader>hk", ':lua require("harpoon.ui").nav_file(8)<CR>', { desc = "[H]arpoon [8]" })
+vim.keymap.set("n", "<leader>hl", ':lua require("harpoon.ui").nav_file(9)<CR>', { desc = "[H]arpoon [9]" })
+vim.keymap.set("n", "<leader>h;", ':lua require("harpoon.ui").nav_file(10)<CR>', { desc = "[H]arpoon [10]" })
 
 -- [[ vim-visual-multi ]]
 vim.api.nvim_set_keymap('n', '<M-d>', '<Plug>(VM-Find-Under)', {noremap = false})
