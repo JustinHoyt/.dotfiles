@@ -556,14 +556,17 @@ vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-=>', '<C-W><C-=>', {noremap = true})
 
 -- Unhighlight
-vim.api.nvim_set_keymap('n', '<Esc><Esc>', ':noh<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>h', ':noh<CR>', {noremap = true, silent = true})
 
 -- Regex replace with very magic mode shortcut
 vim.api.nvim_set_keymap('n', '<leader>r', ':%s#\\v#&#g<left><left><left><left>', {noremap = true})
 
 -- Rerun the last terminal command and come back to the editor
 vim.api.nvim_set_keymap('n', '<leader>l', '<ESC><C-w>ji<UP><CR><C-\\><C-N><C-w>k', {noremap = true})
-vim.api.nvim_set_keymap('n', '<leader>j', ':e %:h/', {noremap = true})
+
+-- Search from current file's directory
+vim.api.nvim_set_keymap('n', '<leader>j', ':e %:h/**/', {noremap = true})
+vim.api.nvim_set_keymap('n', '/', '/\\v', {noremap = true})
 
 -- Map the function to a key combination
 vim.api.nvim_set_keymap('n', '<leader>`', ':lua toggle_background()<CR>', {noremap = true})
