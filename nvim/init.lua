@@ -184,11 +184,15 @@ require('lazy').setup({
   -- addBreakPoint = "##", -- ⚠️ this should be a string you don't use in insert mode during a macro
   { "chrisgrieser/nvim-recorder", opts = {} },
 
+  -- underline the word your cursor is on
+  { 'echasnovski/mini.cursorword', version = '*', opts = {} },
+  -- Minimap overview
+  { 'echasnovski/mini.map', version = '*' },
+
   'christoomey/vim-tmux-navigator',
   'ray-x/guihua.lua', -- recommended if need floating window support
   'ray-x/go.nvim',
   'nickeb96/fish.vim',
-  'RRethy/vim-illuminate', -- Highlight other words that match the word under the cursor
   'mg979/vim-visual-multi', -- Multicursor mode
   'tpope/vim-surround', -- Surround text-objects with pairs like () or ''
   'ThePrimeagen/harpoon', -- Enhance marks
@@ -226,7 +230,7 @@ end
 -- [[ Setting options ]]
 
 -- Set highlight on search
-vim.o.hlsearch = false
+-- vim.o.hlsearch = false
 
 -- Make line numbers default
 vim.wo.number = true
@@ -528,10 +532,14 @@ cmp.setup {
 }
 
 -- [[ Personal keymaps ]]
+
+-- Open init.lua
 vim.api.nvim_set_keymap('n', '<leader>v', ':silent e ~/.config/nvim/init.lua<CR>', {noremap = true})
 
+-- Open fish terminal as a bottom split
 vim.api.nvim_set_keymap('n', '<leader>t', ':bot 15sp term://fish<CR>i', {noremap = true})
 
+-- Navigate between windows with Ctrl-[h|j|k|l]
 vim.api.nvim_set_keymap('t', '<C-h>', '<C-\\><C-N><C-w>h', {noremap = true})
 vim.api.nvim_set_keymap('t', '<C-j>', '<C-\\><C-N><C-w>j', {noremap = true})
 vim.api.nvim_set_keymap('t', '<C-k>', '<C-\\><C-N><C-w>k', {noremap = true})
@@ -546,6 +554,9 @@ vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-k>', '<C-w>k', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-=>', '<C-W><C-=>', {noremap = true})
+
+-- Unhighlight
+vim.api.nvim_set_keymap('n', '<Esc><Esc>', ':noh<CR>', {noremap = true, silent = true})
 
 -- Regex replace with very magic mode shortcut
 vim.api.nvim_set_keymap('n', '<leader>r', ':%s#\\v#&#g<left><left><left><left>', {noremap = true})
@@ -562,6 +573,12 @@ vim.api.nvim_set_keymap('n', 'd', '"_d', {noremap = true})
 vim.api.nvim_set_keymap('v', 'd', '"_d', {noremap = true})
 vim.api.nvim_set_keymap('n', 'dd', '"_dd', {noremap = true})
 vim.api.nvim_set_keymap('n', 'd', '"_d', {noremap = true})
+
+-- c/C delete instead of cut
+vim.api.nvim_set_keymap('n', 'c', '"_c', {noremap = true})
+vim.api.nvim_set_keymap('v', 'c', '"_c', {noremap = true})
+vim.api.nvim_set_keymap('n', 'cc', '"_cc', {noremap = true})
+vim.api.nvim_set_keymap('n', 'C', '"_C', {noremap = true})
 
 -- x/X as cut motion
 vim.api.nvim_set_keymap('n', 'x', '"+d', {noremap = true})
@@ -597,15 +614,30 @@ vim.api.nvim_set_keymap('n', '<C-n>', '<Plug>(VM-Find-Under)', {noremap = false}
 vim.api.nvim_set_keymap('n', '<M-j>', '<Plug>(VM-Add-Cursor-Down)', {noremap = false})
 vim.api.nvim_set_keymap('n', '<M-k>', '<Plug>(VM-Add-Cursor-Up)', {noremap = false})
 
+-- [[ MiniMap ]]
+local map = require('mini.map')
+map.setup({
+  integrations = {
+    map.gen_integration.builtin_search(),
+    map.gen_integration.gitsigns(),
+    map.gen_integration.diagnostic(),
+  },
+})
+vim.keymap.set('n', '<Leader>mc', MiniMap.close, { desc = "[M]iniMap [C]lose" })
+vim.keymap.set('n', '<Leader>mf', MiniMap.toggle_focus, { desc = "[M]iniMap Toggle [F]ocus" })
+vim.keymap.set('n', '<Leader>mo', MiniMap.open, { desc = "[M]iniMap [O]pen" })
+vim.keymap.set('n', '<Leader>mr', MiniMap.refresh, { desc = "[M]iniMap [R]efresh" })
+vim.keymap.set('n', '<Leader>ms', MiniMap.toggle_side, { desc = "[M]iniMap Toggle [S]ide" })
+vim.keymap.set('n', '<Leader>mt', MiniMap.toggle, { desc = "[M]iniMap [T]oggle" })
 
--- [[ vim-illuminate ]]
-vim.cmd([[
-  augroup illuminate_augroup
-    autocmd!
-    autocmd VimEnter * hi illuminatedWord guibg=#3A3F49
-    autocmd VimEnter * hi illuminatedCurWord guibg=#3A3F49 cterm=underline gui=underline
-  augroup END
-]])
+for _, key in ipairs({ 'n', 'N', '*', '#' }) do
+  vim.keymap.set(
+    'n',
+    key,
+    key ..
+    '<Cmd>lua MiniMap.refresh({}, {lines = false, scrollbar = false})<CR>'
+  )
+end
 
 -- [[ onedark ]]
 require('onedark').setup  {
