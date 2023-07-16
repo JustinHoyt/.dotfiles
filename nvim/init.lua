@@ -182,10 +182,7 @@ require('lazy').setup({
   -- editMacro = "cq",
   -- yankMacro = "yq", -- also decodes it for turning macros to mappings
   -- addBreakPoint = "##", -- ⚠️ this should be a string you don't use in insert mode during a macro
-  {
-    "chrisgrieser/nvim-recorder",
-    opts = {},
-  },
+  { "chrisgrieser/nvim-recorder", opts = {} },
 
   'christoomey/vim-tmux-navigator',
   'ray-x/guihua.lua', -- recommended if need floating window support
@@ -195,8 +192,26 @@ require('lazy').setup({
   'mg979/vim-visual-multi', -- Multicursor mode
   'tpope/vim-surround', -- Surround text-objects with pairs like () or ''
   'ThePrimeagen/harpoon', -- Enhance marks
-  'tpope/vim-unimpaired',
   'jghauser/mkdir.nvim',
+  {
+    'echasnovski/mini.move',
+    version = '*',
+    config = {
+      mappings = {
+        -- Move current block in Visual mode
+        left = 'H',
+        down = 'J',
+        up = 'K',
+        right = 'L',
+
+        -- Move current line in Normal mode
+        line_left = '<LEFT>',
+        line_right = '<RIGHT>',
+        line_down = '<DOWN>',
+        line_up = '<UP>',
+      }
+    }
+  },
 }, {})
 
 -- [[ Toggle background for light and dark mode ]]
@@ -517,9 +532,6 @@ vim.api.nvim_set_keymap('n', '<leader>v', ':silent e ~/.config/nvim/init.lua<CR>
 
 vim.api.nvim_set_keymap('n', '<leader>t', ':bot 15sp term://fish<CR>i', {noremap = true})
 
-vim.api.nvim_set_keymap('v', '>', '>gv', {noremap = true})
-vim.api.nvim_set_keymap('v', '<', '<gv', {noremap = true})
-
 vim.api.nvim_set_keymap('t', '<C-h>', '<C-\\><C-N><C-w>h', {noremap = true})
 vim.api.nvim_set_keymap('t', '<C-j>', '<C-\\><C-N><C-w>j', {noremap = true})
 vim.api.nvim_set_keymap('t', '<C-k>', '<C-\\><C-N><C-w>k', {noremap = true})
@@ -547,12 +559,15 @@ vim.api.nvim_set_keymap('n', '<leader>`', ':lua toggle_background()<CR>', {norem
 
 -- d/D delete instead of cut
 vim.api.nvim_set_keymap('n', 'd', '"_d', {noremap = true})
-vim.api.nvim_set_keymap('n', 'D', '"_D', {noremap = true})
+vim.api.nvim_set_keymap('v', 'd', '"_d', {noremap = true})
+vim.api.nvim_set_keymap('n', 'dd', '"_dd', {noremap = true})
+vim.api.nvim_set_keymap('n', 'd', '"_d', {noremap = true})
 
--- m/M cut
-vim.api.nvim_set_keymap('n', 'm', '"+d', {noremap = true})
-vim.api.nvim_set_keymap('n', 'M', '"+D', {noremap = true})
-vim.api.nvim_set_keymap('n', 'mm', '"+dd', {noremap = true})
+-- x/X as cut motion
+vim.api.nvim_set_keymap('n', 'x', '"+d', {noremap = true})
+vim.api.nvim_set_keymap('v', 'x', '"+d', {noremap = true})
+vim.api.nvim_set_keymap('n', 'xx', '"+dd', {noremap = true})
+vim.api.nvim_set_keymap('n', 'X', '"+D', {noremap = true})
 
 -- [[ Macros ]]
 vim.cmd([[let @p="==yss'$a,\<Esc>F/;ldT'"]])
@@ -561,26 +576,27 @@ vim.cmd([[let @p="==yss'$a,\<Esc>F/;ldT'"]])
 vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
 
 -- [[ harpoon ]]
-vim.keymap.set("n", "<leader>hc", ':lua require("harpoon.mark").add_file()<CR>', { desc = "[H]arpoon [C]reate mark" })
-vim.keymap.set("n", "<leader>hm", ':lua require("harpoon.ui").toggle_quick_menu()<CR>', { desc = "[H]arpoon [M]enu" })
-vim.keymap.set("n", "<leader>hn", ':lua require("harpoon.ui").nav_next()<CR>', { desc = "[H]arpoon [N]ext" })
-vim.keymap.set("n", "<leader>hp", ':lua require("harpoon.ui").nav_prev()<CR>', { desc = "[H]arpoon [P]revious" })
-vim.keymap.set("n", "<leader>ha", ':lua require("harpoon.ui").nav_file(1)<CR>', { desc = "[H]arpoon [1]" })
-vim.keymap.set("n", "<leader>hs", ':lua require("harpoon.ui").nav_file(2)<CR>', { desc = "[H]arpoon [2]" })
-vim.keymap.set("n", "<leader>hd", ':lua require("harpoon.ui").nav_file(3)<CR>', { desc = "[H]arpoon [3]" })
-vim.keymap.set("n", "<leader>hf", ':lua require("harpoon.ui").nav_file(4)<CR>', { desc = "[H]arpoon [4]" })
-vim.keymap.set("n", "<leader>hg", ':lua require("harpoon.ui").nav_file(5)<CR>', { desc = "[H]arpoon [5]" })
-vim.keymap.set("n", "<leader>hh", ':lua require("harpoon.ui").nav_file(6)<CR>', { desc = "[H]arpoon [6]" })
-vim.keymap.set("n", "<leader>hj", ':lua require("harpoon.ui").nav_file(7)<CR>', { desc = "[H]arpoon [7]" })
-vim.keymap.set("n", "<leader>hk", ':lua require("harpoon.ui").nav_file(8)<CR>', { desc = "[H]arpoon [8]" })
-vim.keymap.set("n", "<leader>hl", ':lua require("harpoon.ui").nav_file(9)<CR>', { desc = "[H]arpoon [9]" })
-vim.keymap.set("n", "<leader>h;", ':lua require("harpoon.ui").nav_file(10)<CR>', { desc = "[H]arpoon [10]" })
+vim.keymap.set("n", "mc", ':lua require("harpoon.mark").add_file()<CR>', { desc = "[H]arpoon [C]reate mark" })
+vim.keymap.set("n", "mm", ':lua require("harpoon.ui").toggle_quick_menu()<CR>', { desc = "[H]arpoon [M]enu" })
+vim.keymap.set("n", "mn", ':lua require("harpoon.ui").nav_next()<CR>', { desc = "[H]arpoon [N]ext" })
+vim.keymap.set("n", "mp", ':lua require("harpoon.ui").nav_prev()<CR>', { desc = "[H]arpoon [P]revious" })
+vim.keymap.set("n", "ma", ':lua require("harpoon.ui").nav_file(1)<CR>', { desc = "[H]arpoon [1]" })
+vim.keymap.set("n", "ms", ':lua require("harpoon.ui").nav_file(2)<CR>', { desc = "[H]arpoon [2]" })
+vim.keymap.set("n", "md", ':lua require("harpoon.ui").nav_file(3)<CR>', { desc = "[H]arpoon [3]" })
+vim.keymap.set("n", "mf", ':lua require("harpoon.ui").nav_file(4)<CR>', { desc = "[H]arpoon [4]" })
+vim.keymap.set("n", "mg", ':lua require("harpoon.ui").nav_file(5)<CR>', { desc = "[H]arpoon [5]" })
+vim.keymap.set("n", "mh", ':lua require("harpoon.ui").nav_file(6)<CR>', { desc = "[H]arpoon [6]" })
+vim.keymap.set("n", "mj", ':lua require("harpoon.ui").nav_file(7)<CR>', { desc = "[H]arpoon [7]" })
+vim.keymap.set("n", "mk", ':lua require("harpoon.ui").nav_file(8)<CR>', { desc = "[H]arpoon [8]" })
+vim.keymap.set("n", "ml", ':lua require("harpoon.ui").nav_file(9)<CR>', { desc = "[H]arpoon [9]" })
+vim.keymap.set("n", "m;", ':lua require("harpoon.ui").nav_file(10)<CR>', { desc = "[H]arpoon [10]" })
 
 -- [[ vim-visual-multi ]]
 vim.api.nvim_set_keymap('n', '<M-d>', '<Plug>(VM-Find-Under)', {noremap = false})
 vim.api.nvim_set_keymap('n', '<C-n>', '<Plug>(VM-Find-Under)', {noremap = false})
 vim.api.nvim_set_keymap('n', '<M-j>', '<Plug>(VM-Add-Cursor-Down)', {noremap = false})
 vim.api.nvim_set_keymap('n', '<M-k>', '<Plug>(VM-Add-Cursor-Up)', {noremap = false})
+
 
 -- [[ vim-illuminate ]]
 vim.cmd([[
@@ -591,6 +607,7 @@ vim.cmd([[
   augroup END
 ]])
 
+-- [[ onedark ]]
 require('onedark').setup  {
   -- Main options --
   style = 'dark', -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
