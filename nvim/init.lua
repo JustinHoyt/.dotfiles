@@ -203,10 +203,10 @@ require('lazy').setup({
     config = {
       mappings = {
         -- Move current block in Visual mode
-        left = 'H',
-        down = 'J',
-        up = 'K',
-        right = 'L',
+        left = '<LEFT>',
+        down = '<DOWN>',
+        up = '<UP>',
+        right = '<RIGHT>',
 
         -- Move current line in Normal mode
         line_left = '<LEFT>',
@@ -422,6 +422,7 @@ local on_attach = function(_, bufnr)
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+  nmap('gh', vim.lsp.buf.hover, 'Hover Documentation')
   nmap('<C-s>', vim.lsp.buf.signature_help, 'Signature Documentation')
   vim.keymap.set('i', '<C-s>', vim.lsp.buf.signature_help, { buffer = bufnr, desc = 'Signature Documentation' })
 
