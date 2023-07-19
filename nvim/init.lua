@@ -186,8 +186,9 @@ require('lazy').setup({
 
   -- underline the word your cursor is on
   { 'echasnovski/mini.cursorword', version = '*', opts = {} },
-  -- Minimap overview
-  { 'echasnovski/mini.map', version = '*' },
+
+  -- Toggle terminals that run in a small bottom buffer
+  {'akinsho/toggleterm.nvim', version = "*", config = true},
 
   'christoomey/vim-tmux-navigator',
   'ray-x/guihua.lua', -- recommended if need floating window support
@@ -230,7 +231,9 @@ end
 -- [[ Setting options ]]
 
 -- Set highlight on search
--- vim.o.hlsearch = false
+vim.o.hlsearch = false
+
+vim.o.hidden = true
 
 -- Make line numbers default
 vim.wo.number = true
@@ -587,6 +590,9 @@ vim.api.nvim_set_keymap('v', 'x', '"+d', {noremap = true})
 vim.api.nvim_set_keymap('n', 'xx', '"+dd', {noremap = true})
 vim.api.nvim_set_keymap('n', 'X', '"+D', {noremap = true})
 
+-- p deletes in visual mode
+vim.api.nvim_set_keymap('v', 'p', '"_dP', {noremap = true})
+
 -- [[ Macros ]]
 -- Convert github URL to a string of the user/project
 vim.cmd([[let @p="==yss'$a,\<Esc>F/;ldT'"]])
@@ -609,31 +615,8 @@ vim.keymap.set("n", "mj", ':lua require("harpoon.ui").nav_file(7)<CR>', { desc =
 vim.keymap.set("n", "mk", ':lua require("harpoon.ui").nav_file(8)<CR>', { desc = "[H]arpoon [8]", silent = true })
 vim.keymap.set("n", "ml", ':lua require("harpoon.ui").nav_file(9)<CR>', { desc = "[H]arpoon [9]", silent = true })
 vim.keymap.set("n", "m;", ':lua require("harpoon.ui").nav_file(10)<CR>', { desc = "[H]arpoon [10]", silent = true })
-
--- [[ MiniMap ]]
-local map = require('mini.map')
-map.setup({
-  integrations = {
-    map.gen_integration.builtin_search(),
-    map.gen_integration.gitsigns(),
-    map.gen_integration.diagnostic(),
-  },
-})
-vim.keymap.set('n', '<Leader>mc', MiniMap.close, { desc = "[M]iniMap [C]lose" })
-vim.keymap.set('n', '<Leader>mf', MiniMap.toggle_focus, { desc = "[M]iniMap Toggle [F]ocus" })
-vim.keymap.set('n', '<Leader>mo', MiniMap.open, { desc = "[M]iniMap [O]pen" })
-vim.keymap.set('n', '<Leader>mr', MiniMap.refresh, { desc = "[M]iniMap [R]efresh" })
-vim.keymap.set('n', '<Leader>ms', MiniMap.toggle_side, { desc = "[M]iniMap Toggle [S]ide" })
-vim.keymap.set('n', '<Leader>mt', MiniMap.toggle, { desc = "[M]iniMap [T]oggle" })
-
-for _, key in ipairs({ 'n', 'N', '*', '#' }) do
-  vim.keymap.set(
-    'n',
-    key,
-    key ..
-    '<Cmd>lua MiniMap.refresh({}, {lines = false, scrollbar = false})<CR>'
-  )
-end
+vim.keymap.set("n", "mt", ':lua require("harpoon.term").gotoTerminal(1)<CR>', { desc = "[H]arpoon [T]erminal 1", silent = true })
+vim.keymap.set("n", "my", ':lua require("harpoon.term").gotoTerminal(2)<CR>', { desc = "[H]arpoon [T]erminal 2", silent = true })
 
 -- [[ onedark ]]
 require('onedark').setup  {
@@ -674,3 +657,43 @@ if vim.loop.fs_stat(vim.fn.stdpath('config') .. '/lua/init_local.lua') then
     require('init_local')
 end
 
+-- [[ toggleterm ]]
+require("toggleterm").setup{}
+vim.keymap.set('n', '<C-t><C-t>', ':ToggleTerm<CR>', { desc = "[T]oggleTerm [E]very" })
+vim.keymap.set('n', '<C-t><C-e>', ':ToggleTermToggleAll<CR>', { desc = "[T]oggleTerm [E]very" })
+vim.keymap.set("n", "<C-t><C-a>", ':ToggleTerm 1<CR>', { desc = "[T]oggleTerm [1]", silent = true })
+vim.keymap.set("n", "<C-t><C-s>", ':ToggleTerm 2<CR>', { desc = "[T]oggleTerm [2]", silent = true })
+vim.keymap.set("n", "<C-t><C-d>", ':ToggleTerm 3<CR>', { desc = "[T]oggleTerm [3]", silent = true })
+vim.keymap.set("n", "<C-t><C-f>", ':ToggleTerm 4<CR>', { desc = "[T]oggleTerm [4]", silent = true })
+vim.keymap.set("n", "<C-t><C-g>", ':ToggleTerm 5<CR>', { desc = "[T]oggleTerm [5]", silent = true })
+vim.keymap.set("n", "<C-t><C-h>", ':ToggleTerm 6<CR>', { desc = "[T]oggleTerm [6]", silent = true })
+vim.keymap.set("n", "<C-t><C-j>", ':ToggleTerm 7<CR>', { desc = "[T]oggleTerm [7]", silent = true })
+vim.keymap.set("n", "<C-t><C-k>", ':ToggleTerm 8<CR>', { desc = "[T]oggleTerm [8]", silent = true })
+vim.keymap.set("n", "<C-t><C-l>", ':ToggleTerm 9<CR>', { desc = "[T]oggleTerm [9]", silent = true })
+vim.keymap.set("n", "<C-t><C-;>", ':ToggleTerm 10<CR>', { desc = "[T]oggleTerm [10]", silent = true })
+
+vim.keymap.set('t', '<C-t><C-t>', '<C-\\><C-N>:ToggleTerm<CR>', { desc = "[T]oggleTerm [E]very" })
+vim.keymap.set('t', '<C-t><C-e>', '<C-\\><C-N>:ToggleTermToggleAll<CR>', { desc = "[T]oggleTerm [E]very" })
+vim.keymap.set("t", "<C-t><C-a>", '<C-\\><C-N>:ToggleTerm 1<CR>', { desc = "[T]oggleTerm [1]", silent = true })
+vim.keymap.set("t", "<C-t><C-s>", '<C-\\><C-N>:ToggleTerm 2<CR>', { desc = "[T]oggleTerm [2]", silent = true })
+vim.keymap.set("t", "<C-t><C-d>", '<C-\\><C-N>:ToggleTerm 3<CR>', { desc = "[T]oggleTerm [3]", silent = true })
+vim.keymap.set("t", "<C-t><C-f>", '<C-\\><C-N>:ToggleTerm 4<CR>', { desc = "[T]oggleTerm [4]", silent = true })
+vim.keymap.set("t", "<C-t><C-g>", '<C-\\><C-N>:ToggleTerm 5<CR>', { desc = "[T]oggleTerm [5]", silent = true })
+vim.keymap.set("t", "<C-t><C-h>", '<C-\\><C-N>:ToggleTerm 6<CR>', { desc = "[T]oggleTerm [6]", silent = true })
+vim.keymap.set("t", "<C-t><C-j>", '<C-\\><C-N>:ToggleTerm 7<CR>', { desc = "[T]oggleTerm [7]", silent = true })
+vim.keymap.set("t", "<C-t><C-k>", '<C-\\><C-N>:ToggleTerm 8<CR>', { desc = "[T]oggleTerm [8]", silent = true })
+vim.keymap.set("t", "<C-t><C-l>", '<C-\\><C-N>:ToggleTerm 9<CR>', { desc = "[T]oggleTerm [9]", silent = true })
+vim.keymap.set("t", "<C-t><C-;>", '<C-\\><C-N>:ToggleTerm 10<CR>', { desc = "[T]oggleTerm [10]", silent = true })
+
+vim.keymap.set('i', '<C-t><C-t>', '<C-\\><C-N>:ToggleTerm<CR>', { desc = "[T]oggleTerm [E]very" })
+vim.keymap.set('i', '<C-t><C-e>', '<C-\\><C-N>:ToggleTermToggleAll<CR>', { desc = "[T]oggleTerm [E]very" })
+vim.keymap.set("i", "<C-t><C-a>", '<C-\\><C-N>:ToggleTerm 1<CR>', { desc = "[T]oggleTerm [1]", silent = true })
+vim.keymap.set("i", "<C-t><C-s>", '<C-\\><C-N>:ToggleTerm 2<CR>', { desc = "[T]oggleTerm [2]", silent = true })
+vim.keymap.set("i", "<C-t><C-d>", '<C-\\><C-N>:ToggleTerm 3<CR>', { desc = "[T]oggleTerm [3]", silent = true })
+vim.keymap.set("i", "<C-t><C-f>", '<C-\\><C-N>:ToggleTerm 4<CR>', { desc = "[T]oggleTerm [4]", silent = true })
+vim.keymap.set("i", "<C-t><C-g>", '<C-\\><C-N>:ToggleTerm 5<CR>', { desc = "[T]oggleTerm [5]", silent = true })
+vim.keymap.set("i", "<C-t><C-h>", '<C-\\><C-N>:ToggleTerm 6<CR>', { desc = "[T]oggleTerm [6]", silent = true })
+vim.keymap.set("i", "<C-t><C-j>", '<C-\\><C-N>:ToggleTerm 7<CR>', { desc = "[T]oggleTerm [7]", silent = true })
+vim.keymap.set("i", "<C-t><C-k>", '<C-\\><C-N>:ToggleTerm 8<CR>', { desc = "[T]oggleTerm [8]", silent = true })
+vim.keymap.set("i", "<C-t><C-l>", '<C-\\><C-N>:ToggleTerm 9<CR>', { desc = "[T]oggleTerm [9]", silent = true })
+vim.keymap.set("i", "<C-t><C-;>", '<C-\\><C-N>:ToggleTerm 10<CR>', { desc = "[T]oggleTerm [10]", silent = true })
