@@ -44,6 +44,7 @@
     ~/.config/nvim: nvim
     ~/.config/nixpkgs/home.nix: home.nix
     ~/.config/nixpkgs/common.nix: common.nix
+    ~/.config/alacritty: alacritty
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]

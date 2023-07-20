@@ -11,7 +11,7 @@ font:
     # style: Retina
 
   # Point size of the font
-  size: 20.0
+  size: 25.0
 
   # Offset is the extra space around each character. offset.y can be thought of
   # as modifying the linespacing, and offset.x as modifying the letter spacing.
@@ -26,27 +26,64 @@ font:
     x: 0
     y: 0
 
-  # Thin stroke font rendering (macOS only)
-  #
-  # Thin strokes are suitable for retina displays, but for non-retina you
-  # probably want this set to false.
-  #
-  # macOS >= 10.14.x:
-  #
-  # If the font quality on non-retina display looks bad then set
-  # `use_thin_strokes` to `true` and enable font smoothing by running the
-  # following command:
-  #   `defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO`
-  #
-  # This is a global setting and will require a log out or restart to take
-  # effect.
-  use_thin_strokes: true
-
 window:
-  start_maximized: true
+  decorations: none
+
+  startup_mode: Maximized
 
 env:
   TERM: xterm-256color
+
+# The rest of your Alacritty configuration file goes here.
+
+schemes:
+  one_dark: &one_dark
+    primary:
+      background: '0x282c34'
+      foreground: '0xabb2bf'
+    normal:
+      black:   '0x282c34'
+      red:     '0xe06c75'
+      green:   '0x98c379'
+      yellow:  '0xe5c07b'
+      blue:    '0x61afef'
+      magenta: '0xc678dd'
+      cyan:    '0x56b6c2'
+      white:   '0xabb2bf'
+    bright:
+      black:   '0x5c6370'
+      red:     '0xe06c75'
+      green:   '0x98c379'
+      yellow:  '0xe5c07b'
+      blue:    '0x61afef'
+      magenta: '0xc678dd'
+      cyan:    '0x56b6c2'
+      white:   '0xffffff'
+
+  one_light: &one_light
+    primary:
+      background: '0xfafafa'
+      foreground: '0x383a42'
+    normal:
+      black:   '0x383a42'
+      red:     '0xe45649'
+      green:   '0x50a14f'
+      yellow:  '0xc18401'
+      blue:    '0x0184bc'
+      magenta: '0xa626a4'
+      cyan:    '0x0997b3'
+      white:   '0xfafafa'
+    bright:
+      black:   '0x696c77'
+      red:     '0xe45649'
+      green:   '0x50a14f'
+      yellow:  '0xc18401'
+      blue:    '0x0184bc'
+      magenta: '0xa626a4'
+      cyan:    '0x0997b3'
+      white:   '0xffffff'
+
+colors: *one_dark  # This line sets the active color scheme.
 
 key_bindings:
   - { key: A,         mods: Alt,       chars: "\x1ba"                       }

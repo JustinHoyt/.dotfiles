@@ -30,6 +30,7 @@ bindkey "^[OB" history-beginning-search-forward
 
 
 # Aliases
+alias f="fish -i"
 alias init-venv="python -m virtualenv venv"
 alias init-venv3="python3 -m virtualenv venv"
 alias activate="source venv/bin/activate"
