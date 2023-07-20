@@ -617,6 +617,8 @@ vim.keymap.set("n", "ml", ':lua require("harpoon.ui").nav_file(9)<CR>', { desc =
 vim.keymap.set("n", "m;", ':lua require("harpoon.ui").nav_file(10)<CR>', { desc = "[H]arpoon [10]", silent = true })
 vim.keymap.set("n", "mt", ':lua require("harpoon.term").gotoTerminal(1)<CR>', { desc = "[H]arpoon [T]erminal 1", silent = true })
 vim.keymap.set("n", "my", ':lua require("harpoon.term").gotoTerminal(2)<CR>', { desc = "[H]arpoon [T]erminal 2", silent = true })
+vim.keymap.set("t", "<C-o>", '<C-\\><C-N><C-o><CR>', { desc = "Go back in jumplist", silent = true })
+vim.keymap.set("t", "<C-i>", '<C-\\><C-N><C-i><CR>', { desc = "Go forward in jumplist", silent = true })
 
 -- [[ onedark ]]
 require('onedark').setup  {
