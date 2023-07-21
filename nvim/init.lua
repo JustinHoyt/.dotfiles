@@ -318,11 +318,27 @@ vim.keymap.set('n', '<leader>/', function()
 end, { desc = '[/] Fuzzily search in current buffer' })
 
 vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
-vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
-vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
-vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
-vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
+vim.keymap.set('n', '<leader>scs', require('telescope.builtin').commands, { desc = '[S]earch [C]ommands' })
+vim.keymap.set('n', '<leader>sch', require('telescope.builtin').command_history, { desc = '[S]earch [C]ommand [H]istory' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
+vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
+vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
+vim.keymap.set('n', '<leader>sj', require('telescope.builtin').jumplist, { desc = '[S]earch [J]umplist' })
+vim.keymap.set('n', '<leader>sk', require('telescope.builtin').keymaps, { desc = '[S]earch [K]eymaps' })
+vim.keymap.set('n', '<leader>sm', require('telescope.builtin').man_pages, { desc = '[S]earch [M]an pages' })
+vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
+
+-- telescope LSP commands
+vim.keymap.set('n', '<leader>lci', require('telescope.builtin').lsp_incoming_calls, { desc = '[L]sp [C]alls [I]ncoming' })
+vim.keymap.set('n', '<leader>lco', require('telescope.builtin').lsp_outgoing_calls, { desc = '[L]sp [C]alls [O]utgoing' })
+vim.keymap.set('n', '<leader>ld', require('telescope.builtin').lsp_definitions, { desc = '[L]sp [D]efinitions' })
+vim.keymap.set('n', '<leader>li', require('telescope.builtin').lsp_implementations, { desc = '[L]sp [I]mplementations' })
+vim.keymap.set('n', '<leader>lr', require('telescope.builtin').lsp_references, { desc = '[L]sp [R]eferences' })
+vim.keymap.set('n', '<leader>ls', require('telescope.builtin').lsp_document_symbols, { desc = '[L]sp Document [S]ymbols' })
+vim.keymap.set('n', '<leader>lt', require('telescope.builtin').lsp_type_definitions, { desc = '[L]sp [T]ype Definitions' })
+vim.keymap.set('n', '<leader>lwd', require('telescope.builtin').lsp_dynamic_workspace_symbols, { desc = '[L]sp [W]orkspace [D]ynamic Symbols' })
+vim.keymap.set('n', '<leader>lws', require('telescope.builtin').lsp_workspace_symbols, { desc = '[L]sp [W]orkspace [S]ymbols' })
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -538,9 +554,6 @@ cmp.setup {
 -- Open init.lua
 vim.api.nvim_set_keymap('n', '<leader>v', ':silent e ~/.config/nvim/init.lua<CR>', {noremap = true})
 
--- Open fish terminal as a bottom split
-vim.api.nvim_set_keymap('n', '<leader>t', ':bot 15sp term://fish<CR>i', {noremap = true})
-
 -- Navigate between windows with Ctrl-[h|j|k|l]
 vim.api.nvim_set_keymap('t', '<C-h>', '<C-\\><C-N><C-w>h', {noremap = true})
 vim.api.nvim_set_keymap('t', '<C-j>', '<C-\\><C-N><C-w>j', {noremap = true})
@@ -564,7 +577,7 @@ vim.api.nvim_set_keymap('n', '<leader>h', ':noh<CR>', {noremap = true, silent = 
 vim.api.nvim_set_keymap('n', '<leader>r', ':%s#\\v#&#g<left><left><left><left>', {noremap = true})
 
 -- Rerun the last terminal command and come back to the editor
-vim.api.nvim_set_keymap('n', '<leader>l', '<ESC><C-w>ji<UP><CR><C-\\><C-N><C-w>k', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>rp', '<ESC><C-w>ji<UP><CR><C-\\><C-N><C-w>k', {noremap = true, desc = '[R]e[p]eat'})
 
 -- Search from current file's directory
 vim.api.nvim_set_keymap('n', '<leader>f', ':e %:h/**/', {noremap = true})
@@ -618,7 +631,6 @@ vim.keymap.set("n", "m;", ':lua require("harpoon.ui").nav_file(10)<CR>', { desc 
 vim.keymap.set("n", "mt", ':lua require("harpoon.term").gotoTerminal(1)<CR>', { desc = "[H]arpoon [T]erminal 1", silent = true })
 vim.keymap.set("n", "my", ':lua require("harpoon.term").gotoTerminal(2)<CR>', { desc = "[H]arpoon [T]erminal 2", silent = true })
 vim.keymap.set("t", "<C-o>", '<C-\\><C-N><C-o><CR>', { desc = "Go back in jumplist", silent = true })
-vim.keymap.set("t", "<C-i>", '<C-\\><C-N><C-i><CR>', { desc = "Go forward in jumplist", silent = true })
 
 -- [[ onedark ]]
 require('onedark').setup  {
