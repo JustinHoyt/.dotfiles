@@ -2,6 +2,8 @@ package y;
 use strict;
 use warnings;
 
+use File::Find qw(find finddepth);
+
 use List::Util qw(
     any
     all
@@ -64,6 +66,8 @@ use Term::ANSIColor qw(
 use Exporter 'import';
 
 our @EXPORT = qw(
+    find
+    finddepth
     any
     all
     none
