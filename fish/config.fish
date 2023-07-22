@@ -27,6 +27,8 @@ if status is-interactive
     abbr --set-cursor pp --position anywhere "perl -My -pE '%'"
     abbr --set-cursor pn --position anywhere "perl -My -nE '%'"
     abbr --set-cursor pnp --position anywhere "perl -My -nE 'print if m#%#g'"
+    # Find files
+    abbr --set-cursor pef "perl -My -E 'find(sub { say if m#%# }, \".\")'"
     # Show before and after of a Substitute
     abbr --set-cursor pa --position anywhere "perl -My -aE 'say %'"
     abbr --set-cursor pfc --position anywhere "perl -My -F',' -E 'say % @F'"
