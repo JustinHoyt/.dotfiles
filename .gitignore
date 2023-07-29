@@ -2,8 +2,7 @@ karabiner/automatic_backups
 nvim/plugin
 nvim/spell
 nvim/.session.vim
-nvim/lua/amazon.lua
 home.nix
 nvim/lua/init_local.lua
-nvim/lua/plugins/google.lua
+nvim/lua/google-plugins.lua
 

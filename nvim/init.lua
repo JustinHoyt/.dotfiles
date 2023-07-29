@@ -18,7 +18,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require('lazy').setup({
+local plugins = {
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
@@ -62,26 +62,6 @@ require('lazy').setup({
 
   -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim', opts = {} },
-  {
-    -- Adds git releated signs to the gutter, as well as utilities for managing changes
-    'lewis6991/gitsigns.nvim',
-    opts = {
-      -- See `:help gitsigns.txt`
-      signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
-      },
-      on_attach = function(bufnr)
-        vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk, { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
-        vim.keymap.set('n', '<leader>gn', require('gitsigns').next_hunk, { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
-        vim.keymap.set('n', '<leader>ph', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[P]review [H]unk' })
-      end,
-    },
-  },
-
   {
     -- Theme inspired by Atom
     'navarasu/onedark.nvim',
@@ -190,14 +170,6 @@ require('lazy').setup({
   -- Toggle terminals that run in a small bottom buffer
   {'akinsho/toggleterm.nvim', version = "*", config = true},
 
-  'christoomey/vim-tmux-navigator',
-  'ray-x/guihua.lua', -- recommended if need floating window support
-  'ray-x/go.nvim',
-  'nickeb96/fish.vim',
-  'mg979/vim-visual-multi', -- Multicursor mode
-  'tpope/vim-surround', -- Surround text-objects with pairs like () or ''
-  'ThePrimeagen/harpoon', -- Enhance marks
-  'jghauser/mkdir.nvim',
   {
     'echasnovski/mini.move',
     version = '*',
@@ -217,7 +189,25 @@ require('lazy').setup({
       }
     }
   },
-}, {})
+
+  'christoomey/vim-tmux-navigator',
+  'ray-x/guihua.lua', -- recommended if need floating window support
+  'ray-x/go.nvim',
+  'nickeb96/fish.vim',
+  'mg979/vim-visual-multi', -- Multicursor mode
+  'tpope/vim-surround', -- Surround text-objects with pairs like () or ''
+  'ThePrimeagen/harpoon', -- Enhance marks
+  'jghauser/mkdir.nvim',
+  'ojroques/vim-oscyank', -- Yank to clipboard
+  'mhinz/vim-signify', -- Git and mercurial sign column
+
+}
+
+if vim.loop.fs_stat(vim.fn.stdpath('config') .. '/lua/google-plugins.lua') then
+    table.insert(plugins, { import = "google-plugins" })
+end
+
+require('lazy').setup(plugins, {})
 
 -- [[ Toggle background for light and dark mode ]]
 function _G.toggle_background()
@@ -328,6 +318,7 @@ vim.keymap.set('n', '<leader>sj', require('telescope.builtin').jumplist, { desc 
 vim.keymap.set('n', '<leader>sk', require('telescope.builtin').keymaps, { desc = '[S]earch [K]eymaps' })
 vim.keymap.set('n', '<leader>sm', require('telescope.builtin').man_pages, { desc = '[S]earch [M]an pages' })
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
+vim.keymap.set('v', '<leader>s', require('telescope.builtin').grep_string, { desc = '[S]earch' })
 
 -- telescope LSP commands
 vim.keymap.set('n', '<leader>lci', require('telescope.builtin').lsp_incoming_calls, { desc = '[L]sp [C]alls [I]ncoming' })
@@ -467,7 +458,7 @@ local servers = {
   -- gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
-  tsserver = {},
+  -- tsserver = {},
 
   lua_ls = {
     Lua = {
@@ -549,10 +540,26 @@ cmp.setup {
   },
 }
 
+-- [[ OSC Yank config ]]
+vim.cmd([[
+  augroup TextYank
+  autocmd!
+  autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankRegister "' | endif
+  augroup END
+]])
+
+-- [[ vim-signify config ]]
+vim.g.signify_vcs_list = { 'hg', 'git' }
+vim.g.signify_sign_change = '*'
+vim.g.signify_sign_delete = '-'
+
 -- [[ Personal keymaps ]]
 
 -- Open init.lua
-vim.api.nvim_set_keymap('n', '<leader>v', ':silent e ~/.config/nvim/init.lua<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>v', ':e ~/.config/nvim/init.lua<CR>', {noremap = true, silent = true})
+
+-- Load import under current cursor
+vim.api.nvim_set_keymap('n', '<leader>ci', ':silent! w<CR>:!generate_imports % <C-r><C-w><CR>', {noremap = true, desc = '[C]ode [I]mport'})
 
 -- Navigate between windows with Ctrl-[h|j|k|l]
 vim.api.nvim_set_keymap('t', '<C-h>', '<C-\\><C-N><C-w>h', {noremap = true})
@@ -580,7 +587,7 @@ vim.api.nvim_set_keymap('n', '<leader>r', ':%s#\\v#&#g<left><left><left><left>',
 vim.api.nvim_set_keymap('n', '<leader>rp', '<ESC><C-w>ji<UP><CR><C-\\><C-N><C-w>k', {noremap = true, desc = '[R]e[p]eat'})
 
 -- Search from current file's directory
-vim.api.nvim_set_keymap('n', '<leader>f', ':e %:h/**/', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>f', ':e %:h/**/*', {noremap = true})
 
 -- Map the function to a key combination
 vim.api.nvim_set_keymap('n', '<leader>`', ':lua toggle_background()<CR>', {noremap = true})
@@ -711,3 +718,4 @@ vim.keymap.set("i", "<C-t><C-j>", '<C-\\><C-N>:ToggleTerm 7<CR>', { desc = "[T]o
 vim.keymap.set("i", "<C-t><C-k>", '<C-\\><C-N>:ToggleTerm 8<CR>', { desc = "[T]oggleTerm [8]", silent = true })
 vim.keymap.set("i", "<C-t><C-l>", '<C-\\><C-N>:ToggleTerm 9<CR>', { desc = "[T]oggleTerm [9]", silent = true })
 vim.keymap.set("i", "<C-t><C-;>", '<C-\\><C-N>:ToggleTerm 10<CR>', { desc = "[T]oggleTerm [10]", silent = true })
+

@@ -46,15 +46,6 @@ if status is-interactive
     # Find and Replace preview
     abbr --set-cursor prv --position anywhere "ppr 's#%#\$&#g'"
 
-    function dark
-        perl -i -pE "s#vim.o.background='light'#vim.o.background='dark'#" ~/.config/nvim/init.lua
-        perl -i -pE 's#\*one_light#\*one_dark#' ~/.config/alacritty/alacritty.yml
-    end
-    function light
-        perl -i -pE "s#vim.o.background='dark'#vim.o.background='light'#" ~/.config/nvim/init.lua
-        perl -i -pE 's#\*one_dark#\*one_light#' ~/.config/alacritty/alacritty.yml
-    end
-
     fish_add_path ~/.local/bin
 
     source ~/.config/fish/config.local.fish
