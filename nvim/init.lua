@@ -198,7 +198,6 @@ local plugins = {
   'tpope/vim-surround', -- Surround text-objects with pairs like () or ''
   'ThePrimeagen/harpoon', -- Enhance marks
   'jghauser/mkdir.nvim',
-  'ojroques/vim-oscyank', -- Yank to clipboard
   'mhinz/vim-signify', -- Git and mercurial sign column
 
 }
@@ -539,14 +538,6 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
-
--- [[ OSC Yank config ]]
-vim.cmd([[
-  augroup TextYank
-  autocmd!
-  autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankRegister "' | endif
-  augroup END
-]])
 
 -- [[ vim-signify config ]]
 vim.g.signify_vcs_list = { 'hg', 'git' }
