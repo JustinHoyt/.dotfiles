@@ -11,9 +11,11 @@
     - if [[ ! -d ~/.local ]]; then mkdir ~/.local; fi
     - if [[ ! -d ~/.local/bin ]]; then mkdir ~/.local/bin; fi
     - if [[ ! -d ~/.config/nixpkgs ]]; then mkdir ~/.config/nixpkgs; fi
+    - if [[ ! -d ~/.config/nvim/lua ]]; then mkdir ~/.config/nvim/lua; fi
     - if [[ ! -f ~/.zshrc_local ]]; then touch ~/.zshrc_local; fi
     - if [[ ! -f ~/.bashrc_local ]]; then touch ~/.bashrc_local; fi
     - if [[ ! -f ~/.config/fish/config.local.fish ]]; then touch ~/.config/fish/config.local.fish; fi
+    - if [[ ! -f ~/.config/nvim/lua/init_local.lua ]]; then touch ~/.config/nvim/lua/init_local.lua; fi
     - if [[ ! -f proxy_url ]]; then touch proxy_url; echo "proxy_url=" > proxy_url; fi
     - if [[ ! -f ~/.gitignore ]]; then git config --global core.excludesFile ~/.gitignore; fi
 
