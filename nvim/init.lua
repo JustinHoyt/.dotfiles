@@ -31,6 +31,14 @@ local plugins = {
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
+      {
+        "SmiteshP/nvim-navbuddy",
+        dependencies = {
+          "SmiteshP/nvim-navic",
+          "MunifTanjim/nui.nvim"
+        },
+        opts = { lsp = { auto_attach = true } }
+      },
       -- Automatically install LSPs to stdpath for neovim
       { 'williamboman/mason.nvim', config = true },
       'williamboman/mason-lspconfig.nvim',
@@ -100,7 +108,21 @@ local plugins = {
   { 'numToStr/Comment.nvim', opts = {} },
 
   -- Fuzzy Finder (files, lsp, etc)
-  { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
+  {
+    'nvim-telescope/telescope.nvim',
+    branch = '0.1.x',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = {
+      defaults = {
+        mappings = {
+          i = {
+            ['<C-u>'] = false,
+            ['<C-d>'] = false,
+          },
+        },
+      },
+    },
+  },
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built.
   -- Only load if `make` is available. Make sure you have the system
@@ -188,6 +210,11 @@ local plugins = {
         line_up = '<UP>',
       }
     }
+  },
+
+  {
+    'nvim-treesitter/nvim-treesitter-context',
+    opts = {},
   },
 
   'christoomey/vim-tmux-navigator',
@@ -278,19 +305,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
-
--- [[ Configure Telescope ]]
--- See `:help telescope` and `:help telescope.setup()`
-require('telescope').setup {
-  defaults = {
-    mappings = {
-      i = {
-        ['<C-u>'] = false,
-        ['<C-d>'] = false,
-      },
-    },
-  },
-}
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
@@ -549,6 +563,9 @@ vim.g.signify_sign_delete = '-'
 -- Open init.lua
 vim.api.nvim_set_keymap('n', '<leader>v', ':e ~/.config/nvim/init.lua<CR>', {noremap = true, silent = true})
 
+-- Open init.lua
+vim.api.nvim_set_keymap('n', '<leader>j', ':w<CR>', {noremap = true, silent = true})
+
 -- Load import under current cursor
 vim.api.nvim_set_keymap('n', '<leader>ci', ':silent! w<CR>:!generate_imports % <C-r><C-w><CR>', {noremap = true, desc = '[C]ode [I]mport'})
 
@@ -571,8 +588,8 @@ vim.api.nvim_set_keymap('n', '<C-=>', '<C-W><C-=>', {noremap = true})
 -- Unhighlight
 vim.api.nvim_set_keymap('n', '<leader>h', ':noh<CR>', {noremap = true, silent = true})
 
--- Regex replace with very magic mode shortcut
-vim.api.nvim_set_keymap('n', '<leader>r', ':%s#\\v#&#g<left><left><left><left>', {noremap = true})
+-- Regex substitute with very magic mode shortcut
+vim.api.nvim_set_keymap('n', 'gs', ':%s#\\v#&#g<left><left><left><left>', {noremap = true})
 
 -- Rerun the last terminal command and come back to the editor
 vim.api.nvim_set_keymap('n', '<leader>rp', '<ESC><C-w>ji<UP><CR><C-\\><C-N><C-w>k', {noremap = true, desc = '[R]e[p]eat'})
