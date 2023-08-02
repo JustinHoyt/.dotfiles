@@ -472,6 +472,7 @@ local servers = {
   -- pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
+  marksman = {},
 
   lua_ls = {
     Lua = {
