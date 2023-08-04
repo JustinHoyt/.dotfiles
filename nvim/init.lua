@@ -216,6 +216,7 @@ local plugins = {
   'tpope/vim-surround', -- Surround text-objects with pairs like () or ''
   'ThePrimeagen/harpoon', -- Enhance marks
   'jghauser/mkdir.nvim',
+  'ojroques/nvim-osc52',
   {
     'mhinz/vim-signify',
     config = function()
@@ -564,9 +565,6 @@ vim.keymap.set('n', '<leader>v', ':e ~/.config/nvim/init.lua<CR>', {noremap = tr
 vim.keymap.set('n', '<leader>j', ':w<CR>', {noremap = true, silent = true})
 vim.keymap.set('n', '<leader>k', ':q<CR>', {noremap = true, silent = true})
 
--- Load import under current cursor
-vim.keymap.set('n', '<leader>ci', ':silent! w<CR>:!generate_imports % <C-r><C-w><CR>', {noremap = true, desc = '[C]ode [I]mport'})
-
 -- Navigate between windows with Ctrl-[h|j|k|l]
 vim.keymap.set({ 'n', 'i', 't' }, '<C-h>', '<C-\\><C-N><C-w>h', {noremap = true})
 vim.keymap.set({ 'n', 'i', 't' }, '<C-j>', '<C-\\><C-N><C-w>j', {noremap = true})
@@ -594,23 +592,35 @@ vim.keymap.set('n', '<leader>f', ':e %:h/**/*', {noremap = true})
 -- Map the function to a key combination
 vim.keymap.set('n', '<leader>`', ':lua toggle_background()<CR>', {noremap = true})
 
+-- [[ nvim-osc52 ]]
+local function copy(lines, _)
+  require('osc52').copy(table.concat(lines, '\n'))
+end
+
+local function paste()
+  return {vim.fn.split(vim.fn.getreg(''), '\n'), vim.fn.getregtype('')}
+end
+
+vim.g.clipboard = {
+  name = 'osc52',
+  copy = {['+'] = copy, ['*'] = copy},
+  paste = {['+'] = paste, ['*'] = paste},
+}
+
 -- d/D delete instead of cut
-vim.keymap.set('n', 'd', '"_d', {noremap = true})
-vim.keymap.set('v', 'd', '"_d', {noremap = true})
+vim.keymap.set({'n', 'v'}, 'd', '"_d', {noremap = true})
 vim.keymap.set('n', 'dd', '"_dd', {noremap = true})
-vim.keymap.set('n', 'd', '"_d', {noremap = true})
+vim.keymap.set('n', 'D', '"_D', {noremap = true})
 
 -- c/C delete instead of cut
-vim.keymap.set('n', 'c', '"_c', {noremap = true})
-vim.keymap.set('v', 'c', '"_c', {noremap = true})
+vim.keymap.set({'n', 'v'}, 'c', '"_c', {noremap = true})
 vim.keymap.set('n', 'cc', '"_cc', {noremap = true})
 vim.keymap.set('n', 'C', '"_C', {noremap = true})
 
 -- x/X as cut motion
-vim.keymap.set('n', 'x', '"+d', {noremap = true})
-vim.keymap.set('v', 'x', '"+d', {noremap = true})
-vim.keymap.set('n', 'xx', '"+dd', {noremap = true})
-vim.keymap.set('n', 'X', '"+D', {noremap = true})
+vim.keymap.set({'n', 'v'}, 'x', 'd', {noremap = true})
+vim.keymap.set('n', 'xx', 'dd', {noremap = true})
+vim.keymap.set('n', 'X', 'D', {noremap = true})
 
 -- p deletes in visual mode
 vim.keymap.set('v', 'p', '"_dP', {noremap = true})
@@ -694,4 +704,3 @@ vim.keymap.set({ 'i', 't', 'n' }, '<C-t><C-j>', '<C-\\><C-N>:ToggleTerm 7<CR>', 
 vim.keymap.set({ 'i', 't', 'n' }, '<C-t><C-k>', '<C-\\><C-N>:ToggleTerm 8<CR>', { desc = '[T]oggleTerm [8]', silent = true })
 vim.keymap.set({ 'i', 't', 'n' }, '<C-t><C-l>', '<C-\\><C-N>:ToggleTerm 9<CR>', { desc = '[T]oggleTerm [9]', silent = true })
 vim.keymap.set({ 'i', 't', 'n' }, '<C-t><C-;>', '<C-\\><C-N>:ToggleTerm 10<CR>', { desc = '[T]oggleTerm [10]', silent = true })
-

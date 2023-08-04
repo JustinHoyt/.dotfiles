@@ -20,8 +20,9 @@ if status is-interactive
     abbr pkgi "sudo (which bmake) install clean clean-depends"
     abbr --set-cursor whi --position anywhere "$(string join \n -- 'while read line' '% $line' 'end')"
     abbr --set-cursor psb --position anywhere "(echo '%' | psub)"
-    abbr --set-cursor xcl --position anywhere "| xclip -selection clipboard"
+    abbr --set-cursor cpy --position anywhere "| osc copy"
     abbr --set-cursor jqf --position anywhere "jq . (echo '%' | psub)"
+    abbr --set-cursor ent --position anywhere "| entr -c -r"
 
     # Perl abbreviations
     abbr --set-cursor pe --position anywhere "perl -My -E 'say %'"
