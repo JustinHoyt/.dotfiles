@@ -208,6 +208,13 @@ local plugins = {
     opts = {},
   },
 
+  {
+    "andrewferrier/debugprint.nvim",
+    opts = {},
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    version = "*",
+  },
+
   'christoomey/vim-tmux-navigator',
   'ray-x/guihua.lua', -- recommended if need floating window support
   'ray-x/go.nvim',
@@ -220,7 +227,11 @@ local plugins = {
   {
     'mhinz/vim-signify',
     config = function()
-      vim.keymap.set('n', '<Space>', '<Nop>', { silent = true })
+      vim.keymap.set('n', '<Space>hd', ':SignifyHunkDiff<CR>', { silent = true })
+      vim.keymap.set('n', '<Space>hu', ':SignifyHunkUndo<CR>', { silent = true })
+      vim.keymap.set('n', '<Space>hf', ':SignifyFold<CR>', { silent = true })
+      vim.keymap.set('n', '<Space>ha', ':SignifyDiff<CR>', { silent = true })
+      vim.keymap.set('n', '<Space>hh', ':SignifyToggleHighLight<CR>', { silent = true })
     end,
   }, -- Git and mercurial sign column
 
@@ -577,9 +588,6 @@ vim.keymap.set({ 'n', 'i', 't' }, '<C-l>', '<C-\\><C-N><C-w>l', {noremap = true}
 vim.keymap.set({ 'n', 'i', 't' }, '<C-=>', '<C-\\><C-N><C-W><C-=>', {noremap = true})
 vim.keymap.set('t', '<esc><esc>', '<C-\\><C-N>', {noremap = true})
 
--- Unhighlight
-vim.keymap.set('n', '<leader>h', ':noh<CR>', {noremap = true, silent = true})
-
 -- Regex substitute with very magic mode shortcut
 vim.keymap.set('n', 'gs', ':%s#\\v#&#g<left><left><left><left>', {noremap = true})
 
@@ -591,6 +599,12 @@ vim.keymap.set('n', '<leader>f', ':e %:h/**/*', {noremap = true})
 
 -- Map the function to a key combination
 vim.keymap.set('n', '<leader>`', ':lua toggle_background()<CR>', {noremap = true})
+
+-- angular keymaps
+vim.keymap.set('n', 'gah', ':silent! e `angular_switch % html`<CR>', {noremap = true, desc = '[G]o to [A]ngular [H]tml', silent = true})
+vim.keymap.set('n', 'gac', ':silent! e `angular_switch % component`<CR>', {noremap = true, desc = '[G]o to [A]ngular [C]omponent', silent = true})
+vim.keymap.set('n', 'gat', ':silent! e `angular_switch % test`<CR>', {noremap = true, desc = '[G]o to [A]ngular [T]est', silent = true})
+vim.keymap.set('n', 'gas', ':silent! e `angular_switch % scss`<CR>', {noremap = true, desc = '[G]o to [A]ngular [S]css', silent = true})
 
 -- [[ nvim-osc52 ]]
 local function copy(lines, _)
@@ -686,10 +700,6 @@ require('onedark').setup  {
 }
 require('onedark').load()
 
-if vim.loop.fs_stat(vim.fn.stdpath('config') .. '/lua/init_local.lua') then
-    require('init_local')
-end
-
 -- [[ toggleterm ]]
 require("toggleterm").setup{}
 vim.keymap.set({ 'i', 't', 'n' }, '<C-t><C-t>', '<C-\\><C-N>:ToggleTerm<CR>', { desc = '[T]oggleTerm [E]very' })
@@ -704,3 +714,7 @@ vim.keymap.set({ 'i', 't', 'n' }, '<C-t><C-j>', '<C-\\><C-N>:ToggleTerm 7<CR>', 
 vim.keymap.set({ 'i', 't', 'n' }, '<C-t><C-k>', '<C-\\><C-N>:ToggleTerm 8<CR>', { desc = '[T]oggleTerm [8]', silent = true })
 vim.keymap.set({ 'i', 't', 'n' }, '<C-t><C-l>', '<C-\\><C-N>:ToggleTerm 9<CR>', { desc = '[T]oggleTerm [9]', silent = true })
 vim.keymap.set({ 'i', 't', 'n' }, '<C-t><C-;>', '<C-\\><C-N>:ToggleTerm 10<CR>', { desc = '[T]oggleTerm [10]', silent = true })
+
+if vim.loop.fs_stat(vim.fn.stdpath('config') .. '/lua/init_local.lua') then
+  require('init_local')
+end
