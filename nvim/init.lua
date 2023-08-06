@@ -215,7 +215,12 @@ local plugins = {
     version = "*",
   },
 
-  'christoomey/vim-tmux-navigator',
+  {
+    "aserowy/tmux.nvim",
+    config = function()
+      return require("tmux").setup({ copy_sync = { enable = false, } })
+    end
+  },
   'ray-x/guihua.lua', -- recommended if need floating window support
   'ray-x/go.nvim',
   'nickeb96/fish.vim',
@@ -577,15 +582,15 @@ vim.keymap.set('n', '<leader>j', ':w<CR>', {noremap = true, silent = true})
 vim.keymap.set('n', '<leader>k', ':q<CR>', {noremap = true, silent = true})
 
 -- Navigate between windows with Ctrl-[h|j|k|l]
-vim.keymap.set({ 'n', 'i', 't' }, '<C-h>', '<C-\\><C-N><C-w>h', {noremap = true})
-vim.keymap.set({ 'n', 'i', 't' }, '<C-j>', '<C-\\><C-N><C-w>j', {noremap = true})
-vim.keymap.set({ 'n', 'i', 't' }, '<C-k>', '<C-\\><C-N><C-w>k', {noremap = true})
-vim.keymap.set({ 'n', 'i', 't' }, '<C-l>', '<C-\\><C-N><C-w>l', {noremap = true})
-vim.keymap.set({ 'n', 'i', 't' }, '<C-h>', '<C-\\><C-N><C-w>h', {noremap = true})
-vim.keymap.set({ 'n', 'i', 't' }, '<C-j>', '<C-\\><C-N><C-w>j', {noremap = true})
-vim.keymap.set({ 'n', 'i', 't' }, '<C-k>', '<C-\\><C-N><C-w>k', {noremap = true})
-vim.keymap.set({ 'n', 'i', 't' }, '<C-l>', '<C-\\><C-N><C-w>l', {noremap = true})
-vim.keymap.set({ 'n', 'i', 't' }, '<C-=>', '<C-\\><C-N><C-W><C-=>', {noremap = true})
+vim.keymap.set('t', '<C-h>', '<C-\\><C-N><C-w>h', {noremap = true})
+vim.keymap.set('t', '<C-j>', '<C-\\><C-N><C-w>j', {noremap = true})
+vim.keymap.set('t', '<C-k>', '<C-\\><C-N><C-w>k', {noremap = true})
+vim.keymap.set('t', '<C-l>', '<C-\\><C-N><C-w>l', {noremap = true})
+vim.keymap.set('t', '<C-h>', '<C-\\><C-N><C-w>h', {noremap = true})
+vim.keymap.set('t', '<C-j>', '<C-\\><C-N><C-w>j', {noremap = true})
+vim.keymap.set('t', '<C-k>', '<C-\\><C-N><C-w>k', {noremap = true})
+vim.keymap.set('t', '<C-l>', '<C-\\><C-N><C-w>l', {noremap = true})
+vim.keymap.set('t', '<C-=>', '<C-\\><C-N><C-W><C-=>', {noremap = true})
 vim.keymap.set('t', '<esc><esc>', '<C-\\><C-N>', {noremap = true})
 
 -- Regex substitute with very magic mode shortcut
