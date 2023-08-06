@@ -25,6 +25,7 @@ command -v bat &> /dev/null || eget sharkdp/bat --to "$HOME/.local/bin"
 command -v lf &> /dev/null || eget gokcehan/lf --to "$HOME/.local/bin"
 command -v webrpc &> /dev/null || eget webrpc/webrpc --to "$HOME/.local/bin"
 command -v jc &> /dev/null || eget kellyjonbrazil/jc --to "$HOME/.local/bin"
+command -v tty-copy &> /dev/null || eget jirutka/tty-copy --to "$HOME/.local/bin"
 
 [ -f "$HOME/.local/bin/z.sh" ] || curl https://raw.githubusercontent.com/rupa/z/master/z.sh -o "$HOME/.local/bin/z.sh"
 . "$HOME/.local/bin/z.sh"
