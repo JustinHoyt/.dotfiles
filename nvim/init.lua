@@ -218,7 +218,16 @@ local plugins = {
   {
     "aserowy/tmux.nvim",
     config = function()
-      return require("tmux").setup({ copy_sync = { enable = false, } })
+      return require("tmux").setup({
+        copy_sync = {
+          enable = false,
+        },
+        resize = {
+          enable_default_keybindings = true,
+          resize_step_x = 5,
+          resize_step_y = 5,
+        }
+      })
     end
   },
   'ray-x/guihua.lua', -- recommended if need floating window support
