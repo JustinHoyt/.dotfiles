@@ -50,6 +50,14 @@ if status is-interactive
 
     fish_add_path ~/.local/bin
 
+    if type -q perl
+        set -x PATH "$HOME/perl5/bin:$PATH"
+        set -x PERL5LIB "$HOME/perl5/lib/perl5:$PERL5LIB"
+        set -x PERL_LOCAL_LIB_ROOT "$HOME/perl5:$PERL_LOCAL_LIB_ROOT"
+        set -x PERL_MB_OPT "--install_base \"$HOME/perl5\""
+        set -x PERL_MM_OPT "INSTALL_BASE=$HOME/perl5"
+    end
+
     source ~/.config/fish/config.local.fish
 
     fzf_configure_bindings --history=\cy --directory=\cf --git_status=\cs
