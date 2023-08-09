@@ -14,6 +14,7 @@ if status is-interactive
     end
 
     abbr v nvim
+    abbr caffeine 'caffeinate -imdsu'
     abbr b --set-cursor "bash -c '%'"
     abbr apti 'sudo apt install -y'
     # Installation command for pkgsrc
