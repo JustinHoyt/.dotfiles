@@ -1,0 +1,15 @@
+# SPDX-FileCopyrightText: 2021-2022 Ole Tange, http://ole.tange.dk and Free Software and Foundation, Inc.
+# SPDX-License-Identifier: GFDL-1.3-or-later
+# SPDX-License-Identifier: CC-BY-SA-4.0
+
+cff-version: 1.2.0
+title: GNU Parallel 2018
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Ole
+    family-names: Tange
+    email: ole@tange.dk
+    orcid: 'https://orcid.org/0000-0002-6345-1437'

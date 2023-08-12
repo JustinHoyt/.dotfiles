@@ -5,3 +5,6 @@
 	path = dotbot
 	url = https://github.com/anishathalye/dotbot
 	ignore = dirty
+[submodule "map"]
+	path = map
+	url = ./map

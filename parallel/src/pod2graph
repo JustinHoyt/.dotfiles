@@ -1,0 +1,128 @@
+#!/usr/bin/perl
+
+# Copyright (C) 2007-2023 Ole Tange, http://ole.tange.dk and Free
+# Software Foundation, Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, see <https://www.gnu.org/licenses/>
+# or write to the Free Software Foundation, Inc., 51 Franklin St,
+# Fifth Floor, Boston, MA 02110-1301 USA
+#
+# SPDX-FileCopyrightText: 2021-2023 Ole Tange, http://ole.tange.dk and Free Software and Foundation, Inc.
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+# Convert .pod file containing:
+#
+#   =item --option
+#   
+#   See also: --other-option
+#
+# to a graph.pdf with link between --option and --other-option
+
+$pod=join("",<>);
+# Remove stuff before OPTIONS
+$pod=~s/^.*=head1 OPTIONS//s;
+# Remove from EXAMPLES (which is next section) and till end
+$pod=~s/=head1 EXAMPLES.*//s;
+# Remove =over / =back pairs
+$pod=~s/^.*?=over//s;
+$pod=~s/=back\s*$//s;
+$pod=~s/=over.*?=back//sg;
+
+$in_text = 0;
+$in_item = 0;
+$in_see_also = 0;
+
+for(split(/\n\n+/,$pod)) {
+    if(/^See also:\s+(\S.*)/s) {
+	# "See also" paragraph
+	$lex = "seealso";
+	$in_text = 0;
+	$in_item = 0;
+	$in_see_only = 1;
+    } elsif(/^=item\s+(B<[{]=.*?perl expression.*?=[}]>|[IB]<.*?>)(\s|$)/s) {
+	# "=item" paragraph
+	$lex = "item";
+	$in_text = 0;
+	$in_item = 1;
+	$in_see_only = 0;
+    } elsif(/\S/) {
+	# else it is just text
+	$lex = "text";
+	$in_text = 1;
+	$in_item = 0;
+	$in_see_only = 0;
+    }
+  
+    if($lex eq "seealso") {
+	# We found "See also": output edge
+	if($lastlex eq "item") {
+	    @saveditems = @items;
+	    @items = ();
+	}
+	my $to = $1;
+	# Edge from = item/item/item
+	my $from = (join "/",
+		    map {
+			s/I<(.*?)>/$1/g;
+			s/B<(.*?)>/$1/g;
+			$_ }
+		    @saveditems[0]);
+	my @to;
+	while($to =~ s/(B<[{]=.*?perl expression.*?=[}]>|[BI]<.*?>)(\s|$)//) {
+	    my $v = $1;
+	    push @to, map {
+			      s/I<(.*?)>/$1/g;
+			      s/B<(.*?)>/$1/g;
+			      $_;
+	    } $v;
+	}
+	map {
+	    if(not $seen{$from,$_}++
+	       and
+	       not $seen{$_,$from}++) {
+		push @nodelines, "\"$from\" -- \"$_\"\n"
+	    }
+	} @to;
+	
+    } elsif($lex eq "text") {
+	if($lastlex eq "item") {
+	    @saveditems = @items;
+	    @items = ();
+	}
+    } elsif($lex eq "item") {
+	push(@items,$1);
+    }	
+    $lastlex=$lex;
+}
+
+
+sub header() {
+    return q[
+	graph test123 {
+	    graph [splines=true; overlap=false;];
+	    labelloc="t";
+	    label="Related map for options for GNU Parallel\nFind the options you use and learn about the options related to it";fontsize=33;
+	    
+	    "{}"[margin=0.3;]
+		"--sshlogin"[margin=0.3;]
+		"--pipe"[margin=0.3;]
+		":::"[margin=0.3;]
+		"-X"[margin=0.3;]
+	];
+}
+
+open(GRAPHVIZ,"|-","tee foo.dot |neato -Gepsilon=.000000001 -Tpdf") || die;
+print GRAPHVIZ header(), (sort { rand()*3 -1 } @nodelines), "}";
+close GRAPHVIZ;
+

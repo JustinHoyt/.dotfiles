@@ -18,6 +18,8 @@
     - if [[ ! -f ~/.config/nvim/lua/init_local.lua ]]; then touch ~/.config/nvim/lua/init_local.lua; fi
     - if [[ ! -f proxy_url ]]; then touch proxy_url; echo "proxy_url=" > proxy_url; fi
     - if [[ ! -f ~/.gitignore ]]; then git config --global core.excludesFile ~/.gitignore; fi
+    - cd map; make PREFIX=~/.local install
+    - cd parallel; ./configure --prefix=$HOME/.local && make && make install
 
 - link:
     ~/.zshrc: zshrc
