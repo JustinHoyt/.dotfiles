@@ -59,6 +59,8 @@ if status is-interactive
         set -x PERL_MM_OPT "INSTALL_BASE=$HOME/perl5"
     end
 
+    set -x EDITOR "nvim"
+
     source ~/.config/fish/config.local.fish
 
     fzf_configure_bindings --history=\cy --directory=\cf --git_status=\cs
