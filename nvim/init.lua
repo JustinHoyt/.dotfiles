@@ -605,6 +605,9 @@ vim.keymap.set('t', '<esc><esc>', '<C-\\><C-N>', {noremap = true})
 -- Regex substitute with very magic mode shortcut
 vim.keymap.set('n', 'gs', ':%s#\\v#&#g<left><left><left><left>', {noremap = true})
 
+-- Paste all regex line matches to the current line
+vim.keymap.set('n', '<leader>gp', [[:mark z | g//t 'z<left><left><left><left><left>]], {noremap = true, desc = '[G]lobal [P]ut'})
+
 -- Rerun the last terminal command and come back to the editor
 vim.keymap.set('n', '<leader>rp', '<ESC><C-w>ji<UP><CR><C-\\><C-N><C-w>k', {noremap = true, desc = '[R]e[p]eat'})
 
