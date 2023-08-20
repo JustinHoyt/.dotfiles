@@ -591,14 +591,10 @@ vim.keymap.set('n', '<leader>j', ':w<CR>', {noremap = true, silent = true})
 vim.keymap.set('n', '<leader>k', ':q<CR>', {noremap = true, silent = true})
 
 -- Navigate between windows with Ctrl-[h|j|k|l]
-vim.keymap.set('t', '<C-h>', '<C-\\><C-N><C-w>h', {noremap = true})
-vim.keymap.set('t', '<C-j>', '<C-\\><C-N><C-w>j', {noremap = true})
-vim.keymap.set('t', '<C-k>', '<C-\\><C-N><C-w>k', {noremap = true})
-vim.keymap.set('t', '<C-l>', '<C-\\><C-N><C-w>l', {noremap = true})
-vim.keymap.set('t', '<C-h>', '<C-\\><C-N><C-w>h', {noremap = true})
-vim.keymap.set('t', '<C-j>', '<C-\\><C-N><C-w>j', {noremap = true})
-vim.keymap.set('t', '<C-k>', '<C-\\><C-N><C-w>k', {noremap = true})
-vim.keymap.set('t', '<C-l>', '<C-\\><C-N><C-w>l', {noremap = true})
+vim.keymap.set('t', '<C-h>', '<C-\\><C-N><C-h>', {noremap = true})
+vim.keymap.set('t', '<C-j>', '<C-\\><C-N><C-j>', {noremap = true})
+vim.keymap.set('t', '<C-k>', '<C-\\><C-N><C-k>', {noremap = true})
+vim.keymap.set('t', '<C-l>', '<C-\\><C-N><C-l>', {noremap = true})
 vim.keymap.set('t', '<C-=>', '<C-\\><C-N><C-W><C-=>', {noremap = true})
 vim.keymap.set('t', '<esc><esc>', '<C-\\><C-N>', {noremap = true})
 
