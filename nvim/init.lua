@@ -230,6 +230,15 @@ local plugins = {
       })
     end
   },
+
+  {
+    "cseickel/diagnostic-window.nvim",
+    dependencies = { "MunifTanjim/nui.nvim" },
+    config = function()
+      vim.keymap.set('n', '<Space>e', ':DiagWindowShow<CR>', { silent = true })
+    end,
+  },
+
   'ray-x/guihua.lua', -- recommended if need floating window support
   'ray-x/go.nvim',
   'nickeb96/fish.vim',
