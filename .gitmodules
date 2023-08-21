@@ -7,4 +7,9 @@
 	ignore = dirty
 [submodule "map"]
 	path = map
-	url = ./map
+	url = https://github.com/soveran/map
+	ignore = dirty
+[submodule "gnu_parallel"]
+	path = gnu_parallel
+	url = https://github.com/JustinHoyt/gnu_parallel
+	ignore = dirty
