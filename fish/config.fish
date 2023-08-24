@@ -50,7 +50,7 @@ if status is-interactive
     # Slurp whole file into one record
     abbr --set-cursor p07 --position anywhere "perl -0777 -nE 'print %'"
     # Find and Replace
-    abbr --set-cursor pr --position anywhere "perl -i -pE 's#%#&#g'"
+    abbr --set-cursor pr --position anywhere "perl -i -pE"
     # Find and Replace preview
     abbr --set-cursor prv --position anywhere "ppr 's#%#\$&#g'"
 
