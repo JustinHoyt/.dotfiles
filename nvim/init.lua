@@ -213,6 +213,16 @@ local plugins = {
     opts = {},
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     version = "*",
+    config = function()
+      require("debugprint").setup({})
+
+      vim.keymap.set("v", "gd", function()
+          return require('debugprint').debugprint({variable = true})
+      end, { expr = true })
+      vim.keymap.set("n", "yd", function()
+          return require('debugprint').debugprint({ motion = true })
+      end, { expr = true })
+    end
   },
 
   {
@@ -370,7 +380,6 @@ vim.keymap.set('n', '<leader>lco', require('telescope.builtin').lsp_outgoing_cal
 vim.keymap.set('n', '<leader>ld', require('telescope.builtin').lsp_definitions, { desc = '[L]sp [D]efinitions' })
 vim.keymap.set('n', '<leader>li', require('telescope.builtin').lsp_implementations, { desc = '[L]sp [I]mplementations' })
 vim.keymap.set('n', '<leader>lr', require('telescope.builtin').lsp_references, { desc = '[L]sp [R]eferences' })
-vim.keymap.set('n', '<leader>ls', require('telescope.builtin').lsp_document_symbols, { desc = '[L]sp Document [S]ymbols' })
 vim.keymap.set('n', '<leader>lt', require('telescope.builtin').lsp_type_definitions, { desc = '[L]sp [T]ype Definitions' })
 vim.keymap.set('n', '<leader>lwd', require('telescope.builtin').lsp_dynamic_workspace_symbols, { desc = '[L]sp [W]orkspace [D]ynamic Symbols' })
 vim.keymap.set('n', '<leader>lws', require('telescope.builtin').lsp_workspace_symbols, { desc = '[L]sp [W]orkspace [S]ymbols' })
