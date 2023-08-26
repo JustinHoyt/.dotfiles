@@ -5,4 +5,4 @@ nvim/.session.vim
 home.nix
 nvim/lua/init_local.lua
 nvim/lua/google-plugins.lua
-
+fish-3.6.1/

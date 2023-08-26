@@ -15,4 +15,7 @@
 	ignore = dirty
 [submodule "tpm"]
 	path = tpm
-	url = ./tpm
+	url = https://github.com/tmux-plugins/tpm
+[submodule "neovim"]
+	path = neovim
+	url = https://github.com/neovim/neovim
