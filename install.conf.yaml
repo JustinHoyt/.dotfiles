@@ -5,30 +5,36 @@
 
 - clean: ['~']
 
+- create:
+    - ~/.config
+    - ~/.config/kitty
+    - ~/.config/nixpkgs
+    - ~/.config/nvim/lua
+
 - shell:
-    - if [[ ! -d ~/.config ]]; then mkdir ~/.config; fi
-    - if [[ ! -d ~/.config/kitty ]]; then mkdir ~/.config/kitty; fi
-    - if [[ ! -d ~/.local ]]; then mkdir ~/.local; fi
-    - if [[ ! -d ~/.local/bin ]]; then mkdir ~/.local/bin; fi
-    - if [[ ! -d ~/.config/nixpkgs ]]; then mkdir ~/.config/nixpkgs; fi
-    - if [[ ! -d ~/.config/nvim/lua ]]; then mkdir ~/.config/nvim/lua; fi
-    - if [[ ! -f ~/.zshrc_local ]]; then touch ~/.zshrc_local; fi
-    - if [[ ! -f ~/.bashrc_local ]]; then touch ~/.bashrc_local; fi
-    - if [[ ! -f ~/.config/fish/config.local.fish ]]; then touch ~/.config/fish/config.local.fish; fi
-    - if [[ ! -f ~/.config/nvim/lua/init_local.lua ]]; then touch ~/.config/nvim/lua/init_local.lua; fi
-    - if [[ ! -f proxy_url ]]; then touch proxy_url; echo "proxy_url=" > proxy_url; fi
-    - if [[ ! -f ~/.gitignore ]]; then git config --global core.excludesFile ~/.gitignore; fi
-    - cd map; make PREFIX=~/.local install
-    - cd gnu_parallel; ./configure --prefix=$HOME/.local && make && make install
+    - if test ! -f ~/.zshrc_local; touch ~/.zshrc_local; end
+    - if test ! -f ~/.bashrc_local; touch ~/.bashrc_local; end
+    - if test ! -f ~/.config/fish/config.local.fish; touch ~/.config/fish/config.local.fish; end
+    - if test ! -f ~/.config/nvim/lua/init_local.lua; touch ~/.config/nvim/lua/init_local.lua; end
+    - if test ! -f proxy_url; touch proxy_url; echo "proxy_url=" > proxy_url; end
+    - if test ! -f ~/.gitignore; git config --global core.excludesFile ~/.gitignore; end
+    - if ! command -v map; cd map; make PREFIX=~/.local install; end
+    - if ! command -v parallel; cd gnu_parallel; ./configure --prefix=$HOME/.local && make && make install; end
 
 - link:
     ~/.zshrc: zshrc
     ~/.config/fish/:
       glob: true
       path: fish/**
+      create: true
     ~/.local/:
       glob: true
       path: local/**
+      create: true
+    ~/.tmux/plugins/tpm:
+      glob: true
+      path: tpm/**
+      create: true
     ~/.blerc: blerc
     ~/.colors.sh: colors.sh
     ~/.aliases: aliases
@@ -47,7 +53,7 @@
     ~/.config/kitty/kitty.conf: kitty.conf
     ~/.config/kitty/kitty-theme.conf: kitty-theme.conf
     ~/.config/nvim: nvim
-    ~/.config/nixpkgs/home.nix: home.nix
+    ~/.config/nixpkgs/_home.nix: _home.nix
     ~/.config/nixpkgs/common.nix: common.nix
     ~/.config/alacritty: alacritty
 

@@ -13,3 +13,6 @@
 	path = gnu_parallel
 	url = https://github.com/JustinHoyt/gnu_parallel
 	ignore = dirty
+[submodule "tpm"]
+	path = tpm
+	url = ./tpm

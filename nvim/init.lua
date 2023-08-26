@@ -2,7 +2,7 @@ vim.g.mapleader = ' '
 --  Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.maplocalleader = ' '
 
-vim.o.background='light'
+vim.o.background='dark'
 
 -- Install package manager
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
