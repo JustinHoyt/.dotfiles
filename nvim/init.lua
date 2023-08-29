@@ -2,7 +2,7 @@ vim.g.mapleader = ' '
 --  Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.maplocalleader = ' '
 
-vim.o.background='dark'
+vim.o.background='light'
 
 -- Install package manager
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -666,6 +666,7 @@ vim.keymap.set('n', 'C', '"_C', {noremap = true})
 vim.keymap.set({'n', 'v'}, 'x', 'd', {noremap = true})
 vim.keymap.set('n', 'xx', 'dd', {noremap = true})
 vim.keymap.set('n', 'X', 'D', {noremap = true})
+vim.keymap.set('n', 'xp', '"_dlp', {noremap = true})
 
 -- p deletes in visual mode
 vim.keymap.set('v', 'p', '"_dP', {noremap = true})

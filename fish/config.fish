@@ -54,6 +54,12 @@ if status is-interactive
     # Find and Replace preview
     abbr --set-cursor prv --position anywhere "ppr 's#%#\$&#g'"
 
+    # Renumber debug points
+    abbr dr 'perl -i -pE \'s#DEBUGPRINT\[\d+#DEBUGPRINT[@{[++$i]}#\' ***.ts'
+    abbr dd 'perl -i -nE \'print unless m{DEBUGPRINT}#\' ***.ts'
+    abbr dc 'perl -i -pE \'s#(^\s*)(.*DEBUGPRINT)#$1// $2#\' ***.ts'
+    abbr du 'perl -i -pE \'s#// (.*DEBUGPRINT)#$1#\' ***.ts'
+
     fish_add_path ~/.local/bin
 
     if type -q perl
