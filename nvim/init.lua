@@ -666,7 +666,7 @@ vim.keymap.set('n', 'C', '"_C', {noremap = true})
 vim.keymap.set({'n', 'v'}, 'x', 'd', {noremap = true})
 vim.keymap.set('n', 'xx', 'dd', {noremap = true})
 vim.keymap.set('n', 'X', 'D', {noremap = true})
-vim.keymap.set('n', 'xp', '"_dlp', {noremap = true})
+vim.keymap.set('n', 'xp', '"zdl"zp', {noremap = true})
 
 -- p deletes in visual mode
 vim.keymap.set('v', 'p', '"_dP', {noremap = true})
