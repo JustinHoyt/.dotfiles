@@ -66,4 +66,7 @@ function fish_user_key_bindings
     # Rerun a command and select the lines of output to output to the command prompt
     bind --mode insert \cq fzf_select_from_rerun_command_output
     bind --mode default \cq fzf_select_from_rerun_command_output
+
+    bind --mode insert \cp edit_command_buffer
+    bind --mode default \cp edit_command_buffer
 end

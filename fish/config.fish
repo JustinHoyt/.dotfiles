@@ -26,6 +26,7 @@ if status is-interactive
     abbr --set-cursor cpy --position anywhere "| tty-copy"
     abbr --set-cursor jqf --position anywhere "jq . (echo '%' | psub)"
     abbr --set-cursor ent --position anywhere "fd . | entr -c -r"
+    abbr --set-cursor fmtn --position anywhere "| numfmt --grouping"
 
     # Perl abbreviations
     abbr --set-cursor pe --position anywhere "perl -E 'say %'"
