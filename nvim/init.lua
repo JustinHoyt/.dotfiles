@@ -604,6 +604,14 @@ vim.g.signify_sign_delete = '-'
 -- Open init.lua
 vim.keymap.set('n', '<leader>v', ':e ~/.config/nvim/init.lua<CR>', {noremap = true, silent = true})
 
+vim.api.nvim_set_keymap(
+  'n',
+  '<leader>t',
+  ':bot 15sp | terminal echo ' .. vim.fn.expand('%') .. ' | entr -c -r fish ' .. vim.fn.expand('%') .. '<CR><C-w><C-k>',
+  { noremap = true, silent = true }
+)
+
+
 -- Ex command shortcuts
 vim.keymap.set('n', '<leader>j', ':w<CR>', {noremap = true, silent = true})
 vim.keymap.set('n', '<leader>k', ':q<CR>', {noremap = true, silent = true})
