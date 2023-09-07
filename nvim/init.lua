@@ -606,9 +606,16 @@ vim.keymap.set('n', '<leader>v', ':e ~/.config/nvim/init.lua<CR>', {noremap = tr
 
 vim.api.nvim_set_keymap(
   'n',
-  '<leader>t',
+  '<leader>te',
+  ':bot 15sp | terminal chmod +x ' .. vim.fn.expand('%') .. ' && echo ' .. vim.fn.expand('%') .. ' | entr -c -r ' .. vim.fn.expand('%') .. '<CR><C-w><C-k>',
+  { noremap = true, silent = true, desc = '[T]erminal [E]xecute file' }
+)
+
+vim.api.nvim_set_keymap(
+  'n',
+  '<leader>tf',
   ':bot 15sp | terminal echo ' .. vim.fn.expand('%') .. ' | entr -c -r fish ' .. vim.fn.expand('%') .. '<CR><C-w><C-k>',
-  { noremap = true, silent = true }
+  { noremap = true, silent = true, desc = '[T]erminal execute [F]ish file' }
 )
 
 
