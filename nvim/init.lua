@@ -612,6 +612,10 @@ vim.g.signify_sign_delete = '-'
 -- Open init.lua
 vim.keymap.set('n', '<leader>v', ':e ~/.config/nvim/init.lua<CR>', {noremap = true, silent = true})
 
+-- Reverse highlighted lines
+vim.keymap.set('v', '<leader>rv', [[:g/^/m <C-r>=line('.') - 1<CR><CR>]], {noremap = true, silent = true})
+
+-- Open a file running watcher by executing the current file as a script
 vim.api.nvim_set_keymap(
   'n',
   '<leader>te',
@@ -619,6 +623,7 @@ vim.api.nvim_set_keymap(
   { noremap = true, silent = true, desc = '[T]erminal [E]xecute file' }
 )
 
+-- Open a file running watcher by executing the current file as a fish script
 vim.api.nvim_set_keymap(
   'n',
   '<leader>tf',
