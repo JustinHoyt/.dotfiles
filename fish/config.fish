@@ -23,7 +23,7 @@ if status is-interactive
     abbr pkgi "sudo (which bmake) install clean clean-depends"
     abbr --set-cursor whi --position anywhere "$(string join \n -- 'while read line' '% $line' 'end')"
     abbr --set-cursor psb --position anywhere "(echo '%' | psub)"
-    abbr --set-cursor cpy --position anywhere "| tty-copy"
+    abbr --set-cursor cpy --position anywhere "| tty-copy -n"
     abbr --set-cursor jqf --position anywhere "jq . (echo '%' | psub)"
     abbr --set-cursor ent --position anywhere "fd . | entr -c -r"
     abbr --set-cursor fmtn --position anywhere "| numfmt --grouping"

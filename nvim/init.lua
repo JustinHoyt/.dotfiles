@@ -249,14 +249,13 @@ local plugins = {
     end,
   },
 
-  'ray-x/guihua.lua', -- recommended if need floating window support
-  'ray-x/go.nvim',
-  'nickeb96/fish.vim',
-  'mg979/vim-visual-multi', -- Multicursor mode
-  'tpope/vim-surround', -- Surround text-objects with pairs like () or ''
-  'ThePrimeagen/harpoon', -- Enhance marks
-  'jghauser/mkdir.nvim',
-  'ojroques/nvim-osc52',
+  {
+    "johmsalas/text-case.nvim",
+    config = function()
+      require('textcase').setup {}
+    end
+  },
+
   {
     'mhinz/vim-signify',
     config = function()
@@ -268,6 +267,15 @@ local plugins = {
     end,
   }, -- Git and mercurial sign column
 
+  'ray-x/guihua.lua', -- recommended if need floating window support
+  'ray-x/go.nvim',
+  'nickeb96/fish.vim',
+  'mg979/vim-visual-multi', -- Multicursor mode
+  'tpope/vim-surround', -- Surround text-objects with pairs like () or ''
+  'tpope/vim-repeat',
+  'ThePrimeagen/harpoon', -- Enhance marks
+  'jghauser/mkdir.nvim',
+  'ojroques/nvim-osc52',
 }
 
 if vim.loop.fs_stat(vim.fn.stdpath('config') .. '/lua/google-plugins.lua') then
@@ -647,10 +655,10 @@ vim.keymap.set('n', '<leader>f', ':e %:h/**/*', {noremap = true})
 vim.keymap.set('n', '<leader>`', ':lua toggle_background()<CR>', {noremap = true})
 
 -- angular keymaps
-vim.keymap.set('n', 'gah', ':silent! e `angular_switch % html`<CR>', {noremap = true, desc = '[G]o to [A]ngular [H]tml', silent = true})
-vim.keymap.set('n', 'gac', ':silent! e `angular_switch % component`<CR>', {noremap = true, desc = '[G]o to [A]ngular [C]omponent', silent = true})
-vim.keymap.set('n', 'gat', ':silent! e `angular_switch % test`<CR>', {noremap = true, desc = '[G]o to [A]ngular [T]est', silent = true})
-vim.keymap.set('n', 'gas', ':silent! e `angular_switch % scss`<CR>', {noremap = true, desc = '[G]o to [A]ngular [S]css', silent = true})
+vim.keymap.set('n', 'th', ':silent! e `angular_switch % html`<CR>', {noremap = true, desc = '[G]o to [A]ngular [H]tml', silent = true})
+vim.keymap.set('n', 'tc', ':silent! e `angular_switch % component`<CR>', {noremap = true, desc = '[G]o to [A]ngular [C]omponent', silent = true})
+vim.keymap.set('n', 'tt', ':silent! e `angular_switch % test`<CR>', {noremap = true, desc = '[G]o to [A]ngular [T]est', silent = true})
+vim.keymap.set('n', 'ts', ':silent! e `angular_switch % scss`<CR>', {noremap = true, desc = '[G]o to [A]ngular [S]css', silent = true})
 
 -- [[ nvim-osc52 ]]
 local function copy(lines, _)
