@@ -345,6 +345,23 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
+delete_swap = function()
+    local filename = vim.fn.substitute(vim.fn.expand('%:p'), '/', '%', 'g')
+
+    local swapdir = vim.o.directory
+    local swapfile = vim.fn.fnamemodify(swapdir, ':p') .. filename .. '.swp'
+
+    if vim.fn.filereadable(swapfile) == 1 then
+        vim.fn.delete(swapfile)
+        vim.cmd('echom "Deleted swapfile: ' .. swapfile .. '"')
+    else
+        vim.cmd('echom "No swapfile found for current file"')
+        vim.cmd('echom "Swap file: ' .. swapfile .. '"')
+    end
+end
+
+vim.keymap.set('n', '<leader>%', ':lua delete_swap()<CR>', { noremap = true, silent = true })
+
 -- [[ Highlight on yank ]]
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -660,10 +677,10 @@ vim.keymap.set('n', '<leader>f', ':e %:h/**/*', {noremap = true})
 vim.keymap.set('n', '<leader>`', ':lua toggle_background()<CR>', {noremap = true})
 
 -- angular keymaps
-vim.keymap.set('n', 'th', ':silent! e `angular_switch % html`<CR>', {noremap = true, desc = '[G]o to [A]ngular [H]tml', silent = true})
-vim.keymap.set('n', 'tc', ':silent! e `angular_switch % component`<CR>', {noremap = true, desc = '[G]o to [A]ngular [C]omponent', silent = true})
-vim.keymap.set('n', 'tt', ':silent! e `angular_switch % test`<CR>', {noremap = true, desc = '[G]o to [A]ngular [T]est', silent = true})
-vim.keymap.set('n', 'ts', ':silent! e `angular_switch % scss`<CR>', {noremap = true, desc = '[G]o to [A]ngular [S]css', silent = true})
+vim.keymap.set('n', 'gjh', ':silent! e `angular_switch % html`<CR>', {noremap = true, desc = '[G]o [J]ump to [H]tml', silent = true})
+vim.keymap.set('n', 'gjc', ':silent! e `angular_switch % component`<CR>', {noremap = true, desc = '[G]o [J]ump to [C]omponent', silent = true})
+vim.keymap.set('n', 'gjt', ':silent! e `angular_switch % test`<CR>', {noremap = true, desc = '[G]o [J]ump to [T]est', silent = true})
+vim.keymap.set('n', 'gjs', ':silent! e `angular_switch % scss`<CR>', {noremap = true, desc = '[G]o [J]ump to [S]css', silent = true})
 
 -- [[ nvim-osc52 ]]
 local function copy(lines, _)
