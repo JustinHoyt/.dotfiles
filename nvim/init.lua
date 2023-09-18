@@ -345,7 +345,7 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
-delete_swap = function()
+local delete_swap = function()
     local filename = vim.fn.substitute(vim.fn.expand('%:p'), '/', '%', 'g')
 
     local swapdir = vim.o.directory
@@ -359,6 +359,9 @@ delete_swap = function()
         vim.cmd('echom "Swap file: ' .. swapfile .. '"')
     end
 end
+
+-- Format markdown lines to uppercase first character and add a period to the end.
+vim.keymap.set({'n', 'v'}, '<leader>=', [[:s/\v[a-z]/\U&/<CR>:'<,'>s/\v[^\.]$/&./<CR>]], { noremap = true, silent = true })
 
 vim.keymap.set('n', '<leader>%', ':lua delete_swap()<CR>', { noremap = true, silent = true })
 
