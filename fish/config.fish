@@ -14,8 +14,10 @@ if status is-interactive
     end
 
     abbr v nvim
-    abbr caffeine 'caffeinate -imdsu'
     abbr b --set-cursor "bash -c '%'"
+    abbr c 'clear'
+    abbr e 'exit'
+    abbr caffeine 'caffeinate -imdsu'
     abbr apti 'sudo apt install -y'
     # Sync histories with other open fish shells
     abbr hm 'history merge'
