@@ -1,0 +1,5 @@
+#!/usr/bin/env fish
+
+tmux copy-mode \; \
+  send-keys -X search-backward "\\S*$argv[1]\\S*" \; \
+  send-keys 'n' Enter
