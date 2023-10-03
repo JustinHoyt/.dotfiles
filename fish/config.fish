@@ -22,6 +22,8 @@ if status is-interactive
         'tmux capture-pane; tmux show-buffer \\' \
         '| perl -nE \'print if m{%}\' | tac | perl -nE \'print if !$seen{$_}++\' | tac')"
 
+    abbr sf 'source ~/.config/fish/config.fish'
+    abbr st 'tmux source ~/.tmux.conf'
     abbr v nvim
     abbr b --set-cursor "bash -c '%'"
     abbr c 'clear'
