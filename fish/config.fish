@@ -42,7 +42,7 @@ if status is-interactive
     abbr --set-cursor fmtn --position anywhere "| numfmt --format \"%'.2f\""
 
     # Perl abbreviations
-    abbr --set-cursor pc --position anywhere "perl -E 'say %' | numfmt --format \"%'.2f\""
+    abbr --set-cursor pc --position anywhere "perl -E 'say ( % )' | numfmt --format \"%'.2f\""
     abbr --set-cursor pe --position anywhere "perl -E 'say %'"
     abbr --set-cursor pp --position anywhere "perl -pE '%'"
     abbr --set-cursor pn --position anywhere "perl -nE '%'"
