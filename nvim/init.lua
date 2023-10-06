@@ -368,8 +368,8 @@ delete_swap = function()
 end
 
 -- Format markdown lines to uppercase first character and add a period to the end.
-vim.keymap.set('n', '<leader>=', [[:s/\v[a-z]/\U&/<CR>:s/\v[^\.]$/&./<CR>]], { noremap = true, silent = true })
-vim.keymap.set('v', '<leader>=', [[:s/\v[a-z]/\U&/<CR>:'<,'>s/\v[^\.]$/&./<CR>]], { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>=', [[:s/\v[a-z]/\U&/e<CR>:s/\v[^\.]$/&./e<CR>:s/\v<i>/I/ge<CR>:s/\v\. [a-z]/\U&/ge<CR>]], { noremap = true, silent = true })
+vim.keymap.set('v', '<leader>=', [[:s/\v[a-z]/\U&/e<CR>:'<,'>s/\v[^\.]$/&./e<CR>:'<,'>s/\v<i>/I/ge<CR>:'<,'>s/\v\. [a-z]/\U&/ge<CR>]], { noremap = true, silent = true })
 
 vim.keymap.set('n', '<leader>%', ':lua delete_swap()<CR>', { noremap = true, silent = true })
 
