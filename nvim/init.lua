@@ -373,6 +373,9 @@ vim.keymap.set('v', '<leader>=', [[:s/\v[a-z]/\U&/e<CR>:'<,'>s/\v[^\.]$/&./e<CR>
 
 vim.keymap.set('n', '<leader>%', ':lua delete_swap()<CR>', { noremap = true, silent = true })
 
+-- [[ NavBuddy ]]
+vim.keymap.set('n', '<leader>b', ':lua require("nvim-navbuddy").open()<CR>', { noremap = true })
+
 -- [[ Highlight on yank ]]
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -688,10 +691,10 @@ vim.keymap.set('n', '<leader>f', ':e %:h/**/*', {noremap = true})
 vim.keymap.set('n', '<leader>`', ':lua toggle_background()<CR>', {noremap = true})
 
 -- angular keymaps
-vim.keymap.set('n', 'gjh', ':silent! e `angular_switch % html`<CR>', {noremap = true, desc = '[G]o [J]ump to [H]tml', silent = true})
-vim.keymap.set('n', 'gjc', ':silent! e `angular_switch % component`<CR>', {noremap = true, desc = '[G]o [J]ump to [C]omponent', silent = true})
-vim.keymap.set('n', 'gjt', ':silent! e `angular_switch % test`<CR>', {noremap = true, desc = '[G]o [J]ump to [T]est', silent = true})
-vim.keymap.set('n', 'gjs', ':silent! e `angular_switch % scss`<CR>', {noremap = true, desc = '[G]o [J]ump to [S]css', silent = true})
+vim.keymap.set('n', 'mq', ':silent! e `angular_switch % scss`<CR>', {noremap = true, desc = '[M]ark Scss', silent = true})
+vim.keymap.set('n', 'mw', ':silent! e `angular_switch % html`<CR>', {noremap = true, desc = '[M]ark Html', silent = true})
+vim.keymap.set('n', 'me', ':silent! e `angular_switch % component`<CR>', {noremap = true, desc = '[M]ark Component', silent = true})
+vim.keymap.set('n', 'mr', ':silent! e `angular_switch % test`<CR>', {noremap = true, desc = '[M]ark Test', silent = true})
 
 -- [[ nvim-osc52 ]]
 local function copy(lines, _)
