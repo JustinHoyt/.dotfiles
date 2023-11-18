@@ -257,13 +257,6 @@ local plugins = {
   },
 
   {
-    "johmsalas/text-case.nvim",
-    config = function()
-      require('textcase').setup {}
-    end
-  },
-
-  {
     'mhinz/vim-signify',
     config = function()
       vim.keymap.set('n', '<Space>hd', ':SignifyHunkDiff<CR>', { silent = true })
@@ -283,6 +276,7 @@ local plugins = {
   'ThePrimeagen/harpoon', -- Enhance marks
   'jghauser/mkdir.nvim',
   'ojroques/nvim-osc52',
+  'tpope/vim-abolish',
 }
 
 if vim.loop.fs_stat(vim.fn.stdpath('config') .. '/lua/google-plugins.lua') then
@@ -676,7 +670,8 @@ vim.keymap.set('t', '<C-=>', '<C-\\><C-N><C-W><C-=>', {noremap = true})
 vim.keymap.set('t', '<esc><esc>', '<C-\\><C-N>', {noremap = true})
 
 -- Regex substitute with very magic mode shortcut
-vim.keymap.set('n', 'gs', ':%s#\\v#&#g<left><left><left><left>', {noremap = true})
+vim.keymap.set({ 'n', 'v' }, 'gs', ':%s#\\v#&#g<left><left><left><left>', {noremap = true})
+vim.keymap.set({ 'n', 'v' }, 'gS', ':%S###g<left><left><left>', {noremap = true})
 
 -- Paste all regex line matches to the current line
 vim.keymap.set('n', '<leader>gp', [[:mark z | g//t 'z<left><left><left><left><left>]], {noremap = true, desc = '[G]lobal [P]ut'})
