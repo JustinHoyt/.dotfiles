@@ -38,7 +38,7 @@ if status is-interactive
     abbr --set-cursor psb --position anywhere "(echo '%' | psub)"
     abbr --set-cursor cpy --position anywhere "| tty-copy -n"
     abbr --set-cursor jqf --position anywhere "jq . (echo '%' | psub)"
-    abbr --set-cursor ent --position anywhere 'set -l x "%"; chmod 755 $x; echo $x | entr -c -r ./$x'
+    abbr --set-cursor ent --position anywhere 'set -l f "%" && chmod +x $f && echo $f | entr -c -r ./$f'
     abbr --set-cursor fmtn --position anywhere "| numfmt --format \"%'.2f\""
 
     # Perl abbreviations
