@@ -267,6 +267,43 @@ local plugins = {
     end,
   }, -- Git and mercurial sign column
 
+  {
+    "cshuaimin/ssr.nvim",
+    module = "ssr",
+    -- Calling setup is optional.
+    config = function()
+      require("ssr").setup {
+        adjust_window = true,
+        keymaps = {
+          close = "q",
+          next_match = "n",
+          prev_match = "N",
+          replace_confirm = "<cr>",
+          replace_all = "<leader><cr>",
+        },
+      }
+    end
+  },
+
+  {
+    "ThePrimeagen/refactoring.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = function()
+      require('refactoring').setup({})
+
+      vim.keymap.set("x", "<leader>re", ":Refactor extract ",  { noremap = true })
+      vim.keymap.set("x", "<leader>rE", ":Refactor extract_to_file ",  { noremap = true })
+      vim.keymap.set("x", "<leader>rv", ":Refactor extract_var ",  { noremap = true })
+      vim.keymap.set({ "n", "x" }, "<leader>rI", ":Refactor inline_var",  { noremap = true })
+      vim.keymap.set( "n", "<leader>ri", ":Refactor inline_func",  { noremap = true })
+      vim.keymap.set("n", "<leader>rb", ":Refactor extract_block",  { noremap = true })
+      vim.keymap.set("n", "<leader>rB", ":Refactor extract_block_to_file",  { noremap = true })
+    end,
+  },
+
   'ray-x/guihua.lua', -- recommended if need floating window support
   'ray-x/go.nvim',
   'nickeb96/fish.vim',
@@ -670,8 +707,11 @@ vim.keymap.set('t', '<C-=>', '<C-\\><C-N><C-W><C-=>', {noremap = true})
 vim.keymap.set('t', '<esc><esc>', '<C-\\><C-N>', {noremap = true})
 
 -- Regex substitute with very magic mode shortcut
-vim.keymap.set({ 'n', 'v' }, 'gs', ':%s#\\v#&#g<left><left><left><left>', {noremap = true})
-vim.keymap.set({ 'n', 'v' }, 'gS', ':%S###g<left><left><left>', {noremap = true})
+vim.keymap.set('n', 'gs', ':%s#\\v#&#g<left><left><left><left>', {noremap = true})
+vim.keymap.set('v', 'gs', ':s#\\v#&#g<left><left><left><left>', {noremap = true})
+vim.keymap.set('n', 'gS', ':%S###g<left><left><left>', {noremap = true})
+vim.keymap.set('v', 'gS', ':S###g<left><left><left>', {noremap = true})
+vim.keymap.set('n', 'g/', '/\\v', {noremap = true})
 
 -- Paste all regex line matches to the current line
 vim.keymap.set('n', '<leader>gp', [[:mark z | g//t 'z<left><left><left><left><left>]], {noremap = true, desc = '[G]lobal [P]ut'})
@@ -800,6 +840,9 @@ vim.keymap.set({ 'i', 't', 'n' }, '<C-t><C-j>', '<C-\\><C-N>:ToggleTerm 7<CR>', 
 vim.keymap.set({ 'i', 't', 'n' }, '<C-t><C-k>', '<C-\\><C-N>:ToggleTerm 8<CR>', { desc = '[T]oggleTerm [8]', silent = true })
 vim.keymap.set({ 'i', 't', 'n' }, '<C-t><C-l>', '<C-\\><C-N>:ToggleTerm 9<CR>', { desc = '[T]oggleTerm [9]', silent = true })
 vim.keymap.set({ 'i', 't', 'n' }, '<C-t><C-;>', '<C-\\><C-N>:ToggleTerm 10<CR>', { desc = '[T]oggleTerm [10]', silent = true })
+
+-- [[ structural search and replace ]]
+vim.keymap.set({ "n", "x" }, "<leader>sr", function() require("ssr").open() end)
 
 if vim.loop.fs_stat(vim.fn.stdpath('config') .. '/lua/init_local.lua') then
   require('init_local')
