@@ -13,6 +13,7 @@ if status is-interactive
         set -gx PERL5LIB "$dir_to_add":"$PERL5LIB"
     end
 
+
     # Tmux Search All the whole buffer
     abbr --set-cursor tmsa "$(string join \n -- \
         'tmux capture-pane -S - -E -; tmux show-buffer \\' \
@@ -22,6 +23,7 @@ if status is-interactive
         'tmux capture-pane; tmux show-buffer \\' \
         '| perl -nE \'print if m{%}\' | tac | perl -nE \'print if !$seen{$_}++\' | tac')"
 
+    abbr j 'z'
     abbr sf 'source ~/.config/fish/config.fish'
     abbr st 'tmux source ~/.tmux.conf'
     abbr v nvim
