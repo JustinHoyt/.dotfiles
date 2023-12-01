@@ -80,27 +80,6 @@ local plugins = {
   },
 
   {
-    -- Set lualine as statusline
-    'nvim-lualine/lualine.nvim',
-    -- See `:help lualine.txt`
-    opts = {
-      options = {
-        icons_enabled = false,
-        theme = 'onedark',
-        component_separators = '|',
-        section_separators = '',
-        path = 3,
-      },
-      symbols = {
-        modified = '[+]',      -- Text to show when the file is modified.
-        readonly = '[-]',      -- Text to show when the file is non-modifiable or readonly.
-        unnamed = '[No Name]', -- Text to show for unnamed buffers.
-        newfile = '[New]',     -- Text to show for newly created file before first write
-      }
-    },
-  },
-
-  {
     -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
     -- Enable `lukas-reineke/indent-blankline.nvim`
@@ -187,9 +166,6 @@ local plugins = {
   -- underline the word your cursor is on
   { 'echasnovski/mini.cursorword', version = '*', opts = {} },
 
-  -- Toggle terminals that run in a small bottom buffer
-  {'akinsho/toggleterm.nvim', version = "*", config = true},
-
   {
     'echasnovski/mini.move',
     version = '*',
@@ -209,6 +185,8 @@ local plugins = {
       }
     }
   },
+
+  { 'echasnovski/mini.statusline', version = '*' },
 
   {
     'nvim-treesitter/nvim-treesitter-context',
@@ -314,6 +292,7 @@ local plugins = {
   'jghauser/mkdir.nvim',
   'ojroques/nvim-osc52',
   'tpope/vim-abolish',
+  'anuvyklack/hydra.nvim',
 }
 
 if vim.loop.fs_stat(vim.fn.stdpath('config') .. '/lua/google-plugins.lua') then
@@ -725,12 +704,6 @@ vim.keymap.set('n', '<leader>f', ':e %:h/**/*', {noremap = true})
 -- Map the function to a key combination
 vim.keymap.set('n', '<leader>`', ':lua toggle_background()<CR>', {noremap = true})
 
--- angular keymaps
-vim.keymap.set('n', 'mq', ':silent! e `angular_switch % scss`<CR>', {noremap = true, desc = '[M]ark Scss', silent = true})
-vim.keymap.set('n', 'mw', ':silent! e `angular_switch % html`<CR>', {noremap = true, desc = '[M]ark Html', silent = true})
-vim.keymap.set('n', 'me', ':silent! e `angular_switch % component`<CR>', {noremap = true, desc = '[M]ark Component', silent = true})
-vim.keymap.set('n', 'mr', ':silent! e `angular_switch % test`<CR>', {noremap = true, desc = '[M]ark Test', silent = true})
-
 -- [[ nvim-osc52 ]]
 local function copy(lines, _)
   require('osc52').copy(table.concat(lines, '\n'))
@@ -775,18 +748,6 @@ vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" }
 -- [[ harpoon ]]
 vim.keymap.set("n", "mc", ':lua require("harpoon.mark").add_file()<CR>', { desc = "[H]arpoon [C]reate mark", silent = true })
 vim.keymap.set("n", "mm", ':lua require("harpoon.ui").toggle_quick_menu()<CR>', { desc = "[H]arpoon [M]enu", silent = true })
-vim.keymap.set("n", "mn", ':lua require("harpoon.ui").nav_next()<CR>', { desc = "[H]arpoon [N]ext", silent = true })
-vim.keymap.set("n", "mp", ':lua require("harpoon.ui").nav_prev()<CR>', { desc = "[H]arpoon [P]revious", silent = true })
-vim.keymap.set("n", "ma", ':lua require("harpoon.ui").nav_file(1)<CR>', { desc = "[H]arpoon [1]", silent = true })
-vim.keymap.set("n", "ms", ':lua require("harpoon.ui").nav_file(2)<CR>', { desc = "[H]arpoon [2]", silent = true })
-vim.keymap.set("n", "md", ':lua require("harpoon.ui").nav_file(3)<CR>', { desc = "[H]arpoon [3]", silent = true })
-vim.keymap.set("n", "mf", ':lua require("harpoon.ui").nav_file(4)<CR>', { desc = "[H]arpoon [4]", silent = true })
-vim.keymap.set("n", "mg", ':lua require("harpoon.ui").nav_file(5)<CR>', { desc = "[H]arpoon [5]", silent = true })
-vim.keymap.set("n", "mh", ':lua require("harpoon.ui").nav_file(6)<CR>', { desc = "[H]arpoon [6]", silent = true })
-vim.keymap.set("n", "mj", ':lua require("harpoon.ui").nav_file(7)<CR>', { desc = "[H]arpoon [7]", silent = true })
-vim.keymap.set("n", "mk", ':lua require("harpoon.ui").nav_file(8)<CR>', { desc = "[H]arpoon [8]", silent = true })
-vim.keymap.set("n", "ml", ':lua require("harpoon.ui").nav_file(9)<CR>', { desc = "[H]arpoon [9]", silent = true })
-vim.keymap.set("n", "m;", ':lua require("harpoon.ui").nav_file(10)<CR>', { desc = "[H]arpoon [10]", silent = true })
 vim.keymap.set("n", "mt", ':lua require("harpoon.term").gotoTerminal(1)<CR>', { desc = "[H]arpoon [T]erminal 1", silent = true })
 vim.keymap.set("n", "my", ':lua require("harpoon.term").gotoTerminal(2)<CR>', { desc = "[H]arpoon [T]erminal 2", silent = true })
 vim.keymap.set("t", "<C-o>", '<C-\\><C-N><C-o><CR>', { desc = "Go back in jumplist", silent = true })
@@ -826,23 +787,77 @@ require('onedark').setup  {
 }
 require('onedark').load()
 
--- [[ toggleterm ]]
-require("toggleterm").setup{}
-vim.keymap.set({ 'i', 't', 'n' }, '<C-t><C-t>', '<C-\\><C-N>:ToggleTerm<CR>', { desc = '[T]oggleTerm [E]very' })
-vim.keymap.set({ 'i', 't', 'n' }, '<C-t><C-e>', '<C-\\><C-N>:ToggleTermToggleAll<CR>', { desc = '[T]oggleTerm [E]very' })
-vim.keymap.set({ 'i', 't', 'n' }, '<C-t><C-a>', '<C-\\><C-N>:ToggleTerm 1<CR>', { desc = '[T]oggleTerm [1]', silent = true })
-vim.keymap.set({ 'i', 't', 'n' }, '<C-t><C-s>', '<C-\\><C-N>:ToggleTerm 2<CR>', { desc = '[T]oggleTerm [2]', silent = true })
-vim.keymap.set({ 'i', 't', 'n' }, '<C-t><C-d>', '<C-\\><C-N>:ToggleTerm 3<CR>', { desc = '[T]oggleTerm [3]', silent = true })
-vim.keymap.set({ 'i', 't', 'n' }, '<C-t><C-f>', '<C-\\><C-N>:ToggleTerm 4<CR>', { desc = '[T]oggleTerm [4]', silent = true })
-vim.keymap.set({ 'i', 't', 'n' }, '<C-t><C-g>', '<C-\\><C-N>:ToggleTerm 5<CR>', { desc = '[T]oggleTerm [5]', silent = true })
-vim.keymap.set({ 'i', 't', 'n' }, '<C-t><C-h>', '<C-\\><C-N>:ToggleTerm 6<CR>', { desc = '[T]oggleTerm [6]', silent = true })
-vim.keymap.set({ 'i', 't', 'n' }, '<C-t><C-j>', '<C-\\><C-N>:ToggleTerm 7<CR>', { desc = '[T]oggleTerm [7]', silent = true })
-vim.keymap.set({ 'i', 't', 'n' }, '<C-t><C-k>', '<C-\\><C-N>:ToggleTerm 8<CR>', { desc = '[T]oggleTerm [8]', silent = true })
-vim.keymap.set({ 'i', 't', 'n' }, '<C-t><C-l>', '<C-\\><C-N>:ToggleTerm 9<CR>', { desc = '[T]oggleTerm [9]', silent = true })
-vim.keymap.set({ 'i', 't', 'n' }, '<C-t><C-;>', '<C-\\><C-N>:ToggleTerm 10<CR>', { desc = '[T]oggleTerm [10]', silent = true })
-
 -- [[ structural search and replace ]]
 vim.keymap.set({ "n", "x" }, "<leader>sr", function() require("ssr").open() end)
+
+-- [[ hydra ]]
+local Hydra = require('hydra')
+Hydra({
+  name = "Related files",
+  config = {
+    hint = false,
+    timeout = 500,
+  },
+  mode = 'n',
+  body = 'm',
+  heads = {
+    { 'q', '<cmd>edit `angular_switch % scss`<CR>', { } },
+    { 'w', '<cmd>edit `angular_switch % html`<CR>', { } },
+    { 'e', '<cmd>edit `angular_switch % component`<CR>', { } },
+    { 'r', '<cmd>edit `angular_switch % test`<CR>', { } },
+    { 'a', '<cmd>lua require("harpoon.ui").nav_file(1)<CR>', { } },
+    { 's', '<cmd>lua require("harpoon.ui").nav_file(2)<CR>', { } },
+    { 'd', '<cmd>lua require("harpoon.ui").nav_file(3)<CR>', { } },
+    { 'f', '<cmd>lua require("harpoon.ui").nav_file(4)<CR>', { } },
+    { 'g', '<cmd>lua require("harpoon.ui").nav_file(5)<CR>', { } },
+    { 'h', '<cmd>lua require("harpoon.ui").nav_file(6)<CR>', { } },
+    { 'j', '<cmd>lua require("harpoon.ui").nav_file(7)<CR>', { } },
+    { 'k', '<cmd>lua require("harpoon.ui").nav_file(8)<CR>', { } },
+    { 'l', '<cmd>lua require("harpoon.ui").nav_file(9)<CR>', { } },
+    { ';', '<cmd>lua require("harpoon.ui").nav_file(10)<CR>', { } },
+    { 'n', '<cmd>lua require("harpoon.ui").nav_next()<CR>', { } },
+    { 'p', '<cmd>lua require("harpoon.ui").nav_prev()<CR>', { } },
+    { 'c', '<cmd>lua require("harpoon.ui").add_file()<CR>', { exit = true, } },
+    { 'm', '<cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>', { exit = true } },
+  },
+})
+
+MyScroll = Hydra({
+  name = "Scroll",
+  config = {
+    hint = false,
+  },
+  mode = 'n',
+  heads = {
+    { 'u', '<C-u>', { private = true } },
+    { 'd', '<C-d>', { private = true } },
+  },
+})
+
+vim.api.nvim_set_keymap('n', '<C-u>', '<C-u><cmd>lua require("hydra").activate(MyScroll)<CR>', { silent = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<C-d>', '<C-d><cmd>lua require("hydra").activate(MyScroll)<CR>', { silent = true, noremap = true })
+
+MySave = Hydra({
+  name = "Save",
+  config = {
+    hint = false,
+    timeout = 500,
+  },
+  mode = 'n',
+  heads = {
+    { 'h', '<cmd>wqa!<CR>', { private = true } },
+    { 'j', '<cmd>w<CR>', { private = true } },
+    { 'k', '<cmd>q<CR>', { private = true } },
+    { 'l', '<cmd>q!<CR>', { private = true } },
+  },
+})
+
+vim.api.nvim_set_keymap('n', '<leader>j', '<cmd>w<CR><cmd>lua require("hydra").activate(MySave)<CR>', { silent = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<leadr>k', '<cmd>w<CR><cmd>lua require("hydra").activate(MySave)<CR>', { silent = true, noremap = true })
+
+-- local statusline = require('statusline')
+-- statusline.tabline = false
+require('mini.statusline').setup()
 
 if vim.loop.fs_stat(vim.fn.stdpath('config') .. '/lua/init_local.lua') then
   require('init_local')
