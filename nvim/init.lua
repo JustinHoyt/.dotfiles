@@ -843,6 +843,10 @@ AngularSwitch = Hydra({
   },
 })
 
+vim.keymap.set("n", "mq", '<cmd>edit `angular_switch % scss`<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>', { desc = "Angular switch to css file", silent = true })
+vim.keymap.set("n", "mw", '<cmd>edit `angular_switch % html`<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>', { desc = "Angular switch to html file", silent = true })
+vim.keymap.set("n", "me", '<cmd>edit `angular_switch % component`<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>', { desc = "Angular switch to component file", silent = true })
+vim.keymap.set("n", "mr", '<cmd>edit `angular_switch % test`<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>', { desc = "Angular switch to test file", silent = true })
 vim.keymap.set("n", "mc", '<cmd>lua require("harpoon.mark").add_file()<CR>', { desc = "[H]arpoon [C]reate mark", silent = true })
 vim.keymap.set("n", "mm", '<cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>', { desc = "[H]arpoon [M]enu", silent = true })
 vim.keymap.set("n", "mt", '<cmd>lua require("harpoon.term").gotoTerminal(1)<CR>', { desc = "[H]arpoon [T]erminal 1", silent = true })
@@ -883,13 +887,16 @@ MySave = Hydra({
   },
   mode = 'n',
   heads = {
-    { 'h', '<cmd>wqa!<CR>', { private = true } },
+    { 'h', '<cmd>q!<CR>', { private = true } },
     { 'j', '<cmd>w<CR>', { private = true } },
     { 'k', '<cmd>q!<CR>', { private = true } },
+    { 'l', '<cmd>wq!<CR>', { private = true } },
   },
 })
+vim.api.nvim_set_keymap('n', '<leader>h', '<cmd>q!<CR><cmd>lua require("hydra").activate(MySave)<CR>', { silent = true, noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>j', '<cmd>w<CR><cmd>lua require("hydra").activate(MySave)<CR>', { silent = true, noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>k', '<cmd>w<CR><cmd>lua require("hydra").activate(MySave)<CR>', { silent = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>k', '<cmd>q<CR><cmd>lua require("hydra").activate(MySave)<CR>', { silent = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>l', '<cmd>wq!<CR><cmd>lua require("hydra").activate(MySave)<CR>', { silent = true, noremap = true })
 
 MyUnimpairedNext = Hydra({
   name = "Unimpaired Next",
