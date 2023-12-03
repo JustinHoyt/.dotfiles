@@ -292,12 +292,21 @@ local plugins = {
       },
     },
     opts = {
-      -- don't use `defaults = { }` here, do this in the main telescope spec
       extensions = {
         undo = {
-          -- telescope-undo.nvim config, see below
+          mappings = {
+            i = {
+              ["<C-a>"] = function(bufnr) return require("telescope-undo.actions").yank_additions(bufnr) end,
+              ["<C-d>"] = function(bufnr) return require("telescope-undo.actions").yank_deletions(bufnr) end,
+              ["<C-r>"] = function(bufnr) return require("telescope-undo.actions").restore(bufnr) end,
+            },
+            n = {
+              ["y"] = function(bufnr) return require("telescope-undo.actions").yank_additions(bufnr) end,
+              ["Y"] = function(bufnr) return require("telescope-undo.actions").yank_deletions(bufnr) end,
+              ["u"] = function(bufnr) return require("telescope-undo.actions").restore(bufnr) end,
+            },
+          },
         },
-        -- no other extensions here, they can have their own spec too
       },
     },
     config = function(_, opts)
@@ -779,13 +788,6 @@ vim.cmd([[let @p="==yss'$a,\<Esc>F/;ldT'"]])
 -- [[ oil.nvim ]]
 vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
 
--- [[ harpoon ]]
-vim.keymap.set("n", "mc", ':lua require("harpoon.mark").add_file()<CR>', { desc = "[H]arpoon [C]reate mark", silent = true })
-vim.keymap.set("n", "mm", ':lua require("harpoon.ui").toggle_quick_menu()<CR>', { desc = "[H]arpoon [M]enu", silent = true })
-vim.keymap.set("n", "mt", ':lua require("harpoon.term").gotoTerminal(1)<CR>', { desc = "[H]arpoon [T]erminal 1", silent = true })
-vim.keymap.set("n", "my", ':lua require("harpoon.term").gotoTerminal(2)<CR>', { desc = "[H]arpoon [T]erminal 2", silent = true })
-vim.keymap.set("t", "<C-o>", '<C-\\><C-N><C-o><CR>', { desc = "Go back in jumplist", silent = true })
-
 -- [[ onedark ]]
 require('onedark').setup  {
   -- Main options --
@@ -826,35 +828,38 @@ vim.keymap.set({ "n", "x" }, "<leader>sr", function() require("ssr").open() end)
 
 -- [[ hydra ]]
 local Hydra = require('hydra')
-Hydra({
-  name = "Related files",
+
+AngularSwitch = Hydra({
+  name = "Angular Switch",
   config = {
     hint = false,
-    timeout = 500,
   },
   mode = 'n',
-  body = 'm',
   heads = {
     { 'q', '<cmd>edit `angular_switch % scss`<CR>', { } },
     { 'w', '<cmd>edit `angular_switch % html`<CR>', { } },
     { 'e', '<cmd>edit `angular_switch % component`<CR>', { } },
     { 'r', '<cmd>edit `angular_switch % test`<CR>', { } },
-    { 'a', '<cmd>lua require("harpoon.ui").nav_file(1)<CR>', { } },
-    { 's', '<cmd>lua require("harpoon.ui").nav_file(2)<CR>', { } },
-    { 'd', '<cmd>lua require("harpoon.ui").nav_file(3)<CR>', { } },
-    { 'f', '<cmd>lua require("harpoon.ui").nav_file(4)<CR>', { } },
-    { 'g', '<cmd>lua require("harpoon.ui").nav_file(5)<CR>', { } },
-    { 'h', '<cmd>lua require("harpoon.ui").nav_file(6)<CR>', { } },
-    { 'j', '<cmd>lua require("harpoon.ui").nav_file(7)<CR>', { } },
-    { 'k', '<cmd>lua require("harpoon.ui").nav_file(8)<CR>', { } },
-    { 'l', '<cmd>lua require("harpoon.ui").nav_file(9)<CR>', { } },
-    { ';', '<cmd>lua require("harpoon.ui").nav_file(10)<CR>', { } },
-    { 'n', '<cmd>lua require("harpoon.ui").nav_next()<CR>', { } },
-    { 'p', '<cmd>lua require("harpoon.ui").nav_prev()<CR>', { } },
-    { 'c', '<cmd>lua require("harpoon.ui").add_file()<CR>', { exit = true, } },
-    { 'm', '<cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>', { exit = true } },
   },
 })
+
+vim.keymap.set("n", "mc", '<cmd>lua require("harpoon.mark").add_file()<CR>', { desc = "[H]arpoon [C]reate mark", silent = true })
+vim.keymap.set("n", "mm", '<cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>', { desc = "[H]arpoon [M]enu", silent = true })
+vim.keymap.set("n", "mt", '<cmd>lua require("harpoon.term").gotoTerminal(1)<CR>', { desc = "[H]arpoon [T]erminal 1", silent = true })
+vim.keymap.set("n", "my", '<cmd>lua require("harpoon.term").gotoTerminal(2)<CR>', { desc = "[H]arpoon [T]erminal 2", silent = true })
+vim.keymap.set("t", "<C-o>", '<C-\\><C-N><C-o><CR>', { desc = "Go back in jumplist", silent = true })
+vim.api.nvim_set_keymap('n', 'ma', '<cmd>lua require("harpoon.ui").nav_file(1)<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>', { silent = true, noremap = true })
+vim.api.nvim_set_keymap('n', 'ms', '<cmd>lua require("harpoon.ui").nav_file(2)<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>', { silent = true, noremap = true })
+vim.api.nvim_set_keymap('n', 'md', '<cmd>lua require("harpoon.ui").nav_file(3)<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>', { silent = true, noremap = true })
+vim.api.nvim_set_keymap('n', 'mf', '<cmd>lua require("harpoon.ui").nav_file(4)<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>', { silent = true, noremap = true })
+vim.api.nvim_set_keymap('n', 'mg', '<cmd>lua require("harpoon.ui").nav_file(5)<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>', { silent = true, noremap = true })
+vim.api.nvim_set_keymap('n', 'mh', '<cmd>lua require("harpoon.ui").nav_file(6)<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>', { silent = true, noremap = true })
+vim.api.nvim_set_keymap('n', 'mj', '<cmd>lua require("harpoon.ui").nav_file(7)<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>', { silent = true, noremap = true })
+vim.api.nvim_set_keymap('n', 'mk', '<cmd>lua require("harpoon.ui").nav_file(8)<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>', { silent = true, noremap = true })
+vim.api.nvim_set_keymap('n', 'ml', '<cmd>lua require("harpoon.ui").nav_file(9)<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>', { silent = true, noremap = true })
+vim.api.nvim_set_keymap('n', 'm;', '<cmd>lua require("harpoon.ui").nav_file(10)<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>', { silent = true, noremap = true })
+vim.api.nvim_set_keymap('n', 'mn', '<cmd>lua require("harpoon.ui").nav_next()<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>', { silent = true, noremap = true })
+vim.api.nvim_set_keymap('n', 'mp', '<cmd>lua require("harpoon.ui").nav_prev()<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>', { silent = true, noremap = true })
 
 MyScroll = Hydra({
   name = "Scroll",
@@ -867,7 +872,6 @@ MyScroll = Hydra({
     { 'd', '<C-d>', { private = true } },
   },
 })
-
 vim.api.nvim_set_keymap('n', '<C-u>', '<C-u><cmd>lua require("hydra").activate(MyScroll)<CR>', { silent = true, noremap = true })
 vim.api.nvim_set_keymap('n', '<C-d>', '<C-d><cmd>lua require("hydra").activate(MyScroll)<CR>', { silent = true, noremap = true })
 
@@ -881,13 +885,45 @@ MySave = Hydra({
   heads = {
     { 'h', '<cmd>wqa!<CR>', { private = true } },
     { 'j', '<cmd>w<CR>', { private = true } },
-    { 'k', '<cmd>q<CR>', { private = true } },
-    { 'l', '<cmd>q!<CR>', { private = true } },
+    { 'k', '<cmd>q!<CR>', { private = true } },
+  },
+})
+vim.api.nvim_set_keymap('n', '<leader>j', '<cmd>w<CR><cmd>lua require("hydra").activate(MySave)<CR>', { silent = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>k', '<cmd>w<CR><cmd>lua require("hydra").activate(MySave)<CR>', { silent = true, noremap = true })
+
+MyUnimpairedNext = Hydra({
+  name = "Unimpaired Next",
+  config = {
+    hint = false,
+  },
+  body = ']',
+  mode = 'n',
+  heads = {
+    { 'd', '<cmd>]d<CR>', { desc = 'next diagnostic' } },
+    { 's', '<cmd>]s<CR>', { desc = 'next misspelled word' } },
+    { 'm', '<cmd>]m<CR>', { desc = 'next method start' } },
+    { 'M', '<cmd>]M<CR>', { desc = 'next method end' } },
+    { 'c', '<cmd>]c<CR>', { desc = 'next signify diff' } },
+    { 'n', '/<<<<CR>', { desc = 'next merge conflict' } },
   },
 })
 
-vim.api.nvim_set_keymap('n', '<leader>j', '<cmd>w<CR><cmd>lua require("hydra").activate(MySave)<CR>', { silent = true, noremap = true })
-vim.api.nvim_set_keymap('n', '<leadr>k', '<cmd>w<CR><cmd>lua require("hydra").activate(MySave)<CR>', { silent = true, noremap = true })
+MyUnimpairedPrev = Hydra({
+  name = "Unimpaired Prev",
+  config = {
+    hint = false,
+  },
+  body = '[',
+  mode = 'n',
+  heads = {
+    { 'd', '<cmd>[d<CR>', { desc = 'prev diagnostic' } },
+    { 's', '<cmd>[s<CR>', { desc = 'prev misspelled word' } },
+    { 'm', '<cmd>[m<CR>', { desc = 'prev method start' } },
+    { 'M', '<cmd>[M<CR>', { desc = 'prev method end' } },
+    { 'c', '<cmd>[c<CR>', { desc = 'prev signify diff' } },
+    { 'n', '?<<<<CR>', { desc = 'prev merge conflict' } },
+  },
+})
 
 -- local statusline = require('statusline')
 -- statusline.tabline = false
