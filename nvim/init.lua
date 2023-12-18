@@ -98,16 +98,6 @@ local plugins = {
     'nvim-telescope/telescope.nvim',
     branch = '0.1.x',
     dependencies = { 'nvim-lua/plenary.nvim' },
-    opts = {
-      defaults = {
-        mappings = {
-          i = {
-            ['<C-u>'] = false,
-            ['<C-d>'] = false,
-          },
-        },
-      },
-    },
   },
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built.
@@ -336,6 +326,7 @@ local plugins = {
   'ojroques/nvim-osc52',
   'tpope/vim-abolish',
   'anuvyklack/hydra.nvim',
+  'mbbill/undotree',
 }
 
 if vim.loop.fs_stat(vim.fn.stdpath('config') .. '/lua/google-plugins.lua') then
@@ -475,6 +466,21 @@ vim.keymap.set('n', '<leader>lr', require('telescope.builtin').lsp_references, {
 vim.keymap.set('n', '<leader>lt', require('telescope.builtin').lsp_type_definitions, { desc = '[L]sp [T]ype Definitions' })
 vim.keymap.set('n', '<leader>lwd', require('telescope.builtin').lsp_dynamic_workspace_symbols, { desc = '[L]sp [W]orkspace [D]ynamic Symbols' })
 vim.keymap.set('n', '<leader>lws', require('telescope.builtin').lsp_workspace_symbols, { desc = '[L]sp [W]orkspace [S]ymbols' })
+
+local telescope = require('telescope')
+local actions = require('telescope.actions')
+
+telescope.setup {
+    defaults = {
+        mappings = {
+            i = {
+                ["<S-Down>"] = actions.cycle_history_next,
+                ["<S-Up>"] = actions.cycle_history_prev,
+            }
+        }
+    }
+}
+
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -731,9 +737,13 @@ vim.keymap.set('t', '<esc><esc>', '<C-\\><C-N>', {noremap = true})
 -- Regex substitute with very magic mode shortcut
 vim.keymap.set('n', 'gs', ':%s#\\v#&#g<left><left><left><left>', {noremap = true})
 vim.keymap.set('v', 'gs', ':s#\\v#&#g<left><left><left><left>', {noremap = true})
-vim.keymap.set('n', 'gS', ':Subs///g<left><left><left>', {noremap = true})
-vim.keymap.set('v', 'gS', ':Subs///g<left><left><left>', {noremap = true})
+vim.keymap.set('n', 'gS', ':S///g<left><left><left>', {noremap = true})
+vim.keymap.set('v', 'gS', ':S///g<left><left><left>', {noremap = true})
 vim.keymap.set('n', 'g/', '/\\v', {noremap = true})
+vim.keymap.set('n', 'g:', ':%g//norm <LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>', {noremap = true})
+
+-- Ex mapping to make very magic mode regex act like perl's regex by replacing perl's `*?` with `{-}` automatically
+vim.api.nvim_set_keymap('c', '?', [[?<C-\>egetcmdline()[getcmdpos()-3:getcmdpos()-2] == '*?' ? getcmdline()[:getcmdpos()-4] . '{-}' . getcmdline()[getcmdpos()-1:] : getcmdline()<CR><RIGHT>]], { noremap = true })
 
 -- Paste all regex line matches to the current line
 vim.keymap.set('n', '<leader>gp', [[:mark z | g//t 'z<left><left><left><left><left>]], {noremap = true, desc = '[G]lobal [P]ut'})
@@ -831,15 +841,18 @@ local Hydra = require('hydra')
 
 AngularSwitch = Hydra({
   name = "Angular Switch",
-  config = {
-    hint = false,
-  },
   mode = 'n',
   heads = {
     { 'q', '<cmd>edit `angular_switch % scss`<CR>', { } },
     { 'w', '<cmd>edit `angular_switch % html`<CR>', { } },
     { 'e', '<cmd>edit `angular_switch % component`<CR>', { } },
     { 'r', '<cmd>edit `angular_switch % test`<CR>', { } },
+    { 'n', '<cmd>lua require("harpoon.ui").nav_next()<CR>', { } },
+    { 'p', '<cmd>lua require("harpoon.ui").nav_prev()<CR>', { } },
+    { 'z', [['z]], { } },
+    { 'x', [['x]], { } },
+    { 'c', [['c]], { } },
+    { 'v', [['v]], { } },
   },
 })
 
@@ -847,7 +860,7 @@ vim.keymap.set("n", "mq", '<cmd>edit `angular_switch % scss`<CR><cmd>lua require
 vim.keymap.set("n", "mw", '<cmd>edit `angular_switch % html`<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>', { desc = "Angular switch to html file", silent = true })
 vim.keymap.set("n", "me", '<cmd>edit `angular_switch % component`<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>', { desc = "Angular switch to component file", silent = true })
 vim.keymap.set("n", "mr", '<cmd>edit `angular_switch % test`<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>', { desc = "Angular switch to test file", silent = true })
-vim.keymap.set("n", "mc", '<cmd>lua require("harpoon.mark").add_file()<CR>', { desc = "[H]arpoon [C]reate mark", silent = true })
+vim.keymap.set("n", "mn", '<cmd>lua require("harpoon.mark").add_file()<CR>', { desc = "[H]arpoon [C]reate mark", silent = true })
 vim.keymap.set("n", "mm", '<cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>', { desc = "[H]arpoon [M]enu", silent = true })
 vim.keymap.set("n", "mt", '<cmd>lua require("harpoon.term").gotoTerminal(1)<CR>', { desc = "[H]arpoon [T]erminal 1", silent = true })
 vim.keymap.set("n", "my", '<cmd>lua require("harpoon.term").gotoTerminal(2)<CR>', { desc = "[H]arpoon [T]erminal 2", silent = true })
@@ -862,14 +875,19 @@ vim.api.nvim_set_keymap('n', 'mj', '<cmd>lua require("harpoon.ui").nav_file(7)<C
 vim.api.nvim_set_keymap('n', 'mk', '<cmd>lua require("harpoon.ui").nav_file(8)<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>', { silent = true, noremap = true })
 vim.api.nvim_set_keymap('n', 'ml', '<cmd>lua require("harpoon.ui").nav_file(9)<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>', { silent = true, noremap = true })
 vim.api.nvim_set_keymap('n', 'm;', '<cmd>lua require("harpoon.ui").nav_file(10)<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>', { silent = true, noremap = true })
-vim.api.nvim_set_keymap('n', 'mn', '<cmd>lua require("harpoon.ui").nav_next()<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>', { silent = true, noremap = true })
-vim.api.nvim_set_keymap('n', 'mp', '<cmd>lua require("harpoon.ui").nav_prev()<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>', { silent = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>mz', '<cmd>mark z<CR>', { silent = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>mx', '<cmd>mark x<CR>', { silent = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>mc', '<cmd>mark c<CR>', { silent = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>mv', '<cmd>mark v<CR>', { silent = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>mb', '<cmd>mark b<CR>', { silent = true, noremap = true })
+vim.api.nvim_set_keymap('n', 'mz', [['z<cmd>lua require("hydra").activate(AngularSwitch)<CR>]], { silent = true, noremap = true })
+vim.api.nvim_set_keymap('n', 'mx', [['x<cmd>lua require("hydra").activate(AngularSwitch)<CR>]], { silent = true, noremap = true })
+vim.api.nvim_set_keymap('n', 'mc', [['c<cmd>lua require("hydra").activate(AngularSwitch)<CR>]], { silent = true, noremap = true })
+vim.api.nvim_set_keymap('n', 'mv', [['v<cmd>lua require("hydra").activate(AngularSwitch)<CR>]], { silent = true, noremap = true })
+vim.api.nvim_set_keymap('n', 'mb', [['b<cmd>lua require("hydra").activate(AngularSwitch)<CR>]], { silent = true, noremap = true })
 
 MyScroll = Hydra({
   name = "Scroll",
-  config = {
-    hint = false,
-  },
   mode = 'n',
   heads = {
     { 'u', '<C-u>', { private = true } },
@@ -883,20 +901,16 @@ MySave = Hydra({
   name = "Save",
   config = {
     hint = false,
-    timeout = 500,
+    timeout = 200,
   },
   mode = 'n',
   heads = {
-    { 'h', '<cmd>q!<CR>', { private = true } },
     { 'j', '<cmd>w<CR>', { private = true } },
     { 'k', '<cmd>q!<CR>', { private = true } },
-    { 'l', '<cmd>wq!<CR>', { private = true } },
   },
 })
-vim.api.nvim_set_keymap('n', '<leader>h', '<cmd>q!<CR><cmd>lua require("hydra").activate(MySave)<CR>', { silent = true, noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>j', '<cmd>w<CR><cmd>lua require("hydra").activate(MySave)<CR>', { silent = true, noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>k', '<cmd>q<CR><cmd>lua require("hydra").activate(MySave)<CR>', { silent = true, noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>l', '<cmd>wq!<CR><cmd>lua require("hydra").activate(MySave)<CR>', { silent = true, noremap = true })
 
 MyUnimpairedNext = Hydra({
   name = "Unimpaired Next",
@@ -906,12 +920,12 @@ MyUnimpairedNext = Hydra({
   body = ']',
   mode = 'n',
   heads = {
-    { 'd', '<cmd>]d<CR>', { desc = 'next diagnostic' } },
-    { 's', '<cmd>]s<CR>', { desc = 'next misspelled word' } },
-    { 'm', '<cmd>]m<CR>', { desc = 'next method start' } },
-    { 'M', '<cmd>]M<CR>', { desc = 'next method end' } },
-    { 'c', '<cmd>]c<CR>', { desc = 'next signify diff' } },
-    { 'n', '/<<<<CR>', { desc = 'next merge conflict' } },
+    { 'd', '\\]d', { noremap = true, desc = 'next diagnostic' } },
+    { 's', '\\]s', { noremap = true, desc = 'next misspelled word' } },
+    { 'm', '\\]m', { noremap = true, desc = 'next method start' } },
+    { 'M', '\\]M', { noremap = true, desc = 'next method end' } },
+    { 'c', '\\]c', { noremap = true, desc = 'next signify diff' } },
+    { 'n', '/\\<\\<\\<<\\<CR>', { noremap = true, desc = 'next merge conflict' } },
   },
 })
 
@@ -923,18 +937,29 @@ MyUnimpairedPrev = Hydra({
   body = '[',
   mode = 'n',
   heads = {
-    { 'd', '<cmd>[d<CR>', { desc = 'prev diagnostic' } },
-    { 's', '<cmd>[s<CR>', { desc = 'prev misspelled word' } },
-    { 'm', '<cmd>[m<CR>', { desc = 'prev method start' } },
-    { 'M', '<cmd>[M<CR>', { desc = 'prev method end' } },
-    { 'c', '<cmd>[c<CR>', { desc = 'prev signify diff' } },
-    { 'n', '?<<<<CR>', { desc = 'prev merge conflict' } },
+    { 'd', '\\[d', { noremap = true, desc = 'prev diagnostic' } },
+    { 's', '\\[s', { noremap = true, desc = 'prev misspelled word' } },
+    { 'm', '\\[m', { noremap = true, desc = 'prev method start' } },
+    { 'M', '\\[M', { noremap = true, desc = 'prev method end' } },
+    { 'c', '\\[c', { noremap = true, desc = 'prev signify diff' } },
+    { 'n', '?\\<\\<\\<\\<\\<<CR>', { noremap = true, desc = 'prev merge conflict' } },
   },
+})
+
+require("harpoon").setup({
+    menu = {
+        width = math.floor(vim.api.nvim_win_get_width(0) * 0.75),
+    }
 })
 
 -- local statusline = require('statusline')
 -- statusline.tabline = false
 require('mini.statusline').setup()
+
+vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
+
+-- Fold all imports in a file
+vim.keymap.set('n', 'zi', '<cmd>%g/^import/norm zfip<cr>')
 
 if vim.loop.fs_stat(vim.fn.stdpath('config') .. '/lua/init_local.lua') then
   require('init_local')
