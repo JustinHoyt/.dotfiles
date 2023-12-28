@@ -415,6 +415,10 @@ end
 vim.keymap.set('n', '<leader>=', [[:s/\v[a-z]/\U&/e<CR>:s/\v[^\.]$/&./e<CR>:s/\v<i>/I/ge<CR>:s/\v\. [a-z]/\U&/ge<CR>]], { noremap = true, silent = true })
 vim.keymap.set('v', '<leader>=', [[:s/\v[a-z]/\U&/e<CR>:'<,'>s/\v[^\.]$/&./e<CR>:'<,'>s/\v<i>/I/ge<CR>:'<,'>s/\v\. [a-z]/\U&/ge<CR>]], { noremap = true, silent = true })
 
+vim.keymap.set('n', 'Q', '@qj')
+vim.keymap.set('n', 'qq', 'qq^')
+vim.keymap.set('v', 'Q', '@q')
+
 vim.keymap.set('n', '<leader>%', ':lua delete_swap()<CR>', { noremap = true, silent = true })
 
 -- [[ NavBuddy ]]
