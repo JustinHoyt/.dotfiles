@@ -415,9 +415,12 @@ end
 vim.keymap.set('n', '<leader>=', [[:s/\v[a-z]/\U&/e<CR>:s/\v[^\.]$/&./e<CR>:s/\v<i>/I/ge<CR>:s/\v\. [a-z]/\U&/ge<CR>]], { noremap = true, silent = true })
 vim.keymap.set('v', '<leader>=', [[:s/\v[a-z]/\U&/e<CR>:'<,'>s/\v[^\.]$/&./e<CR>:'<,'>s/\v<i>/I/ge<CR>:'<,'>s/\v\. [a-z]/\U&/ge<CR>]], { noremap = true, silent = true })
 
-vim.keymap.set('n', 'Q', '@qj')
 vim.keymap.set('n', 'qq', 'qq^')
-vim.keymap.set('v', 'Q', '@q')
+vim.keymap.set('n', 'Q', '^@qj')
+vim.keymap.set('v', 'Q', '^@q')
+vim.keymap.set('n', 'qw', 'qw#*')
+vim.keymap.set('n', '<C-q>', '#*@wn')
+vim.keymap.set('v', '<C-q>', '@w')
 
 vim.keymap.set('n', '<leader>%', ':lua delete_swap()<CR>', { noremap = true, silent = true })
 
@@ -857,6 +860,16 @@ AngularSwitch = Hydra({
     { 'x', [['x]], { } },
     { 'c', [['c]], { } },
     { 'v', [['v]], { } },
+    { 'a', '<cmd>lua require("harpoon.ui").nav_file(1)<CR>', { } },
+    { 's', '<cmd>lua require("harpoon.ui").nav_file(2)<CR>', { } },
+    { 'd', '<cmd>lua require("harpoon.ui").nav_file(3)<CR>', { } },
+    { 'f', '<cmd>lua require("harpoon.ui").nav_file(4)<CR>', { } },
+    { 'g', '<cmd>lua require("harpoon.ui").nav_file(5)<CR>', { } },
+    { 'h', '<cmd>lua require("harpoon.ui").nav_file(6)<CR>', { } },
+    { 'j', '<cmd>lua require("harpoon.ui").nav_file(7)<CR>', { } },
+    { 'k', '<cmd>lua require("harpoon.ui").nav_file(8)<CR>', { } },
+    { 'l', '<cmd>lua require("harpoon.ui").nav_file(9)<CR>', { } },
+    { ';', '<cmd>lua require("harpoon.ui").nav_file(10)<CR>', { } },
   },
 })
 
