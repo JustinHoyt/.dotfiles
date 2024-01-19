@@ -315,6 +315,49 @@ local plugins = {
     end
   },
 
+  {
+    "Gelio/cmp-natdat",
+    config = function()
+        require("cmp_natdat").setup({
+            cmp_kind_text = "NatDat",
+        })
+    end,
+  },
+
+  {
+    'hrsh7th/cmp-calc',
+    config = function ()
+      require'cmp'.setup {
+        sources = {
+          { name = 'calc' }
+        }
+      }
+    end
+  },
+
+  {
+    'FelipeLema/cmp-async-path',
+    config = function ()
+      require'cmp'.setup {
+        sources = {
+          { name = 'async_path' }
+        }
+      }
+    end
+  },
+
+  {
+    'mtoohey31/cmp-fish',
+    ft = 'fish',
+    config = function ()
+      require'cmp'.setup({
+        sources = {
+          { name = 'fish' }
+        }
+      })
+    end
+  },
+
   'ray-x/guihua.lua', -- recommended if need floating window support
   'ray-x/go.nvim',
   'nickeb96/fish.vim',
@@ -696,6 +739,10 @@ cmp.setup {
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
+    { name = 'natdat' },
+    { name = 'calc' },
+    { name = 'fish' },
+    { name = 'async_path' },
   },
 }
 
@@ -968,6 +1015,12 @@ require("harpoon").setup({
         width = math.floor(vim.api.nvim_win_get_width(0) * 0.75),
     }
 })
+
+vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+  pattern = {"*.md"},
+  command = "set conceallevel=3"
+})
+
 
 -- local statusline = require('statusline')
 -- statusline.tabline = false
