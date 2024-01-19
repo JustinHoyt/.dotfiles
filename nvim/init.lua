@@ -956,6 +956,13 @@ MyScroll = Hydra({
   heads = {
     { 'u', '<C-u>', { private = true } },
     { 'd', '<C-d>', { private = true } },
+    { 'q', '<CMD>q!<CR>', { private = true } },
+    { 'j', '<C-e>', { private = true } },
+    { 'k', '<C-y>', { private = true } },
+    { 'g', 'gg', { private = true } },
+    { 'G', 'G', { private = true } },
+    { '<C-o>', '<C-o>', { private = true } },
+    { '<C-i>', '<C-i>', { private = true } },
   },
 })
 vim.api.nvim_set_keymap('n', '<C-u>', '<C-u><cmd>lua require("hydra").activate(MyScroll)<CR>', { silent = true, noremap = true })
