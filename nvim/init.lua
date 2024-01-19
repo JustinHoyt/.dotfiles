@@ -793,8 +793,22 @@ vim.keymap.set('v', 'gS', ':S///g<left><left><left>', {noremap = true})
 vim.keymap.set('n', 'g/', '/\\v', {noremap = true})
 vim.keymap.set('n', 'g:', ':%g//norm <LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>', {noremap = true})
 
+vim.cmd[[
+function! ReplaceAndMoveCursor()
+  let cmdline = getcmdline()
+  let pos = getcmdpos()
+
+  if cmdline[pos-3:pos-2] == '*?'
+    let newcmdline = cmdline[:pos-4] . '{-}' . cmdline[pos-1:]
+    call setcmdpos(pos+1)
+		return newcmdline
+	endif
+	return cmdline
+endfunction
+]]
+
 -- Ex mapping to make very magic mode regex act like perl's regex by replacing perl's `*?` with `{-}` automatically
-vim.api.nvim_set_keymap('c', '?', [[?<C-\>egetcmdline()[getcmdpos()-3:getcmdpos()-2] == '*?' ? getcmdline()[:getcmdpos()-4] . '{-}' . getcmdline()[getcmdpos()-1:] : getcmdline()<CR><RIGHT>]], { noremap = true })
+vim.api.nvim_set_keymap('c', '?', [[?<C-\>eReplaceAndMoveCursor()<CR>]], { noremap = true })
 
 -- Paste all regex line matches to the current line
 vim.keymap.set('n', '<leader>gp', [[:mark z | g//t 'z<left><left><left><left><left>]], {noremap = true, desc = '[G]lobal [P]ut'})
