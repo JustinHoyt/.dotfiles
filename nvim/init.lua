@@ -807,6 +807,9 @@ function! ReplaceAndMoveCursor()
 endfunction
 ]]
 
+-- Monday, January 22 2024
+vim.keymap.set('i', '<C-d>', [[<CMD>s#\v\d+-\d+-\d+#\=substitute(system('date -d "' . submatch('0') . '" +"%A, %B %d %Y"'), "\n", "", "")#<CR>]], {noremap = true})
+
 -- Ex mapping to make very magic mode regex act like perl's regex by replacing perl's `*?` with `{-}` automatically
 vim.api.nvim_set_keymap('c', '?', [[?<C-\>eReplaceAndMoveCursor()<CR>]], { noremap = true })
 
