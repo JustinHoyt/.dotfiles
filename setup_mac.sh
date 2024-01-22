@@ -11,4 +11,11 @@ brew update
 brew tap caskroom/versions
 brew bundle
 
-bash setup_linux.sh
+bash ./setup_dotfiles
+
+git submodule init
+git submodule update
+
+(cd ./linuxify && ./linuxify install)
+
+cp /opt/homebrew/opt/coreutils/libexec/gnubin/* ~/.local/bin/
