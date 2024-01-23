@@ -14,7 +14,6 @@ fi
 
 command -v fzf &> /dev/null || eget junegunn/fzf --to "$HOME/.local/bin"
 command -v rg &> /dev/null || eget BurntSushi/ripgrep --to "$HOME/.local/bin"
-command -v gh &> /dev/null || eget cli/cli --to "$HOME/.local/bin"
 command -v fx &> /dev/null || eget antonmedv/fx --to "$HOME/.local/bin"
 command -v jq &> /dev/null || eget stedolan/jq --to "$HOME/.local/bin"
 command -v yq &> /dev/null || eget mikefarah/yq --to "$HOME/.local/bin"
@@ -25,6 +24,8 @@ command -v lf &> /dev/null || eget gokcehan/lf --to "$HOME/.local/bin"
 command -v webrpc &> /dev/null || eget webrpc/webrpc --to "$HOME/.local/bin"
 command -v jc &> /dev/null || eget kellyjonbrazil/jc --to "$HOME/.local/bin"
 command -v tty-copy &> /dev/null || eget jirutka/tty-copy --to "$HOME/.local/bin"
+command -v stylua &> /dev/null || eget JohnnyMorganz/StyLua --to "$HOME/.local/bin"
+command -v deno &> /dev/null || eget denoland/deno --to "$HOME/.local/bin"
 
 [ -f "$HOME/.local/bin/z.sh" ] || curl https://raw.githubusercontent.com/rupa/z/master/z.sh -o "$HOME/.local/bin/z.sh"
 . "$HOME/.local/bin/z.sh"
@@ -94,4 +95,3 @@ function __prompt_command() {
 }
 
 [ -f ~/.bashrc_local ] && source ~/.bashrc_local
-
