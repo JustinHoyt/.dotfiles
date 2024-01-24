@@ -1190,8 +1190,8 @@ MyScroll = Hydra({
 		{ "u", "<C-u>", { private = true } },
 		{ "d", "<C-d>", { private = true } },
 		{ "q", "<CMD>q!<CR>", { private = true } },
-		{ "j", "<C-e>", { private = true } },
-		{ "k", "<C-y>", { private = true } },
+		{ "e", "<C-e>", { private = true } },
+		{ "y", "<C-y>", { private = true } },
 		{ "g", "gg", { private = true } },
 		{ "G", "G", { private = true } },
 		{ "<C-o>", "<C-o>", { private = true } },
@@ -1289,6 +1289,15 @@ vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 
 -- Fold all imports in a file
 vim.keymap.set("n", "zi", "<cmd>%g/^import/norm zfip<cr>")
+
+-- Open image file in markdown
+-- Example string: ![[this image.png]]
+vim.keymap.set(
+	"n",
+	"go",
+	"yi]:call system('open ' . substitute('<C-r>0', '\\v\\[?([^]]*)\\]?', '\"\\1\"', 'g'))<CR>",
+	{ silent = true }
+)
 
 if vim.loop.fs_stat(vim.fn.stdpath("config") .. "/lua/init_local.lua") then
 	require("init_local")
