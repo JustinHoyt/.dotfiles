@@ -903,7 +903,7 @@ endfunction
 vim.keymap.set(
 	"i",
 	"<C-d>",
-	[[<CMD>s#\v\d+-\d+-\d+#\=substitute(system('date -d "' . submatch('0') . '" +"%A, %B %d %Y"'), "\n", "", "")#<CR>]],
+	[[<CMD>s#\v\d+-\d+-\d+#\=substitute(system('date -d "' . submatch('0') . '" +"%A, %B %d %Y"'), "\n", "", "")#<CR><ESC>A]],
 	{ noremap = true }
 )
 
