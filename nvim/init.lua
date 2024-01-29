@@ -878,11 +878,11 @@ vim.keymap.set("t", "<C-=>", "<C-\\><C-N><C-W><C-=>", { noremap = true })
 vim.keymap.set("t", "<esc><esc>", "<C-\\><C-N>", { noremap = true })
 
 -- Regex substitute with very magic mode shortcut
-vim.keymap.set("n", "gs", ":%s#\\v#&#g<left><left><left><left>", { noremap = true })
-vim.keymap.set("v", "gs", ":s#\\v#&#g<left><left><left><left>", { noremap = true })
+vim.keymap.set("n", "gs", [[:%s#\v#&#g<left><left><left><left>]], { noremap = true })
+vim.keymap.set("v", "gs", [[:s#\v#&#g<left><left><left><left>]], { noremap = true })
 vim.keymap.set("n", "gS", ":S///g<left><left><left>", { noremap = true })
 vim.keymap.set("v", "gS", ":S///g<left><left><left>", { noremap = true })
-vim.keymap.set("n", "g/", "/\\v", { noremap = true })
+vim.keymap.set("n", "g/", [[/\v]], { noremap = true })
 vim.keymap.set("n", "g:", ":%g//norm <LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>", { noremap = true })
 
 vim.cmd([[
@@ -963,7 +963,7 @@ vim.keymap.set("v", "p", '"_dP', { noremap = true })
 
 -- [[ Macros ]]
 -- Convert github URL to a string of the user/project
-vim.cmd([[let @p="==yss'$a,\<Esc>F/;ldT'"]])
+vim.cmd([[let @p="^yss'$a,\<Esc>F/;ldT'=="]])
 
 -- [[ oil.nvim ]]
 vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
