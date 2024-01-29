@@ -1235,38 +1235,110 @@ vim.api.nvim_set_keymap(
 	'<cmd>q<CR><cmd>lua require("hydra").activate(MySave)<CR>',
 	{ silent = true, noremap = true }
 )
+vim.api.nvim_set_keymap("n", "<leader>n", "<cmd>q!<CR>", { silent = true, noremap = true })
 
-MyUnimpairedNext = Hydra({
+Hydra({
 	name = "Unimpaired Next",
-	config = {
-		hint = false,
-	},
 	body = "]",
 	mode = "n",
 	heads = {
-		{ "d", "\\]d", { noremap = true, desc = "next diagnostic" } },
-		{ "s", "\\]s", { noremap = true, desc = "next misspelled word" } },
-		{ "m", "\\]m", { noremap = true, desc = "next method start" } },
-		{ "M", "\\]M", { noremap = true, desc = "next method end" } },
-		{ "c", "\\]c", { noremap = true, desc = "next signify diff" } },
-		{ "n", "/\\<\\<\\<<\\<CR>", { noremap = true, desc = "next merge conflict" } },
+		{ "c", "<Plug>(signify-next-hunk)", { desc = "next signify diff" } },
+		{ "n", "<Plug>(signify-next-hunk)", { desc = "next signify diff", private = true } },
+		{ "p", "<Plug>(signify-prev-hunk)", { desc = "prev signify diff", private = true } },
 	},
 })
-
-MyUnimpairedPrev = Hydra({
+Hydra({
 	name = "Unimpaired Prev",
-	config = {
-		hint = false,
-	},
 	body = "[",
 	mode = "n",
 	heads = {
-		{ "d", "\\[d", { noremap = true, desc = "prev diagnostic" } },
-		{ "s", "\\[s", { noremap = true, desc = "prev misspelled word" } },
-		{ "m", "\\[m", { noremap = true, desc = "prev method start" } },
-		{ "M", "\\[M", { noremap = true, desc = "prev method end" } },
-		{ "c", "\\[c", { noremap = true, desc = "prev signify diff" } },
-		{ "n", "?\\<\\<\\<\\<\\<<CR>", { noremap = true, desc = "prev merge conflict" } },
+		{ "c", "<Plug>(signify-prev-hunk)", { desc = "prev signify diff" } },
+		{ "n", "<Plug>(signify-next-hunk)", { desc = "next signify diff", private = true } },
+		{ "p", "<Plug>(signify-prev-hunk)", { desc = "prev signify diff", private = true } },
+	},
+})
+
+Hydra({
+	name = "Unimpaired Next",
+	body = "]",
+	mode = "n",
+	heads = {
+		{ "d", "<cmd>lua vim.diagnostic.goto_next()<CR>", { desc = "next diagnostic" } },
+		{ "n", "<cmd>lua vim.diagnostic.goto_next()<CR>", { desc = "next diagnostic", private = true } },
+		{ "p", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { desc = "prev diagnostic", private = true } },
+	},
+})
+Hydra({
+	name = "Unimpaired Prev",
+	body = "[",
+	mode = "n",
+	heads = {
+		{ "d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { desc = "prev diagnostic" } },
+		{ "n", "<cmd>lua vim.diagnostic.goto_next()<CR>", { desc = "next diagnostic", private = true } },
+		{ "p", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { desc = "prev diagnostic", private = true } },
+	},
+})
+
+Hydra({
+	name = "Unimpaired Next",
+	body = "]",
+	mode = "n",
+	heads = {
+		{ "s", "]s", { desc = "next misspelled line" } },
+		{ "n", "]s", { desc = "next misspelled line", private = true } },
+		{ "p", "[s", { desc = "prev misspelled line", private = true } },
+	},
+})
+Hydra({
+	name = "Unimpaired Prev",
+	body = "[",
+	mode = "n",
+	heads = {
+		{ "s", "[s", { desc = "prev misspelled line" } },
+		{ "n", "]s", { desc = "next misspelled line", private = true } },
+		{ "p", "[s", { desc = "prev misspelled line", private = true } },
+	},
+})
+
+Hydra({
+	name = "Unimpaired Next",
+	body = "]",
+	mode = "n",
+	heads = {
+		{ "f", "]m", { desc = "next function" } },
+		{ "n", "]m", { desc = "next function", private = true } },
+		{ "p", "[m", { desc = "prev function", private = true } },
+	},
+})
+Hydra({
+	name = "Unimpaired Prev",
+	body = "[",
+	mode = "n",
+	heads = {
+		{ "f", "[m", { desc = "prev function" } },
+		{ "n", "]m", { desc = "next function", private = true } },
+		{ "p", "[m", { desc = "prev function", private = true } },
+	},
+})
+
+Hydra({
+	name = "Unimpaired Next",
+	body = "]",
+	mode = "n",
+	heads = {
+		{ "c", [[/<<<<<CR>]], { desc = "next conflict" } },
+		{ "n", [[/<<<<<CR>]], { desc = "next conflict", private = true } },
+		{ "p", [[?<<<<<CR>]], { desc = "prev conflict", private = true } },
+	},
+})
+Hydra({
+	name = "Unimpaired Prev",
+	body = "[",
+	mode = "n",
+	heads = {
+		{ "c", [[?<<<<<CR>]], { desc = "prev conflict" } },
+		{ "n", [[/<<<<<CR>]], { desc = "next conflict", private = true } },
+		{ "p", [[?<<<<<CR>]], { desc = "prev conflict", private = true } },
 	},
 })
 
