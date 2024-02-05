@@ -11,7 +11,10 @@ if test ! -f ~/.config/fish/config.local.fish; then touch ~/.config/fish/config.
 if test ! -f ~/.config/nvim/lua/init_local.lua; then touch ~/.config/nvim/lua/init_local.lua; fi
 if test ! -f proxy_url; then touch proxy_url; echo "proxy_url=" > proxy_url; fi
 if test ! -f ~/.gitignore; then git config --global core.excludesFile ~/.gitignore; fi
-if test ! -f ~/.tmux/plugins/tpm; then git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm; fi
+if test ! -f ~/.tmux/plugins/tpm; then
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    ~/.tmux/plugins/tpm/scripts/install_plugins.sh
+fi
 
 if ! command -v map &>/dev/null; then
     cd map
@@ -39,3 +42,5 @@ if ! command -v nvim &>/dev/null; then
         && make install \
         && ln -s $HOME/.local/bin/bin/nvim $HOME/.local/bin
 fi
+
+./install
