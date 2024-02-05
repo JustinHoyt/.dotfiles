@@ -13,6 +13,8 @@ if status is-interactive
         set -gx PERL5LIB "$dir_to_add":"$PERL5LIB"
     end
 
+	abbr grw 'fd . | entr -r -c go run .'
+	abbr gtw 'fd . | entr -r -c go test -run=/'
 
     # Tmux Search All the whole buffer
     abbr --set-cursor tmsa "$(string join \n -- \

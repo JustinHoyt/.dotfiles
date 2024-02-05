@@ -19,6 +19,3 @@
 [submodule "neovim"]
 	path = neovim
 	url = https://github.com/neovim/neovim
-[submodule "linuxify"]
-	path = linuxify
-	url = ./linuxify

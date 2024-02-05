@@ -177,7 +177,7 @@ local plugins = {
 
 	{
 		"nvim-treesitter/nvim-treesitter-context",
-		opts = {},
+		opts = { max_lines = 4 },
 	},
 
 	{
@@ -1341,6 +1341,34 @@ Hydra({
 		{ "p", [[?<<<<<CR>]], { desc = "prev conflict", private = true } },
 	},
 })
+
+MyMoveChar = Hydra({
+	name = "Move char",
+	mode = "n",
+  body = "g",
+	heads = {
+		{ "<LEFT>", "xhP", { desc = "move char left" } },
+		{ "<UP>", "xkPlxjhPk", { desc = "move char up" } },
+		{ "<DOWN>", "xjPlxhkPj", { desc = "move char down" } },
+		{ "<RIGHT>", "xp", { desc = "move char right" } },
+		{ "y", "h" },
+		{ "u", "j" },
+		{ "i", "k" },
+		{ "o", "l" },
+		{ "h", "h" },
+		{ "j", "j" },
+		{ "k", "k" },
+		{ "l", "l" },
+		{ "b", "b" },
+		{ "w", "w" },
+		{ "^", "^" },
+		{ "$", "$" },
+	},
+})
+vim.api.nvim_set_keymap("n", "g<LEFT>", [[xhP<cmd>lua require("hydra").activate(MyMoveChar)<CR>]], { silent = true, noremap = true })
+vim.api.nvim_set_keymap("n", "g<UP>", [[xkPlxjhPk<cmd>lua require("hydra").activate(MyMoveChar)<CR>]], { silent = true, noremap = true })
+vim.api.nvim_set_keymap("n", "g<DOWN>", [[xjPlxkhPj<cmd>lua require("hydra").activate(MyMoveChar)<CR>]], { silent = true, noremap = true })
+vim.api.nvim_set_keymap("n", "g<RIGHT>", [[xp<cmd>lua require("hydra").activate(MyMoveChar)<CR>]], { silent = true, noremap = true })
 
 require("harpoon").setup({
 	menu = {

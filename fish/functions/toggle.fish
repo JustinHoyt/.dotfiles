@@ -1,12 +1,12 @@
 #! /usr/bin/env fish
 
 function dark
-    perl -i -pE "s#vim.o.background='light'#vim.o.background='dark'#" ~/.config/nvim/init.lua
+	perl -i -pE 's#(?<=^vim.o.background.{1,100})light#dark#g' ~/.config/nvim/init.lua
     perl -i -pE 's#\*one_light#\*one_dark#' ~/.config/alacritty/alacritty.yml
 end
 
 function light
-    perl -i -pE "s#vim.o.background='dark'#vim.o.background='light'#" ~/.config/nvim/init.lua
+	perl -i -pE 's#(?<=^vim.o.background.{1,100})dark#light#g' ~/.config/nvim/init.lua
     perl -i -pE 's#\*one_dark#\*one_light#' ~/.config/alacritty/alacritty.yml
 end
 
