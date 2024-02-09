@@ -13,8 +13,8 @@ if status is-interactive
         set -gx PERL5LIB "$dir_to_add":"$PERL5LIB"
     end
 
-	abbr grw 'fd . | entr -r -c go run .'
-	abbr gtw 'fd . | entr -r -c go test -run=/'
+    abbr grw 'fd . | entr -r -c go run .'
+    abbr gtw 'fd . | entr -r -c go test -run=/'
 
     # Tmux Search All the whole buffer
     abbr --set-cursor tmsa "$(string join \n -- \
@@ -50,10 +50,10 @@ if status is-interactive
     abbr --set-cursor pe --position anywhere "perl -E 'say %'"
     abbr --set-cursor pp --position anywhere "perl -pE '%'"
     abbr --set-cursor pn --position anywhere "perl -nE '%'"
-    abbr --set-cursor pnp --position anywhere "perl -nE 'print if m#%#g'"
-    abbr --set-cursor pnu --position anywhere "perl -nE 'print unless m#%#g'"
+    abbr --set-cursor pnp --position anywhere "perl -nE 'print if m{%}'"
+    abbr --set-cursor pnu --position anywhere "perl -nE 'print unless m{%}'"
     # Find files
-    abbr --set-cursor pef "perl -My -E 'find(sub { say if m#%# }, \".\")'"
+    abbr --set-cursor pfd "perl -My -E 'find(sub { say \$File::Find::name if m{%} }, \".\")'"
     # Show before and after of a Substitute
     abbr --set-cursor pa --position anywhere "perl -aE 'say %'"
     # Field separator as newline, Record separator as a comma
@@ -72,6 +72,10 @@ if status is-interactive
     abbr --set-cursor pr --position anywhere "perl -i -pE"
     # Find and Replace preview
     abbr --set-cursor prv --position anywhere "ppr 's#%#\$&#g'"
+    # Grep with perl regex
+    abbr --set-cursor rgp --position anywhere "rg -P '%'"
+    # Find with perl regex
+    abbr --set-cursor fdp --position anywhere "fd | perl -nE 'print if m{%}'"
 
     # Renumber debug points
     abbr dr 'perl -i -pE \'s#DEBUGPRINT\[\d+#DEBUGPRINT[@{[++$i]}#\' ***.ts'
