@@ -51,9 +51,11 @@ if status is-interactive
     abbr --set-cursor pp --position anywhere "perl -pE '%'"
     abbr --set-cursor pn --position anywhere "perl -nE '%'"
     abbr --set-cursor pnp --position anywhere "perl -nE 'print if m{%}'"
+    abbr --set-cursor pnpa --position anywhere "fd --type file --exec perl -nE 'print if m{%}' {}"
     abbr --set-cursor pnu --position anywhere "perl -nE 'print unless m{%}'"
+    abbr --set-cursor pnua --position anywhere "fd --type file --exec perl -nE 'print unless m{%}' {}"
     # Find files
-    abbr --set-cursor pfd "perl -My -E 'find(sub { say \$File::Find::name if m{%} }, \".\")'"
+    abbr --set-cursor pfd "perl -MFile::Find -E 'find(sub { say \$File::Find::name if m{%} }, \".\")'"
     # Show before and after of a Substitute
     abbr --set-cursor pa --position anywhere "perl -aE 'say %'"
     # Field separator as newline, Record separator as a comma
@@ -71,7 +73,7 @@ if status is-interactive
     # Find and Replace
     abbr --set-cursor pr --position anywhere "perl -i -pE"
     # Find and Replace preview
-    abbr --set-cursor prv --position anywhere "ppr 's#%#\$&#g'"
+    abbr --set-cursor prv --position anywhere "fd --type file --exec ppr 's#%#\$&#g' {}"
     # Grep with perl regex
     abbr --set-cursor rgp --position anywhere "rg -P '%'"
     # Find with perl regex
