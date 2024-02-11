@@ -28,6 +28,7 @@ if status is-interactive
     abbr j 'z'
     abbr sf 'source ~/.config/fish/config.fish'
     abbr st 'tmux source ~/.tmux.conf'
+    abbr tm 'tmux new -A -s main'
     abbr v nvim
     abbr b --set-cursor "bash -c '%'"
     abbr c 'clear'
