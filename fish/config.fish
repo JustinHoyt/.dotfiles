@@ -34,36 +34,39 @@ if status is-interactive
     abbr c 'clear'
     abbr e 'exit'
     abbr caffeine 'caffeinate -imdsu'
-	abbr crl 'curl --remote-name --location'
-	abbr lb --set-cursor --position anywhere '~/.local/bin/%'
-	abbr cf --set-cursor --position anywhere '~/.config/fish/%'
-	abbr cfc --set-cursor --position anywhere '~/.config/fish/completions/%'
-	abbr cff --set-cursor --position anywhere '~/.config/fish/functions/%'
-	abbr cn --set-cursor --position anywhere '~/.config/nvim/%'
-	abbr cnl --set-cursor --position anywhere '~/.config/nvim/lua/%'
+    abbr crl 'curl --remote-name --location'
+    abbr lb --set-cursor --position anywhere '~/.local/bin/%'
+    abbr cf --set-cursor --position anywhere '~/.config/fish/%'
+    abbr cfc --position anywhere '~/.config/fish/config.fish'
+    abbr cfcl --position anywhere '~/.config/fish/config.local.fish'
+    abbr cfcp --set-cursor --position anywhere '~/.config/fish/completions/%'
+    abbr cff --set-cursor --position anywhere '~/.config/fish/functions/%'
+    abbr cn --set-cursor --position anywhere '~/.config/nvim/%'
+    abbr cni --position anywhere '~/.config/nvim/init.lua'
+    abbr cnl --set-cursor --position anywhere '~/.config/nvim/lua/%'
     abbr apti 'sudo apt install -y'
     abbr aptbd 'sudo apt build-dep'
     abbr aptc --set-cursor "apt-cache search . | rg -P '%'" "search for an apt package with PCRE2 regex"
-	# Deluge console commands
-	abbr dlc 'deluge-console'
-	abbr dla 'deluge-console add'
-	abbr dlid --set-cursor "$(string join \n -- \
-		'deluge-console info \\' \
-		'| rg -A 1 -i -P "%" \\' \
-		'| perl -nE \'print $& if m{(?<=ID: ).*}\''
-	)" "deluge show id by search regex"
-	abbr dlr --set-cursor "$(string join \n -- \
-		'deluge-console info \\' \
-		'| rg -A 1 -i -P "%" \\' \
-		'| perl -nE \'print $& if m{(?<=ID: ).*}\' \\' \
-		'| read id; deluge-console rm $id' \
-	)" "deluge remove torrent"
-	abbr dli --set-cursor "$(string join \n -- \
-		'deluge-console info \\' \
-		'| perl -nE \'print if /%/i../^\s*$/\'' \
-	)" "deluge show torrent info on a searched regex"
-	abbr lks --set-cursor 'sudo ln -s -t ~/plexmediaserver/shows/ ~/plexmediaserver/seed/%'
-	abbr lkm --set-cursor 'sudo ln -s -t ~/plexmediaserver/movies/ ~/plexmediaserver/seed/%'
+    # Deluge console commands
+    abbr dlc 'deluge-console'
+    abbr dla 'deluge-console add'
+    abbr dlid --set-cursor "$(string join \n -- \
+        'deluge-console info \\' \
+        '| rg -A 1 -i -P "%" \\' \
+        '| perl -nE \'print $& if m{(?<=ID: ).*}\''
+    )" "deluge show id by search regex"
+    abbr dlr --set-cursor "$(string join \n -- \
+        'deluge-console info \\' \
+        '| rg -A 1 -i -P "%" \\' \
+        '| perl -nE \'print $& if m{(?<=ID: ).*}\' \\' \
+        '| read id; deluge-console rm $id' \
+    )" "deluge remove torrent"
+    abbr dli --set-cursor "$(string join \n -- \
+        'deluge-console info \\' \
+        '| perl -nE \'print if /%/i../^\s*$/\'' \
+    )" "deluge show torrent info on a searched regex"
+    abbr lks --set-cursor 'sudo ln -s -t ~/plexmediaserver/shows/ ~/plexmediaserver/seed/%'
+    abbr lkm --set-cursor 'sudo ln -s -t ~/plexmediaserver/movies/ ~/plexmediaserver/seed/%'
     # Sync histories with other open fish shells
     abbr hm 'history merge'
     # Installation command for pkgsrc
