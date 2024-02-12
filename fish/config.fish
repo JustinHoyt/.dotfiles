@@ -34,6 +34,13 @@ if status is-interactive
     abbr c 'clear'
     abbr e 'exit'
     abbr caffeine 'caffeinate -imdsu'
+	abbr crl 'curl --remote-name --location'
+	abbr lb --set-cursor --position anywhere '~/.local/bin/%'
+	abbr cf --set-cursor --position anywhere '~/.config/fish/%'
+	abbr cfc --set-cursor --position anywhere '~/.config/fish/completions/%'
+	abbr cff --set-cursor --position anywhere '~/.config/fish/functions/%'
+	abbr cn --set-cursor --position anywhere '~/.config/nvim/%'
+	abbr cnl --set-cursor --position anywhere '~/.config/nvim/lua/%'
     abbr apti 'sudo apt install -y'
     abbr aptbd 'sudo apt build-dep'
     abbr aptc --set-cursor "apt-cache search . | rg -P '%'" "search for an apt package with PCRE2 regex"
