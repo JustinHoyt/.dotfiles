@@ -35,6 +35,28 @@ if status is-interactive
     abbr e 'exit'
     abbr caffeine 'caffeinate -imdsu'
     abbr apti 'sudo apt install -y'
+    abbr aptbd 'sudo apt build-dep'
+    abbr aptc --set-cursor "apt-cache search . | rg -P '%'" "search for an apt package with PCRE2 regex"
+	# Deluge console commands
+	abbr dlc 'deluge-console'
+	abbr dla 'deluge-console add'
+	abbr dlid --set-cursor "$(string join \n -- \
+		'deluge-console info \\' \
+		'| rg -A 1 -i -P "%" \\' \
+		'| perl -nE \'print $& if m{(?<=ID: ).*}\''
+	)" "deluge show id by search regex"
+	abbr dlr --set-cursor "$(string join \n -- \
+		'deluge-console info \\' \
+		'| rg -A 1 -i -P "%" \\' \
+		'| perl -nE \'print $& if m{(?<=ID: ).*}\' \\' \
+		'| read id; deluge-console rm $id' \
+	)" "deluge remove torrent"
+	abbr dli --set-cursor "$(string join \n -- \
+		'deluge-console info \\' \
+		'| perl -nE \'print if /%/i../^\s*$/\'' \
+	)" "deluge show torrent info on a searched regex"
+	abbr lks --set-cursor 'sudo ln -s -t ~/plexmediaserver/shows/ ~/plexmediaserver/seed/%'
+	abbr lkm --set-cursor 'sudo ln -s -t ~/plexmediaserver/movies/ ~/plexmediaserver/seed/%'
     # Sync histories with other open fish shells
     abbr hm 'history merge'
     # Installation command for pkgsrc
