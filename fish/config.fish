@@ -39,11 +39,12 @@ if status is-interactive
     abbr cf --set-cursor --position anywhere '~/.config/fish/%'
     abbr cfc --position anywhere '~/.config/fish/config.fish'
     abbr cfcl --position anywhere '~/.config/fish/config.local.fish'
-    abbr cfcp --set-cursor --position anywhere '~/.config/fish/completions/%'
+    abbr cfcm --set-cursor --position anywhere '~/.config/fish/completions/%'
     abbr cff --set-cursor --position anywhere '~/.config/fish/functions/%'
     abbr cn --set-cursor --position anywhere '~/.config/nvim/%'
     abbr cni --position anywhere '~/.config/nvim/init.lua'
     abbr cnl --set-cursor --position anywhere '~/.config/nvim/lua/%'
+    abbr cnf --set-cursor --position anywhere '~/.config/nvim/ftplugin/%'
     abbr apti 'sudo apt install -y'
     abbr aptbd 'sudo apt build-dep'
     abbr aptc --set-cursor "apt-cache search . | rg -P '%'" "search for an apt package with PCRE2 regex"
