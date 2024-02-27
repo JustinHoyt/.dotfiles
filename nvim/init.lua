@@ -1010,6 +1010,8 @@ AngularSwitch = Hydra({
 		{ "w", "<cmd>edit `angular_switch % html`<CR>", {} },
 		{ "e", "<cmd>edit `angular_switch % component`<CR>", {} },
 		{ "r", "<cmd>edit `angular_switch % test`<CR>", {} },
+		{ "t", "<cmd>edit `angular_switch % build`<CR>", {} },
+		{ "-", "<cmd>edit `angular_switch % harness`<CR>", {} },
 		{ "n", '<cmd>lua require("harpoon.ui").nav_next()<CR>', {} },
 		{ "p", '<cmd>lua require("harpoon.ui").nav_prev()<CR>', {} },
 		{ "z", [['z]], {} },
@@ -1055,6 +1057,19 @@ vim.keymap.set(
 )
 vim.keymap.set(
 	"n",
+	"mt",
+	'<cmd>edit `angular_switch % build`<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>',
+	{ desc = "Angular switch to test file", silent = true }
+)
+vim.keymap.set(
+	"n",
+	"m-",
+	'<cmd>edit `angular_switch % harness`<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>',
+	{ desc = "Angular switch to test file", silent = true }
+)
+
+vim.keymap.set(
+	"n",
 	"mn",
 	'<cmd>lua require("harpoon.mark").add_file()<CR>',
 	{ desc = "[H]arpoon [C]reate mark", silent = true }
@@ -1064,18 +1079,6 @@ vim.keymap.set(
 	"mm",
 	'<cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>',
 	{ desc = "[H]arpoon [M]enu", silent = true }
-)
-vim.keymap.set(
-	"n",
-	"mt",
-	'<cmd>lua require("harpoon.term").gotoTerminal(1)<CR>',
-	{ desc = "[H]arpoon [T]erminal 1", silent = true }
-)
-vim.keymap.set(
-	"n",
-	"my",
-	'<cmd>lua require("harpoon.term").gotoTerminal(2)<CR>',
-	{ desc = "[H]arpoon [T]erminal 2", silent = true }
 )
 vim.keymap.set("t", "<C-o>", "<C-\\><C-N><C-o><CR>", { desc = "Go back in jumplist", silent = true })
 vim.api.nvim_set_keymap(
@@ -1336,7 +1339,7 @@ Hydra({
 MyMoveChar = Hydra({
 	name = "Move char",
 	mode = "n",
-  body = "g",
+	body = "g",
 	heads = {
 		{ "<LEFT>", "xhP", { desc = "move char left" } },
 		{ "<UP>", "xkPlxjhPk", { desc = "move char up" } },
@@ -1356,10 +1359,30 @@ MyMoveChar = Hydra({
 		{ "$", "$" },
 	},
 })
-vim.api.nvim_set_keymap("n", "g<LEFT>", [[xhP<cmd>lua require("hydra").activate(MyMoveChar)<CR>]], { silent = true, noremap = true })
-vim.api.nvim_set_keymap("n", "g<UP>", [[xkPlxjhPk<cmd>lua require("hydra").activate(MyMoveChar)<CR>]], { silent = true, noremap = true })
-vim.api.nvim_set_keymap("n", "g<DOWN>", [[xjPlxkhPj<cmd>lua require("hydra").activate(MyMoveChar)<CR>]], { silent = true, noremap = true })
-vim.api.nvim_set_keymap("n", "g<RIGHT>", [[xp<cmd>lua require("hydra").activate(MyMoveChar)<CR>]], { silent = true, noremap = true })
+vim.api.nvim_set_keymap(
+	"n",
+	"g<LEFT>",
+	[[xhP<cmd>lua require("hydra").activate(MyMoveChar)<CR>]],
+	{ silent = true, noremap = true }
+)
+vim.api.nvim_set_keymap(
+	"n",
+	"g<UP>",
+	[[xkPlxjhPk<cmd>lua require("hydra").activate(MyMoveChar)<CR>]],
+	{ silent = true, noremap = true }
+)
+vim.api.nvim_set_keymap(
+	"n",
+	"g<DOWN>",
+	[[xjPlxkhPj<cmd>lua require("hydra").activate(MyMoveChar)<CR>]],
+	{ silent = true, noremap = true }
+)
+vim.api.nvim_set_keymap(
+	"n",
+	"g<RIGHT>",
+	[[xp<cmd>lua require("hydra").activate(MyMoveChar)<CR>]],
+	{ silent = true, noremap = true }
+)
 
 require("harpoon").setup({
 	menu = {

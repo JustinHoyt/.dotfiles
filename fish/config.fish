@@ -47,7 +47,7 @@ if status is-interactive
     abbr cnf --set-cursor --position anywhere '~/.config/nvim/ftplugin/%'
     abbr apti 'sudo apt install -y'
     abbr aptbd 'sudo apt build-dep'
-    abbr aptc --set-cursor "apt-cache search . | rg -P '%'" "search for an apt package with PCRE2 regex"
+    abbr aptc --set-cursor "apt-cache search . | rg -P '%'" # search for an apt package with PCRE2 regex
     # Deluge console commands
     abbr dlc 'deluge-console'
     abbr dla 'deluge-console add'
@@ -85,9 +85,9 @@ if status is-interactive
     abbr --set-cursor pp --position anywhere "perl -pE '%'"
     abbr --set-cursor pn --position anywhere "perl -nE '%'"
     abbr --set-cursor pnp --position anywhere "perl -nE 'print if m{%}'"
-    abbr --set-cursor pnpa --position anywhere "fd --type file | xargs -d '\\n' perl -nE 'print if m{%}'"
+    abbr --set-cursor pnpa --position anywhere 'fd --type file | xargs -P $(nproc) -n 1000 -d \'\\n\' perl -nE \'print if m{%}\''
     abbr --set-cursor pnu --position anywhere "perl -nE 'print unless m{%}'"
-    abbr --set-cursor pnua --position anywhere "fd --type file | xargs -d '\\n' perl -nE 'print unless m{%}'"
+    abbr --set-cursor pnua --position anywhere 'fd --type file | xargs -P $(nproc) -n 1000 -d \'\\n\' perl -nE \'print unless m{%}\''
     # Find files
     abbr --set-cursor pfd "perl -MFile::Find -E 'find(sub { say \$File::Find::name if m{%} }, \".\")'"
     # Show before and after of a Substitute
@@ -107,11 +107,17 @@ if status is-interactive
     # Find and Replace
     abbr --set-cursor pr --position anywhere "perl -i -pE"
     # Find and Replace preview
-    abbr --set-cursor prv --position anywhere "fd --type file | xargs -d '\\n' ppr 's#%#\$&#g'"
+    abbr --set-cursor prv --position anywhere 'fd --type file | xargs -P $(nproc) -n 1000 -d \'\\n\' ppr \'s#%#\$&#g\''
     # Grep with perl regex
     abbr --set-cursor rgp --position anywhere "rg -P '%'"
     # Find with perl regex
-    abbr --set-cursor fdp --position anywhere "fd --type file | xargs -d '\\n' perl -nE 'print if m{%}'"
+    abbr --set-cursor fdp --position anywhere 'fd --type file | xargs -P $(nproc) -n 1000 -d \'\\n\' perl -nE \'print if m{%}\''
+
+    # xargs abbreviations
+    abbr --position anywhere x "xargs"
+    abbr --position anywhere xn 'xargs -d "\\n"'
+    abbr --position anywhere xnp 'xargs -d "\\n" -P $(nproc)'
+    abbr --position anywhere xp 'xargs -P $(nproc)'
 
     # Renumber debug points
     abbr dr 'perl -i -pE \'s#DEBUGPRINT\[\d+#DEBUGPRINT[@{[++$i]}#\' ***.ts'
