@@ -371,17 +371,20 @@ local plugins = {
 					lua = {
 						require("formatter.filetypes.lua").stylua,
 					},
+					fish = {
+						require("formatter.filetypes.fish").fishindent,
+					},
 					["*"] = {
 						require("formatter.filetypes.any").remove_trailing_whitespace,
 					},
 				},
 			})
 			vim.cmd([[
-				augroup FormatAutogroup
-				autocmd!
-				autocmd BufWritePost * FormatWrite
-				augroup END
-			]])
+        augroup FormatAutogroup
+        autocmd!
+        autocmd BufWritePost * FormatWrite
+        augroup END
+        ]])
 		end,
 	},
 
@@ -1008,12 +1011,14 @@ AngularSwitch = Hydra({
 	heads = {
 		{ "q", "<cmd>edit `angular_switch % scss`<CR>", {} },
 		{ "w", "<cmd>edit `angular_switch % html`<CR>", {} },
-		{ "e", "<cmd>edit `angular_switch % component`<CR>", {} },
+		{ "e", "<cmd>edit `angular_switch % ts`<CR>", {} },
 		{ "r", "<cmd>edit `angular_switch % test`<CR>", {} },
 		{ "t", "<cmd>edit `angular_switch % build`<CR>", {} },
 		{ "-", "<cmd>edit `angular_switch % harness`<CR>", {} },
 		{ "n", '<cmd>lua require("harpoon.ui").nav_next()<CR>', {} },
 		{ "p", '<cmd>lua require("harpoon.ui").nav_prev()<CR>', {} },
+		{ "o", "<C-o>", {} },
+		{ "i", "<C-i>", {} },
 		{ "z", [['z]], {} },
 		{ "x", [['x]], {} },
 		{ "c", [['c]], {} },
@@ -1046,7 +1051,7 @@ vim.keymap.set(
 vim.keymap.set(
 	"n",
 	"me",
-	'<cmd>edit `angular_switch % component`<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>',
+	'<cmd>edit `angular_switch % ts`<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>',
 	{ desc = "Angular switch to component file", silent = true }
 )
 vim.keymap.set(
