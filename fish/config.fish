@@ -25,14 +25,14 @@ if status is-interactive
         'tmux capture-pane; tmux show-buffer \\' \
         '| perl -nE \'print if m{%}\' | tac | perl -nE \'print if !$seen{$_}++\' | tac')"
 
-    abbr j 'z'
+    abbr j z
     abbr sf 'source ~/.config/fish/config.fish'
     abbr st 'tmux source ~/.tmux.conf'
     abbr tm 'tmux new -A -s main'
     abbr v nvim
     abbr b --set-cursor "bash -c '%'"
-    abbr c 'clear'
-    abbr e 'exit'
+    abbr c clear
+    abbr e exit
     abbr caffeine 'caffeinate -imdsu'
     abbr crl 'curl --remote-name --location'
     abbr lb --set-cursor --position anywhere '~/.local/bin/%'
@@ -49,7 +49,7 @@ if status is-interactive
     abbr aptbd 'sudo apt build-dep'
     abbr aptc --set-cursor "apt-cache search . | rg -P '%'" # search for an apt package with PCRE2 regex
     # Deluge console commands
-    abbr dlc 'deluge-console'
+    abbr dlc deluge-console
     abbr dla 'deluge-console add'
     abbr dlid --set-cursor "$(string join \n -- \
         'deluge-console info \\' \
@@ -76,8 +76,11 @@ if status is-interactive
     abbr --set-cursor psb --position anywhere "(echo '%' | psub)"
     abbr --set-cursor cpy --position anywhere "| tty-copy -n"
     abbr --set-cursor jqf --position anywhere "jq . (echo '%' | psub)"
-    abbr --set-cursor ent --position anywhere 'set -l f "%" && chmod +x $f && echo $f | entr -c -r ./$f'
+    abbr --set-cursor ec --position anywhere 'entr -c'
+    abbr --set-cursor ecr --position anywhere 'entr -cr'
+    abbr --set-cursor ecrs --position anywhere 'entr -crs \'%\''
     abbr --set-cursor fmtn --position anywhere "| numfmt --format \"%'.2f\""
+    abbr --set-cursor psa --position anywhere 'ps aux | rg -P "%"'
 
     # Perl abbreviations
     abbr --set-cursor pc --position anywhere "perl -E 'say ( % )' | numfmt --format \"%'.2f\""
@@ -110,14 +113,23 @@ if status is-interactive
     abbr --set-cursor prv --position anywhere 'fd --type file | xargs -P $(nproc) -n 1000 -d \'\\n\' ppr \'s#%#\$&#g\''
     # Grep with perl regex
     abbr --set-cursor rgp --position anywhere "rg -P '%'"
+    abbr --set-cursor rgpf --position anywhere "rg -P --files-with-matches '%'"
     # Find with perl regex
     abbr --set-cursor fdp --position anywhere 'fd --type file | xargs -P $(nproc) -n 1000 -d \'\\n\' perl -nE \'print if m{%}\''
 
     # xargs abbreviations
-    abbr --position anywhere x "xargs"
-    abbr --position anywhere xn 'xargs -d "\\n"'
-    abbr --position anywhere xnp 'xargs -d "\\n" -P $(nproc)'
+    abbr --position anywhere x xargs
+    abbr --position anywhere xl 'xargs -d "\\n"'
+    abbr --position anywhere xn 'xargs -d -n'
     abbr --position anywhere xp 'xargs -P $(nproc)'
+    abbr --position anywhere xlp 'xargs -d "\\n" -P $(nproc)'
+    abbr --position anywhere xpl 'xargs -d "\\n" -P $(nproc)'
+    abbr --position anywhere xnp 'xargs -d -P $(nproc) -n'
+    abbr --position anywhere xpn 'xargs -d -P $(nproc) -n'
+    abbr --position anywhere xln 'xargs -d "\\n" -n'
+    abbr --position anywhere xnl 'xargs -d "\\n" -n'
+    abbr --position anywhere xlnp 'xargs -d "\\n" -P $(nproc) -n'
+    abbr --position anywhere xnlp 'xargs -d "\\n" -P $(nproc) -n'
 
     # Renumber debug points
     abbr dr 'perl -i -pE \'s#DEBUGPRINT\[\d+#DEBUGPRINT[@{[++$i]}#\' ***.ts'
@@ -135,7 +147,7 @@ if status is-interactive
         set -x PERL_MM_OPT "INSTALL_BASE=$HOME/perl5"
     end
 
-    set -x EDITOR "nvim"
+    set -x EDITOR nvim
 
     source ~/.config/fish/config.local.fish
 
