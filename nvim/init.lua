@@ -1241,9 +1241,11 @@ Hydra({
 	body = "]",
 	mode = "n",
 	heads = {
-		{ "c", "<Plug>(signify-next-hunk)", { desc = "next signify diff" } },
+		{ "h", "<Plug>(signify-next-hunk)", { desc = "next signify diff" } },
 		{ "n", "<Plug>(signify-next-hunk)", { desc = "next signify diff", private = true } },
 		{ "p", "<Plug>(signify-prev-hunk)", { desc = "prev signify diff", private = true } },
+		{ "d", "<Plug>(SignifyHunkDiff)", { desc = "prev signify diff", private = true } },
+		{ "u", "<Plug>(SignifyHunkUndo)", { desc = "prev signify diff", private = true } },
 	},
 })
 Hydra({
@@ -1251,9 +1253,11 @@ Hydra({
 	body = "[",
 	mode = "n",
 	heads = {
-		{ "c", "<Plug>(signify-prev-hunk)", { desc = "prev signify diff" } },
+		{ "h", "<Plug>(signify-prev-hunk)", { desc = "prev signify diff" } },
 		{ "n", "<Plug>(signify-next-hunk)", { desc = "next signify diff", private = true } },
 		{ "p", "<Plug>(signify-prev-hunk)", { desc = "prev signify diff", private = true } },
+		{ "d", "<Plug>(SignifyHunkDiff)", { desc = "prev signify diff", private = true } },
+		{ "u", "<Plug>(SignifyHunkUndo)", { desc = "prev signify diff", private = true } },
 	},
 })
 
