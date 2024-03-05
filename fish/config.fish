@@ -88,6 +88,7 @@ if status is-interactive
     abbr --set-cursor pp --position anywhere "perl -pE '%'"
     abbr --set-cursor pn --position anywhere "perl -nE '%'"
     abbr --set-cursor pnp --position anywhere "perl -nE 'print if m{%}'"
+    abbr --set-cursor pnm --position anywhere 'perl -nE \'print $& if m{%}\''
     abbr --set-cursor pnpa --position anywhere 'fd --type file | xargs -P $(nproc) -n 1000 -d \'\\n\' perl -nE \'print if m{%}\''
     abbr --set-cursor pnu --position anywhere "perl -nE 'print unless m{%}'"
     abbr --set-cursor pnua --position anywhere 'fd --type file | xargs -P $(nproc) -n 1000 -d \'\\n\' perl -nE \'print unless m{%}\''
