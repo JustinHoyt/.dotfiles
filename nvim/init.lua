@@ -78,9 +78,6 @@ local plugins = {
 
 	{ "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
 
-	-- "gc" to comment visual regions/lines
-	{ "numToStr/Comment.nvim", opts = {} },
-
 	-- Fuzzy Finder (files, lsp, etc)
 	{
 		"nvim-telescope/telescope.nvim",
@@ -133,13 +130,13 @@ local plugins = {
     },
 	},
 
-	-- File system plugin that allows editing and manipulating files in buffers
-	{
-		"stevearc/oil.nvim",
-		opts = {},
-		-- Optional dependencies
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-	},
+	-- -- File system plugin that allows editing and manipulating files in buffers
+	-- {
+	-- 	"stevearc/oil.nvim",
+	-- 	opts = {},
+	-- 	-- Optional dependencies
+	-- 	dependencies = { "nvim-tree/nvim-web-devicons" },
+	-- },
 
 	-- underline the word your cursor is on
 	{ "echasnovski/mini.cursorword", version = "*", opts = {} },
@@ -165,6 +162,14 @@ local plugins = {
 	},
 
 	{ "echasnovski/mini.statusline", version = "*" },
+
+	{ "echasnovski/mini.comment", version = "*", opts = {} },
+
+	{ "echasnovski/mini.operators", version = "*", opts = {} },
+
+	{ "echasnovski/mini.splitjoin", version = "*", opts = {} },
+
+	{ "echasnovski/mini.files", version = "*", opts = {} },
 
 	{
 		"nvim-treesitter/nvim-treesitter-context",
@@ -222,24 +227,6 @@ local plugins = {
 			vim.keymap.set("n", "<Space>hh", ":SignifyToggleHighLight<CR>", { silent = true })
 		end,
 	}, -- Git and mercurial sign column
-
-	{
-		"cshuaimin/ssr.nvim",
-		module = "ssr",
-		-- Calling setup is optional.
-		config = function()
-			require("ssr").setup({
-				adjust_window = true,
-				keymaps = {
-					close = "q",
-					next_match = "n",
-					prev_match = "N",
-					replace_confirm = "<cr>",
-					replace_all = "<leader><cr>",
-				},
-			})
-		end,
-	},
 
 	{
 		"ThePrimeagen/refactoring.nvim",
@@ -699,7 +686,7 @@ local on_attach = function(_, bufnr)
 	nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
 	nmap("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
-	nmap("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+	nmap("<leader>sr", require("telescope.builtin").lsp_references, { desc = "[G]oto [R]eferences", noremap = true })
 	nmap("gI", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
 	nmap("<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
 	nmap("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
@@ -872,10 +859,10 @@ vim.keymap.set("t", "<C-=>", "<C-\\><C-N><C-W><C-=>", { noremap = true })
 vim.keymap.set("t", "<esc><esc>", "<C-\\><C-N>", { noremap = true })
 
 -- Regex substitute with very magic mode shortcut
-vim.keymap.set("n", "gs", [[:%s#\v#&#g<left><left><left><left>]], { noremap = true })
-vim.keymap.set("v", "gs", [[:s#\v#&#g<left><left><left><left>]], { noremap = true })
-vim.keymap.set("n", "gS", ":S///g<left><left><left>", { noremap = true })
-vim.keymap.set("v", "gS", ":S///g<left><left><left>", { noremap = true })
+vim.keymap.set("n", "ggs", [[:%s#\v#&#g<left><left><left><left>]], { noremap = true })
+vim.keymap.set("v", "ggs", [[:s#\v#&#g<left><left><left><left>]], { noremap = true })
+vim.keymap.set("n", "ggS", ":S///g<left><left><left>", { noremap = true })
+vim.keymap.set("v", "ggS", ":S///g<left><left><left>", { noremap = true })
 vim.keymap.set("n", "g/", [[/\v]], { noremap = true })
 vim.keymap.set("n", "g:", ":%g//norm <LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>", { noremap = true })
 
@@ -959,8 +946,8 @@ vim.keymap.set("v", "p", '"_dP', { noremap = true })
 -- Convert github URL to a string of the user/project
 vim.cmd([[let @p="^yss'$a,\<Esc>F/;ldT'=="]])
 
--- [[ oil.nvim ]]
-vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
+-- [[ mini.files ]]
+vim.keymap.set("n", "-", "<CMD>lua MiniFiles.open()<CR>", { desc = "Open parent directory" })
 
 -- [[ onedark ]]
 require("onedark").setup({
@@ -996,11 +983,6 @@ require("onedark").setup({
 	},
 })
 require("onedark").load()
-
--- [[ structural search and replace ]]
-vim.keymap.set({ "n", "x" }, "<leader>sr", function()
-	require("ssr").open()
-end)
 
 -- [[ hydra ]]
 local Hydra = require("hydra")
