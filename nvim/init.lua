@@ -859,12 +859,17 @@ vim.keymap.set("t", "<C-=>", "<C-\\><C-N><C-W><C-=>", { noremap = true })
 vim.keymap.set("t", "<esc><esc>", "<C-\\><C-N>", { noremap = true })
 
 -- Regex substitute with very magic mode shortcut
-vim.keymap.set("n", "ggs", [[:%s#\v#&#g<left><left><left><left>]], { noremap = true })
-vim.keymap.set("v", "ggs", [[:s#\v#&#g<left><left><left><left>]], { noremap = true })
-vim.keymap.set("n", "ggS", ":S///g<left><left><left>", { noremap = true })
-vim.keymap.set("v", "ggS", ":S///g<left><left><left>", { noremap = true })
-vim.keymap.set("n", "g/", [[/\v]], { noremap = true })
-vim.keymap.set("n", "g:", ":%g//norm <LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>", { noremap = true })
+vim.keymap.set("n", "ygs", [[:%s#\v#&#g<left><left><left><left>]], { noremap = true, desc = "[Y]ou [G]o [s]ubstitue" })
+vim.keymap.set("v", "ygs", [[:s#\v#&#g<left><left><left><left>]], { noremap = true, desc = "[Y]ou [G]o [s]ubstitue" })
+vim.keymap.set("n", "ygS", ":S///g<left><left><left>", { noremap = true, desc = "[Y]ou [G]o [S]ubvert" })
+vim.keymap.set("v", "ygS", ":S///g<left><left><left>", { noremap = true, desc = "[Y]ou [G]o [S]ubvert" })
+vim.keymap.set("n", "yg/", [[/\v]], { noremap = true, desc = "[Y]ou [G]o [/]" })
+vim.keymap.set(
+	"n",
+	"ygg",
+	":%g//norm <LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>",
+	{ noremap = true, desc = "[Y]ou [G]o [G]lobal" }
+)
 
 vim.cmd([[
 function! ReplaceAndMoveCursor()
