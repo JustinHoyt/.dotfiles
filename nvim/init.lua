@@ -130,13 +130,13 @@ local plugins = {
     },
 	},
 
-	-- -- File system plugin that allows editing and manipulating files in buffers
-	-- {
-	-- 	"stevearc/oil.nvim",
-	-- 	opts = {},
-	-- 	-- Optional dependencies
-	-- 	dependencies = { "nvim-tree/nvim-web-devicons" },
-	-- },
+	-- File system plugin that allows editing and manipulating files in buffers
+	{
+		"stevearc/oil.nvim",
+		opts = {},
+		-- Optional dependencies
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+	},
 
 	-- underline the word your cursor is on
 	{ "echasnovski/mini.cursorword", version = "*", opts = {} },
@@ -168,8 +168,6 @@ local plugins = {
 	{ "echasnovski/mini.operators", version = "*", opts = {} },
 
 	{ "echasnovski/mini.splitjoin", version = "*", opts = {} },
-
-	{ "echasnovski/mini.files", version = "*", opts = {} },
 
 	{
 		"nvim-treesitter/nvim-treesitter-context",
@@ -951,8 +949,8 @@ vim.keymap.set("v", "p", '"_dP', { noremap = true })
 -- Convert github URL to a string of the user/project
 vim.cmd([[let @p="^yss'$a,\<Esc>F/;ldT'=="]])
 
--- [[ mini.files ]]
-vim.keymap.set("n", "-", "<CMD>lua MiniFiles.open()<CR>", { desc = "Open parent directory" })
+-- [[ Oil ]]
+vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 -- [[ onedark ]]
 require("onedark").setup({
