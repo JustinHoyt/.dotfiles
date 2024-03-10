@@ -165,7 +165,11 @@ local plugins = {
 
 	{ "echasnovski/mini.comment", version = "*", opts = {} },
 
-	{ "echasnovski/mini.operators", version = "*", opts = {} },
+	{
+		"echasnovski/mini.operators",
+		version = "*",
+		opts = { sort = { prefix = 'gS' } },
+	},
 
 	{
 		'Wansmer/treesj',
@@ -173,7 +177,10 @@ local plugins = {
 		config = function()
 			require('treesj').setup({ use_default_keymaps = false })
 
-			vim.keymap.set('n', 'gS', function()
+			vim.keymap.set('n', 'gs', function()
+				require('treesj').toggle()
+			end)
+			vim.keymap.set('n', '<leader>gs', function()
 				require('treesj').toggle({ split = { recursive = true } })
 			end)
 		end,

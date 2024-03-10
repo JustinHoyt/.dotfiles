@@ -7,6 +7,7 @@ git submodule update --init --recursive
 if test ! -d ${FISH_VERSION}; then tar -xf ${FISH_VERSION}.tar.xz; fi
 if test ! -f ~/.zshrc_local; then touch ~/.zshrc_local; fi
 if test ! -f ~/.bashrc_local; then touch ~/.bashrc_local; fi
+if test ! -f ~/.tmux.local.conf; then touch ~/.tmux.local.conf; fi
 if test ! -f ~/.config/fish/config.local.fish; then touch ~/.config/fish/config.local.fish; fi
 if test ! -f ~/.config/nvim/lua/init_local.lua; then touch ~/.config/nvim/lua/init_local.lua; fi
 if test ! -f proxy_url; then touch proxy_url; echo "proxy_url=" > proxy_url; fi
