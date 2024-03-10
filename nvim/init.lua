@@ -167,7 +167,17 @@ local plugins = {
 
 	{ "echasnovski/mini.operators", version = "*", opts = {} },
 
-	{ "echasnovski/mini.splitjoin", version = "*", opts = {} },
+	{
+		'Wansmer/treesj',
+		dependencies = { 'nvim-treesitter/nvim-treesitter' },
+		config = function()
+			require('treesj').setup({ use_default_keymaps = false })
+
+			vim.keymap.set('n', 'gS', function()
+				require('treesj').toggle({ split = { recursive = true } })
+			end)
+		end,
+	},
 
 	{
 		"nvim-treesitter/nvim-treesitter-context",
