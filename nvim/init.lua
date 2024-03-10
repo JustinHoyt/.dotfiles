@@ -168,20 +168,23 @@ local plugins = {
 	{
 		"echasnovski/mini.operators",
 		version = "*",
-		opts = { sort = { prefix = 'gS' } },
+		opts = { sort = { prefix = "gS" } },
 	},
 
 	{
-		'Wansmer/treesj',
-		dependencies = { 'nvim-treesitter/nvim-treesitter' },
+		"Wansmer/treesj",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		config = function()
-			require('treesj').setup({ use_default_keymaps = false })
+			require("treesj").setup({
+				use_default_keymaps = false,
+				max_join_length = 1000,
+			})
 
-			vim.keymap.set('n', 'gs', function()
-				require('treesj').toggle()
+			vim.keymap.set("n", "gs", function()
+				require("treesj").toggle()
 			end)
-			vim.keymap.set('n', '<leader>gs', function()
-				require('treesj').toggle({ split = { recursive = true } })
+			vim.keymap.set("n", "<leader>gs", function()
+				require("treesj").toggle({ split = { recursive = true } })
 			end)
 		end,
 	},
@@ -874,14 +877,14 @@ vim.keymap.set("t", "<C-=>", "<C-\\><C-N><C-W><C-=>", { noremap = true })
 vim.keymap.set("t", "<esc><esc>", "<C-\\><C-N>", { noremap = true })
 
 -- Regex substitute with very magic mode shortcut
-vim.keymap.set("n", "ygs", [[:%s#\v#&#g<left><left><left><left>]], { noremap = true, desc = "[Y]ou [G]o [s]ubstitue" })
-vim.keymap.set("v", "ygs", [[:s#\v#&#g<left><left><left><left>]], { noremap = true, desc = "[Y]ou [G]o [s]ubstitue" })
-vim.keymap.set("n", "ygS", ":S///g<left><left><left>", { noremap = true, desc = "[Y]ou [G]o [S]ubvert" })
-vim.keymap.set("v", "ygS", ":S///g<left><left><left>", { noremap = true, desc = "[Y]ou [G]o [S]ubvert" })
-vim.keymap.set("n", "yg/", [[/\v]], { noremap = true, desc = "[Y]ou [G]o [/]" })
+vim.keymap.set("n", ",s", [[:%s#\v#&#g<left><left><left><left>]], { noremap = true, desc = "[Y]ou [G]o [s]ubstitue" })
+vim.keymap.set("v", ",s", [[:s#\v#&#g<left><left><left><left>]], { noremap = true, desc = "[Y]ou [G]o [s]ubstitue" })
+vim.keymap.set("n", ",S", ":S///g<left><left><left>", { noremap = true, desc = "[Y]ou [G]o [S]ubvert" })
+vim.keymap.set("v", ",S", ":S///g<left><left><left>", { noremap = true, desc = "[Y]ou [G]o [S]ubvert" })
+vim.keymap.set("n", ",/", [[/\v]], { noremap = true, desc = "[Y]ou [G]o [/]" })
 vim.keymap.set(
 	"n",
-	"ygg",
+	",g",
 	":%g//norm <LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>",
 	{ noremap = true, desc = "[Y]ou [G]o [G]lobal" }
 )
