@@ -168,7 +168,11 @@ local plugins = {
 	{
 		"echasnovski/mini.operators",
 		version = "*",
-		opts = { sort = { prefix = "gS" } },
+		opts = {
+			sort = { prefix = "gS" },
+			multiply = { prefix = "m" },
+			replace = { prefix = "r" },
+		},
 	},
 
 	{
@@ -402,7 +406,7 @@ local plugins = {
 	"ThePrimeagen/harpoon", -- Enhance marks
 	"jghauser/mkdir.nvim",
 	"ojroques/nvim-osc52",
-	"tpope/vim-abolish",
+	"JustinHoyt/vim-abolish",
 	"anuvyklack/hydra.nvim",
 	"mbbill/undotree",
 }
@@ -877,14 +881,14 @@ vim.keymap.set("t", "<C-=>", "<C-\\><C-N><C-W><C-=>", { noremap = true })
 vim.keymap.set("t", "<esc><esc>", "<C-\\><C-N>", { noremap = true })
 
 -- Regex substitute with very magic mode shortcut
-vim.keymap.set("n", ",s", [[:%s#\v#&#g<left><left><left><left>]], { noremap = true, desc = "[Y]ou [G]o [s]ubstitue" })
-vim.keymap.set("v", ",s", [[:s#\v#&#g<left><left><left><left>]], { noremap = true, desc = "[Y]ou [G]o [s]ubstitue" })
-vim.keymap.set("n", ",S", ":S///g<left><left><left>", { noremap = true, desc = "[Y]ou [G]o [S]ubvert" })
-vim.keymap.set("v", ",S", ":S///g<left><left><left>", { noremap = true, desc = "[Y]ou [G]o [S]ubvert" })
-vim.keymap.set("n", ",/", [[/\v]], { noremap = true, desc = "[Y]ou [G]o [/]" })
+vim.keymap.set("n", "(s", [[:%s#\v#&#g<left><left><left><left>]], { noremap = true, desc = "[Y]ou [G]o [s]ubstitue" })
+vim.keymap.set("v", "(s", [[:s#\v#&#g<left><left><left><left>]], { noremap = true, desc = "[Y]ou [G]o [s]ubstitue" })
+vim.keymap.set("n", "(S", ":S///g<left><left><left>", { noremap = true, desc = "[Y]ou [G]o [S]ubvert" })
+vim.keymap.set("v", "(S", ":S///g<left><left><left>", { noremap = true, desc = "[Y]ou [G]o [S]ubvert" })
+vim.keymap.set("n", "(/", [[/\v]], { noremap = true, desc = "[Y]ou [G]o [/]" })
 vim.keymap.set(
 	"n",
-	",g",
+	"(g",
 	":%g//norm <LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>",
 	{ noremap = true, desc = "[Y]ou [G]o [G]lobal" }
 )
@@ -1043,146 +1047,157 @@ AngularSwitch = Hydra({
 
 vim.keymap.set(
 	"n",
-	"mq",
+	",q",
 	'<cmd>edit `angular_switch % scss`<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>',
 	{ desc = "Angular switch to css file", silent = true }
 )
 vim.keymap.set(
 	"n",
-	"mw",
+	",w",
 	'<cmd>edit `angular_switch % html`<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>',
 	{ desc = "Angular switch to html file", silent = true }
 )
 vim.keymap.set(
 	"n",
-	"me",
+	",e",
 	'<cmd>edit `angular_switch % ts`<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>',
 	{ desc = "Angular switch to component file", silent = true }
 )
 vim.keymap.set(
 	"n",
-	"mr",
+	",r",
 	'<cmd>edit `angular_switch % test`<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>',
 	{ desc = "Angular switch to test file", silent = true }
 )
 vim.keymap.set(
 	"n",
-	"mt",
+	",t",
 	'<cmd>edit `angular_switch % build`<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>',
 	{ desc = "Angular switch to test file", silent = true }
 )
 vim.keymap.set(
 	"n",
-	"m-",
+	",-",
 	'<cmd>edit `angular_switch % harness`<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>',
 	{ desc = "Angular switch to test file", silent = true }
 )
-
 vim.keymap.set(
 	"n",
-	"mn",
+	",gn",
 	'<cmd>lua require("harpoon.mark").add_file()<CR>',
 	{ desc = "[H]arpoon [C]reate mark", silent = true }
 )
 vim.keymap.set(
 	"n",
-	"mm",
+	",n",
+	'<cmd>lua require("harpoon.ui").nav_next()<CR>',
+	{ desc = "[H]arpoon [C]reate mark", silent = true }
+)
+vim.keymap.set(
+	"n",
+	",p",
+	'<cmd>lua require("harpoon.ui").nav_prev()<CR>',
+	{ desc = "[H]arpoon [C]reate mark", silent = true }
+)
+vim.keymap.set(
+	"n",
+	",m",
 	'<cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>',
 	{ desc = "[H]arpoon [M]enu", silent = true }
 )
-vim.keymap.set("t", "<C-o>", "<C-\\><C-N><C-o><CR>", { desc = "Go back in jumplist", silent = true })
+vim.keymap.set("t", ",o>", "<C-\\><C-N><C-o><CR>", { desc = "Go back in jumplist", silent = true })
 vim.api.nvim_set_keymap(
 	"n",
-	"ma",
+	",a",
 	'<cmd>lua require("harpoon.ui").nav_file(1)<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>',
 	{ silent = true, noremap = true }
 )
 vim.api.nvim_set_keymap(
 	"n",
-	"ms",
+	",s",
 	'<cmd>lua require("harpoon.ui").nav_file(2)<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>',
 	{ silent = true, noremap = true }
 )
 vim.api.nvim_set_keymap(
 	"n",
-	"md",
+	",d",
 	'<cmd>lua require("harpoon.ui").nav_file(3)<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>',
 	{ silent = true, noremap = true }
 )
 vim.api.nvim_set_keymap(
 	"n",
-	"mf",
+	",f",
 	'<cmd>lua require("harpoon.ui").nav_file(4)<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>',
 	{ silent = true, noremap = true }
 )
 vim.api.nvim_set_keymap(
 	"n",
-	"mg",
+	",g",
 	'<cmd>lua require("harpoon.ui").nav_file(5)<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>',
 	{ silent = true, noremap = true }
 )
 vim.api.nvim_set_keymap(
 	"n",
-	"mh",
+	",h",
 	'<cmd>lua require("harpoon.ui").nav_file(6)<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>',
 	{ silent = true, noremap = true }
 )
 vim.api.nvim_set_keymap(
 	"n",
-	"mj",
+	",j",
 	'<cmd>lua require("harpoon.ui").nav_file(7)<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>',
 	{ silent = true, noremap = true }
 )
 vim.api.nvim_set_keymap(
 	"n",
-	"mk",
+	",k",
 	'<cmd>lua require("harpoon.ui").nav_file(8)<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>',
 	{ silent = true, noremap = true }
 )
 vim.api.nvim_set_keymap(
 	"n",
-	"ml",
+	",l",
 	'<cmd>lua require("harpoon.ui").nav_file(9)<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>',
 	{ silent = true, noremap = true }
 )
 vim.api.nvim_set_keymap(
 	"n",
-	"m;",
+	",;",
 	'<cmd>lua require("harpoon.ui").nav_file(10)<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>',
 	{ silent = true, noremap = true }
 )
-vim.api.nvim_set_keymap("n", "<leader>mz", "<cmd>mark z<CR>", { silent = true, noremap = true })
-vim.api.nvim_set_keymap("n", "<leader>mx", "<cmd>mark x<CR>", { silent = true, noremap = true })
-vim.api.nvim_set_keymap("n", "<leader>mc", "<cmd>mark c<CR>", { silent = true, noremap = true })
-vim.api.nvim_set_keymap("n", "<leader>mv", "<cmd>mark v<CR>", { silent = true, noremap = true })
-vim.api.nvim_set_keymap("n", "<leader>mb", "<cmd>mark b<CR>", { silent = true, noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>,z", "<cmd>mark z<CR>", { silent = true, noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>,x", "<cmd>mark x<CR>", { silent = true, noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>,c", "<cmd>mark c<CR>", { silent = true, noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>,v", "<cmd>mark v<CR>", { silent = true, noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>,b", "<cmd>mark b<CR>", { silent = true, noremap = true })
 vim.api.nvim_set_keymap(
 	"n",
-	"mz",
+	",z",
 	[['z<cmd>lua require("hydra").activate(AngularSwitch)<CR>]],
 	{ silent = true, noremap = true }
 )
 vim.api.nvim_set_keymap(
 	"n",
-	"mx",
+	",x",
 	[['x<cmd>lua require("hydra").activate(AngularSwitch)<CR>]],
 	{ silent = true, noremap = true }
 )
 vim.api.nvim_set_keymap(
 	"n",
-	"mc",
+	",c",
 	[['c<cmd>lua require("hydra").activate(AngularSwitch)<CR>]],
 	{ silent = true, noremap = true }
 )
 vim.api.nvim_set_keymap(
 	"n",
-	"mv",
+	",v",
 	[['v<cmd>lua require("hydra").activate(AngularSwitch)<CR>]],
 	{ silent = true, noremap = true }
 )
 vim.api.nvim_set_keymap(
 	"n",
-	"mb",
+	",b",
 	[['b<cmd>lua require("hydra").activate(AngularSwitch)<CR>]],
 	{ silent = true, noremap = true }
 )
