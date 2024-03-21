@@ -1083,7 +1083,7 @@ vim.keymap.set(
 )
 vim.keymap.set(
 	"n",
-	",gn",
+	",m",
 	'<cmd>lua require("harpoon.mark").add_file()<CR>',
 	{ desc = "[H]arpoon [C]reate mark", silent = true }
 )
@@ -1101,7 +1101,7 @@ vim.keymap.set(
 )
 vim.keymap.set(
 	"n",
-	",m",
+	",,",
 	'<cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>',
 	{ desc = "[H]arpoon [M]enu", silent = true }
 )

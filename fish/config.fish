@@ -111,7 +111,7 @@ if status is-interactive
     # Find and Replace
     abbr --set-cursor pr --position anywhere "perl -i -pE"
     # Find and Replace preview
-    abbr --set-cursor prv --position anywhere 'fd --type file | xargs -P $(nproc) -n 1000 -d \'\\n\' ppr \'s#%#\$&#g\''
+    abbr --set-cursor prv --position anywhere 'fd --type file | xargs -P $(nproc) -n 1000 -d \'\\n\' ppr \'s#%#$&#g\''
     # Grep with perl regex
     abbr --set-cursor rgp --position anywhere "rg -P '%'"
     abbr --set-cursor rgpf --position anywhere "rg -P --files-with-matches '%'"
