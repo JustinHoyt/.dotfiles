@@ -514,7 +514,11 @@ vim.keymap.set("n", "qw", "qw#*")
 vim.keymap.set("n", "<C-q>", "#*@wn")
 vim.keymap.set("v", "<C-q>", "@w")
 
+-- Delete current file's swap file
 vim.keymap.set("n", "<leader>%", ":lua delete_swap()<CR>", { noremap = true, silent = true })
+
+-- Replay the last ex command over the current visual selection
+vim.keymap.set("v", ".", ":<UP><CR>")
 
 -- [[ NavBuddy ]]
 vim.keymap.set("n", "<leader>b", ':lua require("nvim-navbuddy").open()<CR>', { noremap = true })
