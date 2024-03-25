@@ -507,9 +507,8 @@ vim.keymap.set(
 	{ noremap = true, silent = true }
 )
 
-vim.keymap.set("n", "qq", "qq^")
-vim.keymap.set("n", "Q", "^@qj")
-vim.keymap.set("v", "Q", "^@q")
+vim.keymap.set("n", "Q", "@q")
+vim.keymap.set("v", "Q", "@q")
 vim.keymap.set("n", "qw", "qw#*")
 vim.keymap.set("n", "<C-q>", "#*@wn")
 vim.keymap.set("v", "<C-q>", "@w")
