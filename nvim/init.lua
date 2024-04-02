@@ -886,8 +886,8 @@ vim.keymap.set("t", "<esc><esc>", "<C-\\><C-N>", { noremap = true })
 -- Regex substitute with very magic mode shortcut
 vim.keymap.set("n", "(s", [[:%s#\v#&#g<left><left><left><left>]], { noremap = true, desc = "[Y]ou [G]o [s]ubstitue" })
 vim.keymap.set("v", "(s", [[:s#\v#&#g<left><left><left><left>]], { noremap = true, desc = "[Y]ou [G]o [s]ubstitue" })
-vim.keymap.set("n", "(S", ":S///g<left><left><left>", { noremap = true, desc = "[Y]ou [G]o [S]ubvert" })
-vim.keymap.set("v", "(S", ":S///g<left><left><left>", { noremap = true, desc = "[Y]ou [G]o [S]ubvert" })
+vim.keymap.set("n", "(v", ":S///g<left><left><left>", { noremap = true, desc = "[Y]ou [G]o [S]ubvert" })
+vim.keymap.set("v", "(v", ":S///g<left><left><left>", { noremap = true, desc = "[Y]ou [G]o [S]ubvert" })
 vim.keymap.set("n", "(/", [[/\v]], { noremap = true, desc = "[Y]ou [G]o [/]" })
 vim.keymap.set(
 	"n",
