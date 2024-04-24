@@ -1026,7 +1026,6 @@ AngularSwitch = Hydra({
 		{ "e", "<cmd>edit `angular_switch % ts`<CR>", { exit = true } },
 		{ "r", "<cmd>edit `angular_switch % test`<CR>", { exit = true } },
 		{ "t", "<cmd>edit `angular_switch % build`<CR>", { exit = true } },
-		{ "-", "<cmd>edit `angular_switch % harness`<CR>", { exit = true } },
 		{ "n", '<cmd>lua require("harpoon.ui").nav_next()<CR>', {} },
 		{ "p", '<cmd>lua require("harpoon.ui").nav_prev()<CR>', {} },
 		{ "o", "<C-o>", {} },
