@@ -1021,12 +1021,12 @@ AngularSwitch = Hydra({
 	name = "Angular Switch",
 	mode = "n",
 	heads = {
-		{ "q", "<cmd>edit `angular_switch % scss`<CR>", {} },
-		{ "w", "<cmd>edit `angular_switch % html`<CR>", {} },
-		{ "e", "<cmd>edit `angular_switch % ts`<CR>", {} },
-		{ "r", "<cmd>edit `angular_switch % test`<CR>", {} },
-		{ "t", "<cmd>edit `angular_switch % build`<CR>", {} },
-		{ "-", "<cmd>edit `angular_switch % harness`<CR>", {} },
+		{ "q", "<cmd>edit `angular_switch % scss`<CR>", { exit = true } },
+		{ "w", "<cmd>edit `angular_switch % html`<CR>", { exit = true } },
+		{ "e", "<cmd>edit `angular_switch % ts`<CR>", { exit = true } },
+		{ "r", "<cmd>edit `angular_switch % test`<CR>", { exit = true } },
+		{ "t", "<cmd>edit `angular_switch % build`<CR>", { exit = true } },
+		{ "-", "<cmd>edit `angular_switch % harness`<CR>", { exit = true } },
 		{ "n", '<cmd>lua require("harpoon.ui").nav_next()<CR>', {} },
 		{ "p", '<cmd>lua require("harpoon.ui").nav_prev()<CR>', {} },
 		{ "o", "<C-o>", {} },
@@ -1045,43 +1045,45 @@ AngularSwitch = Hydra({
 		{ "k", '<cmd>lua require("harpoon.ui").nav_file(8)<CR>', {} },
 		{ "l", '<cmd>lua require("harpoon.ui").nav_file(9)<CR>', {} },
 		{ ";", '<cmd>lua require("harpoon.ui").nav_file(10)<CR>', {} },
+		{ "<ESC>", nil, { nowait = true, exit = true } },
+		{ "<BS>", nil, { nowait = true, exit = true } },
 	},
 })
 
 vim.keymap.set(
 	"n",
 	",q",
-	'<cmd>edit `angular_switch % scss`<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>',
+	"<cmd>edit `angular_switch % scss`<CR>",
 	{ desc = "Angular switch to css file", silent = true }
 )
 vim.keymap.set(
 	"n",
 	",w",
-	'<cmd>edit `angular_switch % html`<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>',
+	"<cmd>edit `angular_switch % html`<CR>",
 	{ desc = "Angular switch to html file", silent = true }
 )
 vim.keymap.set(
 	"n",
 	",e",
-	'<cmd>edit `angular_switch % ts`<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>',
+	"<cmd>edit `angular_switch % ts`<CR>",
 	{ desc = "Angular switch to component file", silent = true }
 )
 vim.keymap.set(
 	"n",
 	",r",
-	'<cmd>edit `angular_switch % test`<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>',
+	"<cmd>edit `angular_switch % test`<CR>",
 	{ desc = "Angular switch to test file", silent = true }
 )
 vim.keymap.set(
 	"n",
 	",t",
-	'<cmd>edit `angular_switch % build`<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>',
+	"<cmd>edit `angular_switch % build`<CR>",
 	{ desc = "Angular switch to test file", silent = true }
 )
 vim.keymap.set(
 	"n",
 	",-",
-	'<cmd>edit `angular_switch % harness`<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>',
+	"<cmd>edit `angular_switch % harness`<CR>",
 	{ desc = "Angular switch to test file", silent = true }
 )
 vim.keymap.set(
@@ -1093,13 +1095,13 @@ vim.keymap.set(
 vim.keymap.set(
 	"n",
 	",n",
-	'<cmd>lua require("harpoon.ui").nav_next()<CR>',
+	'<cmd>lua require("harpoon.ui").nav_next()<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>',
 	{ desc = "[H]arpoon [C]reate mark", silent = true }
 )
 vim.keymap.set(
 	"n",
 	",p",
-	'<cmd>lua require("harpoon.ui").nav_prev()<CR>',
+	'<cmd>lua require("harpoon.ui").nav_prev()<CR><cmd>lua require("hydra").activate(AngularSwitch)<CR>',
 	{ desc = "[H]arpoon [C]reate mark", silent = true }
 )
 vim.keymap.set(
@@ -1108,7 +1110,6 @@ vim.keymap.set(
 	'<cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>',
 	{ desc = "[H]arpoon [M]enu", silent = true }
 )
-vim.keymap.set("t", ",o>", "<C-\\><C-N><C-o><CR>", { desc = "Go back in jumplist", silent = true })
 vim.api.nvim_set_keymap(
 	"n",
 	",a",
@@ -1218,6 +1219,8 @@ MyScroll = Hydra({
 		{ "G", "G", { private = true } },
 		{ "<C-o>", "<C-o>", { private = true } },
 		{ "<C-i>", "<C-i>", { private = true } },
+		{ "<ESC>", nil, { nowait = true, exit = true } },
+		{ "<BS>", nil, { nowait = true, exit = true } },
 	},
 })
 vim.api.nvim_set_keymap(
@@ -1269,6 +1272,8 @@ Hydra({
 		{ "p", "<Plug>(signify-prev-hunk)", { desc = "prev signify diff", private = true } },
 		{ "d", "<Plug>(SignifyHunkDiff)", { desc = "prev signify diff", private = true } },
 		{ "u", "<Plug>(SignifyHunkUndo)", { desc = "prev signify diff", private = true } },
+		{ "<ESC>", nil, { nowait = true, exit = true } },
+		{ "<BS>", nil, { nowait = true, exit = true } },
 	},
 })
 Hydra({
@@ -1281,6 +1286,8 @@ Hydra({
 		{ "p", "<Plug>(signify-prev-hunk)", { desc = "prev signify diff", private = true } },
 		{ "d", "<Plug>(SignifyHunkDiff)", { desc = "prev signify diff", private = true } },
 		{ "u", "<Plug>(SignifyHunkUndo)", { desc = "prev signify diff", private = true } },
+		{ "<ESC>", nil, { nowait = true, exit = true } },
+		{ "<BS>", nil, { nowait = true, exit = true } },
 	},
 })
 
@@ -1292,6 +1299,8 @@ Hydra({
 		{ "d", "<cmd>lua vim.diagnostic.goto_next()<CR>", { desc = "next diagnostic" } },
 		{ "n", "<cmd>lua vim.diagnostic.goto_next()<CR>", { desc = "next diagnostic", private = true } },
 		{ "p", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { desc = "prev diagnostic", private = true } },
+		{ "<ESC>", nil, { nowait = true, exit = true } },
+		{ "<BS>", nil, { nowait = true, exit = true } },
 	},
 })
 Hydra({
@@ -1302,6 +1311,8 @@ Hydra({
 		{ "d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { desc = "prev diagnostic" } },
 		{ "n", "<cmd>lua vim.diagnostic.goto_next()<CR>", { desc = "next diagnostic", private = true } },
 		{ "p", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { desc = "prev diagnostic", private = true } },
+		{ "<ESC>", nil, { nowait = true, exit = true } },
+		{ "<BS>", nil, { nowait = true, exit = true } },
 	},
 })
 
@@ -1313,6 +1324,8 @@ Hydra({
 		{ "s", "]s", { desc = "next misspelled line" } },
 		{ "n", "]s", { desc = "next misspelled line", private = true } },
 		{ "p", "[s", { desc = "prev misspelled line", private = true } },
+		{ "<ESC>", nil, { nowait = true, exit = true } },
+		{ "<BS>", nil, { nowait = true, exit = true } },
 	},
 })
 Hydra({
@@ -1323,6 +1336,8 @@ Hydra({
 		{ "s", "[s", { desc = "prev misspelled line" } },
 		{ "n", "]s", { desc = "next misspelled line", private = true } },
 		{ "p", "[s", { desc = "prev misspelled line", private = true } },
+		{ "<ESC>", nil, { nowait = true, exit = true } },
+		{ "<BS>", nil, { nowait = true, exit = true } },
 	},
 })
 
@@ -1334,6 +1349,8 @@ Hydra({
 		{ "f", "]m", { desc = "next function" } },
 		{ "n", "]m", { desc = "next function", private = true } },
 		{ "p", "[m", { desc = "prev function", private = true } },
+		{ "<ESC>", nil, { nowait = true, exit = true } },
+		{ "<BS>", nil, { nowait = true, exit = true } },
 	},
 })
 Hydra({
@@ -1344,6 +1361,8 @@ Hydra({
 		{ "f", "[m", { desc = "prev function" } },
 		{ "n", "]m", { desc = "next function", private = true } },
 		{ "p", "[m", { desc = "prev function", private = true } },
+		{ "<ESC>", nil, { nowait = true, exit = true } },
+		{ "<BS>", nil, { nowait = true, exit = true } },
 	},
 })
 
@@ -1355,6 +1374,8 @@ Hydra({
 		{ "c", [[/<<<<<CR>]], { desc = "next conflict" } },
 		{ "n", [[/<<<<<CR>]], { desc = "next conflict", private = true } },
 		{ "p", [[?<<<<<CR>]], { desc = "prev conflict", private = true } },
+		{ "<ESC>", nil, { nowait = true, exit = true } },
+		{ "<BS>", nil, { nowait = true, exit = true } },
 	},
 })
 Hydra({
@@ -1365,6 +1386,8 @@ Hydra({
 		{ "c", [[?<<<<<CR>]], { desc = "prev conflict" } },
 		{ "n", [[/<<<<<CR>]], { desc = "next conflict", private = true } },
 		{ "p", [[?<<<<<CR>]], { desc = "prev conflict", private = true } },
+		{ "<ESC>", nil, { nowait = true, exit = true } },
+		{ "<BS>", nil, { nowait = true, exit = true } },
 	},
 })
 
@@ -1389,6 +1412,8 @@ MyMoveChar = Hydra({
 		{ "w", "w" },
 		{ "^", "^" },
 		{ "$", "$" },
+		{ "<ESC>", nil, { nowait = true, exit = true } },
+		{ "<BS>", nil, { nowait = true, exit = true } },
 	},
 })
 vim.api.nvim_set_keymap(
@@ -1444,6 +1469,23 @@ vim.keymap.set(
 	"yi]:call system('open ' . substitute('<C-r>0', '\\v\\[?([^]]*)\\]?', '\"\\1\"', 'g'))<CR>",
 	{ silent = true }
 )
+
+-- Repeatable macro that will:
+-- * go to the `z` mark
+-- * copy the word on the line below
+-- * delete the line
+-- * go back in the jumplist
+-- * apply a subsititute of all instances of placeHolder in a paragraph to the copied word, matching casing
+--   * case sensitive replacements:
+--     * placeHolder
+--     * PlaceHolder
+--     * place holder
+--     * Place Holder
+--     * Place holder
+--     * place_holder
+--     * place-holder
+--     * PLACE_HOLDER
+vim.fn.setreg("p", "'z\r\"aYdd\15vip:S/placeHolder/\18a/g\r}jzz", "c")
 
 if vim.loop.fs_stat(vim.fn.stdpath("config") .. "/lua/init_local.lua") then
 	require("init_local")
