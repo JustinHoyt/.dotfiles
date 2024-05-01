@@ -133,7 +133,28 @@ local plugins = {
 	-- File system plugin that allows editing and manipulating files in buffers
 	{
 		"stevearc/oil.nvim",
-		opts = {},
+		opts = {
+			keymaps = {
+				["g?"] = "actions.show_help",
+				["<CR>"] = "actions.select",
+				["<C-s>"] = "actions.select_vsplit",
+				["<C-x>"] = "actions.select_split",
+				["<C-h>"] = false,
+				["<C-t>"] = "actions.select_tab",
+				["<C-p>"] = "actions.preview",
+				["<C-c>"] = "actions.close",
+				["<C-l>"] = false,
+				["<C-r>"] = "actions.refresh",
+				["-"] = "actions.parent",
+				["_"] = "actions.open_cwd",
+				["`"] = "actions.cd",
+				["~"] = "actions.tcd",
+				["gs"] = "actions.change_sort",
+				["gx"] = "actions.open_external",
+				["g."] = "actions.toggle_hidden",
+				["g\\"] = "actions.toggle_trash",
+			},
+		},
 		-- Optional dependencies
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
@@ -845,6 +866,9 @@ vim.keymap.set("n", "<leader>v", ":e ~/.config/nvim/init.lua<CR>", { noremap = t
 -- Reverse highlighted lines
 vim.keymap.set("v", "<leader>rv", [[:g/^/m <C-r>=line('.') - 1<CR><CR>]], { noremap = true, silent = true })
 
+-- Shortcut for uncommenting a commented code block
+vim.keymap.set("n", "gcgc", "gcu", { noremap = true, silent = true })
+
 -- Open a file running watcher by executing the current file as a script
 vim.api.nvim_set_keymap(
 	"n",
@@ -957,17 +981,26 @@ vim.g.clipboard = {
 vim.keymap.set({ "n", "v" }, "d", '"_d', { noremap = true })
 vim.keymap.set("n", "dd", '"_dd', { noremap = true })
 vim.keymap.set("n", "D", '"_D', { noremap = true })
+-- delete linewise over %
+vim.keymap.set("n", "(d", [[V%"_d]], { noremap = true })
 
 -- c/C delete instead of cut
 vim.keymap.set({ "n", "v" }, "c", '"_c', { noremap = true })
 vim.keymap.set("n", "cc", '"_cc', { noremap = true })
 vim.keymap.set("n", "C", '"_C', { noremap = true })
+-- delete linewise over %
+vim.keymap.set("n", "(c", [[V%"_c]], { noremap = true })
 
 -- x/X as cut motion
 vim.keymap.set({ "n", "v" }, "x", "d", { noremap = true })
 vim.keymap.set("n", "xx", "dd", { noremap = true })
 vim.keymap.set("n", "X", "D", { noremap = true })
 vim.keymap.set("n", "xp", '"zdl"zp', { noremap = true })
+-- cut linewise over %
+vim.keymap.set("n", "(x", [[V%d]], { noremap = true })
+
+-- yank linewise over %
+vim.keymap.set("n", "(y", [[V%y]], { noremap = true })
 
 -- p deletes in visual mode
 vim.keymap.set("v", "p", '"_dP', { noremap = true })
