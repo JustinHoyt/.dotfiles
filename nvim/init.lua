@@ -4,6 +4,8 @@ vim.g.maplocalleader = " "
 
 vim.o.background = "light"
 
+vim.opt.cursorline = true
+
 -- Install package manager
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -149,7 +151,7 @@ local plugins = {
 				["_"] = "actions.open_cwd",
 				["`"] = "actions.cd",
 				["~"] = "actions.tcd",
-				["gs"] = "actions.change_sort",
+				["(s"] = "actions.change_sort",
 				["gx"] = "actions.open_external",
 				["g."] = "actions.toggle_hidden",
 				["g\\"] = "actions.toggle_trash",
@@ -205,7 +207,7 @@ local plugins = {
 				max_join_length = 1000,
 			})
 
-			vim.keymap.set("n", "gs", function()
+			vim.keymap.set("n", "<CR>", function()
 				require("treesj").toggle()
 			end)
 			vim.keymap.set("n", "<leader>gs", function()
@@ -430,6 +432,7 @@ local plugins = {
 	"JustinHoyt/vim-abolish",
 	"anuvyklack/hydra.nvim",
 	"mbbill/undotree",
+	"arthurxavierx/vim-caser",
 }
 
 if vim.loop.fs_stat(vim.fn.stdpath("config") .. "/lua/google-plugins.lua") then
@@ -867,7 +870,7 @@ vim.keymap.set("n", "<leader>v", ":e ~/.config/nvim/init.lua<CR>", { noremap = t
 vim.keymap.set("v", "<leader>rv", [[:g/^/m <C-r>=line('.') - 1<CR><CR>]], { noremap = true, silent = true })
 
 -- Shortcut for uncommenting a commented code block
-vim.keymap.set("n", "gcgc", "gcu", { noremap = true, silent = true })
+vim.keymap.set("n", "gcu", "gcgc", { noremap = true, silent = true })
 
 -- Open a file running watcher by executing the current file as a script
 vim.api.nvim_set_keymap(
@@ -1063,10 +1066,10 @@ AngularSwitch = Hydra({
 		{ "p", '<cmd>lua require("harpoon.ui").nav_prev()<CR>', {} },
 		{ "o", "<C-o>", {} },
 		{ "i", "<C-i>", {} },
-		{ "z", [['z]], {} },
-		{ "x", [['x]], {} },
-		{ "c", [['c]], {} },
-		{ "v", [['v]], {} },
+		{ "z", [['z]], { exit = true } },
+		{ "x", [['x]], { exit = true } },
+		{ "c", [['c]], { exit = true } },
+		{ "v", [['v]], { exit = true } },
 		{ "a", '<cmd>lua require("harpoon.ui").nav_file(1)<CR>', {} },
 		{ "s", '<cmd>lua require("harpoon.ui").nav_file(2)<CR>', {} },
 		{ "d", '<cmd>lua require("harpoon.ui").nav_file(3)<CR>', {} },
@@ -1210,31 +1213,31 @@ vim.api.nvim_set_keymap("n", "<leader>,b", "<cmd>mark b<CR>", { silent = true, n
 vim.api.nvim_set_keymap(
 	"n",
 	",z",
-	[['z<cmd>lua require("hydra").activate(AngularSwitch)<CR>]],
+	[['z]],
 	{ silent = true, noremap = true }
 )
 vim.api.nvim_set_keymap(
 	"n",
 	",x",
-	[['x<cmd>lua require("hydra").activate(AngularSwitch)<CR>]],
+	[['x]],
 	{ silent = true, noremap = true }
 )
 vim.api.nvim_set_keymap(
 	"n",
 	",c",
-	[['c<cmd>lua require("hydra").activate(AngularSwitch)<CR>]],
+	[['c]],
 	{ silent = true, noremap = true }
 )
 vim.api.nvim_set_keymap(
 	"n",
 	",v",
-	[['v<cmd>lua require("hydra").activate(AngularSwitch)<CR>]],
+	[['v]],
 	{ silent = true, noremap = true }
 )
 vim.api.nvim_set_keymap(
 	"n",
 	",b",
-	[['b<cmd>lua require("hydra").activate(AngularSwitch)<CR>]],
+	[['b]],
 	{ silent = true, noremap = true }
 )
 
