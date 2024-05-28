@@ -26,6 +26,7 @@ command -v jc &> /dev/null || eget kellyjonbrazil/jc --to "$HOME/.local/bin"
 command -v tty-copy &> /dev/null || eget jirutka/tty-copy --to "$HOME/.local/bin"
 command -v stylua &> /dev/null || eget JohnnyMorganz/StyLua --to "$HOME/.local/bin"
 command -v deno &> /dev/null || eget denoland/deno --to "$HOME/.local/bin"
+command -v f2 &> /dev/null || eget ayoisaiah/f2 --to "$HOME/.local/bin"
 
 [ -f "$HOME/.local/bin/z.sh" ] || curl https://raw.githubusercontent.com/rupa/z/master/z.sh -o "$HOME/.local/bin/z.sh"
 . "$HOME/.local/bin/z.sh"
