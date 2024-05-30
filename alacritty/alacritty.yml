@@ -83,7 +83,7 @@ schemes:
       cyan:    '0x0997b3'
       white:   '0xffffff'
 
-colors: *one_light  # This line sets the active color scheme.
+colors: *one_dark  # This line sets the active color scheme.
 
 key_bindings:
   - { key: A,         mods: Alt,       chars: "\x1ba"                       }

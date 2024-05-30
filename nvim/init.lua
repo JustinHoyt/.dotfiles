@@ -2,7 +2,7 @@ vim.g.mapleader = " "
 --  Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.maplocalleader = " "
 
-vim.o.background = "light"
+vim.o.background = "dark"
 
 vim.opt.cursorline = true
 
@@ -1061,7 +1061,8 @@ AngularSwitch = Hydra({
 		{ "w", "<cmd>edit `angular_switch % html`<CR>", { exit = true } },
 		{ "e", "<cmd>edit `angular_switch % ts`<CR>", { exit = true } },
 		{ "r", "<cmd>edit `angular_switch % test`<CR>", { exit = true } },
-		{ "t", "<cmd>edit `angular_switch % build`<CR>", { exit = true } },
+    { "t", "<cmd>edit `angular_switch % harness`<CR>", { exit = true } },
+		{ "-", "<cmd>edit `angular_switch % build`<CR>", { exit = true } },
 		{ "n", '<cmd>lua require("harpoon.ui").nav_next()<CR>', {} },
 		{ "p", '<cmd>lua require("harpoon.ui").nav_prev()<CR>', {} },
 		{ "o", "<C-o>", {} },
@@ -1112,14 +1113,14 @@ vim.keymap.set(
 vim.keymap.set(
 	"n",
 	",t",
-	"<cmd>edit `angular_switch % build`<CR>",
-	{ desc = "Angular switch to test file", silent = true }
+	"<cmd>edit `angular_switch % harness`<CR>",
+	{ desc = "Angular switch to harness file", silent = true }
 )
 vim.keymap.set(
 	"n",
 	",-",
-	"<cmd>edit `angular_switch % harness`<CR>",
-	{ desc = "Angular switch to test file", silent = true }
+	"<cmd>edit `angular_switch % build`<CR>",
+	{ desc = "Angular switch to BUILD file", silent = true }
 )
 vim.keymap.set(
 	"n",
@@ -1210,36 +1211,11 @@ vim.api.nvim_set_keymap("n", "<leader>,x", "<cmd>mark x<CR>", { silent = true, n
 vim.api.nvim_set_keymap("n", "<leader>,c", "<cmd>mark c<CR>", { silent = true, noremap = true })
 vim.api.nvim_set_keymap("n", "<leader>,v", "<cmd>mark v<CR>", { silent = true, noremap = true })
 vim.api.nvim_set_keymap("n", "<leader>,b", "<cmd>mark b<CR>", { silent = true, noremap = true })
-vim.api.nvim_set_keymap(
-	"n",
-	",z",
-	[['z]],
-	{ silent = true, noremap = true }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	",x",
-	[['x]],
-	{ silent = true, noremap = true }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	",c",
-	[['c]],
-	{ silent = true, noremap = true }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	",v",
-	[['v]],
-	{ silent = true, noremap = true }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	",b",
-	[['b]],
-	{ silent = true, noremap = true }
-)
+vim.api.nvim_set_keymap("n", ",z", [['z]], { silent = true, noremap = true })
+vim.api.nvim_set_keymap("n", ",x", [['x]], { silent = true, noremap = true })
+vim.api.nvim_set_keymap("n", ",c", [['c]], { silent = true, noremap = true })
+vim.api.nvim_set_keymap("n", ",v", [['v]], { silent = true, noremap = true })
+vim.api.nvim_set_keymap("n", ",b", [['b]], { silent = true, noremap = true })
 
 MyScroll = Hydra({
 	name = "Scroll",

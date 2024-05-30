@@ -117,7 +117,13 @@ if status is-interactive
     abbr --set-cursor rgpf --position anywhere "rg -P --files-with-matches '%'"
     # Find with perl regex
     abbr --set-cursor fdp --position anywhere 'fd --type file | xargs -P $(nproc) -n 1000 -d \'\\n\' perl -nE \'print if m{%}\''
-
+    abbr overlen --set-cursor "$(string join \n -- \
+        'fd --type file \'.ng.html%\' \\' \
+        '| xargs -P $(nproc) -n 1000 -d \'\\n\' \\' \
+        'perl -nE \'say "\\n\\\\e[31m$ARGV\\\\e[0m" if $. == 1; \\' \
+        '        print "  $.: $_" if length > 100; \\' \
+        '        close ARGV if eof\''
+    )"
     # xargs abbreviations
     abbr --position anywhere x xargs
     abbr --position anywhere xl 'xargs -d "\\n"'
