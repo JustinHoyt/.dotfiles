@@ -138,6 +138,34 @@ if status is-interactive
     abbr --position anywhere xlnp 'xargs -d "\\n" -P $(nproc) -n'
     abbr --position anywhere xnlp 'xargs -d "\\n" -P $(nproc) -n'
 
+    # javascript abbreviations
+    # javascript newline separated async iterable
+    abbr --position anywhere --set-cursor jna 'bun -e \'
+let i = 0; for await (let v of console) {
+  if (v === "") continue;
+  console.log(v%);
+  i++;
+}
+\'
+'
+    # javascript newline separated sync iterable
+    abbr --position anywhere --set-cursor jn 'bun -e \'
+let lines = await Array.fromAsync(console); lines.pop();
+for(let [i, v] of lines.entries()) {
+    console.log(v%);
+}
+\'
+'
+    # javascript whitespace separated
+    abbr --position anywhere --set-cursor js 'bun -e \'
+let lines = await Array.fromAsync(console); lines.pop();
+let words = lines.flatMap(line => line.split(/\s+/));
+for(let [i, v] of words.entries()) {
+    console.log(v%);
+}
+\'
+'
+
     # Renumber debug points
     abbr dr 'perl -i -pE \'s#DEBUGPRINT\[\d+#DEBUGPRINT[@{[++$i]}#\' ***.ts'
     abbr dd 'perl -i -nE \'print unless m{DEBUGPRINT}#\' ***.ts'
