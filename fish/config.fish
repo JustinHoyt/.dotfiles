@@ -141,9 +141,19 @@ if status is-interactive
     # javascript abbreviations
     # javascript newline separated async iterable
     abbr --position anywhere --set-cursor jna 'bun -e \'
-let i = 0; for await (let v of console) {
-  if (v === "") continue;
-  console.log(v%);
+let i = 0; for await (let line of console) {
+  if (line === "") continue;
+  console.log(line%);
+  i++;
+}
+\'
+'
+    # javascript whitespace separated async iterable
+    abbr --position anywhere --set-cursor jsa 'bun -e \'
+let i = 0; for await (let line of console) {
+  for (const [j, word] of line.split(/\\s+/).entries()) {
+    console.log(word%);
+  }
   i++;
 }
 \'
@@ -151,17 +161,17 @@ let i = 0; for await (let v of console) {
     # javascript newline separated sync iterable
     abbr --position anywhere --set-cursor jn 'bun -e \'
 let lines = await Array.fromAsync(console); lines.pop();
-for(let [i, v] of lines.entries()) {
-    console.log(v%);
+for(let [i, line] of lines.entries()) {
+  console.log(line%);
 }
 \'
 '
     # javascript whitespace separated
     abbr --position anywhere --set-cursor js 'bun -e \'
 let lines = await Array.fromAsync(console); lines.pop();
-let words = lines.flatMap(line => line.split(/\s+/));
-for(let [i, v] of words.entries()) {
-    console.log(v%);
+let words = lines.flatMap(line => line.split(/\\s+/));
+for(let [i, word] of words.entries()) {
+  console.log(word%);
 }
 \'
 '
