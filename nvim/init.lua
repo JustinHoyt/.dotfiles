@@ -587,6 +587,7 @@ vim.keymap.set("n", "<leader>sk", require("telescope.builtin").keymaps, { desc =
 vim.keymap.set("n", "<leader>sm", require("telescope.builtin").man_pages, { desc = "[S]earch [M]an pages" })
 vim.keymap.set("n", "<leader>sw", require("telescope.builtin").grep_string, { desc = "[S]earch current [W]ord" })
 vim.keymap.set("v", "<leader>s", require("telescope.builtin").grep_string, { desc = "[S]earch" })
+vim.keymap.set("n", "<leader>sb", "<CMD>Telescope live_grep search_dirs=%:h<CR>", { desc = "[S]earch [B]uffer's Dir" })
 
 -- telescope LSP commands
 vim.keymap.set(
@@ -965,6 +966,8 @@ vim.keymap.set("n", "<leader>f", ":e %:h/**/*", { noremap = true })
 -- Map the function to a key combination
 vim.keymap.set("n", "<leader>`", ":lua toggle_background()<CR>", { noremap = true })
 
+vim.keymap.set("n", "<leader>o", "O<ESC>j", { noremap = true })
+
 -- [[ nvim-osc52 ]]
 local function copy(lines, _)
 	require("osc52").copy(table.concat(lines, "\n"))
@@ -1008,6 +1011,9 @@ vim.keymap.set("n", "(y", [[V%y]], { noremap = true })
 -- p deletes in visual mode
 vim.keymap.set("v", "p", '"_dP', { noremap = true })
 
+-- r replaces in normal mode
+vim.keymap.set("n", "R", "r$", { noremap = true })
+
 -- [[ Macros ]]
 -- Convert github URL to a string of the user/project
 vim.cmd([[let @p="^yss'$a,\<Esc>F/;ldT'=="]])
@@ -1023,7 +1029,6 @@ require("onedark").setup({
 	term_colors = true, -- Change terminal color as per the selected theme style
 	ending_tildes = false, -- Show the end-of-buffer tildes. By default they are hidden
 	-- toggle theme style ---
-	toggle_style_key = "<leader>o", -- Default keybinding to toggle
 	toggle_style_list = { "light", "dark" }, -- List of styles to toggle between
 
 	-- Change code style ---
@@ -1061,7 +1066,7 @@ AngularSwitch = Hydra({
 		{ "w", "<cmd>edit `angular_switch % html`<CR>", { exit = true } },
 		{ "e", "<cmd>edit `angular_switch % ts`<CR>", { exit = true } },
 		{ "r", "<cmd>edit `angular_switch % test`<CR>", { exit = true } },
-    { "t", "<cmd>edit `angular_switch % harness`<CR>", { exit = true } },
+		{ "t", "<cmd>edit `angular_switch % harness`<CR>", { exit = true } },
 		{ "-", "<cmd>edit `angular_switch % build`<CR>", { exit = true } },
 		{ "n", '<cmd>lua require("harpoon.ui").nav_next()<CR>', {} },
 		{ "p", '<cmd>lua require("harpoon.ui").nav_prev()<CR>', {} },
@@ -1257,6 +1262,7 @@ MySave = Hydra({
 	heads = {
 		{ "j", "<cmd>w<CR>", { private = true } },
 		{ "k", "<cmd>q!<CR>", { private = true } },
+		{ "f", "<cmd>q!<CR>", { private = true } },
 	},
 })
 vim.api.nvim_set_keymap(
