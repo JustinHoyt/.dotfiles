@@ -150,7 +150,7 @@ let i = 0; for await (let line of createInterface(process.stdin)) {
     # javascript whitespace separated async iterable
     abbr --position anywhere --set-cursor jsa 'deno eval \'import { createInterface } from "node:readline";
 let i = 0; for await (let line of createInterface(process.stdin)) {
-  for (let [word, j] of line.split(/\\s+/).entries()) {
+  for (let [j, word] of line.split(/\\s+/).entries()) {
     %
     console.log(word);
   } i++
