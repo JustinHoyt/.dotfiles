@@ -139,6 +139,27 @@ if status is-interactive
     abbr --position anywhere xnlp 'xargs -d "\\n" -P $(nproc) -n'
 
     # javascript abbreviations
+    # javascript newline separated iterable
+    abbr --position anywhere --set-cursor jn 'deno eval \'const stdin = await new Response(Deno.stdin.readable).text();
+for (let [i, line] of stdin.split("\n").entries()) {
+  %
+  console.log(line);
+}
+\''
+
+    # javascript whitespace separated iterable
+    abbr --position anywhere --set-cursor js 'deno eval \'const stdin = await new Response(Deno.stdin.readable).text();
+for (let [i, line] of stdin.split(/\\s+/).entries()) {
+  %
+  console.log(line);
+}
+\''
+
+    # javascript json string
+    abbr --position anywhere --set-cursor jj 'deno eval \'const stdin = await new Response(Deno.stdin.readable).json();
+console.log(stdin);
+\''
+
     # javascript newline separated async iterable
     abbr --position anywhere --set-cursor jna 'deno eval \'import { createInterface } from "node:readline";
 let i = 0; for await (let line of createInterface(process.stdin)) {
