@@ -52,6 +52,14 @@ local plugins = {
 	},
 
 	{
+		"L3MON4D3/LuaSnip",
+		dependencies = {
+			-- Adds a number of user-friendly snippets
+			"rafamadriz/friendly-snippets",
+		},
+	},
+
+	{
 		-- Autocompletion
 		"hrsh7th/nvim-cmp",
 		dependencies = {
@@ -61,9 +69,6 @@ local plugins = {
 
 			-- Adds LSP completion capabilities
 			"hrsh7th/cmp-nvim-lsp",
-
-			-- Adds a number of user-friendly snippets
-			"rafamadriz/friendly-snippets",
 		},
 	},
 
