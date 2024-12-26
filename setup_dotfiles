@@ -38,10 +38,10 @@ fi
 
 if ! command -v nvim &>/dev/null; then
     cd neovim
-    git checkout v0.9.1
+    git checkout v0.10.3
     make CMAKE_BUILD_TYPE=RelWithDebInfo CMAKE_INSTALL_PREFIX=$HOME/.local \
         && make install \
-        && ln -s $HOME/.local/bin/bin/nvim $HOME/.local/bin
+        && ln -s -f $HOME/.local/bin/bin/nvim $HOME/.local/bin
 fi
 
 ./install
