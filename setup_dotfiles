@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-FISH_VERSION="fish-3.6.1"
+FISH_VERSION="fish-3.7.1"
 
 git submodule update --init --recursive
 
