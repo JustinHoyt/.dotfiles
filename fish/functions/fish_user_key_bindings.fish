@@ -103,4 +103,5 @@ function fish_user_key_bindings
     bind -M default 'ysiW}' 'fish_surround_iW "{"'
     bind -M default 'yss{' 'fish_surround_line "{"'
     bind -M default 'yss}' 'fish_surround_line "{"'
+    bind -e \cv
 end
