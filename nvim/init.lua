@@ -46,7 +46,7 @@ local plugins = {
 
 			-- Useful status updates for LSP
 			-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-			{ "j-hui/fidget.nvim", tag = "legacy", opts = {} },
+			{ "j-hui/fidget.nvim",       tag = "legacy", opts = {} },
 
 			-- Additional lua configuration, makes nvim stuff amazing!
 			"folke/neodev.nvim",
@@ -75,7 +75,7 @@ local plugins = {
 	},
 
 	-- Useful plugin to show you pending keybinds.
-	{ "folke/which-key.nvim", opts = {} },
+	{ "folke/which-key.nvim",                opts = {} },
 	{
 		-- Theme inspired by Atom
 		"navarasu/onedark.nvim",
@@ -129,14 +129,14 @@ local plugins = {
 		event = "VeryLazy",
 		---@type Flash.Config
 		opts = { modes = { char = { enabled = false } } },
-    -- stylua: ignore
-    keys = {
-      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-      { "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
-    },
+		-- stylua: ignore
+		keys = {
+			{ "s",     mode = { "n", "x", "o" }, function() require("flash").jump() end,              desc = "Flash" },
+			{ "S",     mode = { "n", "o", "x" }, function() require("flash").treesitter() end,        desc = "Flash Treesitter" },
+			{ "r",     mode = "o",               function() require("flash").remote() end,            desc = "Remote Flash" },
+			{ "R",     mode = { "o", "x" },      function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+			{ "<c-s>", mode = { "c" },           function() require("flash").toggle() end,            desc = "Toggle Flash Search" },
+		},
 	},
 
 	-- File system plugin that allows editing and manipulating files in buffers
@@ -193,7 +193,7 @@ local plugins = {
 
 	{ "echasnovski/mini.statusline", version = "*" },
 
-	{ "echasnovski/mini.comment", version = "*", opts = {} },
+	{ "echasnovski/mini.comment",    version = "*", opts = {} },
 
 	{
 		"echasnovski/mini.operators",
@@ -431,9 +431,9 @@ local plugins = {
 	"ray-x/go.nvim",
 	"nickeb96/fish.vim",
 	"mg979/vim-visual-multi", -- Multicursor mode
-	"tpope/vim-surround", -- Surround text-objects with pairs like () or ''
+	"tpope/vim-surround",    -- Surround text-objects with pairs like () or ''
 	"tpope/vim-repeat",
-	"ThePrimeagen/harpoon", -- Enhance marks
+	"ThePrimeagen/harpoon",  -- Enhance marks
 	"jghauser/mkdir.nvim",
 	"ojroques/nvim-osc52",
 	"JustinHoyt/vim-abolish",
@@ -903,12 +903,12 @@ vim.api.nvim_set_keymap(
 	"n",
 	"<leader>te",
 	":bot 15sp | terminal chmod +x "
-		.. vim.fn.expand("%")
-		.. " && echo "
-		.. vim.fn.expand("%")
-		.. " | entr -c -r "
-		.. vim.fn.expand("%")
-		.. "<CR><C-w><C-k>",
+	.. vim.fn.expand("%")
+	.. " && echo "
+	.. vim.fn.expand("%")
+	.. " | entr -c -r "
+	.. vim.fn.expand("%")
+	.. "<CR><C-w><C-k>",
 	{ noremap = true, silent = true, desc = "[T]erminal [E]xecute file" }
 )
 
@@ -917,10 +917,10 @@ vim.api.nvim_set_keymap(
 	"n",
 	"<leader>tf",
 	":bot 15sp | terminal echo "
-		.. vim.fn.expand("%")
-		.. " | entr -c -r fish "
-		.. vim.fn.expand("%")
-		.. "<CR><C-w><C-k>",
+	.. vim.fn.expand("%")
+	.. " | entr -c -r fish "
+	.. vim.fn.expand("%")
+	.. "<CR><C-w><C-k>",
 	{ noremap = true, silent = true, desc = "[T]erminal execute [F]ish file" }
 )
 
@@ -939,7 +939,7 @@ vim.keymap.set("t", "<esc><esc>", "<C-\\><C-N>", { noremap = true })
 -- Regex substitute with very magic mode shortcut
 vim.keymap.set("n", "(s", [[:%s#\v#&#g<left><left><left><left>]], { noremap = true, desc = "[Y]ou [G]o [s]ubstitue" })
 vim.keymap.set("v", "(s", [[:s#\v#&#g<left><left><left><left>]], { noremap = true, desc = "[Y]ou [G]o [s]ubstitue" })
-vim.keymap.set("n", "(v", ":S///g<left><left><left>", { noremap = true, desc = "[Y]ou [G]o [S]ubvert" })
+vim.keymap.set("n", "(v", ":%S///g<left><left><left>", { noremap = true, desc = "[Y]ou [G]o [S]ubvert" })
 vim.keymap.set("v", "(v", ":S///g<left><left><left>", { noremap = true, desc = "[Y]ou [G]o [S]ubvert" })
 vim.keymap.set("n", "(/", [[/\v]], { noremap = true, desc = "[Y]ou [G]o [/]" })
 vim.keymap.set(
@@ -1049,10 +1049,10 @@ vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 -- [[ onedark ]]
 require("onedark").setup({
 	-- Main options --
-	style = "dark", -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
-	transparent = true, -- Show/hide background
-	term_colors = true, -- Change terminal color as per the selected theme style
-	ending_tildes = false, -- Show the end-of-buffer tildes. By default they are hidden
+	style = "dark",                         -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
+	transparent = true,                     -- Show/hide background
+	term_colors = true,                     -- Change terminal color as per the selected theme style
+	ending_tildes = false,                  -- Show the end-of-buffer tildes. By default they are hidden
 	-- toggle theme style ---
 	toggle_style_list = { "light", "dark" }, -- List of styles to toggle between
 
@@ -1068,12 +1068,12 @@ require("onedark").setup({
 	},
 
 	-- Custom Highlights --
-	colors = {}, -- Override default colors
+	colors = {},    -- Override default colors
 	highlights = {}, -- Override highlight groups
 
 	-- Plugins Config --
 	diagnostics = {
-		darker = true, -- darker colors for diagnostic
+		darker = true,   -- darker colors for diagnostic
 		undercurl = true, -- use undercurl instead of underline for diagnostics
 		background = true, -- use background color for virtual text
 	},
@@ -1087,32 +1087,32 @@ AngularSwitch = Hydra({
 	name = "Angular Switch",
 	mode = "n",
 	heads = {
-		{ "q", "<cmd>edit `angular_switch % scss`<CR>", { exit = true } },
-		{ "w", "<cmd>edit `angular_switch % html`<CR>", { exit = true } },
-		{ "e", "<cmd>edit `angular_switch % ts`<CR>", { exit = true } },
-		{ "r", "<cmd>edit `angular_switch % test`<CR>", { exit = true } },
-		{ "t", "<cmd>edit `angular_switch % harness`<CR>", { exit = true } },
-		{ "-", "<cmd>edit `angular_switch % build`<CR>", { exit = true } },
-		{ "n", '<cmd>lua require("harpoon.ui").nav_next()<CR>', {} },
-		{ "p", '<cmd>lua require("harpoon.ui").nav_prev()<CR>', {} },
-		{ "o", "<C-o>", {} },
-		{ "i", "<C-i>", {} },
-		{ "z", [['z]], { exit = true } },
-		{ "x", [['x]], { exit = true } },
-		{ "c", [['c]], { exit = true } },
-		{ "v", [['v]], { exit = true } },
-		{ "a", '<cmd>lua require("harpoon.ui").nav_file(1)<CR>', {} },
-		{ "s", '<cmd>lua require("harpoon.ui").nav_file(2)<CR>', {} },
-		{ "d", '<cmd>lua require("harpoon.ui").nav_file(3)<CR>', {} },
-		{ "f", '<cmd>lua require("harpoon.ui").nav_file(4)<CR>', {} },
-		{ "g", '<cmd>lua require("harpoon.ui").nav_file(5)<CR>', {} },
-		{ "h", '<cmd>lua require("harpoon.ui").nav_file(6)<CR>', {} },
-		{ "j", '<cmd>lua require("harpoon.ui").nav_file(7)<CR>', {} },
-		{ "k", '<cmd>lua require("harpoon.ui").nav_file(8)<CR>', {} },
-		{ "l", '<cmd>lua require("harpoon.ui").nav_file(9)<CR>', {} },
-		{ ";", '<cmd>lua require("harpoon.ui").nav_file(10)<CR>', {} },
-		{ "<ESC>", nil, { nowait = true, exit = true } },
-		{ "<BS>", nil, { nowait = true, exit = true } },
+		{ "q",     "<cmd>edit `angular_switch % scss`<CR>",           { exit = true } },
+		{ "w",     "<cmd>edit `angular_switch % html`<CR>",           { exit = true } },
+		{ "e",     "<cmd>edit `angular_switch % ts`<CR>",             { exit = true } },
+		{ "r",     "<cmd>edit `angular_switch % test`<CR>",           { exit = true } },
+		{ "t",     "<cmd>edit `angular_switch % harness`<CR>",        { exit = true } },
+		{ "-",     "<cmd>edit `angular_switch % build`<CR>",          { exit = true } },
+		{ "n",     '<cmd>lua require("harpoon.ui").nav_next()<CR>',   {} },
+		{ "p",     '<cmd>lua require("harpoon.ui").nav_prev()<CR>',   {} },
+		{ "o",     "<C-o>",                                           {} },
+		{ "i",     "<C-i>",                                           {} },
+		{ "z",     [['z]],                                            { exit = true } },
+		{ "x",     [['x]],                                            { exit = true } },
+		{ "c",     [['c]],                                            { exit = true } },
+		{ "v",     [['v]],                                            { exit = true } },
+		{ "a",     '<cmd>lua require("harpoon.ui").nav_file(1)<CR>',  {} },
+		{ "s",     '<cmd>lua require("harpoon.ui").nav_file(2)<CR>',  {} },
+		{ "d",     '<cmd>lua require("harpoon.ui").nav_file(3)<CR>',  {} },
+		{ "f",     '<cmd>lua require("harpoon.ui").nav_file(4)<CR>',  {} },
+		{ "g",     '<cmd>lua require("harpoon.ui").nav_file(5)<CR>',  {} },
+		{ "h",     '<cmd>lua require("harpoon.ui").nav_file(6)<CR>',  {} },
+		{ "j",     '<cmd>lua require("harpoon.ui").nav_file(7)<CR>',  {} },
+		{ "k",     '<cmd>lua require("harpoon.ui").nav_file(8)<CR>',  {} },
+		{ "l",     '<cmd>lua require("harpoon.ui").nav_file(9)<CR>',  {} },
+		{ ";",     '<cmd>lua require("harpoon.ui").nav_file(10)<CR>', {} },
+		{ "<ESC>", nil,                                               { nowait = true, exit = true } },
+		{ "<BS>",  nil,                                               { nowait = true, exit = true } },
 	},
 })
 
@@ -1251,17 +1251,17 @@ MyScroll = Hydra({
 	name = "Scroll",
 	mode = "n",
 	heads = {
-		{ "u", "<C-u>", { private = true } },
-		{ "d", "<C-d>", { private = true } },
-		{ "q", "<CMD>q!<CR>", { private = true } },
-		{ "e", "<C-e>", { private = true } },
-		{ "y", "<C-y>", { private = true } },
-		{ "g", "gg", { private = true } },
-		{ "G", "G", { private = true } },
-		{ "<C-o>", "<C-o>", { private = true } },
-		{ "<C-i>", "<C-i>", { private = true } },
-		{ "<ESC>", nil, { nowait = true, exit = true } },
-		{ "<BS>", nil, { nowait = true, exit = true } },
+		{ "u",     "<C-u>",       { private = true } },
+		{ "d",     "<C-d>",       { private = true } },
+		{ "q",     "<CMD>q!<CR>", { private = true } },
+		{ "e",     "<C-e>",       { private = true } },
+		{ "y",     "<C-y>",       { private = true } },
+		{ "g",     "gg",          { private = true } },
+		{ "G",     "G",           { private = true } },
+		{ "<C-o>", "<C-o>",       { private = true } },
+		{ "<C-i>", "<C-i>",       { private = true } },
+		{ "<ESC>", nil,           { nowait = true, exit = true } },
+		{ "<BS>",  nil,           { nowait = true, exit = true } },
 	},
 })
 vim.api.nvim_set_keymap(
@@ -1285,7 +1285,7 @@ MySave = Hydra({
 	},
 	mode = "n",
 	heads = {
-		{ "j", "<cmd>w<CR>", { private = true } },
+		{ "j", "<cmd>w<CR>",  { private = true } },
 		{ "k", "<cmd>q!<CR>", { private = true } },
 		{ "f", "<cmd>q!<CR>", { private = true } },
 	},
@@ -1309,13 +1309,13 @@ Hydra({
 	body = "]",
 	mode = "n",
 	heads = {
-		{ "h", "<Plug>(signify-next-hunk)", { desc = "next signify diff" } },
-		{ "n", "<Plug>(signify-next-hunk)", { desc = "next signify diff", private = true } },
-		{ "p", "<Plug>(signify-prev-hunk)", { desc = "prev signify diff", private = true } },
-		{ "d", "<Plug>(SignifyHunkDiff)", { desc = "prev signify diff", private = true } },
-		{ "u", "<Plug>(SignifyHunkUndo)", { desc = "prev signify diff", private = true } },
-		{ "<ESC>", nil, { nowait = true, exit = true } },
-		{ "<BS>", nil, { nowait = true, exit = true } },
+		{ "h",     "<Plug>(signify-next-hunk)", { desc = "next signify diff" } },
+		{ "n",     "<Plug>(signify-next-hunk)", { desc = "next signify diff", private = true } },
+		{ "p",     "<Plug>(signify-prev-hunk)", { desc = "prev signify diff", private = true } },
+		{ "d",     "<Plug>(SignifyHunkDiff)",   { desc = "prev signify diff", private = true } },
+		{ "u",     "<Plug>(SignifyHunkUndo)",   { desc = "prev signify diff", private = true } },
+		{ "<ESC>", nil,                         { nowait = true, exit = true } },
+		{ "<BS>",  nil,                         { nowait = true, exit = true } },
 	},
 })
 Hydra({
@@ -1323,13 +1323,13 @@ Hydra({
 	body = "[",
 	mode = "n",
 	heads = {
-		{ "h", "<Plug>(signify-prev-hunk)", { desc = "prev signify diff" } },
-		{ "n", "<Plug>(signify-next-hunk)", { desc = "next signify diff", private = true } },
-		{ "p", "<Plug>(signify-prev-hunk)", { desc = "prev signify diff", private = true } },
-		{ "d", "<Plug>(SignifyHunkDiff)", { desc = "prev signify diff", private = true } },
-		{ "u", "<Plug>(SignifyHunkUndo)", { desc = "prev signify diff", private = true } },
-		{ "<ESC>", nil, { nowait = true, exit = true } },
-		{ "<BS>", nil, { nowait = true, exit = true } },
+		{ "h",     "<Plug>(signify-prev-hunk)", { desc = "prev signify diff" } },
+		{ "n",     "<Plug>(signify-next-hunk)", { desc = "next signify diff", private = true } },
+		{ "p",     "<Plug>(signify-prev-hunk)", { desc = "prev signify diff", private = true } },
+		{ "d",     "<Plug>(SignifyHunkDiff)",   { desc = "prev signify diff", private = true } },
+		{ "u",     "<Plug>(SignifyHunkUndo)",   { desc = "prev signify diff", private = true } },
+		{ "<ESC>", nil,                         { nowait = true, exit = true } },
+		{ "<BS>",  nil,                         { nowait = true, exit = true } },
 	},
 })
 
@@ -1338,11 +1338,11 @@ Hydra({
 	body = "]",
 	mode = "n",
 	heads = {
-		{ "d", "<cmd>lua vim.diagnostic.goto_next()<CR>", { desc = "next diagnostic" } },
-		{ "n", "<cmd>lua vim.diagnostic.goto_next()<CR>", { desc = "next diagnostic", private = true } },
-		{ "p", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { desc = "prev diagnostic", private = true } },
-		{ "<ESC>", nil, { nowait = true, exit = true } },
-		{ "<BS>", nil, { nowait = true, exit = true } },
+		{ "d",     "<cmd>lua vim.diagnostic.goto_next()<CR>", { desc = "next diagnostic" } },
+		{ "n",     "<cmd>lua vim.diagnostic.goto_next()<CR>", { desc = "next diagnostic", private = true } },
+		{ "p",     "<cmd>lua vim.diagnostic.goto_prev()<CR>", { desc = "prev diagnostic", private = true } },
+		{ "<ESC>", nil,                                       { nowait = true, exit = true } },
+		{ "<BS>",  nil,                                       { nowait = true, exit = true } },
 	},
 })
 Hydra({
@@ -1350,11 +1350,11 @@ Hydra({
 	body = "[",
 	mode = "n",
 	heads = {
-		{ "d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { desc = "prev diagnostic" } },
-		{ "n", "<cmd>lua vim.diagnostic.goto_next()<CR>", { desc = "next diagnostic", private = true } },
-		{ "p", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { desc = "prev diagnostic", private = true } },
-		{ "<ESC>", nil, { nowait = true, exit = true } },
-		{ "<BS>", nil, { nowait = true, exit = true } },
+		{ "d",     "<cmd>lua vim.diagnostic.goto_prev()<CR>", { desc = "prev diagnostic" } },
+		{ "n",     "<cmd>lua vim.diagnostic.goto_next()<CR>", { desc = "next diagnostic", private = true } },
+		{ "p",     "<cmd>lua vim.diagnostic.goto_prev()<CR>", { desc = "prev diagnostic", private = true } },
+		{ "<ESC>", nil,                                       { nowait = true, exit = true } },
+		{ "<BS>",  nil,                                       { nowait = true, exit = true } },
 	},
 })
 
@@ -1363,11 +1363,11 @@ Hydra({
 	body = "]",
 	mode = "n",
 	heads = {
-		{ "s", "]s", { desc = "next misspelled line" } },
-		{ "n", "]s", { desc = "next misspelled line", private = true } },
-		{ "p", "[s", { desc = "prev misspelled line", private = true } },
-		{ "<ESC>", nil, { nowait = true, exit = true } },
-		{ "<BS>", nil, { nowait = true, exit = true } },
+		{ "s",     "]s", { desc = "next misspelled line" } },
+		{ "n",     "]s", { desc = "next misspelled line", private = true } },
+		{ "p",     "[s", { desc = "prev misspelled line", private = true } },
+		{ "<ESC>", nil,  { nowait = true, exit = true } },
+		{ "<BS>",  nil,  { nowait = true, exit = true } },
 	},
 })
 Hydra({
@@ -1375,11 +1375,11 @@ Hydra({
 	body = "[",
 	mode = "n",
 	heads = {
-		{ "s", "[s", { desc = "prev misspelled line" } },
-		{ "n", "]s", { desc = "next misspelled line", private = true } },
-		{ "p", "[s", { desc = "prev misspelled line", private = true } },
-		{ "<ESC>", nil, { nowait = true, exit = true } },
-		{ "<BS>", nil, { nowait = true, exit = true } },
+		{ "s",     "[s", { desc = "prev misspelled line" } },
+		{ "n",     "]s", { desc = "next misspelled line", private = true } },
+		{ "p",     "[s", { desc = "prev misspelled line", private = true } },
+		{ "<ESC>", nil,  { nowait = true, exit = true } },
+		{ "<BS>",  nil,  { nowait = true, exit = true } },
 	},
 })
 
@@ -1388,11 +1388,11 @@ Hydra({
 	body = "]",
 	mode = "n",
 	heads = {
-		{ "f", "]m", { desc = "next function" } },
-		{ "n", "]m", { desc = "next function", private = true } },
-		{ "p", "[m", { desc = "prev function", private = true } },
-		{ "<ESC>", nil, { nowait = true, exit = true } },
-		{ "<BS>", nil, { nowait = true, exit = true } },
+		{ "f",     "]m", { desc = "next function" } },
+		{ "n",     "]m", { desc = "next function", private = true } },
+		{ "p",     "[m", { desc = "prev function", private = true } },
+		{ "<ESC>", nil,  { nowait = true, exit = true } },
+		{ "<BS>",  nil,  { nowait = true, exit = true } },
 	},
 })
 Hydra({
@@ -1400,11 +1400,11 @@ Hydra({
 	body = "[",
 	mode = "n",
 	heads = {
-		{ "f", "[m", { desc = "prev function" } },
-		{ "n", "]m", { desc = "next function", private = true } },
-		{ "p", "[m", { desc = "prev function", private = true } },
-		{ "<ESC>", nil, { nowait = true, exit = true } },
-		{ "<BS>", nil, { nowait = true, exit = true } },
+		{ "f",     "[m", { desc = "prev function" } },
+		{ "n",     "]m", { desc = "next function", private = true } },
+		{ "p",     "[m", { desc = "prev function", private = true } },
+		{ "<ESC>", nil,  { nowait = true, exit = true } },
+		{ "<BS>",  nil,  { nowait = true, exit = true } },
 	},
 })
 
@@ -1413,11 +1413,11 @@ Hydra({
 	body = "]",
 	mode = "n",
 	heads = {
-		{ "c", [[/<<<<<CR>]], { desc = "next conflict" } },
-		{ "n", [[/<<<<<CR>]], { desc = "next conflict", private = true } },
-		{ "p", [[?<<<<<CR>]], { desc = "prev conflict", private = true } },
-		{ "<ESC>", nil, { nowait = true, exit = true } },
-		{ "<BS>", nil, { nowait = true, exit = true } },
+		{ "c",     [[/<<<<<CR>]], { desc = "next conflict" } },
+		{ "n",     [[/<<<<<CR>]], { desc = "next conflict", private = true } },
+		{ "p",     [[?<<<<<CR>]], { desc = "prev conflict", private = true } },
+		{ "<ESC>", nil,           { nowait = true, exit = true } },
+		{ "<BS>",  nil,           { nowait = true, exit = true } },
 	},
 })
 Hydra({
@@ -1425,11 +1425,11 @@ Hydra({
 	body = "[",
 	mode = "n",
 	heads = {
-		{ "c", [[?<<<<<CR>]], { desc = "prev conflict" } },
-		{ "n", [[/<<<<<CR>]], { desc = "next conflict", private = true } },
-		{ "p", [[?<<<<<CR>]], { desc = "prev conflict", private = true } },
-		{ "<ESC>", nil, { nowait = true, exit = true } },
-		{ "<BS>", nil, { nowait = true, exit = true } },
+		{ "c",     [[?<<<<<CR>]], { desc = "prev conflict" } },
+		{ "n",     [[/<<<<<CR>]], { desc = "next conflict", private = true } },
+		{ "p",     [[?<<<<<CR>]], { desc = "prev conflict", private = true } },
+		{ "<ESC>", nil,           { nowait = true, exit = true } },
+		{ "<BS>",  nil,           { nowait = true, exit = true } },
 	},
 })
 
@@ -1438,24 +1438,24 @@ MyMoveChar = Hydra({
 	mode = "n",
 	body = "g",
 	heads = {
-		{ "<LEFT>", "xhP", { desc = "move char left" } },
-		{ "<UP>", "xkPlxjhPk", { desc = "move char up" } },
-		{ "<DOWN>", "xjPlxhkPj", { desc = "move char down" } },
-		{ "<RIGHT>", "xp", { desc = "move char right" } },
-		{ "y", "h" },
-		{ "u", "j" },
-		{ "i", "k" },
-		{ "o", "l" },
-		{ "h", "h" },
-		{ "j", "j" },
-		{ "k", "k" },
-		{ "l", "l" },
-		{ "b", "b" },
-		{ "w", "w" },
-		{ "^", "^" },
-		{ "$", "$" },
-		{ "<ESC>", nil, { nowait = true, exit = true } },
-		{ "<BS>", nil, { nowait = true, exit = true } },
+		{ "<LEFT>",  "xhP",       { desc = "move char left" } },
+		{ "<UP>",    "xkPlxjhPk", { desc = "move char up" } },
+		{ "<DOWN>",  "xjPlxhkPj", { desc = "move char down" } },
+		{ "<RIGHT>", "xp",        { desc = "move char right" } },
+		{ "y",       "h" },
+		{ "u",       "j" },
+		{ "i",       "k" },
+		{ "o",       "l" },
+		{ "h",       "h" },
+		{ "j",       "j" },
+		{ "k",       "k" },
+		{ "l",       "l" },
+		{ "b",       "b" },
+		{ "w",       "w" },
+		{ "^",       "^" },
+		{ "$",       "$" },
+		{ "<ESC>",   nil,         { nowait = true, exit = true } },
+		{ "<BS>",    nil,         { nowait = true, exit = true } },
 	},
 })
 vim.api.nvim_set_keymap(

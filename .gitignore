@@ -6,3 +6,4 @@ home.nix
 nvim/lua/init_local.lua
 nvim/lua/google-plugins.lua
 fish-3.6.1/
+fish-3.7.1/
