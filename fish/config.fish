@@ -125,7 +125,6 @@ if status is-interactive
         '        close ARGV if eof\''
     )"
     # xargs abbreviations
-    abbr --position anywhere x xargs
     abbr --position anywhere xl 'xargs -d "\\n"'
     abbr --position anywhere xn 'xargs -d -n'
     abbr --position anywhere xp 'xargs -P $(nproc)'
@@ -137,6 +136,7 @@ if status is-interactive
     abbr --position anywhere xnl 'xargs -d "\\n" -n'
     abbr --position anywhere xlnp 'xargs -d "\\n" -P $(nproc) -n'
     abbr --position anywhere xnlp 'xargs -d "\\n" -P $(nproc) -n'
+    abbr slp --position anywhere --set-cursor 'sleep %m;'
 
     # javascript abbreviations
     # javascript newline separated iterable
