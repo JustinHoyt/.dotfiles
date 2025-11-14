@@ -46,3 +46,4 @@
     ~/.config/nixpkgs/_home.nix: _home.nix
     ~/.config/nixpkgs/common.nix: common.nix
     ~/.config/alacritty: alacritty
+    ~/.config/mise: mise

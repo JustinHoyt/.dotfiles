@@ -1,0 +1,5 @@
+[tools]
+jq = "latest"
+neovim = "0.11.5"
+node = "latest"
+usage = "latest"
