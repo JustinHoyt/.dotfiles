@@ -197,6 +197,10 @@ let i = 0; for await (let line of createInterface(process.stdin)) {
 
     set -x EDITOR nvim
 
+    if type -q mise
+        mise activate fish | source
+    end
+
     source ~/.config/fish/config.local.fish
 
     fzf_configure_bindings --history=\cy --directory=\cf --git_status=\cs
