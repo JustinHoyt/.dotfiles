@@ -16,9 +16,6 @@
 [submodule "tpm"]
 	path = tpm
 	url = https://github.com/tmux-plugins/tpm
-[submodule "neovim"]
-	path = neovim
-	url = https://github.com/neovim/neovim
 [submodule "dawk"]
 	path = dawk
 	url = https://github.com/JustinHoyt/dawk
