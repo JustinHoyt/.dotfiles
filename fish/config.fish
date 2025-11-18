@@ -138,6 +138,9 @@ if status is-interactive
     abbr --position anywhere xnlp 'xargs -d "\\n" -P $(nproc) -n'
     abbr slp --position anywhere --set-cursor 'sleep %m;'
 
+    abbr mu 'mise use -g'
+    abbr muu 'mise use -g ubi:'
+
     # javascript abbreviations
     # javascript newline separated iterable
     abbr --position anywhere --set-cursor jn 'deno eval \'const stdin = await new Response(Deno.stdin.readable).text();
