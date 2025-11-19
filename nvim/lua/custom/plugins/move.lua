@@ -1,7 +1,7 @@
 return {
 	"echasnovski/mini.move",
 	version = "*",
-	config = {
+	opts = {
 		mappings = {
 			-- Move current block in Visual mode
 			left = "<LEFT>",

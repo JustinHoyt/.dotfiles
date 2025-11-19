@@ -1,5 +1,6 @@
 [env]
 TERM = "xterm-256color"
+COLORTERM = "truecolor"
 
 [selection]
 save_to_clipboard = true
