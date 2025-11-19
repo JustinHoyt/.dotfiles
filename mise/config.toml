@@ -1,5 +1,6 @@
 [tools]
 bat = "latest"
+coreutils = "latest"
 deno = "latest"
 fd = "latest"
 fx = "latest"
