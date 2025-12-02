@@ -39,12 +39,6 @@ key = "Space"
 mods = "Control"
 chars = "\u0000"
 
-# Ctrl + V -> Paste
-[[keyboard.bindings]]
-key = "V"
-mods = "Control"
-action = "Paste"
-
 # -----------------------------------------------------------------------------
 # TokyoNight Alacritty Colors
 # Theme: Tokyo Night Storm
