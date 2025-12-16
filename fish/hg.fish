@@ -1,5 +1,7 @@
 # Print and graph with a preceeding newline
-abbr hxln 'printf \'\n\' && hg xl'
+function hxln
+    printf '\n' && hg xl
+end
 
 abbr hml 'hmail -t %'
 
