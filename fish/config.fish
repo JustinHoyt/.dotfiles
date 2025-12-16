@@ -125,17 +125,11 @@ if status is-interactive
         '        close ARGV if eof\''
     )"
     # xargs abbreviations
-    abbr --position anywhere xl 'xargs -d "\\n"'
-    abbr --position anywhere xn 'xargs -d -n'
+    abbr --position anywhere xdn 'xargs -d "\\n"'
+    abbr --position anywhere xdnp 'xargs -d "\\n" -P $(nproc)'
+    abbr --position anywhere xn 'xargs -n'
     abbr --position anywhere xp 'xargs -P $(nproc)'
-    abbr --position anywhere xlp 'xargs -d "\\n" -P $(nproc)'
-    abbr --position anywhere xpl 'xargs -d "\\n" -P $(nproc)'
-    abbr --position anywhere xnp 'xargs -d -P $(nproc) -n'
-    abbr --position anywhere xpn 'xargs -d -P $(nproc) -n'
-    abbr --position anywhere xln 'xargs -d "\\n" -n'
-    abbr --position anywhere xnl 'xargs -d "\\n" -n'
-    abbr --position anywhere xlnp 'xargs -d "\\n" -P $(nproc) -n'
-    abbr --position anywhere xnlp 'xargs -d "\\n" -P $(nproc) -n'
+    abbr --position anywhere xpn 'xargs -P $(nproc) -n'
     abbr slp --position anywhere --set-cursor 'sleep %m;'
 
     abbr mu 'mise use -g'
@@ -204,6 +198,7 @@ let i = 0; for await (let line of createInterface(process.stdin)) {
         mise activate fish | source
     end
 
+    source ~/.config/fish/hg.fish
     source ~/.config/fish/config.local.fish
 
     fzf_configure_bindings --history=\cy --directory=\cf --git_status=\cs
