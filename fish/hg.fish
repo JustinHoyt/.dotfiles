@@ -41,10 +41,10 @@ abbr hex 'hg export'
 abbr hf 'hg fix'
 
 # hg all
-abbr haa 'hg fix; tricorder analyze -fix -categories Lint; hg fix; build_cleaner_all; hg amend'
-abbr hauc 'hg fix; tricorder analyze -fix -categories Lint; hg fix; build_cleaner_all; hg amend; hg upload chain'
-abbr haps 'hg fix; tricorder analyze -fix -categories Lint; hg fix; build_cleaner_all; hg amend; hg upload chain; presub'
-abbr haml 'hg fix; tricorder analyze -fix -categories Lint; hg fix; build_cleaner_all; hg amend; hg upload chain; presub; hml'
+abbr haa 'fixts; hg amend'
+abbr hauc 'fixts; hg amend; hg upload chain'
+abbr haps 'fixts; hg amend; hg upload chain; presub'
+abbr haml 'fixts; hg amend; hg upload chain; presub; hml'
 
 abbr hhe 'hg histedit'
 abbr hhea 'hg histedit --abort'

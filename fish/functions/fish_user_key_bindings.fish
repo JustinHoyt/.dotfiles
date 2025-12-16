@@ -56,52 +56,8 @@ function fish_user_key_bindings
     bind -e --mode insert --preset \el
     bind -e --mode insert --preset \ed
 
-    # prev/next directory bindings
-    bind --mode insert \ch prevd-or-backward-word
-    bind --mode insert \cl nextd-or-forward-word
-
-    bind --mode default \ch prevd-or-backward-word
-    bind --mode default \cl nextd-or-forward-word
-
-    # Rerun a command and select the lines of output to output to the command prompt
-    bind --mode insert \cq fzf_select_from_rerun_command_output
-    bind --mode default \cq fzf_select_from_rerun_command_output
-
     bind --mode insert \cp edit_command_buffer
     bind --mode default \cp edit_command_buffer
 
-    # Surround inside supported text objects with double quotes
-    bind -M default 'ysiw"' 'fish_surround_iw "\""'
-    bind -M default 'ysiW"' 'fish_surround_iW "\""'
-    bind -M default 'yss"' 'fish_surround_line "\""'
-
-    # Surround inside supported text objects with single quotes
-    bind -M default 'ysiw\'' 'fish_surround_iw "\'"'
-    bind -M default 'ysiW\'' 'fish_surround_iW "\'"'
-    bind -M default 'yss\'' 'fish_surround_line "\'"'
-
-    # Surround inside supported text objects with parentheses
-    bind -M default 'ysiw(' 'fish_surround_iw "("'
-    bind -M default 'ysiw)' 'fish_surround_iw "("'
-    bind -M default 'ysiW(' 'fish_surround_iW "("'
-    bind -M default 'ysiW)' 'fish_surround_iW "("'
-    bind -M default 'yss)' 'fish_surround_line "("'
-    bind -M default 'yss(' 'fish_surround_line "("'
-
-    # Surround inside supported text objects with square brackets
-    bind -M default 'ysiw[' 'fish_surround_iw "["'
-    bind -M default 'ysiw]' 'fish_surround_iw "["'
-    bind -M default 'ysiW[' 'fish_surround_iW "["'
-    bind -M default 'ysiW]' 'fish_surround_iW "["'
-    bind -M default 'yss[' 'fish_surround_line "["'
-    bind -M default 'yss]' 'fish_surround_line "["'
-
-    # Surround inside supported text objects with curly braces
-    bind -M default 'ysiw{' 'fish_surround_iw "{"'
-    bind -M default 'ysiw}' 'fish_surround_iw "{"'
-    bind -M default 'ysiW{' 'fish_surround_iW "{"'
-    bind -M default 'ysiW}' 'fish_surround_iW "{"'
-    bind -M default 'yss{' 'fish_surround_line "{"'
-    bind -M default 'yss}' 'fish_surround_line "{"'
     bind -e \cv
 end

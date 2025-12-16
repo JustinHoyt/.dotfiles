@@ -26,6 +26,7 @@ if status is-interactive
         '| perl -nE \'print if m{%}\' | tac | perl -nE \'print if !$seen{$_}++\' | tac')"
 
     abbr j z
+    abbr ss --position anywhere 'string split \' \''
     abbr sf 'source ~/.config/fish/config.fish'
     abbr st 'tmux source ~/.tmux.conf'
     abbr tm 'tmux new -A -s main'
@@ -75,6 +76,7 @@ if status is-interactive
     abbr --set-cursor whi --position anywhere "$(string join \n -- 'while read line' '% $line' 'end')"
     abbr --set-cursor psb --position anywhere "(echo '%' | psub)"
     abbr --set-cursor cpy --position anywhere "| tty-copy -n"
+    abbr --set-cursor tt --position anywhere "tty-copy -n"
     abbr --set-cursor jqf --position anywhere "jq . (echo '%' | psub)"
     abbr --set-cursor ec --position anywhere 'entr -c'
     abbr --set-cursor ecr --position anywhere 'entr -cr'
