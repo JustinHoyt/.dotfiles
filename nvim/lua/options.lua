@@ -70,4 +70,9 @@ vim.o.scrolloff = 10
 -- See `:help 'confirm'`
 vim.o.confirm = true
 
+vim.opt.expandtab = true   -- use spaces instead of tab characters
+vim.opt.tabstop = 2        -- a <Tab> looks like 2 spaces
+vim.opt.shiftwidth = 2     -- indentation uses 2 spaces
+vim.opt.softtabstop = 2    -- <Tab>/<BS> behave like 2 spaces
+
 -- vim: ts=2 sts=2 sw=2 et
