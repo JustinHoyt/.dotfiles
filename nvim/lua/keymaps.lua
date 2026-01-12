@@ -39,28 +39,28 @@ vim.keymap.set("n", "gcu", "gcgc", { noremap = true, silent = true })
 
 -- Open a file running watcher by executing the current file as a script
 vim.api.nvim_set_keymap(
-	"n",
-	"<leader>te",
-	":bot 15sp | terminal chmod +x "
-		.. vim.fn.expand("%")
-		.. " && echo "
-		.. vim.fn.expand("%")
-		.. " | entr -c -r "
-		.. vim.fn.expand("%")
-		.. "<CR><C-w><C-k>",
-	{ noremap = true, silent = true, desc = "[T]erminal [E]xecute file" }
+  "n",
+  "<leader>te",
+  ":bot 15sp | terminal chmod +x "
+  .. vim.fn.expand("%")
+  .. " && echo "
+  .. vim.fn.expand("%")
+  .. " | entr -c -r "
+  .. vim.fn.expand("%")
+  .. "<CR><C-w><C-k>",
+  { noremap = true, silent = true, desc = "[T]erminal [E]xecute file" }
 )
 
 -- Open a file running watcher by executing the current file as a fish script
 vim.api.nvim_set_keymap(
-	"n",
-	"<leader>tf",
-	":bot 15sp | terminal echo "
-		.. vim.fn.expand("%")
-		.. " | entr -c -r fish "
-		.. vim.fn.expand("%")
-		.. "<CR><C-w><C-k>",
-	{ noremap = true, silent = true, desc = "[T]erminal execute [F]ish file" }
+  "n",
+  "<leader>tf",
+  ":bot 15sp | terminal echo "
+  .. vim.fn.expand("%")
+  .. " | entr -c -r fish "
+  .. vim.fn.expand("%")
+  .. "<CR><C-w><C-k>",
+  { noremap = true, silent = true, desc = "[T]erminal execute [F]ish file" }
 )
 
 -- Ex command shortcuts
@@ -74,10 +74,10 @@ vim.keymap.set("n", "(v", ":%S///g<left><left><left>", { noremap = true, desc = 
 vim.keymap.set("v", "(v", ":S///g<left><left><left>", { noremap = true, desc = "[Y]ou [G]o [S]ubvert" })
 vim.keymap.set("n", "(/", [[/\v]], { noremap = true, desc = "[Y]ou [G]o [/]" })
 vim.keymap.set(
-	"n",
-	"(g",
-	":%g//norm <LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>",
-	{ noremap = true, desc = "[Y]ou [G]o [G]lobal" }
+  "n",
+  "(g",
+  ":%g//norm <LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>",
+  { noremap = true, desc = "[Y]ou [G]o [G]lobal" }
 )
 
 vim.cmd([[
@@ -94,24 +94,25 @@ function! ReplaceAndMoveCursor()
 endfunction
 ]])
 
--- Converts numeric date format mm/dd/yyyy to a more human readable format
--- Example: '01/22/2024' => 'Monday, January 22 2024'
-vim.keymap.set(
-	"i",
-	"<C-d>",
-	[[<CMD>s#\v\d+-\d+-\d+#\=substitute(system('date -d "' . submatch('0') . '" +"%A, %B %d %Y"'), "\n", "", "")#<CR><ESC>A]],
-	{ noremap = true }
-)
+-- Insert date in format: Monday, January 12 2026
+vim.keymap.set("i", "<C-d>", function()
+  -- %A = Full weekday name
+  -- %B = Full month name
+  -- %d = Day of the month (01-31)
+  -- %Y = Four-digit year
+  local date = os.date("%A, %B %d %Y")
+  vim.api.nvim_put({ date }, "c", true, true)
+end, { desc = "Insert human-readable date" })
 
 -- Ex mapping to make very magic mode regex act like perl's regex by replacing perl's `*?` with `{-}` automatically
 vim.api.nvim_set_keymap("c", "?", [[?<C-\>eReplaceAndMoveCursor()<CR>]], { noremap = true })
 
 -- Paste all regex line matches to the current line
 vim.keymap.set(
-	"n",
-	"<leader>gp",
-	[[:mark z | g//t 'z<left><left><left><left><left>]],
-	{ noremap = true, desc = "[G]lobal [P]ut" }
+  "n",
+  "<leader>gp",
+  [[:mark z | g//t 'z<left><left><left><left><left>]],
+  { noremap = true, desc = "[G]lobal [P]ut" }
 )
 
 -- Rerun the last terminal command and come back to the editor
@@ -163,11 +164,11 @@ vim.keymap.set("n", "R", "r$", { noremap = true })
 --  Try it with `yap` in normal mode
 --  See `:help vim.hl.on_yank()`
 vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "Highlight when yanking (copying) text",
-	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-	callback = function()
-		vim.hl.on_yank()
-	end,
+  desc = "Highlight when yanking (copying) text",
+  group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+  callback = function()
+    vim.hl.on_yank()
+  end,
 })
 
 -- [[ Macros ]]
