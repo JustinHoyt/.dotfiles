@@ -42,6 +42,8 @@ if status is-interactive
     abbr cfcl --position anywhere '~/.config/fish/config.local.fish'
     abbr cfcm --set-cursor --position anywhere '~/.config/fish/completions/%'
     abbr cff --set-cursor --position anywhere '~/.config/fish/functions/%'
+    abbr cfh '~/.config/fish/hg.fish'
+    abbr fi 'fish -i'
     abbr cn --set-cursor --position anywhere '~/.config/nvim/%'
     abbr cni --position anywhere '~/.config/nvim/init.lua'
     abbr cnl --set-cursor --position anywhere '~/.config/nvim/lua/%'

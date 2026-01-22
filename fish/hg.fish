@@ -1,6 +1,6 @@
 # Print and graph with a preceeding newline
 function hxln
-    printf '\n' && hg xl
+    printf '\n' && hg xl --color always
 end
 
 abbr hml 'hmail -t %'
@@ -28,23 +28,22 @@ abbr hcm --set-cursor 'hg commit --message "%"'
 
 abbr hct 'hg continue'
 
-abbr hd 'hg diff'
+abbr hd 'hg diff --color always --pager always'
 abbr hdn 'hg diff % | nvim'
-abbr hdp 'hg diff --pager always'
 
 abbr hev 'hg evolve'
 abbr heva 'hg evolve --abort'
 abbr hevc 'hg evolve --continue'
 
-abbr hex 'hg export'
+abbr hex 'hg export --color always --pager always'
 
 abbr hf 'hg fix'
 
 # hg all
-abbr haa 'fixts; hg amend'
-abbr hauc 'fixts; hg amend; hg upload chain'
-abbr haps 'fixts; hg amend; hg upload chain; presub'
-abbr haml 'fixts; hg amend; hg upload chain; presub; hml'
+abbr haa 'fixts; hg fix; hg amend'
+abbr hauc 'fixts; hg fix; hg amend; hg upload chain'
+abbr haps 'fixts; hg fix; hg amend; hg upload chain; presub'
+abbr haml 'fixts; hg fix; hg amend; hg upload chain; presub; hml'
 
 abbr hhe 'hg histedit'
 abbr hhea 'hg histedit --abort'
@@ -62,19 +61,28 @@ abbr hprr 'hg prev && hg prev'
 abbr hprrr 'hg prev && hg prev && hg prev'
 abbr hprrrr 'hg prev && hg prev && hg prev && hg prev'
 
-abbr hrb 'hg rebase;'
-abbr hrba 'hg rebase --abort'
-abbr hrbc 'hg rebase --continue'
+abbr hrb 'hg rebase --color always'
+abbr hrba 'hg rebase --color always --abort'
+abbr hrbc 'hg rebase --color always --continue'
+# hrbt: Rebase FROM current commit TO destination
+abbr hrbt 'hg rebase --color always -s . -d'
+# hrbbt: Rebase current BRANCH (calculated from base) TO destination
+abbr hrbbt 'hg rebase --color always -b . -d'
+# hrbf: Rebase FROM source commit TO current commit
+abbr hrbf 'hg rebase --color always -d . -s'
+# hrbbf: Rebase source BRANCH (calculated from base) FROM source TO current commit
+abbr hrbbf 'hg rebase --color always -d . -b'
 
 abbr hma 'hg resolve --mark --all'
 
+abbr hr 'hg revert'
 abbr hra 'hg revert --all'
 
 abbr hsh 'hg shelve'
 
 abbr hsp 'hg split'
 
-abbr hs 'hg status && hxln'
+abbr hs 'hg status --color always && hxln'
 abbr hsn 'hg status --no-status --color false --noninteractive'
 abbr hsm 'hg status | perl -lane \'print $1 if /^M (.*)/\''
 abbr hss '{ hg stat --change .; hg status; } | perl -lane \'print @F[1]\''

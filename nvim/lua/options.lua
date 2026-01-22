@@ -82,6 +82,8 @@ local codes_to_hide = {
   "MD007", -- Unordered list indentatio
   "MD013", -- Line length
   "MD034", -- Bare URL used
+  -- Cider LS
+  "Cannot find module",
 }
 
 -- Check if a diagnostic code should be filtered out
