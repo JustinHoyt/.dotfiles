@@ -31,6 +31,7 @@ if status is-interactive
     abbr st 'tmux source ~/.tmux.conf'
     abbr tm 'tmux new -A -s main'
     abbr v nvim
+    abbr vs 'nvim -S'
     abbr b --set-cursor "bash -c '%'"
     abbr c clear
     abbr e exit

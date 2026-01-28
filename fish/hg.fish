@@ -102,4 +102,6 @@ abbr hupt 'hg update tip'
 
 abbr huc 'hg upload chain'
 
+abbr hcld 'hg cls-drop --prune'
+
 abbr hxl 'hg xl'
